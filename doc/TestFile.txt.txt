@@ -1,0 +1,4 @@
+This is a testfile! Nicholas Bombardieri made this and you gotta edit this.
+Its pretty simple to edit this! Just type whatever you want and then commit the change to github. 
+If you can't think of anything to write, tell me how assignment 1 went for you.
+
