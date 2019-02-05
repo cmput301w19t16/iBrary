@@ -2,3 +2,12 @@ This is a testfile! Nicholas Bombardieri made this and you gotta edit this.
 Its pretty simple to edit this! Just type whatever you want and then commit the change to github. 
 If you can't think of anything to write, tell me how assignment 1 went for you.
 
+Bruh the acronyms in the lab slides seem so cheesy like, you could make those say anything.
+"Invest" in good stories:
+	I
+	Need
+	Vehicular
+	Evisceration
+	Stabs
+	Today
+
