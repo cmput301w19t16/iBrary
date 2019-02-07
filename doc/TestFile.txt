@@ -16,4 +16,18 @@ Hi ~this is Daniela!
 
 Everything is an ancronym is u wanted it.
 Also,I changed it to a .txt file instead of .txt.txt
+<<<<<<< HEAD
 >>>>>>> 03157bd1792db52c47789c010253464c03852426:doc/TestFile.txt
+=======
+
+I really INVESTed in assignment 1. 
+	I
+	Noodled Around it
+	Ended
+	So
+	Terrible
+love, Skye
+
+Hi -from Daniela
+
+>>>>>>> 70847c6aa2076f4eea958ebe12b0c046bef27862
