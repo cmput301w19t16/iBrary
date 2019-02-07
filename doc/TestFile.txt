@@ -10,4 +10,10 @@ Bruh the acronyms in the lab slides seem so cheesy like, you could make those sa
 	Evisceration
 	Stabs
 	Today
+<<<<<<< HEAD:doc/TestFile.txt.txt
 Hi ~this is Daniela!
+=======
+
+Everything is an ancronym is u wanted it.
+Also,I changed it to a .txt file instead of .txt.txt
+>>>>>>> 03157bd1792db52c47789c010253464c03852426:doc/TestFile.txt
