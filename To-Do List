@@ -1,0 +1,25 @@
+Addressing Feedback:
+Address any TA feedback on the previous project part.
+
+Object-Oriented Analysis and Design:
+Document your initial object-oriented analysis and design using a UML class diagram (or diagrams), focusing on the most important anticipated classes, interfaces, and relationships. Include detail on key attributes and methods. Add notes if the purpose of a class or interface is likely not clear to an outsider. The diagram(s) may be reverse engineered from the code, but must be edited, arranged, and selective (not a raw dump). The diagram(s) must be neat and tidy, and drawn well using computer tools. The diagram(s) must be embedded as image(s) in your team wiki, not linked externally. The diagram(s) will likely evolve.
+Unit Testing:
+Write runnable unit tests for your model classes. Code is required, and signatures of methods in the model classes must be present, but the full implementation of the model classes need not be complete.
+
+What classes we need to do:
+User - Revan
+Book - Daniela
+Bookinstance
+Request 
+Borrow request
+Friend request
+Notification - Delaney
+Masterlist
+Catalogue
+
+
+
+GOOGLE BOOKS API TUTORIAL
+https://stackoverflow.com/questions/14571478/using-google-books-api-in-android
+
+
