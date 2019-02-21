@@ -1,10 +1,11 @@
 package ca.rededaniskal;
 
-public abstract class Book {
+abstract public class Book {
     private String Title;
     private String Author;
     private int ISBN;
     private String Description;
+
 
     public String getTitle() {
         return Title;
@@ -37,4 +38,6 @@ public abstract class Book {
     public void setDescription(String description) {
         Description = description;
     }
+
+    public abstract void setStatus(String status);
 }
