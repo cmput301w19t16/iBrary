@@ -29,7 +29,7 @@ public class User {
         this.friends = new ArrayList<User>();
         this.ownedBooks = new ArrayList<Book>();
         this.borrowedBooks  = new ArrayList<Book>();
-        this.blockedUsers = new ArrayList<Book>();
+        this.blockedUsers = new ArrayList<User>();
         this.requestedBooks = new ArrayList<Book>();
     }
 
