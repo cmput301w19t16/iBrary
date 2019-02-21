@@ -4,13 +4,17 @@ import java.util.ArrayList;
 
 public class Forum {
 
-    private ArrayList<Post> postList = new ArrayList<>();
+    private ArrayList<Post> posts = new ArrayList<>();
 
     public void addPost(Post post) {
-        postList.add(post);
+        posts.add(post);
+    }
+
+    public boolean hasPost(Post post) {
+        return posts.contains(post);
     }
 
     public void deletePost(Post post) {
-        postList.remove(post);
+        posts.remove(post);
     }
 }

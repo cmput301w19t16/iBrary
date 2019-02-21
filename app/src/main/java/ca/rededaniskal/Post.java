@@ -2,10 +2,16 @@ package ca.rededaniskal;
 
 import java.util.Date;
 
-public abstract class Post {
+public class Post {
     private String message;
     private Date date;
     private String userName;
+
+    public Post(String message, String userName) {
+        this.message = message;
+        this.date = new Date();
+        this.userName = userName;
+    }
 
     public Post(String message, Date date, String userName) {
         this.message = message;
