@@ -16,7 +16,7 @@ public class User {
     private ArrayList<User> blockedUsers;
     private ArrayList<Book> requestedBooks;
 
-
+    private Book favBook;
 
     //Constructors
     public User(String userName, String email, String location){
@@ -40,6 +40,14 @@ public class User {
     }
 
     //Getters + setters
+
+    public Book getFavBook() {
+        return favBook;
+    }
+
+    public void setFavBook(Book favBook) {
+        this.favBook = favBook;
+    }
     /*
     public Image getProfilePic() {
         return profilePic;
