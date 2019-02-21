@@ -9,4 +9,8 @@ public class Forum {
     public void addPost(Post post) {
         postList.add(post);
     }
+
+    public void deletePost(Post post) {
+        postList.remove(post);
+    }
 }
