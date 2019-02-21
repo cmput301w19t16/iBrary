@@ -1,0 +1,76 @@
+Classes 
+
+Book Item (Physical Copy)
+Responsibility
+Collaborators
+Borrowed by
+Owned
+
+Book Abstract Class
+
+
+User
+-Name
+-Email
+-Phone 
+-Location
+-Arraylist<Friends>
+-ArrayList<OwnedBooks>
+-ArrayList<BorrowedBooks>
+-ArrayList<Block>
+
+
+
+User Library
+-Owner (User)
+-Arraylist<Books>
+
+Notification
+Responsibility
+Collaborators
+Receive Notification
+Send Notification
+ArrayList<String> aka message
+Read/UnRead
+
+-Users
+
+
+Forum
+Responsibility
+Collaborators
+Post
+Reply
+Maintain thread of messages
+
+-Users
+-Book Abstract Class
+
+
+
+Catalogue (all books)
+
+Glossary/ Database
+-ArrayList<Book>
+
+Interfaces
+Search 
+
+Scanner- java library for this.
+
+
+Abstract Class
+
+Exchange
+
+Book
+Responsibility
+Collaborators
+Title
+Author
+ISBN
+Description String
+-Photograph
+
+Book Item
+
