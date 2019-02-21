@@ -14,6 +14,9 @@ public class User {
     private ArrayList<Book> ownedBooks;
     private ArrayList<Book> borrowedBooks;
     private ArrayList<User> blockedUsers;
+    private ArrayList<Book> requestedBooks;
+
+
 
     //Constructors
     public User(String userName, String email, String location){
@@ -22,6 +25,12 @@ public class User {
         this.userName = userName;
         this.email = email;
         this.location = location;
+
+        this.friends = new ArrayList<User>();
+        this.ownedBooks = new ArrayList<Book>();
+        this.borrowedBooks  = new ArrayList<Book>();
+        this.blockedUsers = new ArrayList<Book>();
+        this.requestedBooks = new ArrayList<Book>();
     }
 
     public User(String userName, String email, Integer phoneNumber, String location ){
@@ -40,6 +49,14 @@ public class User {
         this.profilePic = profilePic;
     }
     */
+
+    public ArrayList<Book> getRequestedBooks() {
+        return requestedBooks;
+    }
+
+    public void setRequestedBooks(ArrayList<Book> requestedBooks) {
+        this.requestedBooks = requestedBooks;
+    }
 
     public String getUserName() {
         return userName;
@@ -107,12 +124,26 @@ public class User {
     }
 
     //Functionality methods
+    public void addRequestedBook(Book newBook){
+        requestedBooks.add(newBook);
+    }
+
+    public void deleteRequestedBook(Book deleteBook){
+        requestedBooks.remove(deleteBook);
+    }
+
     public void addOwnedBook(Book newBook){
         ownedBooks.add(newBook);
     }
 
     public void deleteOwnedBook(Book deleteBook){
         ownedBooks.remove(deleteBook);
+    }
+
+    public void removeAllOwnedBooks(){
+        for (int i = 0; i < ownedBooks.size(); i++){
+            this.deleteOwnedBook(ownedBooks.get(i));
+        }
     }
 
     public void addFriend(User newFriend){
@@ -123,6 +154,13 @@ public class User {
         friends.remove(removedFriend);
     }
 
+    public void removeAllFriends(){
+        for (int i = 0; i < friends.size(); i++){
+            friends.get(i).removeFriend(this);
+        }
+        friends.clear();
+    }
+
     public void addBlockedUser(User blockedUser){
         removeFriend(blockedUser);
         blockedUsers.add(blockedUser);
@@ -130,19 +168,6 @@ public class User {
 
     public void removeBlockedUser(User blockedUser){
         blockedUsers.remove(blockedUser);
-    }
-
-    public void removeAllOwnedBooks(){
-        for (int i = 0; i < ownedBooks.size(); i++){
-            this.deleteOwnedBook(ownedBooks.get(i));
-        }
-    }
-
-    public void removeAllFriends(){
-        for (int i = 0; i < friends.size(); i++){
-            friends.get(i).removeFriend(this);
-        }
-        friends.clear();
     }
 
     public void deleteProfile(){
@@ -157,7 +182,6 @@ public class User {
         this.setPhoneNumber(-1);
         this.setLocation("[deleted]");
         blockedUsers.clear();
-
     }
 
     //returns True if all the users books are with the user
