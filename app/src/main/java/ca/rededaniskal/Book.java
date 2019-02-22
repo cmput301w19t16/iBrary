@@ -1,50 +1,39 @@
 package ca.rededaniskal;
 
-abstract public class Book {
-    private String Title;
-    private String Author;
-    private String ISBN;
-    private String Description;
+public class Book {
+
+    private String title;
+    private String author;
+    private String isbn;
 
 
-    public String getTitle() {
-        return Title;
+    public Book(String newTitle, String newAuthor, String newIsbn){
+        title = newTitle;
+        author = newAuthor;
+        isbn = newIsbn;
     }
 
-    public void setTitle(String title) {
-        Title = title;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String newTitle) {
+        title = newTitle;
     }
 
     public String getAuthor() {
-        return Author;
+        return author;
     }
 
-    public void setAuthor(String author) {
-        Author = author;
+    public void setAuthor(String newAuthor) {
+        author = newAuthor;
     }
 
     public String getISBN() {
-        return ISBN;
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setISBN(String newIsbn) {
+        isbn = newIsbn;
     }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
-    }
-
-    public abstract void setStatus(String status);
-    public abstract String getStatus();
-
-    public abstract void setBorrower(String newBorrower);
-    public abstract String getBorrower();
-
-    public abstract int getBookId();
-    public abstract void setBookId(int ID);
 }

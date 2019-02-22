@@ -8,133 +8,67 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 public class BookInstanceTest {
-    @Test
-    public void TestTitle() {
-        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
-
-        book.setTitle("Harry Potter");
-        String title = book.getTitle();
-
-        assertEquals("Harry Potter", title);
-
-        book.setTitle("Twilight");
-
-        title = book.getTitle();
-
-        assertNotEquals("Harry Potter", title);
-    }
-
 
     @Test
-    public void TestAuthor() {
-        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
+    public void TestOwner() {
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
 
-        book.setAuthor("John Smith");
-        String author = book.getAuthor();
+        String owner = book.getOwner();
 
-        assertEquals("John Smith", author);
-
-        book.setTitle("William Jones");
-
-        author = book.getTitle();
-
-        assertNotEquals("John Smith", author);
+        assertEquals("Jill", owner);
     }
 
     @Test
-    public void TestISBN() {
-        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
+    public void TestPossesor() {
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
 
-        book.setISBN("978-3-16-148410-0");
-        String isbn = book.getISBN();
+        String possesor = book.getPossesor();
 
-        assertEquals("978-3-16-148410-0", isbn);
+        assertEquals("Jill", possesor);
 
-        book.setISBN("978-3-16-148410-1");
+        book.setPossesor("Rose Edmond");
 
-        isbn = book.getISBN();
+        possesor = book.getPossesor();
 
-        assertNotEquals("978-3-16-148410-0", isbn);
+        assertNotEquals("Jill", possesor);
     }
 
     @Test
-    public void TestDescription() {
-        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
+    public void TestCondition() {
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
 
-        book.setDescription("Coolest book ever!");
-        String description = book.getDescription();
+        String condition = book.getCondition();
 
-        assertEquals("Coolest book ever!", description);
+        assertEquals("Perfect!", condition);
 
-        book.setDescription("Worst read ever!");
+        book.setCondition("Cover torn");
 
-        description = book.getDescription();
+        condition = book.getCondition();
 
-        assertNotEquals("Coolest book ever!", description);
+        assertNotEquals("Perfect!", condition);
+    }
+
+    @Test
+    public void TestInstanceId() {
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
+
+        Integer id = book.getInstanceID();
+
+        assertEquals(5, id);
     }
 
     @Test
     public void TestStatus() {
-        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
 
-        book.setStatus("Requested");
         String status = book.getStatus();
 
-        assertEquals("Requested", status);
+        assertEquals("Available", status);
 
         book.setStatus("Borrowed");
 
         status = book.getStatus();
 
-        assertNotEquals("Requested", status);
-    }
-
-    @Test
-    public void TestOwner() {
-        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
-
-        book.setOwner("Paul Rick");
-        String owner = book.getOwner();
-
-        assertEquals("Paul Rick", owner);
-
-        book.setOwner("Jane Ruth");
-
-        owner = book.getOwner();
-
-        assertNotEquals("Paul Rick", owner);
-    }
-
-    @Test
-    public void TestBorrower() {
-        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
-
-        book.setBorrower("Josh Hill");
-        String borrower = book.getBorrower();
-
-        assertEquals("Josh Hill", borrower);
-
-        book.setBorrower("Rose Edmond");
-
-        borrower = book.getBorrower();
-
-        assertNotEquals("Josh Hill", borrower);
-    }
-
-    @Test
-    public void TestBookID() {
-        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
-
-        book.setBookId(5);
-        int receivedID = book.getBookId();
-
-
-        assertEquals(5, receivedID);
-
-        book.setBookId(500);
-
-        receivedID = book.getBookId();
-
-        assertNotEquals(5, receivedID);
+        assertNotEquals("Available", status);
     }
 }

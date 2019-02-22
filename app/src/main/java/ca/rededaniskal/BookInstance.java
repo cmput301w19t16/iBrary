@@ -5,15 +5,43 @@ package ca.rededaniskal;
 public class BookInstance extends Book {
 
     private String owner;
-    private String borrower;
+    private String possesor;
+    private String condition;
     //private BufferedImage bookImage;
+    private Integer instanceID;
     private String status;
-    private Integer bookId;
 
-    public BookInstance (String newOwner, String newStatus, Integer newBookId){
+
+    public BookInstance (String newTitle, String newAuthor, String newIsbn, String newOwner, String newPossesor, String newCondition, String newStatus, Integer newInstanceId){
+        super(newTitle, newAuthor, newIsbn);
         owner = newOwner;
+        possesor = newPossesor;
+        condition = newCondition;
         status = newStatus;
-        bookId = newBookId;
+        instanceID = newInstanceId;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public String getPossesor() {
+        return possesor;
+    }
+    public void setPossesor(String newPosessor) {
+        possesor = newPosessor;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public Integer getInstanceID() {
+        return instanceID;
     }
 
     public void setStatus(String newStatus) {
@@ -24,27 +52,4 @@ public class BookInstance extends Book {
         return status;
     }
 
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public String getBorrower() {
-        return borrower;
-    }
-
-    public void setBorrower(String newBorrower) {
-        this.borrower = newBorrower;
-    }
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
 }
