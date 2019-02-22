@@ -9,7 +9,7 @@ public class FriendNotificationTest {
 
     @Test
     public void requestType(){
-        FriendNotification friendNotification = new FriendNotification("friend");
+        FriendNotification friendNotification = new FriendNotification();
         friendNotification.setUsername("dlothian");
         Request request = new Request("dlothian", "daniela", "friend");
         friendNotification.setRequest(request);
@@ -26,12 +26,24 @@ public class FriendNotificationTest {
     }
 
     @Test
-    public void acceptedMessage(){
+    public void setMessage(){
+        FriendNotification friendNotification = new FriendNotification();
+        Request request = new Request("dlothian", "daniela", "friend");
+        friendNotification.setRequest(request);
+        friendNotification.setFriendType("requested");
+        friendNotification.setMessage();
+        String expected = friendNotification.getRequest().getSenderUserName() + " has sent you a friend request";
+        assertEquals(expected, friendNotification.getMessage());
+
+        FriendNotification friendNotification2 = new FriendNotification();
+        Request request2 = new Request("dlothian", "daniela", "friend");
+        friendNotification2.setRequest(request2);
+        friendNotification2.setFriendType("accepted");
+        friendNotification2.setMessage();
+        String expected2 = friendNotification2.getRequest().getRecipientUserName() + " has accepted your friend request";
+        assertEquals(expected2, friendNotification2.getMessage());
 
     }
 
-    @Test
-    public void requestedMessage(){
 
-    }
 }

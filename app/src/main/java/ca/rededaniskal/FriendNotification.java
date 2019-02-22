@@ -2,11 +2,10 @@ package ca.rededaniskal;
 
 public class FriendNotification extends Notification {
     private String friendType;
+    private String message;
 
 
-    public FriendNotification(String type){
-        super();
-        this.friendType = type;
+    public FriendNotification(){
     }
 
     public String getFriendType() {
@@ -18,6 +17,13 @@ public class FriendNotification extends Notification {
     }
 
     public void requestType(){}
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage() {
+    }
 
     public void acceptedMessage(){
 
