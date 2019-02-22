@@ -1,10 +1,17 @@
 package ca.rededaniskal;
 
-public abstract class Book {
+public class Book {
     private String Title;
     private String Author;
     private String ISBN;
     private String Description;
+
+    public Book(String Title, String Author, String ISBN, String Description) {
+        this.Title = Title;
+        this.Author = Author;
+        this.ISBN = ISBN;
+        this.Description = Description;
+    }
 
     public String getTitle() {
         return Title;

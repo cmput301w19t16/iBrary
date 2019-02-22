@@ -5,9 +5,13 @@ import java.util.ArrayList;
 public class Forum {
 
     private ArrayList<Post> posts = new ArrayList<>();
+    private String forumID;
+    private String userName;
 
-    public String getISBN(Book book) {
-        return book.getISBN();
+    public Forum(Book book, String userName) {
+        this.forumID = book.getISBN();
+        this.userName = userName;
+
     }
 
     public void addPost(Post post) {
@@ -20,5 +24,13 @@ public class Forum {
 
     public void deletePost(Post post) {
         posts.remove(post);
+    }
+
+    public String getForumID() {
+        return forumID;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }
