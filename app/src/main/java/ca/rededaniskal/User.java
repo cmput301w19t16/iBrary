@@ -9,10 +9,10 @@ public class User {
     private String email;
     private String phoneNumber;
     private String location;
-    //private Image profilePic; 
+    private String profilePic;
     private ArrayList<User> friends;
     private BookList ownedBooks;
-    private BookList borrowedBooks;
+    private BookList borrowedBooks; // Includes accepted
     private BookList requestedBooks;
     private ArrayList<User> blockedUsers;
 
@@ -49,15 +49,16 @@ public class User {
     public void setFavBook(MasterBook favBook) {
         this.favBook = favBook;
     }
-    /*
-    public Image getProfilePic() {
+
+    // TODO Figure out how to instantiate a picture and store it.
+    public String getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(Image profilePic) {
+    public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
-    */
+
 
 
     public BookList getRequestedBooks() {
@@ -68,6 +69,7 @@ public class User {
         this.requestedBooks = requestedBooks;
     }
 
+
     public String getUserName() {
         return userName;
     }
@@ -77,6 +79,7 @@ public class User {
         this.userName = userName;
     }
 
+
     public String getEmail() {
         return email;
     }
@@ -85,13 +88,16 @@ public class User {
         this.email = email;
     }
 
+
     public String getPhoneNumber() {
+        // TODO Check if real phone number (long?)
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
 
     public String getLocation() {
         return location;
@@ -100,6 +106,7 @@ public class User {
     public void setLocation(String location) {
         this.location = location;
     }
+
 
     public ArrayList<User> getFriends() {
         return friends;
@@ -212,10 +219,6 @@ public class User {
             }
         }
         return allReturned;
-    }
-
-    public void giveRating(MasterBook book, double rating){
-        book.addRating(this.getUserName(), rating);
     }
     
 }

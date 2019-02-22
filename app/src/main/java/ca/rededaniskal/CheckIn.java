@@ -9,4 +9,5 @@ public class CheckIn extends BookExchange {
     public void updateBookStatus(){}
 
     public void addBookToBorrowed(){}
+    // These lists are in User profile
 }
