@@ -10,7 +10,8 @@ public class BookInstance extends Book {
     private String status;
     private Integer bookId;
 
-    public BookInstance (String newOwner, String newStatus, Integer newBookId){
+    public BookInstance (String title, String author, String isbn, String description, String newOwner, String newStatus, Integer newBookId){
+        super(title, author, isbn, description);
         owner = newOwner;
         status = newStatus;
         bookId = newBookId;

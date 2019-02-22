@@ -1,11 +1,17 @@
 package ca.rededaniskal;
 
-abstract public class Book {
+public class Book {
     private String Title;
     private String Author;
     private String ISBN;
     private String Description;
 
+    public Book(String title, String author, String isbn, String description){
+        Title = title;
+        Author = author;
+        ISBN = isbn;
+        Description = description;
+    }
 
     public String getTitle() {
         return Title;
@@ -38,13 +44,4 @@ abstract public class Book {
     public void setDescription(String description) {
         Description = description;
     }
-
-    public abstract void setStatus(String status);
-    public abstract String getStatus();
-
-    public abstract void setBorrower(String newBorrower);
-    public abstract String getBorrower();
-
-    public abstract int getBookId();
-    public abstract void setBookId(int ID);
 }
