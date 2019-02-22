@@ -11,37 +11,27 @@ public class BookNotificationTest {
     public void requestType(){
         BookNotification bookNotification = new BookNotification();
         bookNotification.setUsername("dlothian");
-        Request request = new Request("dlothian", "daniela", "friend");
+        Request request = new BorrowRequest("dlothian", "daniela", "1234", 2);
+        request.setStatus("Accepted");
         bookNotification.setRequest(request);
-        if(bookNotification.getRequest().getSenderUserName().equals(bookNotification.getUsername())){
-            bookNotification.requestType();
-            String requestType = bookNotification.getFriendType();
-            assertEquals("requested", requestType);
-        }else if(bookNotification.getRequest().getRecipientUserName().equals(bookNotification.getUsername())){
-            bookNotification.requestType();
-            String requestType = bookNotification.getFriendType();
-            assertEquals("accepted", requestType);
-        }
+        bookNotification.requestType();
+        bookNotification.setMessage();
+        String expected1 = bookNotification.getRequest().getRecipientUserName() + " has accepted your book request";
+        assertEquals(expected1, bookNotification.getMessage());
+
+        request.setStatus("Denied");
+        bookNotification.setRequest(request);
+        bookNotification.requestType();
+        bookNotification.setMessage();
+        String expected2 = bookNotification.getRequest().getRecipientUserName() + " has denied your book request";
+        assertEquals(expected2, bookNotification.getMessage());
+
 
     }
 
     @Test
     public void setMessage(){
-        BookNotification bookNotification = new BookNotification();
-        Request request = new Request("dlothian", "daniela", "friend");
-        bookNotification.setRequest(request);
-        bookNotification.setFriendType("requested");
-        bookNotification.setMessage();
-        String expected = bookNotification.getRequest().getSenderUserName() + " has sent you a friend request";
-        assertEquals(expected, bookNotification.getMessage());
 
-        BookNotification bookNotification2 = new BookNotification();
-        Request request2 = new Request("dlothian", "daniela", "friend");
-        bookNotification2.setRequest(request2);
-        bookNotification2.setFriendType("accepted");
-        bookNotification2.setMessage();
-        String expected2 = bookNotification2.getRequest().getRecipientUserName() + " has accepted your friend request";
-        assertEquals(expected2, bookNotification2.getMessage());
 
     }
 

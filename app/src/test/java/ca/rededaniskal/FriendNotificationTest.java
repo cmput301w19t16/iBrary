@@ -11,7 +11,7 @@ public class FriendNotificationTest {
     public void requestType(){
         FriendNotification friendNotification = new FriendNotification();
         friendNotification.setUsername("dlothian");
-        Request request = new Request("dlothian", "daniela", "friend");
+        Request request = new FriendRequest("dlothian", "daniela");
         friendNotification.setRequest(request);
         if(friendNotification.getRequest().getSenderUserName().equals(friendNotification.getUsername())){
             friendNotification.requestType();
@@ -28,7 +28,7 @@ public class FriendNotificationTest {
     @Test
     public void setMessage(){
         FriendNotification friendNotification = new FriendNotification();
-        Request request = new Request("dlothian", "daniela", "friend");
+        Request request = new FriendRequest("dlothian", "daniela");
         friendNotification.setRequest(request);
         friendNotification.setFriendType("requested");
         friendNotification.setMessage();
@@ -36,7 +36,7 @@ public class FriendNotificationTest {
         assertEquals(expected, friendNotification.getMessage());
 
         FriendNotification friendNotification2 = new FriendNotification();
-        Request request2 = new Request("dlothian", "daniela", "friend");
+        Request request2 = new FriendRequest("dlothian", "daniela");
         friendNotification2.setRequest(request2);
         friendNotification2.setFriendType("accepted");
         friendNotification2.setMessage();

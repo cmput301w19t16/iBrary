@@ -8,11 +8,11 @@ public class BookNotification extends Notification {
     public BookNotification(){
     }
 
-    public String getFriendType() {
+    public String getBookRequestType() {
         return bookRequestType;
     }
 
-    public void setFriendType(String bookRequestType) {
+    public void setBookRequestType(String bookRequestType){
         this.bookRequestType = bookRequestType;
     }
 
