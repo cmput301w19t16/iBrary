@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class BookInstanceTest {
     @Test
     public void TestTitle() {
-        BookInstance book = new BookInstance();
+        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
 
         book.setTitle("Harry Potter");
         String title = book.getTitle();
@@ -27,7 +27,7 @@ public class BookInstanceTest {
 
     @Test
     public void TestAuthor() {
-        BookInstance book = new BookInstance();
+        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
 
         book.setAuthor("John Smith");
         String author = book.getAuthor();
@@ -43,7 +43,7 @@ public class BookInstanceTest {
 
     @Test
     public void TestISBN() {
-        BookInstance book = new BookInstance();
+        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
 
         book.setISBN("978-3-16-148410-0");
         String isbn = book.getISBN();
@@ -59,7 +59,7 @@ public class BookInstanceTest {
 
     @Test
     public void TestDescription() {
-        BookInstance book = new BookInstance();
+        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
 
         book.setDescription("Coolest book ever!");
         String description = book.getDescription();
@@ -75,23 +75,23 @@ public class BookInstanceTest {
 
     @Test
     public void TestStatus() {
-        BookInstance book = new BookInstance();
+        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
 
-        book.setStatus("Accepted");
+        book.setStatus("Requested");
         String status = book.getStatus();
 
-        assertEquals("Accepted", status);
+        assertEquals("Requested", status);
 
         book.setStatus("Borrowed");
 
         status = book.getStatus();
 
-        assertNotEquals("Accepted", status);
+        assertNotEquals("Requested", status);
     }
 
     @Test
     public void TestOwner() {
-        BookInstance book = new BookInstance();
+        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
 
         book.setOwner("Paul Rick");
         String owner = book.getOwner();
@@ -107,7 +107,7 @@ public class BookInstanceTest {
 
     @Test
     public void TestBorrower() {
-        BookInstance book = new BookInstance();
+        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
 
         book.setBorrower("Josh Hill");
         String borrower = book.getBorrower();
@@ -123,7 +123,7 @@ public class BookInstanceTest {
 
     @Test
     public void TestBookID() {
-        BookInstance book = new BookInstance();
+        BookInstance book = new BookInstance("John Joe", "Accepted", 12);
 
         book.setBookId(5);
         int receivedID = book.getBookId();

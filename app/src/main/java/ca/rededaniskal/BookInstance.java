@@ -8,7 +8,13 @@ public class BookInstance extends Book {
     private String borrower;
     //private BufferedImage bookImage;
     private String status;
-    private int bookId;
+    private Integer bookId;
+
+    public BookInstance (String newOwner, String newStatus, Integer newBookId){
+        owner = newOwner;
+        status = newStatus;
+        bookId = newBookId;
+    }
 
     public void setStatus(String newStatus) {
         status = newStatus;
