@@ -9,7 +9,7 @@ public class User {
     private String email;
     private String phoneNumber;
     private String location;
-    //private Image profilePic;
+    //private Image profilePic; 
     private ArrayList<User> friends;
     private BookList ownedBooks;
     private BookList borrowedBooks;
@@ -58,7 +58,6 @@ public class User {
         this.profilePic = profilePic;
     }
     */
-
 
 
     public BookList getRequestedBooks() {
