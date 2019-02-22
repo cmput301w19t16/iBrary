@@ -8,22 +8,70 @@ public class UserUnitTest {
 
     @Test
     public void getFavBook() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        MasterBook book = new BookInstance("Happy Potter", "J.K.", "1234567890");
+
+        user.setFavBook(book);
+
+        assertEquals(book, user.getFavBook());
     }
 
     @Test
     public void setFavBook() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        MasterBook book = new BookInstance("Happy Potter", "J.K.", "1234567890");
+
+        user.setFavBook(book);
+
+        assertEquals(book, user.getFavBook());
     }
 
     @Test
     public void getRequestedBooks() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        user.addRequestedBook(book);
+
+        BookList list = new BookList();
+        list.addBook(book);
+
+        assertEquals(list, user.getRequestedBooks());
     }
 
     @Test
     public void setRequestedBooks() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        user.addRequestedBook(book);
+
+        BookList list = new BookList();
+        list.addBook(book);
+
+        user.setRequestedBooks(list);
+
+        assertEquals(list, user.getRequestedBooks());
     }
 
     @Test
@@ -187,23 +235,85 @@ public class UserUnitTest {
 
     @Test
     public void getOwnedBooks() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter2", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
 
+        user.addOwnedBook(book);
+        user.addOwnedBook(book2);
 
+        BookList list = new BookList();
+        list.addBook(book);
+        list.addBook(book2);
+
+        assertEquals(list, user.getOwnedBooks());
     }
 
     @Test
     public void setOwnedBooks() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter2", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        BookList list = new BookList();
+        list.addBook(book);
+        list.addBook(book2);
+
+        user.setOwnedBooks(list);
+
+        assertEquals(list, user.getOwnedBooks());
 
     }
 
     @Test
     public void getBorrowedBooks() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter2", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        BookList list = new BookList();
+        list.addBook(book);
+        list.addBook(book2);
+
+        user.setBorrowedBooks(list);
+
+        assertEquals(list, user.getBorrowedBooks());
 
     }
 
     @Test
     public void setBorrowedBooks() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter2", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        BookList list = new BookList();
+        list.addBook(book);
+        list.addBook(book2);
+
+        user.setBorrowedBooks(list);
+
+        assertEquals(list, user.getBorrowedBooks());
 
     }
 
@@ -270,28 +380,99 @@ public class UserUnitTest {
     //Functionality methods
     @Test
     public void addRequestedBook() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
 
+        user.addRequestedBook(book);
+
+        assertEquals(book, user.getRequestedBooks().getBookByIndex(0));
     }
 
     @Test
     public void deleteRequestedBook() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        user.addRequestedBook(book);
+
+        assertEquals(book, user.getRequestedBooks().getBookByIndex(0));
+
+        user.deleteRequestedBook(book);
+
+        Integer integer = 0;
+
+        assertEquals(integer, user.getRequestedBooks().size());
+
+
 
     }
 
     @Test
     public void addOwnedBook() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        user.addOwnedBook(book);
+
+        assertEquals(book, user.getOwnedBooks().getBookByIndex(0));
 
     }
 
     @Test
     public void deleteOwnedBook() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        user.addOwnedBook(book);
+
+        assertEquals(book, user.getOwnedBooks().getBookByIndex(0));
+
+        user.deleteOwnedBook(book);
+
+        Integer integer = 0;
+
+        assertEquals(integer, user.getOwnedBooks().size());
     }
 
     @Test
     public void removeAllOwnedBooks() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        user.addOwnedBook(book);
+        user.addOwnedBook(book2);
+
+        user.removeAllOwnedBooks();
+
+        Integer integer = 0;
+
+        assertEquals(integer, user.getOwnedBooks().size());
     }
 
     @Test
@@ -417,10 +598,108 @@ public class UserUnitTest {
 
     @Test
     public void deleteProfile() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        user.deleteProfile();
+
+
+        assertEquals((Integer)0, user.getOwnedBooks().size());
+        assertEquals(0, user.getFriends().size());
+        assertEquals("[deleted]", user.getUserName());
+        assertEquals("[deleted]", user.getEmail());
+        assertEquals("[deleted]", user.getPhoneNumber());
+        assertEquals("[deleted]", user.getLocation());
+        assertEquals(0, user.getBlockedUsers().size());
     }
 
     @Test
     private void allBooksReturned() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "available");
+        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book3 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "borrowed");
+        BookInstance book4 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "requested");
+
+        user.addOwnedBook(book);
+        user.addOwnedBook(book2);
+        user.addOwnedBook(book3);
+        user.addOwnedBook(book4);
+
+        assertFalse(user.allBooksReturned());
+
+        user.removeAllOwnedBooks();
+
+        user.addOwnedBook(book);
+        user.addOwnedBook(book4);
+
+        assertTrue(user.allBooksReturned());
+
+
+    }
+
+    @Test
+    public void addBorrowedBook(){
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        user.addBorrowedBook(book);
+
+        assertEquals(book, user.getBorrowedBooks().getBookByIndex(0));
+
+
+
+    }
+
+    @Test
+    public void deleteBorrowedBook(){
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+
+        user.addBorrowedBook(book);
+
+        assertEquals(book, user.getBorrowedBooks().getBookByIndex(0));
+
+        user.deleteBorrowedBook(book);
+
+        assertEquals((Integer)0,user.getBorrowedBooks().size());
+
+    }
+
+    @Test
+    private void giveRating(){
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        MasterBook book = new BookInstance("Happy Potter", "J.K.", "1234567890");
+
+        user.giveRating(book, 5.0);
+
+       assertEquals(5.0, book.getAvgRating();
+
     }
 }
