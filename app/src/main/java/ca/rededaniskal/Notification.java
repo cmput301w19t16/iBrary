@@ -8,8 +8,8 @@ public class Notification {
     private Request request;
 
 
-//    public void Notification(){
-//    }
+    public void Notification(){
+    }
 
     public Date getTimestamp() {
         return timestamp;

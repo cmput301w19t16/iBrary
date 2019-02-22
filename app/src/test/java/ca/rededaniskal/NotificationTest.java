@@ -14,7 +14,7 @@ public class NotificationTest {
         Notification notification = new Notification();
         notification.setTimestamp(date);
         Date date1 = notification.getTimestamp();
-        assertNotEquals(date, date1);
+        assertEquals(date, date1);
     }
 
 
@@ -24,16 +24,16 @@ public class NotificationTest {
         Notification notification = new Notification();
         notification.setUsername(username);
         String username1 = notification.getUsername();
-        assertNotEquals(username, username1);
+        assertEquals(username, username1);
     }
 
     @Test
     public void Request() {
-        Request request = new Request();
+        Request request = new Request("dlothian", "daniela", "friend");
         Notification notification = new Notification();
         notification.setRequest(request);
         Request request1 = notification.getRequest();
-        assertNotEquals(request, request1);
+        assertEquals(request, request1);
     }
 
 }
