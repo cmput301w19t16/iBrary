@@ -11,12 +11,13 @@ public class User {
     private String location;
     //private Image profilePic;
     private ArrayList<User> friends;
-    private ArrayList<Book> ownedBooks;
-    private ArrayList<Book> borrowedBooks;
+    private ArrayList<BookInstance> ownedBooks;
+    private ArrayList<BookInstance> borrowedBooks;
+    private ArrayList<BookInstance> requestedBooks;
     private ArrayList<User> blockedUsers;
-    private ArrayList<Book> requestedBooks;
 
-    private Book favBook;
+
+    private BookInstance favBook;
 
     //Constructors
     public User(String userName, String email, String location){
@@ -27,10 +28,10 @@ public class User {
         this.location = location;
 
         this.friends = new ArrayList<User>();
-        this.ownedBooks = new ArrayList<Book>();
-        this.borrowedBooks  = new ArrayList<Book>();
+        this.ownedBooks = new ArrayList<BookInstance>();
+        this.borrowedBooks  = new ArrayList<BookInstance>();
         this.blockedUsers = new ArrayList<User>();
-        this.requestedBooks = new ArrayList<Book>();
+        this.requestedBooks = new ArrayList<BookInstance>();
     }
 
     public User(String userName, String email, String phoneNumber, String location ){
@@ -45,7 +46,7 @@ public class User {
         return favBook;
     }
 
-    public void setFavBook(Book favBook) {
+    public void setFavBook(BookInstance favBook) {
         this.favBook = favBook;
     }
     /*
@@ -58,11 +59,11 @@ public class User {
     }
     */
 
-    public ArrayList<Book> getRequestedBooks() {
+    public ArrayList<BookInstance> getRequestedBooks() {
         return requestedBooks;
     }
 
-    public void setRequestedBooks(ArrayList<Book> requestedBooks) {
+    public void setRequestedBooks(ArrayList<BookInstance> requestedBooks) {
         this.requestedBooks = requestedBooks;
     }
 
@@ -107,19 +108,19 @@ public class User {
         this.friends = friends;
     }
 
-    public ArrayList<Book> getOwnedBooks() {
+    public ArrayList<BookInstance> getOwnedBooks() {
         return ownedBooks;
     }
 
-    public void setOwnedBooks(ArrayList<Book> ownedBooks) {
+    public void setOwnedBooks(ArrayList<BookInstance> ownedBooks) {
         this.ownedBooks = ownedBooks;
     }
 
-    public ArrayList<Book> getBorrowedBooks() {
+    public ArrayList<BookInstance> getBorrowedBooks() {
         return borrowedBooks;
     }
 
-    public void setBorrowedBooks(ArrayList<Book> borrowedBooks) {
+    public void setBorrowedBooks(ArrayList<BookInstance> borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
 
@@ -132,19 +133,19 @@ public class User {
     }
 
     //Functionality methods
-    public void addRequestedBook(Book newBook){
+    public void addRequestedBook(BookInstance newBook){
         requestedBooks.add(newBook);
     }
 
-    public void deleteRequestedBook(Book deleteBook){
+    public void deleteRequestedBook(BookInstance deleteBook){
         requestedBooks.remove(deleteBook);
     }
 
-    public void addOwnedBook(Book newBook){
+    public void addOwnedBook(BookInstance newBook){
         ownedBooks.add(newBook);
     }
 
-    public void deleteOwnedBook(Book deleteBook){
+    public void deleteOwnedBook(BookInstance deleteBook){
         ownedBooks.remove(deleteBook);
     }
 
@@ -187,7 +188,7 @@ public class User {
         removeAllFriends();
         this.setUserName("[deleted]");
         this.setEmail("[deleted]");
-        this.setPhoneNumber(-1);
+        this.setPhoneNumber("");
         this.setLocation("[deleted]");
         blockedUsers.clear();
     }

@@ -8,171 +8,169 @@ public class UserUnitTest {
 
     @Test
     public Book getFavBook() {
-        String name  = "John Doe";
+        String name = "John Doe";
         String email = "john@gmail.com";
         String phoneNumber = "780-675-8796";
         User user = new User(name, email, phoneNumber);
 
-        Book boom = new BookInstance("Happy Potter","J.K. Rowling" , "785-3-16-275029-0", "Very Good Read" );
+        BookInstance bookInstance = new BookInstance("Happy Potter", "J.K. Rowling", "785-3-16-275029-0", "Very Good Read");
 
 
         return favBook;
     }
 
-    public void setFavBook(Book favBook) {
-        this.favBook = favBook;
+    @Test
+    public void setFavBook() {
+
+    }
+
+    @Test
+    public void getRequestedBooks() {
+
+    }
+
+    @Test
+    public void setRequestedBooks() {
+
+    }
+
+    @Test
+    public void getUserName() {
+
+    }
+
+    @Test
+    public void setUserName() {
+
+    }
+
+    @Test
+    public void getEmail() {
+
+    }
+
+    @Test
+    public void setEmail() {
+
+    }
+
+    @Test
+    public void getPhoneNumber() {
+
+    }
+
+    @Test
+    public void setPhoneNumber() {
+
+    }
+
+    @Test
+    public void getLocation() {
+
+    }
+
+    @Test
+    public void setLocation() {
+
+    }
+
+    @Test
+    public void getFriends() {
+
+    }
+
+    @Test
+    public void setFriends() {
+
+    }
+
+    @Test
+    public void getOwnedBooks() {
+
+    }
+
+    @Test
+    public void setOwnedBooks() {
+
+    }
+
+    @Test
+    public void getBorrowedBooks() {
+
+    }
+
+    @Test
+    public void setBorrowedBooks() {
+
     }
 
 
+    @Test
+    public void getBlockedUsers() {
 
-
-    public ArrayList<Book> getRequestedBooks() {
-        return requestedBooks;
     }
+    @Test
+    public void setBlockedUsers() {
 
-    public void setRequestedBooks(ArrayList<Book> requestedBooks) {
-        this.requestedBooks = requestedBooks;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        // TODO: check if userName is unique
-        this.userName = userName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public ArrayList<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(ArrayList<User> friends) {
-        this.friends = friends;
-    }
-
-    public ArrayList<Book> getOwnedBooks() {
-        return ownedBooks;
-    }
-
-    public void setOwnedBooks(ArrayList<Book> ownedBooks) {
-        this.ownedBooks = ownedBooks;
-    }
-
-    public ArrayList<Book> getBorrowedBooks() {
-        return borrowedBooks;
-    }
-
-    public void setBorrowedBooks(ArrayList<Book> borrowedBooks) {
-        this.borrowedBooks = borrowedBooks;
-    }
-
-    public ArrayList<User> getBlockedUsers() {
-        return blockedUsers;
-    }
-
-    public void setBlockedUsers(ArrayList<User> blockedUsers) {
-        this.blockedUsers = blockedUsers;
     }
 
     //Functionality methods
-    public void addRequestedBook(Book newBook){
-        requestedBooks.add(newBook);
+    @Test
+    public void addRequestedBook() {
+
     }
 
-    public void deleteRequestedBook(Book deleteBook){
-        requestedBooks.remove(deleteBook);
+    @Test
+    public void deleteRequestedBook() {
+
     }
 
-    public void addOwnedBook(Book newBook){
-        ownedBooks.add(newBook);
+    @Test
+    public void addOwnedBook() {
+
     }
 
-    public void deleteOwnedBook(Book deleteBook){
-        ownedBooks.remove(deleteBook);
+    @Test
+    public void deleteOwnedBook() {
+
     }
 
-    public void removeAllOwnedBooks(){
-        for (int i = 0; i < ownedBooks.size(); i++){
-            this.deleteOwnedBook(ownedBooks.get(i));
-        }
+    @Test
+    public void removeAllOwnedBooks() {
+
     }
 
-    public void addFriend(User newFriend){
-        friends.add(newFriend);
+    @Test
+    public void addFriend() {
+
     }
 
-    public void removeFriend(User removedFriend){
-        friends.remove(removedFriend);
+    @Test
+    public void removeFriend() {
+
     }
 
-    public void removeAllFriends(){
-        for (int i = 0; i < friends.size(); i++){
-            friends.get(i).removeFriend(this);
-        }
-        friends.clear();
+    @Test
+    public void removeAllFriends() {
+
     }
 
-    public void addBlockedUser(User blockedUser){
-        removeFriend(blockedUser);
-        blockedUsers.add(blockedUser);
+    @Test
+    public void addBlockedUser() {
+
     }
 
-    public void removeBlockedUser(User blockedUser){
-        blockedUsers.remove(blockedUser);
+    @Test
+    public void removeBlockedUser(User blockedUser) {
+
     }
 
-    public void deleteProfile(){
-        assert(borrowedBooks.size() == 0);
-        assert (this.allBooksReturned() == true);
+    @Test
+    public void deleteProfile() {
 
-        //TODO: Add remove from blocked list?
-        removeAllOwnedBooks();
-        removeAllFriends();
-        this.setUserName("[deleted]");
-        this.setEmail("[deleted]");
-        this.setPhoneNumber(-1);
-        this.setLocation("[deleted]");
-        blockedUsers.clear();
     }
 
-    //returns True if all the users books are with the user
-    private boolean allBooksReturned(){
-        Boolean allReturned = true;
-        for (int i = 0; i < ownedBooks.size(); i++){
-            if ((ownedBooks.get(i).getStatus() == "accepted") || (ownedBooks.get(i).getStatus() == "borrowed")){
-                allReturned = false;
-                return allReturned;
-            }
-        }
-        return allReturned;
+    @Test
+    private void allBooksReturned() {
     }
-
-}
-
-
 }
