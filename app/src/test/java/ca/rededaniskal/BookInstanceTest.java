@@ -50,7 +50,7 @@ public class BookInstanceTest {
 
         assertEquals("978-3-16-148410-0", isbn);
 
-        book.setTitle("978-3-16-148410-1");
+        book.setISBN("978-3-16-148410-1");
 
         isbn = book.getISBN();
 
@@ -66,7 +66,7 @@ public class BookInstanceTest {
 
         assertEquals("Coolest book ever!", description);
 
-        book.setTitle("Worst read ever!");
+        book.setDescription("Worst read ever!");
 
         description = book.getDescription();
 
