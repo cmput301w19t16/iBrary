@@ -4,20 +4,20 @@ import java.util.Date;
 
 public class Post {
     private String message;
-    private Date date;
+    private Date timestamp;
     private String userName;
     private String replyTarget;
 
     // Constructor for a post
     public Post(String message, String userName) {
         this.message = message;
-        this.date = new Date();
+        this.timestamp = new Date();
         this.userName = userName;
     }
 
     // Constructor for a reply (has additional end replyTarget)
     public Post(String message, String userName, String replyTarget) {
-        this.date = new Date();
+        this.timestamp = new Date();
         this.userName = userName;
         this.replyTarget = replyTarget;
         this.message = "@" + replyTarget + " " + message;
@@ -31,8 +31,8 @@ public class Post {
         this.message = message;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
     public String getUserName() {
@@ -43,4 +43,15 @@ public class Post {
         return replyTarget;
     }
 
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setReplyTarget(String replyTarget) {
+        this.replyTarget = replyTarget;
+    }
 }

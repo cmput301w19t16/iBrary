@@ -33,5 +33,5 @@ public class Forum {
     public String getUserName() {
         return userName;
     }
-    
+
 }
