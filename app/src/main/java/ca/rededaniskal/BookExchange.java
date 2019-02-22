@@ -2,7 +2,7 @@ package ca.rededaniskal;
 
 import java.util.Date;
 
-public class BookExchange {
+public abstract class  BookExchange {
     private String location;
     private Date time;
     private String owner;
@@ -64,4 +64,8 @@ public class BookExchange {
     public void setBookid(int bookid) {
         this.bookid = bookid;
     }
+
+    public void scanISBN(){}
+
+    public abstract void updateBookStatus();
 }
