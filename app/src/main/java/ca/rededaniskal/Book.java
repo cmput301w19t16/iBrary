@@ -3,7 +3,7 @@ package ca.rededaniskal;
 public abstract class Book {
     private String Title;
     private String Author;
-    private int ISBN;
+    private String ISBN;
     private String Description;
 
     public String getTitle() {
@@ -22,11 +22,11 @@ public abstract class Book {
         Author = author;
     }
 
-    public int getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(int ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 

@@ -6,7 +6,7 @@ public class Forum {
 
     private ArrayList<Post> posts = new ArrayList<>();
 
-    public int getISBN(Book book) {
+    public String getISBN(Book book) {
         return book.getISBN();
     }
 
