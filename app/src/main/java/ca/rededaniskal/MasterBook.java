@@ -5,28 +5,42 @@ import java.util.Map;
 
 public class MasterBook extends Book {
 
-    private Float rating;
-    private Map<String, Float>mapUsersRating;
+    private Double avgRating;
+    private Integer totalNumRating;
+    private Double sumRatings;
+    private Map<String, Double>mapUsersRating;
 
-    public MasterBook(String newTitle, String newAuthor, String newIsbn,Float newRating, String userGivingRating, Float userRating){
+    public MasterBook(String newTitle, String newAuthor, String newIsbn){
         super(newTitle, newAuthor, newIsbn);
-        rating = newRating;
-        mapUsersRating.put(userGivingRating,userRating);
+        avgRating = -1.00;
+        totalNumRating = -1;
     }
 
-    public Float getRating() {
-        return rating;
+    public void addRating(String username, Double rating){
+        mapUsersRating.put(username, rating);
     }
 
-    public void setRating(Float rating) {
-        this.rating = rating;
+    public Double getAvgRating(String username) {
+        totalNumRating = mapUsersRating.size();
+        sumRatings = 0.00;
+        for (Double d : mapUsersRating.values()) {
+            sumRatings += d;
+        }
+
+        if( avgRating != -1.00){
+            avgRating = sumRatings/totalNumRating;
+            return avgRating;
+        }
+        else{
+            return null;
+        }
     }
 
-    public Map<String, String> getMapUsersRating() {
-        return mapUsersRating;
+    public Double getUserRating(String username){
+        return mapUsersRating.get(username);
+    }
+    public void deleteUserRating(String username){
+        mapUsersRating.remove(username);
     }
 
-    public void setMapUsersRating(Map<String, String> mapUsersRating) {
-        this.mapUsersRating = mapUsersRating;
-    }
 }

@@ -9,9 +9,9 @@ public class MasterBookTest {
 
     @Test
     public void TestRating() {
-        MasterBook book = new MasterBookTest("Programming", "Jack", "978-3-16-148410-0", 5, "dteodore");
+        MasterBook book = new MasterBookTest("Programming", "Jack", "978-3-16-148410-0", 5.0, "dteodore");
 
-        String status = book.getStatus();
+        Float rating = book.getRating();
 
         assertEquals("Available", status);
 

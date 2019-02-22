@@ -2,34 +2,54 @@ package ca.rededaniskal;
 
 //import java.awt.image.*;
 
+import android.app.DownloadManager;
+
+import java.util.ArrayList;
+
 public class BookInstance extends Book {
 
     private String owner;
-    private String possesor;
+    private String possessor;
     private String condition;
     //private BufferedImage bookImage;
-    private Integer instanceID;
+
     private String status;
+    private ArrayList<Request> requests;
 
 
-    public BookInstance (String newTitle, String newAuthor, String newIsbn, String newOwner, String newPossesor, String newCondition, String newStatus, Integer newInstanceId){
+    public BookInstance (String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus){
         super(newTitle, newAuthor, newIsbn);
         owner = newOwner;
-        possesor = newPossesor;
+        possessor = newpossessor;
         condition = newCondition;
         status = newStatus;
-        instanceID = newInstanceId;
+        requests = new ArrayList<Request>();
+
+    }
+
+    public void addRequest(Request newRequest){
+        requests.add(newRequest);
+    }
+
+
+    public void deleteRequest(Integer index){
+        requests.remove(index);
+    }
+
+    public Request getRequests(Integer index){
+        return requests.get(index);
+
     }
 
     public String getOwner() {
         return owner;
     }
 
-    public String getPossesor() {
-        return possesor;
+    public String getPossessor() {
+        return possessor;
     }
-    public void setPossesor(String newPosessor) {
-        possesor = newPosessor;
+    public void setPossessor(String newPosessor) {
+        possessor = newPosessor;
     }
 
     public String getCondition() {
@@ -40,10 +60,6 @@ public class BookInstance extends Book {
         this.condition = condition;
     }
 
-    public Integer getInstanceID() {
-        return instanceID;
-    }
-
     public void setStatus(String newStatus) {
         status = newStatus;
     }
@@ -51,5 +67,7 @@ public class BookInstance extends Book {
     public String getStatus(){
         return status;
     }
+
+
 
 }

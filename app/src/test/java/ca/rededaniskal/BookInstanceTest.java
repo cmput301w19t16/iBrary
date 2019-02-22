@@ -11,7 +11,7 @@ public class BookInstanceTest {
 
     @Test
     public void TestOwner() {
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
         String owner = book.getOwner();
 
@@ -19,23 +19,25 @@ public class BookInstanceTest {
     }
 
     @Test
-    public void TestPossesor() {
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
+    public void TestPossessor() {
 
-        String possesor = book.getPossesor();
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
-        assertEquals("Jill", possesor);
+        String possessor = book.getPossessor();
 
-        book.setPossesor("Rose Edmond");
+        assertEquals("Jill", possessor);
 
-        possesor = book.getPossesor();
+        book.setPossessor("Rose Edmond");
 
-        assertNotEquals("Jill", possesor);
+        possessor = book.getPossessor();
+
+        assertNotEquals("Jill", possessor);
     }
 
     @Test
     public void TestCondition() {
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
+
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
         String condition = book.getCondition();
 
@@ -49,17 +51,9 @@ public class BookInstanceTest {
     }
 
     @Test
-    public void TestInstanceId() {
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
-
-        Integer id = book.getInstanceID();
-
-        assertEquals(5, id);
-    }
-
-    @Test
     public void TestStatus() {
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available", 5);
+
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
         String status = book.getStatus();
 
