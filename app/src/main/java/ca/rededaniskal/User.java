@@ -16,7 +16,7 @@ public class User {
     private BookList requestedBooks;
     private ArrayList<User> blockedUsers;
 
-    private BookInstance favBook;
+    private MasterBook favBook;
 
     //Constructors
     public User(String userName, String email, String location){
@@ -42,11 +42,11 @@ public class User {
 
     //Getters + setters
 
-    public Book getFavBook() {
+    public MasterBook getFavBook() {
         return favBook;
     }
 
-    public void setFavBook(BookInstance favBook) {
+    public void setFavBook(MasterBook favBook) {
         this.favBook = favBook;
     }
     /*
@@ -157,6 +157,14 @@ public class User {
         }
     }
 
+    public void addBorrowedBook(BookInstance newBook){
+        borrowedBooks.addBook(newBook);
+    }
+
+    public void deleteBorrowedBook(BookInstance deleteBook){
+        borrowedBooks.removeBook(deleteBook);
+    }
+
     public void addFriend(User newFriend){
         friends.add(newFriend);
     }
@@ -196,7 +204,7 @@ public class User {
     }
 
     //returns True if all the users books are with the user
-    private boolean allBooksReturned(){
+    public boolean allBooksReturned(){
         Boolean allReturned = true;
         for (int i = 0; i < ownedBooks.size(); i++){
             if ((ownedBooks.getBookByIndex(i).getStatus() == "accepted") || (ownedBooks.getBookByIndex(i).getStatus() == "borrowed")){
@@ -205,6 +213,10 @@ public class User {
             }
         }
         return allReturned;
+    }
+
+    public void giveRating(MasterBook book, double rating){
+        book.addRating(this.getUserName(), rating);
     }
     
 }
