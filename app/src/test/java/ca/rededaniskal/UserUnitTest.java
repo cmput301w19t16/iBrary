@@ -1,62 +1,30 @@
 package ca.rededaniskal;
 
-import android.media.Image;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-public class User {
-    private String userName;
-    private String email;
-    private String phoneNumber;
-    private String location;
-    //private Image profilePic;
-    private ArrayList<User> friends;
-    private ArrayList<Book> ownedBooks;
-    private ArrayList<Book> borrowedBooks;
-    private ArrayList<User> blockedUsers;
-    private ArrayList<Book> requestedBooks;
+public class UserUnitTest {
 
-    private Book favBook;
-
-    //Constructors
-    public User(String userName, String email, String location){
-        // TODO: check if userName is unique
-
-        this.userName = userName;
-        this.email = email;
-        this.location = location;
-
-        this.friends = new ArrayList<User>();
-        this.ownedBooks = new ArrayList<Book>();
-        this.borrowedBooks  = new ArrayList<Book>();
-        this.blockedUsers = new ArrayList<User>();
-        this.requestedBooks = new ArrayList<Book>();
-    }
-
-    public User(String userName, String email, String phoneNumber, String location ){
-        // TODO: check if userName is unique
-        this(userName, email, location);
-        this.phoneNumber = phoneNumber;
-    }
-
-    //Getters + setters
-
+    @Test
     public Book getFavBook() {
+        String name  = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        User user = new User(name, email, phoneNumber);
+
+        Book boom = new BookInstance("Happy Potter","J.K. Rowling" , "785-3-16-275029-0", "Very Good Read" );
+
+
         return favBook;
     }
 
     public void setFavBook(Book favBook) {
         this.favBook = favBook;
     }
-    /*
-    public Image getProfilePic() {
-        return profilePic;
-    }
 
-    public void setProfilePic(Image profilePic) {
-        this.profilePic = profilePic;
-    }
-    */
+
+
 
     public ArrayList<Book> getRequestedBooks() {
         return requestedBooks;
@@ -83,11 +51,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -203,5 +171,8 @@ public class User {
         }
         return allReturned;
     }
-    
+
+}
+
+
 }

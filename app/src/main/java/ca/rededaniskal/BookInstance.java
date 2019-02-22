@@ -1,11 +1,50 @@
 package ca.rededaniskal;
 
-import java.awt.image.*;
+//import java.awt.image.*;
 
-public class BookInstance {
+public class BookInstance extends Book {
 
-    private String Owner;
-    private String Borrowed;
-    private BufferedImage bookImage;
+    private String owner;
+    private String borrower;
+    //private BufferedImage bookImage;
+    private String status;
+    private Integer bookId;
 
+    public BookInstance (String newOwner, String newStatus, Integer newBookId){
+        owner = newOwner;
+        status = newStatus;
+        bookId = newBookId;
+    }
+
+    public void setStatus(String newStatus) {
+        status = newStatus;
+    }
+
+    public String getStatus(){
+        return status;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getBorrower() {
+        return borrower;
+    }
+
+    public void setBorrower(String newBorrower) {
+        this.borrower = newBorrower;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
 }
