@@ -74,4 +74,5 @@ public class ForumTest {
 
         assertEquals("james bond", forumPosts.getUserName());
     }
+
 }

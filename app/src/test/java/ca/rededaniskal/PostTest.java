@@ -30,4 +30,5 @@ public class PostTest {
 
         assertEquals(date, post.getDate());
     }
+
 }

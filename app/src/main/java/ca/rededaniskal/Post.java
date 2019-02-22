@@ -42,4 +42,5 @@ public class Post {
     public String getReplyTarget() {
         return replyTarget;
     }
+
 }
