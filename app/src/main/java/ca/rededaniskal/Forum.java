@@ -6,6 +6,10 @@ public class Forum {
 
     private ArrayList<Post> posts = new ArrayList<>();
 
+    public int getISBN(Book book) {
+        return book.getISBN();
+    }
+
     public void addPost(Post post) {
         posts.add(post);
     }
