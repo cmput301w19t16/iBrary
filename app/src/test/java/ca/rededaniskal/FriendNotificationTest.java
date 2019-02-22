@@ -1,8 +1,6 @@
 package ca.rededaniskal;
 
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 public class FriendNotificationTest {
@@ -11,17 +9,18 @@ public class FriendNotificationTest {
     public void requestType(){
         FriendNotification friendNotification = new FriendNotification();
         friendNotification.setUsername("dlothian");
+
         Request request = new FriendRequest("dlothian", "daniela");
         friendNotification.setRequest(request);
-        if(friendNotification.getRequest().getSenderUserName().equals(friendNotification.getUsername())){
-            friendNotification.requestType();
-            String requestType = friendNotification.getFriendType();
-            assertEquals("requested", requestType);
-        }else if(friendNotification.getRequest().getRecipientUserName().equals(friendNotification.getUsername())){
-            friendNotification.requestType();
-            String requestType = friendNotification.getFriendType();
-            assertEquals("accepted", requestType);
-        }
+        friendNotification.requestType();
+        String requestType = friendNotification.getFriendType();
+        assertEquals("requested", requestType);
+
+        Request request2 = new FriendRequest("daniela", "dlothian");
+        friendNotification.setRequest(request2);
+        friendNotification.requestType();
+        String requestType2 = friendNotification.getFriendType();
+        assertEquals("accepted", requestType2);
 
     }
 

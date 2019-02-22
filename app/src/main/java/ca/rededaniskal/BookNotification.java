@@ -16,7 +16,9 @@ public class BookNotification extends Notification {
         this.bookRequestType = bookRequestType;
     }
 
-    public void requestType(){}
+    public void requestType(){
+        this.bookRequestType = getRequest().getStatus();
+    }
 
     public String getMessage() {
         return message;
