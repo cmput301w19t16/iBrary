@@ -7,172 +7,420 @@ import static org.junit.Assert.*;
 public class UserUnitTest {
 
     @Test
-    public Book getFavBook() {
-        String name  = "John Doe";
+    public void getFavBook() {
+
+    }
+
+    @Test
+    public void setFavBook() {
+
+    }
+
+    @Test
+    public void getRequestedBooks() {
+
+    }
+
+    @Test
+    public void setRequestedBooks() {
+
+    }
+
+    @Test
+    public void getUserName() {
+        String name = "John Doe";
         String email = "john@gmail.com";
         String phoneNumber = "780-675-8796";
-        User user = new User(name, email, phoneNumber);
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
-        Book boom = new BookInstance("Happy Potter","J.K. Rowling" , "785-3-16-275029-0", "Very Good Read" );
-
-
-        return favBook;
+        assertEquals(user.getUserName(), name);
     }
 
-    public void setFavBook(Book favBook) {
-        this.favBook = favBook;
+    @Test
+    public void setUserName() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name2 = "Jane Doe";
+        user.setUserName(name2);
+
+        assertEquals(user.getUserName(),name2 );
+    }
+
+    @Test
+    public void getEmail() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        assertEquals(user.getEmail(), email);
+    }
+
+    @Test
+    public void setEmail() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String email2 = "jane@gmail.com";
+        user.setUserName(email2);
+        assertEquals(user.getEmail(), email2);
+    }
+
+    @Test
+    public void getPhoneNumber() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        assertEquals(user.getPhoneNumber(), phoneNumber);
+    }
+
+    @Test
+    public void setPhoneNumber() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String phone2 = "780-000-0000";
+        user.setPhoneNumber(phone2);
+        assertEquals(phone2, user.getPhoneNumber());
+    }
+
+    @Test
+    public void getLocation() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        assertEquals(location, user.getLocation());
+
+    }
+
+    @Test
+    public void setLocation() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String location2 = "Red Deer, AB";
+        user.setLocation(location2);
+
+        assertEquals( location2, user.getLocation());
+    }
+
+    @Test
+    public void getFriends() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name2 = "Jane Doe";
+        String email2 = "jane@gmail.com";
+        String phoneNumber2 = "780-000-0000";
+        String location2  = "Edmonton, AB";
+        User user2 = new User(name2, email2, phoneNumber2, location2);
+
+        String name3 = "Foo Bar";
+        String email3 = "jane@gmail.com";
+        String phoneNumber3 = "780-111-1111";
+        String location3  = "Edmonton, AB";
+        User user3 = new User(name3, email3, phoneNumber3, location3);
+
+        user.addFriend(user2);
+        user.addFriend(user3);
+
+        ArrayList<User> Friends = new ArrayList<>();
+        Friends.add(user2);
+        Friends.add(user3);
+
+        assertEquals(Friends, user.getFriends());
+
+    }
+
+    @Test
+    public void setFriends() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name2 = "Jane Doe";
+        String email2 = "jane@gmail.com";
+        String phoneNumber2 = "780-000-0000";
+        String location2  = "Edmonton, AB";
+        User user2 = new User(name2, email2, phoneNumber2, location2);
+
+        String name3 = "Foo Bar";
+        String email3 = "jane@gmail.com";
+        String phoneNumber3 = "780-111-1111";
+        String location3  = "Edmonton, AB";
+        User user3 = new User(name3, email3, phoneNumber3, location3);
+
+        ArrayList<User> Friends = new ArrayList<>();
+        Friends.add(user2);
+        Friends.add(user3);
+
+        user.setFriends(Friends);
+        assertEquals(Friends, user.getFriends());
+
+    }
+
+    @Test
+    public void getOwnedBooks() {
+
+
+
+    }
+
+    @Test
+    public void setOwnedBooks() {
+
+    }
+
+    @Test
+    public void getBorrowedBooks() {
+
+    }
+
+    @Test
+    public void setBorrowedBooks() {
+
     }
 
 
+    @Test
+    public void getBlockedUsers() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
+        String name2 = "Jane Doe";
+        String email2 = "jane@gmail.com";
+        String phoneNumber2 = "780-000-0000";
+        String location2  = "Edmonton, AB";
+        User user2 = new User(name2, email2, phoneNumber2, location2);
 
-    public ArrayList<Book> getRequestedBooks() {
-        return requestedBooks;
+        String name3 = "Foo Bar";
+        String email3 = "jane@gmail.com";
+        String phoneNumber3 = "780-111-1111";
+        String location3  = "Edmonton, AB";
+        User user3 = new User(name3, email3, phoneNumber3, location3);
+
+        user.addBlockedUser(user2);
+        user.addBlockedUser(user3);
+
+        ArrayList<User> Blocked = new ArrayList<>();
+        Blocked.add(user2);
+        Blocked.add(user3);
+
+        assertEquals(Blocked, user.getBlockedUsers());
     }
+    @Test
+    public void setBlockedUsers() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
 
-    public void setRequestedBooks(ArrayList<Book> requestedBooks) {
-        this.requestedBooks = requestedBooks;
-    }
+        String name2 = "Jane Doe";
+        String email2 = "jane@gmail.com";
+        String phoneNumber2 = "780-000-0000";
+        String location2  = "Edmonton, AB";
+        User user2 = new User(name2, email2, phoneNumber2, location2);
 
-    public String getUserName() {
-        return userName;
-    }
+        String name3 = "Foo Bar";
+        String email3 = "jane@gmail.com";
+        String phoneNumber3 = "780-111-1111";
+        String location3  = "Edmonton, AB";
+        User user3 = new User(name3, email3, phoneNumber3, location3);
 
-    public void setUserName(String userName) {
-        // TODO: check if userName is unique
-        this.userName = userName;
-    }
+        ArrayList<User> Blocked = new ArrayList<>();
+        Blocked.add(user2);
+        Blocked.add(user3);
 
-    public String getEmail() {
-        return email;
-    }
+        user.setBlockedUsers(Blocked);
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        assertEquals(Blocked, user.getBlockedUsers());
 
-    public Integer getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public ArrayList<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(ArrayList<User> friends) {
-        this.friends = friends;
-    }
-
-    public ArrayList<Book> getOwnedBooks() {
-        return ownedBooks;
-    }
-
-    public void setOwnedBooks(ArrayList<Book> ownedBooks) {
-        this.ownedBooks = ownedBooks;
-    }
-
-    public ArrayList<Book> getBorrowedBooks() {
-        return borrowedBooks;
-    }
-
-    public void setBorrowedBooks(ArrayList<Book> borrowedBooks) {
-        this.borrowedBooks = borrowedBooks;
-    }
-
-    public ArrayList<User> getBlockedUsers() {
-        return blockedUsers;
-    }
-
-    public void setBlockedUsers(ArrayList<User> blockedUsers) {
-        this.blockedUsers = blockedUsers;
     }
 
     //Functionality methods
-    public void addRequestedBook(Book newBook){
-        requestedBooks.add(newBook);
+    @Test
+    public void addRequestedBook() {
+
+
     }
 
-    public void deleteRequestedBook(Book deleteBook){
-        requestedBooks.remove(deleteBook);
+    @Test
+    public void deleteRequestedBook() {
+
     }
 
-    public void addOwnedBook(Book newBook){
-        ownedBooks.add(newBook);
+    @Test
+    public void addOwnedBook() {
+
     }
 
-    public void deleteOwnedBook(Book deleteBook){
-        ownedBooks.remove(deleteBook);
+    @Test
+    public void deleteOwnedBook() {
+
     }
 
-    public void removeAllOwnedBooks(){
-        for (int i = 0; i < ownedBooks.size(); i++){
-            this.deleteOwnedBook(ownedBooks.get(i));
-        }
+    @Test
+    public void removeAllOwnedBooks() {
+
     }
 
-    public void addFriend(User newFriend){
-        friends.add(newFriend);
+    @Test
+    public void addFriend() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name2 = "Jane Doe";
+        String email2 = "jane@gmail.com";
+        String phoneNumber2 = "780-000-0000";
+        String location2  = "Edmonton, AB";
+        User user2 = new User(name2, email2, phoneNumber2, location2);
+
+        user.addFriend(user2);
+
+        ArrayList<User> Friends = new ArrayList<>();
+        Friends.add(user2);
+
+        assertEquals(Friends, user.getFriends());
     }
 
-    public void removeFriend(User removedFriend){
-        friends.remove(removedFriend);
+    @Test
+    public void removeFriend() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name2 = "Jane Doe";
+        String email2 = "jane@gmail.com";
+        String phoneNumber2 = "780-000-0000";
+        String location2  = "Edmonton, AB";
+        User user2 = new User(name2, email2, phoneNumber2, location2);
+
+        user.addFriend(user2);
+
+        ArrayList<User> Friends = new ArrayList<>();
+        Friends.add(user2);
+
+        assertEquals(Friends, user.getFriends());
+        user.removeFriend(user2);
+
+        assertEquals(0, user.getFriends().size());
+
     }
 
-    public void removeAllFriends(){
-        for (int i = 0; i < friends.size(); i++){
-            friends.get(i).removeFriend(this);
-        }
-        friends.clear();
+    @Test
+    public void removeAllFriends() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name2 = "Jane Doe";
+        String email2 = "jane@gmail.com";
+        String phoneNumber2 = "780-000-0000";
+        String location2  = "Edmonton, AB";
+        User user2 = new User(name2, email2, phoneNumber2, location2);
+
+        String name3 = "Foo Bar";
+        String email3 = "jane@gmail.com";
+        String phoneNumber3 = "780-111-1111";
+        String location3  = "Edmonton, AB";
+        User user3 = new User(name3, email3, phoneNumber3, location3);
+
+        user.addFriend(user2);
+        user.addFriend(user3);
+
+        user.removeAllFriends();
+
+        assertEquals(0, user.getFriends().size());
     }
 
-    public void addBlockedUser(User blockedUser){
-        removeFriend(blockedUser);
-        blockedUsers.add(blockedUser);
+    @Test
+    public void addBlockedUser() {
+
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name3 = "Foo Bar";
+        String email3 = "jane@gmail.com";
+        String phoneNumber3 = "780-111-1111";
+        String location3  = "Edmonton, AB";
+        User user3 = new User(name3, email3, phoneNumber3, location3);
+
+        user.addBlockedUser(user3);
+
+        assertEquals(true, user.getBlockedUsers().contains(user3));
+
     }
 
-    public void removeBlockedUser(User blockedUser){
-        blockedUsers.remove(blockedUser);
+    @Test
+    public void removeBlockedUser() {
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name3 = "Foo Bar";
+        String email3 = "jane@gmail.com";
+        String phoneNumber3 = "780-111-1111";
+        String location3  = "Edmonton, AB";
+        User user3 = new User(name3, email3, phoneNumber3, location3);
+
+        user.addBlockedUser(user3);
+
+        assertTrue(user.getBlockedUsers().contains(user3));
+
+        user.removeBlockedUser(user3);
+
+        assertEquals(0, user.getBlockedUsers().size());
+
     }
 
-    public void deleteProfile(){
-        assert(borrowedBooks.size() == 0);
-        assert (this.allBooksReturned() == true);
+    @Test
+    public void deleteProfile() {
 
-        //TODO: Add remove from blocked list?
-        removeAllOwnedBooks();
-        removeAllFriends();
-        this.setUserName("[deleted]");
-        this.setEmail("[deleted]");
-        this.setPhoneNumber(-1);
-        this.setLocation("[deleted]");
-        blockedUsers.clear();
     }
 
-    //returns True if all the users books are with the user
-    private boolean allBooksReturned(){
-        Boolean allReturned = true;
-        for (int i = 0; i < ownedBooks.size(); i++){
-            if ((ownedBooks.get(i).getStatus() == "accepted") || (ownedBooks.get(i).getStatus() == "borrowed")){
-                allReturned = false;
-                return allReturned;
-            }
-        }
-        return allReturned;
+    @Test
+    private void allBooksReturned() {
     }
-
-}
-
-
 }
