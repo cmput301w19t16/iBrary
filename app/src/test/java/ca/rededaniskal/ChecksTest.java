@@ -74,7 +74,7 @@ public class ChecksTest {
     public void updateBookStatus(){
         User user = new User("dlothian", "d@lot.com", "Edmonton, AB");
         CheckIn checkin = new CheckIn("dlothian", "daniela", "123456", 7);
-        BookInstance bookinst = new BookInstance("dlothian", "borrwed", 7);
+        BookInstance bookinst = new BookInstance("dlothian", "unavailable", 7);
         user.addOwnedBook(bookinst);
         checkin.updateBookStatus();
         assertEquals("available", bookinst.getStatus());
@@ -85,6 +85,26 @@ public class ChecksTest {
         BookInstance bookinst = new BookInstance("dlothian", "borrowed", 7);
         user.addBorrowedBook(bookinst);
         assertEquals(bookinst, user.getBorrowedBooks().getBookByIndex(0));
+    }
+
+    // Tests related to the methods unique to CheckOut
+
+    public void updateBookStatus(){
+        User user = new User("dlothian", "d@lot.com", "Edmonton, AB");
+        CheckOut checkout = new CheckOut("dlothian", "daniela", "123456", 7);
+        BookInstance bookinst = new BookInstance("dlothian", "available", 7);
+        user.addOwnedBook(bookinst);
+        checkout.updateBookStatus();
+        assertEquals("unavailable", bookinst.getStatus());
+    }
+
+    public void removeBookFromBorrowed(){
+        User user = new User("dlothian", "d@lot.com", "Edmonton, AB");
+        CheckOut checkout = new CheckOut("dlothian", "daniela", "123456", 7);
+        BookInstance bookinst = new BookInstance("dlothian", "available", 7);
+        user.addOwnedBook(bookinst);
+        checkout.removeBookFromBorrowed();
+        assertEquals((Integer)0,user.getBorrowedBooks().size());
     }
 
 
