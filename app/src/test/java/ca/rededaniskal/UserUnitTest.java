@@ -687,19 +687,4 @@ public class UserUnitTest {
 
     }
 
-    @Test
-    private void giveRating(){
-        String name = "John Doe";
-        String email = "john@gmail.com";
-        String phoneNumber = "780-675-8796";
-        String location  = "Edmonton, AB";
-        User user = new User(name, email, phoneNumber, location);
-
-        MasterBook book = new BookInstance("Happy Potter", "J.K.", "1234567890");
-
-        user.giveRating(book, 5.0);
-
-       assertEquals(5.0, book.getAvgRating();
-
-    }
 }
