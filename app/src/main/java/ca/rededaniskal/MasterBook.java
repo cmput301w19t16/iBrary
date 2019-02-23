@@ -20,14 +20,14 @@ public class MasterBook extends Book {
         mapUsersRating.put(username, rating);
     }
 
-    public Double getAvgRating(String username) {
+    public Double getAvgRating() {
         totalNumRating = mapUsersRating.size();
         sumRatings = 0.00;
         for (Double d : mapUsersRating.values()) {
             sumRatings += d;
         }
 
-        if( avgRating != -1.00){
+        if( avgRating != -1.00 && totalNumRating != 0){
             avgRating = sumRatings/totalNumRating;
             return avgRating;
         }
@@ -37,7 +37,7 @@ public class MasterBook extends Book {
     }
 
     public Double getUserRating(String username){
-        return mapUsersRating.get(username);
+        return mapUsersRating.getOrDefault(username, null);
     }
     public void deleteUserRating(String username){
         mapUsersRating.remove(username);

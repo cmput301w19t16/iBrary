@@ -3,11 +3,32 @@ package ca.rededaniskal;
 import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 import static org.junit.Assert.assertTrue;
 
 public class BookInstanceTest {
+
+    @Test
+    public void TestRequests() {
+        Request request = new Request("John", "Jack", "Friend");
+
+        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
+
+        book.addRequest(request);
+        Request recievedRequest = book.getRequest(0);
+
+        assertEquals(request, recievedRequest);
+
+        book.deleteRequest(request);
+
+        ArrayList<Request> allRequests = book.getAllRequests();
+
+        assertEquals(0, allRequests.size());
+    }
 
     @Test
     public void TestOwner() {

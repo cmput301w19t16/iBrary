@@ -32,12 +32,12 @@ public class BookInstance extends Book {
     }
 
 
-    public void deleteRequest(Integer index){
-        requests.remove(index);
+    public void deleteRequest(Request request){
+        requests.remove(request);
     }
 
-    public Request getRequests(Integer index){
-        return requests.get(index);
+    public ArrayList<Request> getAllRequests(){
+        return requests;
 
     }
 
