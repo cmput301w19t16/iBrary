@@ -24,7 +24,7 @@ public class BookListTests {
 
 
     }
-
+    @Test
     public void removeBook(){
         BookList list = new BookList();
 
@@ -41,7 +41,7 @@ public class BookListTests {
         list.removeBook(book);
         assertFalse(list.getBooks().contains(book));
     }
-
+    @Test
     public void getBookByIndex(){
         BookList list = new BookList();
 
@@ -58,9 +58,9 @@ public class BookListTests {
         list.addBook(book2);
 
         assertEquals(book, list.getBookByIndex(0));
-        assertEquals(book, list.getBookByIndex(1));
+        assertEquals(book2, list.getBookByIndex(1));
     }
-
+    @Test
     public void getBooks(){
 
         BookList list = new BookList();
@@ -83,7 +83,7 @@ public class BookListTests {
 
         assertEquals(testlist, list.getBooks());
     }
-
+    @Test
     public void getBooksByStatus(){
 
         String status = "accepted";
@@ -104,7 +104,7 @@ public class BookListTests {
         assertTrue(list.getBooksByStatus(status).contains(book));
         assertFalse(list.getBooksByStatus(status).contains(book2));
     }
-
+    @Test
     public void size(){
 
         BookList list = new BookList();
@@ -123,7 +123,7 @@ public class BookListTests {
         assertEquals((Integer)2 , list.size());
 
     }
-
+    @Test
     public void clear(){
         BookList list = new BookList();
 

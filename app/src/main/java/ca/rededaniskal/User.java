@@ -158,9 +158,7 @@ public class User {
     }
 
     public void removeAllOwnedBooks(){
-        for (int i = 0; i < ownedBooks.size(); i++){
-            this.deleteOwnedBook(ownedBooks.getBookByIndex(i));
-        }
+        ownedBooks.clear();
     }
 
     public void addBorrowedBook(BookInstance newBook){
@@ -213,7 +211,7 @@ public class User {
     public boolean allBooksReturned(){
         boolean allReturned = true;
         for (int i = 0; i < ownedBooks.size(); i++){
-            if ((ownedBooks.getBookByIndex(i).getStatus() == "accepted") || (ownedBooks.getBookByIndex(i).getStatus() == "borrowed")){
+            if ((ownedBooks.getBookByIndex(i).getStatus().equals("accepted")) || (ownedBooks.getBookByIndex(i).getStatus().equals("borrowed"))){
                 allReturned = false;
                 return allReturned;
             }

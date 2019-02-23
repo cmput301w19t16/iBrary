@@ -117,7 +117,7 @@ public class UserUnitTest {
         User user = new User(name, email, phoneNumber, location);
 
         String email2 = "jane@gmail.com";
-        user.setUserName(email2);
+        user.setEmail(email2);
         assertEquals(user.getEmail(), email2);
     }
 
@@ -246,8 +246,8 @@ public class UserUnitTest {
         user.addOwnedBook(book2);
 
         BookList list = new BookList();
-        list.addBook(book);
-        list.addBook(book2);
+
+        user.setOwnedBooks(list);
 
         assertEquals(list, user.getOwnedBooks());
     }
@@ -468,9 +468,8 @@ public class UserUnitTest {
 
         user.removeAllOwnedBooks();
 
-        Integer integer = 0;
 
-        assertEquals(integer, user.getOwnedBooks().size());
+        assertEquals((Integer)0, user.getOwnedBooks().size());
     }
 
     @Test
@@ -612,7 +611,7 @@ public class UserUnitTest {
         assertEquals(0, user.getFriends().size());
         assertEquals("[deleted]", user.getUserName());
         assertEquals("[deleted]", user.getEmail());
-        assertEquals("[deleted]", user.getPhoneNumber());
+        assertEquals("", user.getPhoneNumber());
         assertEquals("[deleted]", user.getLocation());
         assertEquals(0, user.getBlockedUsers().size());
     }
@@ -641,6 +640,8 @@ public class UserUnitTest {
 
         user.addOwnedBook(book);
         user.addOwnedBook(book4);
+
+        assertEquals((Integer)2, user.getOwnedBooks().size());
 
         assertTrue(user.allBooksReturned());
 
