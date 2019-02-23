@@ -15,7 +15,7 @@ public class PostTest {
 
         assertEquals("this is a post", post.getMessage());
 
-        post.setMessage("this a changed post");
+        post.setMessage("this is a changed post");
 
         assertEquals("this is a changed post", post.getMessage());
     }

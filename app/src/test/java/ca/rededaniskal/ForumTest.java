@@ -48,7 +48,7 @@ public class ForumTest {
         Post reply = new Post("Reply post test", forumPosts.getUserName(), user2.getUserName());
         forumPosts.addPost(reply);
 
-        assertEquals("@james smith Reply post test", reply);
+        assertEquals("@james smith Reply post test", reply.getMessage());
     }
 
     @Test

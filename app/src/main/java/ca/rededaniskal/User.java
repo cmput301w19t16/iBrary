@@ -211,7 +211,7 @@ public class User {
 
     //returns True if all the users books are with the user
     public boolean allBooksReturned(){
-        Boolean allReturned = true;
+        boolean allReturned = true;
         for (int i = 0; i < ownedBooks.size(); i++){
             if ((ownedBooks.getBookByIndex(i).getStatus() == "accepted") || (ownedBooks.getBookByIndex(i).getStatus() == "borrowed")){
                 allReturned = false;

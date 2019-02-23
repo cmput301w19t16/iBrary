@@ -8,12 +8,13 @@ public class MasterBook extends Book {
     private Double avgRating;
     private Integer totalNumRating;
     private Double sumRatings;
-    private Map<String, Double>mapUsersRating;
+    private HashMap<String, Double>mapUsersRating;
 
     public MasterBook(String newTitle, String newAuthor, String newIsbn){
         super(newTitle, newAuthor, newIsbn);
         avgRating = -1.00;
         totalNumRating = -1;
+        mapUsersRating = new HashMap<String, Double>();
     }
 
     public void addRating(String username, Double rating){
@@ -27,7 +28,7 @@ public class MasterBook extends Book {
             sumRatings += d;
         }
 
-        if( avgRating != -1.00 && totalNumRating != 0){
+        if(totalNumRating != 0){
             avgRating = sumRatings/totalNumRating;
             return avgRating;
         }

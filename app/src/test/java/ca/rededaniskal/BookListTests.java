@@ -17,7 +17,7 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book);
 
         assertTrue(list.getBooks().contains(book));
@@ -34,7 +34,7 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book);
 
         assertTrue(list.getBooks().contains(book));
@@ -51,10 +51,10 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book);
 
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book2);
 
         assertEquals(book, list.getBookByIndex(0));
@@ -71,10 +71,10 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book);
 
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book2);
 
         ArrayList<BookInstance> testlist = new ArrayList<>();
@@ -96,8 +96,8 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "borrowed");
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
         list.addBook(book);
         list.addBook(book2);
 
@@ -115,8 +115,8 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "borrowed");
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
         list.addBook(book);
         list.addBook(book2);
 
@@ -133,8 +133,8 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", user, user, "Very Nice", "borrowed");
+        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
         list.addBook(book);
         list.addBook(book2);
 

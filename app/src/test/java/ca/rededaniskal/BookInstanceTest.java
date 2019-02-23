@@ -19,9 +19,9 @@ public class BookInstanceTest {
         BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
         book.addRequest(request);
-        Request recievedRequest = book.getRequest(0);
+        ArrayList<Request> recievedRequest = book.getAllRequests();
 
-        assertEquals(request, recievedRequest);
+        assert recievedRequest.contains(request);
 
         book.deleteRequest(request);
 
