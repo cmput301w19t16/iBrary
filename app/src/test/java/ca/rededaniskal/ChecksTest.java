@@ -5,7 +5,7 @@
 
 
 package ca.rededaniskal;
-
+import java.util.ArrayList;
 import java.util.Date;
 import static org.junit.Assert.*;
 
@@ -67,6 +67,24 @@ public class ChecksTest {
         checkin.setBookid(8);
         int bookid2 = checkin.getBookid();
         assertEquals(8, bookid2);
+    }
+
+    // Tests related to the methods unique to CheckIn
+
+    public void updateBookStatus(){
+        User user = new User("dlothian", "d@lot.com", "Edmonton, AB");
+        CheckIn checkin = new CheckIn("dlothian", "daniela", "123456", 7);
+        BookInstance bookinst = new BookInstance("dlothian", "borrwed", 7);
+        user.addOwnedBook(bookinst);
+        checkin.updateBookStatus();
+        assertEquals("available", bookinst.getStatus());
+    }
+
+    public void addBookToBorrowed(){
+        User user = new User("daniela", "d@lot.com", "Edmonton, AB");
+        BookInstance bookinst = new BookInstance("dlothian", "borrowed", 7);
+        user.addBorrowedBook(bookinst);
+        assertEquals(bookinst, user.getBorrowedBooks().getBookByIndex(0));
     }
 
 
