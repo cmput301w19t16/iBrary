@@ -1,6 +1,7 @@
 package ca.rededaniskal;
 
 public class Book {
+<<<<<<< HEAD
     private String Title;
     private String Author;
     private String ISBN;
@@ -12,36 +13,41 @@ public class Book {
         ISBN = isbn;
         Description = description;
     }
+=======
 
-    public String getTitle() {
-        return Title;
+    private String title;
+    private String author;
+    private String isbn;
+>>>>>>> 09d679e34079705f54c57f34a6dacb0c44de23f9
+
+
+    public Book(String newTitle, String newAuthor, String newIsbn){
+        title = newTitle;
+        author = newAuthor;
+        isbn = newIsbn;
     }
 
-    public void setTitle(String title) {
-        Title = title;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String newTitle) {
+        title = newTitle;
     }
 
     public String getAuthor() {
-        return Author;
+        return author;
     }
 
-    public void setAuthor(String author) {
-        Author = author;
+    public void setAuthor(String newAuthor) {
+        author = newAuthor;
     }
 
     public String getISBN() {
-        return ISBN;
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
+    public void setISBN(String newIsbn) {
+        isbn = newIsbn;
     }
 }

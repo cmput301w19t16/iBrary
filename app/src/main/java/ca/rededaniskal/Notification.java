@@ -4,12 +4,11 @@ import java.util.Date;
 
 public class Notification {
     private Date timestamp;
-    private User username;
+    private String username;
     private Request request;
 
 
-    public void Notification(Request request, User username){
-        setRequest(request);
+    public void Notification(){
     }
 
     public Date getTimestamp() {
@@ -20,11 +19,11 @@ public class Notification {
         this.timestamp = timestamp;
     }
 
-    public User getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(User username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

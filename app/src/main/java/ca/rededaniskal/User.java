@@ -7,16 +7,16 @@ import java.util.ArrayList;
 public class User {
     private String userName;
     private String email;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String location;
-    //private Image profilePic;
+    private String profilePic;
     private ArrayList<User> friends;
-    private ArrayList<Book> ownedBooks;
-    private ArrayList<Book> borrowedBooks;
+    private BookList ownedBooks;
+    private BookList borrowedBooks; // Includes accepted
+    private BookList requestedBooks;
     private ArrayList<User> blockedUsers;
-    private ArrayList<Book> requestedBooks;
 
-    private Book favBook;
+    private MasterBook favBook;
 
     //Constructors
     public User(String userName, String email, String location){
@@ -27,13 +27,14 @@ public class User {
         this.location = location;
 
         this.friends = new ArrayList<User>();
-        this.ownedBooks = new ArrayList<Book>();
-        this.borrowedBooks  = new ArrayList<Book>();
+        this.ownedBooks = new BookList();
+        this.borrowedBooks  = new BookList();
+        this.requestedBooks = new BookList();
         this.blockedUsers = new ArrayList<User>();
-        this.requestedBooks = new ArrayList<Book>();
+
     }
 
-    public User(String userName, String email, Integer phoneNumber, String location ){
+    public User(String userName, String email, String phoneNumber, String location ){
         // TODO: check if userName is unique
         this(userName, email, location);
         this.phoneNumber = phoneNumber;
@@ -41,30 +42,33 @@ public class User {
 
     //Getters + setters
 
-    public Book getFavBook() {
+    public MasterBook getFavBook() {
         return favBook;
     }
 
-    public void setFavBook(Book favBook) {
+    public void setFavBook(MasterBook favBook) {
         this.favBook = favBook;
     }
-    /*
-    public Image getProfilePic() {
+
+    // TODO Figure out how to instantiate a picture and store it.
+    public String getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(Image profilePic) {
+    public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
-    */
 
-    public ArrayList<Book> getRequestedBooks() {
+
+
+    public BookList getRequestedBooks() {
         return requestedBooks;
     }
 
-    public void setRequestedBooks(ArrayList<Book> requestedBooks) {
+    public void setRequestedBooks(BookList requestedBooks) {
         this.requestedBooks = requestedBooks;
     }
+
 
     public String getUserName() {
         return userName;
@@ -75,6 +79,7 @@ public class User {
         this.userName = userName;
     }
 
+
     public String getEmail() {
         return email;
     }
@@ -83,13 +88,16 @@ public class User {
         this.email = email;
     }
 
-    public Integer getPhoneNumber() {
+
+    public String getPhoneNumber() {
+        // TODO Check if real phone number (long?)
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
 
     public String getLocation() {
         return location;
@@ -99,6 +107,7 @@ public class User {
         this.location = location;
     }
 
+
     public ArrayList<User> getFriends() {
         return friends;
     }
@@ -107,19 +116,19 @@ public class User {
         this.friends = friends;
     }
 
-    public ArrayList<Book> getOwnedBooks() {
+    public BookList getOwnedBooks() {
         return ownedBooks;
     }
 
-    public void setOwnedBooks(ArrayList<Book> ownedBooks) {
+    public void setOwnedBooks(BookList ownedBooks) {
         this.ownedBooks = ownedBooks;
     }
 
-    public ArrayList<Book> getBorrowedBooks() {
+    public BookList getBorrowedBooks() {
         return borrowedBooks;
     }
 
-    public void setBorrowedBooks(ArrayList<Book> borrowedBooks) {
+    public void setBorrowedBooks(BookList borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
 
@@ -132,26 +141,32 @@ public class User {
     }
 
     //Functionality methods
-    public void addRequestedBook(Book newBook){
-        requestedBooks.add(newBook);
+    public void addRequestedBook(BookInstance newBook){
+        requestedBooks.addBook(newBook);
     }
 
-    public void deleteRequestedBook(Book deleteBook){
-        requestedBooks.remove(deleteBook);
+    public void deleteRequestedBook(BookInstance deleteBook){
+        requestedBooks.removeBook(deleteBook);
     }
 
-    public void addOwnedBook(Book newBook){
-        ownedBooks.add(newBook);
+    public void addOwnedBook(BookInstance newBook){
+        ownedBooks.addBook(newBook);
     }
 
-    public void deleteOwnedBook(Book deleteBook){
-        ownedBooks.remove(deleteBook);
+    public void deleteOwnedBook(BookInstance deleteBook){
+        ownedBooks.removeBook(deleteBook);
     }
 
     public void removeAllOwnedBooks(){
-        for (int i = 0; i < ownedBooks.size(); i++){
-            this.deleteOwnedBook(ownedBooks.get(i));
-        }
+        ownedBooks.clear();
+    }
+
+    public void addBorrowedBook(BookInstance newBook){
+        borrowedBooks.addBook(newBook);
+    }
+
+    public void deleteBorrowedBook(BookInstance deleteBook){
+        borrowedBooks.removeBook(deleteBook);
     }
 
     public void addFriend(User newFriend){
@@ -187,16 +202,16 @@ public class User {
         removeAllFriends();
         this.setUserName("[deleted]");
         this.setEmail("[deleted]");
-        this.setPhoneNumber(-1);
+        this.setPhoneNumber("");
         this.setLocation("[deleted]");
         blockedUsers.clear();
     }
 
     //returns True if all the users books are with the user
-    private boolean allBooksReturned(){
-        Boolean allReturned = true;
+    public boolean allBooksReturned(){
+        boolean allReturned = true;
         for (int i = 0; i < ownedBooks.size(); i++){
-            if ((ownedBooks.get(i).getStatus() == "accepted") || (ownedBooks.get(i).getStatus() == "borrowed")){
+            if ((ownedBooks.getBookByIndex(i).getStatus().equals("accepted")) || (ownedBooks.getBookByIndex(i).getStatus().equals("borrowed"))){
                 allReturned = false;
                 return allReturned;
             }
