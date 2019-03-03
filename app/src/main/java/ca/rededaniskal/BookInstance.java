@@ -16,14 +16,8 @@ public class BookInstance extends Book {
     private String status;
     private ArrayList<Request> requests;
 
-<<<<<<< HEAD
-    public BookInstance (String title, String author, String isbn, String description, String newOwner, String newStatus, Integer newBookId){
-        super(title, author, isbn, description);
-=======
-
     public BookInstance (String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus){
         super(newTitle, newAuthor, newIsbn);
->>>>>>> 09d679e34079705f54c57f34a6dacb0c44de23f9
         owner = newOwner;
         possessor = newpossessor;
         condition = newCondition;
