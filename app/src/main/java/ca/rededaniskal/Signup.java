@@ -35,6 +35,15 @@ public class Signup extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        EditText username
+        EditText username = (EditText) findViewById(R.id.input_username);
+        EditText password = (EditText) findViewById(R.id.input_password);
+        EditText commit_password = (EditText) findViewById(R.id.input_confirm_password);
+        EditText email = (EditText) findViewById(R.id.input_email);
+        EditText phone = (EditText) findViewById(R.id.input_phone);
+
+
+
+
+        return valid;
     }
 }
