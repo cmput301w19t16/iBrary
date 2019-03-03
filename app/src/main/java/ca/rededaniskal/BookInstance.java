@@ -17,7 +17,6 @@ public class BookInstance extends Book implements Serializable {
     private String status;
     private ArrayList<Request> requests;
 
-
     public BookInstance (String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus){
         super(newTitle, newAuthor, newIsbn);
         owner = newOwner;

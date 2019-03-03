@@ -6,7 +6,6 @@ public class Book {
     private String author;
     private String isbn;
 
-
     public Book(String newTitle, String newAuthor, String newIsbn){
         title = newTitle;
         author = newAuthor;
