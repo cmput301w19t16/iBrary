@@ -29,20 +29,48 @@ public class Signup extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Signup Failed", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), "Signup Complete", Toast.LENGTH_SHORT).show();
+            // TODO: Add user to database and go to new activity
         }
     }
 
     public boolean validate() {
         boolean valid = true;
 
-        EditText username = (EditText) findViewById(R.id.input_username);
-        EditText password = (EditText) findViewById(R.id.input_password);
-        EditText commit_password = (EditText) findViewById(R.id.input_confirm_password);
-        EditText email = (EditText) findViewById(R.id.input_email);
-        EditText phone = (EditText) findViewById(R.id.input_phone);
+        EditText usernameText = (EditText) findViewById(R.id.input_username);
+        EditText passwordText = (EditText) findViewById(R.id.input_password);
+        EditText confirmText = (EditText) findViewById(R.id.input_confirm_password);
+        EditText emailText = (EditText) findViewById(R.id.input_email);
+        EditText phoneText = (EditText) findViewById(R.id.input_phone);
 
+        String username = usernameText.getText().toString();
+        String password = passwordText.getText().toString();
+        String confirm = confirmText.getText().toString();
+        String email = emailText.getText().toString();
+        String phone = phoneText.getText().toString();
 
-
+        if (username.isEmpty()) {
+            usernameText.setError("Please enter username");
+            valid = false;
+        }
+        if (password.isEmpty()) {
+            passwordText.setError("Please enter a password");
+            valid = false;
+        }
+        if (confirm.isEmpty()) {
+            confirmText.setError("Please confirm the password");
+            valid = false;
+        } else if (!password.equals(confirm)) {
+            confirmText.setError("Must be the same as password");
+            valid = false;
+        }
+        if (email.isEmpty()) {
+            emailText.setError("Please an email");
+            valid = false;
+        }
+        if (phone.isEmpty()) {
+            phoneText.setError("Please a phone");
+            valid = false;
+        }
 
         return valid;
     }
