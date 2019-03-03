@@ -35,14 +35,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(mctx);
         View view = inflater.inflate(R.layout.user_list_view, null);
-        UserViewHolder holder = new BookViewHolder(view);
+        UserViewHolder holder = new UserViewHolder(view);
         return holder;
     }
 
     /**
      * Binds an Entry to a view holder.
      *
-     * @param bookViewHolder      the the view to be bound to
      * @param i                 position of Entry in list
      */
     @Override
@@ -50,7 +49,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         final User user = users.get(i);
 
         //Set the user attributes
-        userViewHolder.bookTitle.setText(book.getTitle());
+        userViewHolder.UserName.setText(user.getUserName());
+        userViewHolder.UserLocation.setText(user.getLocation());
+        userViewHolder.UserMutualFriends.setText( toString(globalUser.numberMutualFriends(user)));// TODO: Implement global User
+
+
+        //if ( globalUser.isFriendswith())
+
 
 
         //if User clicks on a Book, will start the book details Activity
@@ -58,9 +63,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                Intent intent = new Intent(mctx, BookDetailsActivity.class); // TODO: change the name of this for the
-                bundle.putSerializable("KEY", book);
-                intent.putExtras(bundle); // Pass in the postion of entry to be changed in the list
+                Intent intent = new Intent(mctx, UserDetailsActivity.class); // TODO: change the name of this for the
+                bundle.putSerializable("KEY", user);
+                intent.putExtras(bundle); // Pass in the position of entry to be changed in the list
                 mctx.startActivity(intent);
             }
         });
