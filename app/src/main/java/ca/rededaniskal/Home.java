@@ -109,7 +109,26 @@ public class Home extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_home_page, container, false);
+            View rootView = null;
+            switch(getArguments().getInt(ARG_SECTION_NUMBER)){
+                case 1:
+                    //Load home page
+                    rootView = inflater.inflate(R.layout.fragment_home_page, container, false);
+                    break;
+                case 2:
+                    //Load search page
+                    rootView = inflater.inflate(R.layout.fragment_search, container, false);
+                    break;
+                case 3:
+                    //Load messages page
+                    rootView = inflater.inflate(R.layout.fragment_messages, container, false);
+                    break;
+                case 4:
+                    //Load personal profile page
+                    rootView = inflater.inflate(R.layout.fragment_personal_profile, container, false);
+                    break;
+            }
+
             return rootView;
         }
     }
