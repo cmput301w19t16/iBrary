@@ -52,13 +52,29 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         userViewHolder.UserName.setText(user.getUserName());
         userViewHolder.UserLocation.setText(user.getLocation());
         userViewHolder.UserMutualFriends.setText( toString(globalUser.numberMutualFriends(user)));// TODO: Implement global User
+        //TODO: Set Profile Pic
 
 
-        //if ( globalUser.isFriendswith())
+        //If they are Friends, set the icon to the friends icon
+        if ( globalUser.isFriendswith(user)){
+            userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_black_24dp);
+        }else{
+            userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_add_black_24dp);
+        }
+
+        //Set on click listener for the icon (in order to add friends)
+        userViewHolder.statusIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!globalUser.isFriendswith(user)){ // if they are not friends
+                    //TODO: Send friend request
+                }
+            }
+        });
 
 
 
-        //if User clicks on a Book, will start the book details Activity
+        //if User clicks on another User, will start the user details Activity
         userViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
