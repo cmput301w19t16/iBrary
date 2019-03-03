@@ -683,7 +683,56 @@ public class UserUnitTest {
         user.deleteBorrowedBook(book);
 
         assertEquals((Integer)0,user.getBorrowedBooks().size());
-
     }
 
+    @Test
+    public void numberMutualFriends(){
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name2 = "Jane Doe";
+        String email2 = "jane@gmail.com";
+        String phoneNumber2 = "780-680-8796";
+        String location2  = "Edmonton, AB";
+        User user2 = new User(name2, email2, phoneNumber2, location2);
+
+        String name3 = "Regan McKing";
+        String email3 = "regan@gmail.com";
+        String phoneNumber3 = "780-000-9999";
+        String location3  = "Red Deer, AB";
+        User user3 = new User(name3, email3, phoneNumber3, location3);
+
+        user.addFriend(user3);
+        user2.addFriend(user3);
+        assertEquals((Integer)1, user.numberMutualFriends(user2));
+    }
+
+    @Test
+    public void isFriendsWith(){
+        String name = "John Doe";
+        String email = "john@gmail.com";
+        String phoneNumber = "780-675-8796";
+        String location  = "Edmonton, AB";
+        User user = new User(name, email, phoneNumber, location);
+
+        String name2 = "Jane Doe";
+        String email2 = "jane@gmail.com";
+        String phoneNumber2 = "780-680-8796";
+        String location2  = "Edmonton, AB";
+        User user2 = new User(name2, email2, phoneNumber2, location2);
+
+        String name3 = "Regan McKing";
+        String email3 = "regan@gmail.com";
+        String phoneNumber3 = "780-000-9999";
+        String location3  = "Red Deer, AB";
+        User user3 = new User(name3, email3, phoneNumber3, location3);
+
+        user.addFriend(user2);
+
+        assertTrue(user.isFriendsWith(user2));
+        assertFalse(user.isFriendsWith(user3));
+    }
 }
