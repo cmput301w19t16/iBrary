@@ -12,9 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
-
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder>{
     public Context mctx;
@@ -25,7 +22,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
      */
     public BookAdapter(Context mctx, BookList bookList) {
         this.mctx = mctx;
-        bookList = bookList;
+        this.bookList = bookList;
     }
 
     /**
@@ -94,11 +91,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
          */
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.BookCover); //TODO: Make this display the books image
+            imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
 
-            bookTitle = itemView.findViewById(R.id.bookTitle);
+            bookTitle = itemView.findViewById(R.id.UserName);
             bookAuthor = itemView.findViewById(R.id.time);
-            bookISBN = itemView.findViewById(R.id.bookISBN);
+            bookISBN = itemView.findViewById(R.id.UserMutualFriend);
             bookStatus = itemView.findViewById(R.id.bookStatus);
             bookOwner = itemView.findViewById(R.id.bookOwner);
         }

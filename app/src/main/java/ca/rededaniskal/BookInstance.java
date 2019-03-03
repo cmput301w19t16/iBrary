@@ -4,9 +4,10 @@ package ca.rededaniskal;
 
 import android.app.DownloadManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BookInstance extends Book {
+public class BookInstance extends Book implements Serializable {
 
     private String owner;
     private String possessor;
