@@ -19,6 +19,8 @@
     <string name="borrow_requests">Borrowed/Requested Books</string>
     <string name="library">My Library</string>
     <string name="edit_user_pic">Edit User Photo</string>
+    <string name="hello_blank_fragment">this is placeholder text</string>
+
 
 
 </resources>

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
+    private User globalUser = new User("username", "email", "location");
     public Context mctx;
     private ArrayList<User> users;
 
@@ -51,12 +52,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         //Set the user attributes
         userViewHolder.UserName.setText(user.getUserName());
         userViewHolder.UserLocation.setText(user.getLocation());
-        userViewHolder.UserMutualFriends.setText( toString(globalUser.numberMutualFriends(user)));// TODO: Implement global User
+        userViewHolder.UserMutualFriends.setText(globalUser.numberMutualFriends(user).toString());// TODO: Implement global User
         //TODO: Set Profile Pic
 
 
         //If they are Friends, set the icon to the friends icon
-        if ( globalUser.isFriendswith(user)){
+        if ( globalUser.isFriendsWith(user)){
             userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_black_24dp);
         }else{
             userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_add_black_24dp);
@@ -66,7 +67,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         userViewHolder.statusIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!globalUser.isFriendswith(user)){ // if they are not friends
+                if (!globalUser.isFriendsWith(user)){ // if they are not friends
                     //TODO: Send friend request
                 }
             }
@@ -79,7 +80,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                Intent intent = new Intent(mctx, UserDetailsActivity.class); // TODO: change the name of this for the
+                Intent intent = new Intent(mctx, User_Details_Activity.class); // TODO: change the name of this for the
                 bundle.putSerializable("KEY", user);
                 intent.putExtras(bundle); // Pass in the position of entry to be changed in the list
                 mctx.startActivity(intent);

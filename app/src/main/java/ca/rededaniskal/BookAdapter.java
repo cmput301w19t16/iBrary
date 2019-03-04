@@ -60,7 +60,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                Intent intent = new Intent(mctx, BookDetailsActivity.class); // TODO: change the name of this for the
+                Intent intent = new Intent(mctx, Book_Details_Activity.class); // TODO: change the name of this for the
                 bundle.putSerializable("KEY", book);
                 intent.putExtras(bundle); // Pass in the postion of entry to be changed in the list
                 mctx.startActivity(intent);
