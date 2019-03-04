@@ -19,25 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_person_black_24dp" />
 
-    <TextView
-        android:id="@+id/FavBookInfoBox"
-        android:layout_width="328dp"
-        android:layout_height="218dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:shadowColor="@android:color/black"
-        android:shadowDx="5.0"
-        android:shadowDy="5.0"
-        android:shadowRadius="5.0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:layout_constraintVertical_bias="0.21" />
-
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="320dp"
@@ -61,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorBackgroundFloating"
                 android:padding="1dip"
-                android:text="Username:"
+                android:text="@string/username"
                 android:textColor="#000"
                 android:textSize="12dp" />
 
@@ -89,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:padding="1dip"
-                android:text="Location:"
+                android:text="@string/location"
                 android:textColor="#000"
                 android:textSize="12dp" />
 
@@ -115,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:padding="1dip"
-                android:text="Email:"
+                android:text="@string/email"
                 android:textColor="#000"
                 android:textSize="12dp" />
 
@@ -143,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:padding="1dip"
-                android:text="Phone Number"
+                android:text="@string/phone_num"
                 android:textColor="#000"
                 android:textSize="12dp" />
 
@@ -181,5 +162,6 @@
 
 
     </TableLayout>
+
 
 </android.support.constraint.ConstraintLayout>
