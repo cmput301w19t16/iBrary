@@ -70,6 +70,9 @@ public class Signup extends AppCompatActivity {
         if (phone.isEmpty()) {
             phoneText.setError("Please a phone");
             valid = false;
+        } else if (phone.length() != 10) {
+            phoneText.setError("That is not a valid phone number");
+            valid = false;
         }
 
         return valid;
