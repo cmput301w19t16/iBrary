@@ -20,7 +20,7 @@
     <string name="library">My Library</string>
     <string name="edit_user_pic">Edit User Photo</string>
     <string name="hello_blank_fragment">this is placeholder text</string>
-
+    <string name="MyFavBook">My Fav Book</string>
 
 
 </resources>
