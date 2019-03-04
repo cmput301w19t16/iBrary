@@ -15,54 +15,81 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_user">
+        app:layout_constraintTop_toBottomOf="@+id/change_info">
 
         <TableRow
-            android:id="@+id/friend_list"
+            android:id="@+id/old"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/button5"
+            <TextView
+                android:id="@+id/old_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/friend_list"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_user" />
+                android:text="@string/old_pass" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/borrow_request_books"
+            android:id="@+id/enter_old_pass"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/button6"
+            <EditText
+                android:id="@+id/old_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/borrow_requests"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button5" />
+                android:ems="10"
+                android:inputType="textPassword" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/library"
+            android:id="@+id/new_p"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/button7"
+            <TextView
+                android:id="@+id/new_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/library"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button6" />
+                android:text="@string/new_pass" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/enter_new_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/new_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/confirm_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm_pass" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/enter_confirm_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/confirm_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword" />
         </TableRow>
 
     </TableLayout>
@@ -78,6 +105,7 @@
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,16 +136,13 @@
                 android:textColor="#000"
                 android:textSize="12dp" />
 
-            <TextView
-
-                android:id="@+id/DisplayUserName"
-                android:layout_width="260dp"
+            <EditText
+                android:id="@+id/new_username"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/background_light"
-                android:padding="1dip"
-                android:text="User Name Here"
-                android:textColor="#000"
-                android:textSize="14dp" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
 
         </TableRow>
 
@@ -127,7 +152,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/Location"
+                android:id="@+id/phone_"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
@@ -136,15 +161,14 @@
                 android:textColor="#000"
                 android:textSize="12dp" />
 
-            <TextView
-                android:id="@+id/DisplayLocation"
-                android:layout_width="260dp"
+            <EditText
+                android:id="@+id/new_phone"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="780-000-0000"
-                android:textColor="#000"
-                android:textSize="14dp" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
         </TableRow>
 
         <TableRow
@@ -162,15 +186,13 @@
                 android:textColor="#000"
                 android:textSize="12dp" />
 
-            <TextView
-                android:id="@+id/DisplayEmail"
-                android:layout_width="260dp"
+            <EditText
+                android:id="@+id/new_email"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="example@exmaple.ca"
-                android:textColor="#000"
-                android:textSize="14dp" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
 
         </TableRow>
 
@@ -181,7 +203,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/Phonenumber"
+                android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
@@ -190,15 +212,13 @@
                 android:textColor="#000"
                 android:textSize="12dp" />
 
-            <TextView
-                android:id="@+id/DisplayPhoneNumber"
-                android:layout_width="260dp"
+            <EditText
+                android:id="@+id/new_location"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="City, Province"
-                android:textColor="#000"
-                android:textSize="14dp" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
 
         </TableRow>
 
@@ -206,25 +226,28 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/edit_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/edit_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_info" />
-
-    <Button
         android:id="@+id/button8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/logout"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/change_pass" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="84dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.581"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,12 +1,14 @@
 package ca.rededaniskal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -18,6 +20,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class personal_profile extends Fragment {
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,6 +36,11 @@ public class personal_profile extends Fragment {
     public personal_profile() {
         // Required empty public constructor
     }
+
+
+
+
+
 
     /**
      * Use this factory method to create a new instance of
@@ -51,6 +60,7 @@ public class personal_profile extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +74,19 @@ public class personal_profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_personal_profile, container, false);
+        View v = inflater.inflate(R.layout.fragment_personal_profile,container, false);
+
+        Button editButton = (Button) v.findViewById(R.id.edit_user);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Edit_Profile_Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

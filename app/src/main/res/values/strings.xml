@@ -11,16 +11,22 @@
     <string name="title_activity_register">Register</string>
     <string name="sign_up">Sign Up</string>
     <string name="intro">Some Cool Phrase</string>
-    <string name="username">Username</string>
-    <string name="phone_num">Phone #</string>
-    <string name="email">Email</string>
-    <string name="location">Location </string>
+    <string name="username">Username:</string>
+    <string name="phone_num">Phone Number:</string>
+    <string name="email">Email:</string>
+    <string name="location">Location:</string>
     <string name="friend_list">Friends List</string>
     <string name="borrow_requests">Borrowed/Requested Books</string>
     <string name="library">My Library</string>
     <string name="edit_user_pic">Edit User Photo</string>
     <string name="hello_blank_fragment">this is placeholder text</string>
-
+    <string name="edit_profile">Edit Profile</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_edit__profile_">Edit_Profile_Activity</string>
+    <string name="save">Save</string>
+    <string name="old_pass">Old Password</string>
+    <string name="new_pass">New Password</string>
+    <string name="confirm_pass">Confirm Password</string>
 
 
 </resources>
