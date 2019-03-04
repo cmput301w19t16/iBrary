@@ -3,6 +3,7 @@ package ca.rededaniskal;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+//Author: Revan
 public class Book_Details_Activity extends AppCompatActivity {
 
     @Override
