@@ -11,12 +11,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class BookInstance extends Book {
+public class BookInstance extends Book implements Serializable {
 
     private String owner;
     private String possessor;
@@ -51,7 +53,18 @@ public class BookInstance extends Book {
 
     public ArrayList<Request> getAllRequests(){
         return requests;
+    }
 
+    //Returns boolean if that user has sent a request for a given book
+    public boolean isRequestedBy(User user){
+        boolean isRequested = false;
+        for (Integer i  = 0; i< requests.size(); i++){
+            if (requests.get(i).getSenderUserName().equals(user.getUserName())){
+                isRequested = true;
+                return isRequested;
+            }
+        }
+        return isRequested;
     }
 
     public String getOwner() {

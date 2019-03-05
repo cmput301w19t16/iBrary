@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddBookInstance"></activity>
+
+
+<activity android:name=".AddBookInstance"></activity>
+=======
+        <activity android:name=".User_Details_Activity"></activity>
+>>>>>>> af38704524b43348ffda504cd0af50f4186a97e4
         <activity android:name=".Book_Details_Activity" />
         <activity
             android:name=".Register"
