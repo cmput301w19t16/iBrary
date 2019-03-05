@@ -38,10 +38,6 @@ public class personal_profile extends Fragment {
     }
 
 
-
-
-
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -76,7 +72,7 @@ public class personal_profile extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_personal_profile,container, false);
 
-        Button editButton = (Button) v.findViewById(R.id.edit_user);
+        Button editButton = v.findViewById(R.id.edit_user);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
