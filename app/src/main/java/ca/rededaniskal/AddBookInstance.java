@@ -3,6 +3,7 @@ package ca.rededaniskal;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -59,16 +61,35 @@ public class AddBookInstance extends AppCompatActivity {
             DatabaseReference myRef= FirebaseDatabase.getInstance().getReference();
             DatabaseReference bookInstanceRef = myRef.child("bookInstances");
             bookInstanceRef.push().setValue(bookInstance);
-            DatabaseReference masterBookRef = myRef.child("masterBook");
-            //masterBookRef.addListenerForSingleValueEvent(new ValueEventListener(){
-             //   @Override
-               // void onDataChange(DataSnapshot dataSnapshot){
-                 //   if (!(dataSnapshot.hasChild(ISBN))){
-                   //     MasterBook masterBook = new MasterBook(title, author,ISBN);
+            final DatabaseReference masterBookRef = myRef.child("masterBook");
+            masterBookRef.addListenerForSingleValueEvent(new ValueEventListener(){
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue()!=null){
+                        if(!dataSnapshot.hasChild(ISBN)){
 
-                    //}
-                //}
-           // } );
+                            masterBookRef.child(ISBN).setValue(new MasterBook(title, author, ISBN));
+                        }
+                    }
+                    else{
+                        masterBookRef.child(ISBN).setValue(new MasterBook(title, author, ISBN));
+
+
+                    }
+
+
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+
+
+                }
+            });
 
 
 
