@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/ic_person_black_24dp" />
 
     <TableLayout
-        android:id="@+id/change_info"
+        android:id="@+id/tableLayout"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
