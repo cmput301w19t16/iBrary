@@ -50,7 +50,7 @@
 
                 android:id="@+id/DisplayUserName"
                 android:layout_width="260dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@android:color/background_light"
                 android:padding="1dip"
                 android:text="User Name Here"
@@ -164,7 +164,7 @@
     </TableLayout>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/DisplayFavBookCover"
         android:layout_width="102dp"
         android:layout_height="73dp"
         android:layout_marginStart="28dp"
@@ -196,7 +196,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.272"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/DisplayFavBookCover"
         app:layout_constraintTop_toBottomOf="@+id/MyFavBook">
 
         <TableRow
