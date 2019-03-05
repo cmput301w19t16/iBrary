@@ -28,5 +28,8 @@
     <string name="status">Status</string>
     <string name="go_to_forum">Go To Forum</string>
     <string name="description">Description</string>
+    <string name="request_book">Request This Book</string>
+    <string name="cancel_request">Cancel Book Request</string>
+
 
 </resources>

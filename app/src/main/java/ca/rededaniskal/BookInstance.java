@@ -5,6 +5,7 @@ package ca.rededaniskal;
 import android.app.DownloadManager;
 
 import java.io.Serializable;
+import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 
 public class BookInstance extends Book implements Serializable {
@@ -38,7 +39,18 @@ public class BookInstance extends Book implements Serializable {
 
     public ArrayList<Request> getAllRequests(){
         return requests;
+    }
 
+    //Returns boolean if that user has sent a request for a given book
+    public boolean isRequestedBy(User user){
+        boolean isRequested = false;
+        for (Integer i  = 0; i< requests.size(); i++){
+            if (requests.get(i).getSenderUserName().equals(user.getUserName())){
+                isRequested = true;
+                return isRequested;
+            }
+        }
+        return isRequested;
     }
 
     public String getOwner() {

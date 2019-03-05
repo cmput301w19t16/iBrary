@@ -200,7 +200,7 @@
         app:layout_constraintTop_toBottomOf="@+id/BookCover" />
 
     <TextView
-        android:id="@+id/BookDescription"
+        android:id="@+id/DisplayDescription"
         android:layout_width="361dp"
         android:layout_height="192dp"
         android:layout_marginStart="8dp"
@@ -221,7 +221,7 @@
         android:text="Request or Cancel Request"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BookDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/DisplayDescription" />
 
 
 </android.support.constraint.ConstraintLayout>
