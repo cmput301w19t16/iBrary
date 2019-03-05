@@ -6,4 +6,222 @@
     android:layout_height="match_parent"
     tools:context=".Book_Details_Activity">
 
+    <ImageView
+        android:id="@+id/BookCover"
+        android:layout_width="122dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_book_black_24dp" />
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="249dp"
+        android:layout_height="179dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/BookCover"
+
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TableRow
+            android:id="@+id/row1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Title"
+                android:layout_width="66dp"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorBackgroundFloating"
+                android:padding="1dip"
+                android:text="@string/book_title"
+                android:textColor="#000"
+                android:textSize="12dp" />
+
+            <TextView
+
+                android:id="@+id/DisplayTitle"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/background_light"
+                android:padding="1dip"
+                android:text="Book title here"
+                android:textColor="#000"
+                android:textSize="14dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="1dip"
+                android:text="@string/author"
+                android:textColor="#000"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/DisplayAuthor"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="1dip"
+                android:text="Book Author Here"
+                android:textColor="#000"
+                android:textSize="14dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/ISBN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="1dip"
+                android:text="@string/isbn"
+                android:textColor="#000"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/DisplayISBN"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="1dip"
+                android:text="123456789"
+                android:textColor="#000"
+                android:textSize="14dp" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/row4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="1dip"
+                android:text="@string/owner"
+                android:textColor="#000"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/DisplayOwner"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="1dip"
+                android:text="Book Owner"
+                android:textColor="#000"
+                android:textSize="14dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="1dip"
+                android:text="@string/status"
+                android:textColor="#000"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/DisplayStatus"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="1dip"
+                android:text="Book Status Here"
+                android:textColor="#000"
+                android:textSize="14dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/GoToForum"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:gravity="center"
+                android:text="@string/go_to_forum"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="89dp"
+                tools:layout_editor_absoluteY="226dp" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/description"
+        android:textColor="?attr/actionMenuTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BookCover" />
+
+    <TextView
+        android:id="@+id/DisplayDescription"
+        android:layout_width="361dp"
+        android:layout_height="192dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="Book Description Here"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <Button
+        android:id="@+id/request_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Request or Cancel Request"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DisplayDescription" />
+
+
 </android.support.constraint.ConstraintLayout>
