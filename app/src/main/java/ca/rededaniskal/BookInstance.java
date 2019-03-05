@@ -33,16 +33,11 @@ public class BookInstance extends Book {
         condition = newCondition;
         status = newStatus;
         requests = new ArrayList<Request>();
-        addToDatabase();
+
 
     }
 
 
-    private void addToDatabase(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("bookInstances");
-        myRef.setValue(this);
-    }
 
 
     public void addRequest(Request newRequest){
