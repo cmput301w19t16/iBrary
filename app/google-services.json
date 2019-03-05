@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "440585002478",
+    "firebase_url": "https://ibrary-e746b.firebaseio.com",
+    "project_id": "ibrary-e746b",
+    "storage_bucket": "ibrary-e746b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440585002478:android:01929685eb1c815e",
+        "android_client_info": {
+          "package_name": "ca.rededaniskal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440585002478-3i2nmfctonoli4gc2mublvfirriccjnh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.rededaniskal",
+            "certificate_hash": "615a710971f67f487b5149d0b572afd972d382e6"
+          }
+        },
+        {
+          "client_id": "440585002478-6jn8i9osfn962ed71v9t3d8s7v7v1iv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALQ5V2iTB4TiznAiD4nOqlWMPIGyzaqc0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440585002478-6jn8i9osfn962ed71v9t3d8s7v7v1iv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
