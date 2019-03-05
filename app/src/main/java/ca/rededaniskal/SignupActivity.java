@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Signup extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +26,9 @@ public class Signup extends AppCompatActivity {
 
     public void signup() {
         if(!validate()) {
-            Toast.makeText(getApplicationContext(), "Signup Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getApplicationContext(), "Signup Complete", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Sign Up Complete", Toast.LENGTH_SHORT).show();
             // TODO: Add user to database and go to new activity
         }
     }
@@ -66,6 +66,9 @@ public class Signup extends AppCompatActivity {
         if (email.isEmpty()) {
             emailText.setError("Please an email");
             valid = false;
+        } else if (!isEmailValid(email)) {
+            emailText.setError("That is not a valid email");
+            valid = false;
         }
         if (phone.isEmpty()) {
             phoneText.setError("Please a phone");
@@ -76,5 +79,9 @@ public class Signup extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    public boolean isEmailValid(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
