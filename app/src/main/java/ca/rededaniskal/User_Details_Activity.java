@@ -20,6 +20,7 @@ public class User_Details_Activity extends AppCompatActivity {
     TextView DisplayLocation;
     TextView DisplayEmail;
     TextView DisplayPhoneNum;
+    TextView DisplayMutualFriends;
 
     TextView DisplayFavTitle;
     TextView DisplayFavAuthor;
@@ -36,7 +37,7 @@ public class User_Details_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null){
-            user_received = (User) getIntent().getSerializableExtra("KEY");
+            user_received = (User) getIntent().getSerializableExtra("USER");
             fillData(user_received);
         }
     }
@@ -48,6 +49,8 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayLocation = (TextView) findViewById(R.id.DisplayLocation);
         DisplayEmail = (TextView) findViewById(R.id.DisplayEmail);
         DisplayPhoneNum = (TextView) findViewById(R.id.DisplayPhoneNumber);
+        DisplayMutualFriends = (TextView) findViewById(R.id.UserMutualFriends);
+
 
         DisplayFavTitle = (TextView) findViewById(R.id.DisplayBookTitle);
         DisplayFavAuthor = (TextView) findViewById(R.id.DisplayBookAuthor);
@@ -60,6 +63,7 @@ public class User_Details_Activity extends AppCompatActivity {
         String location = user.getLocation();
         String email = user.getEmail();
         String phone_num = user.getPhoneNumber();
+        Integer mutual_friends = user.numberMutualFriends(user);
 
         MasterBook fav_book = user.getFavBook();
         String fav_title = fav_book.getTitle();
@@ -72,6 +76,7 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayLocation.setText(location);
         DisplayEmail.setText(email);
         DisplayPhoneNum.setText(phone_num);
+        DisplayMutualFriends.setText(mutual_friends);
 
         DisplayFavTitle.setText(fav_title);
         DisplayFavAuthor.setText(fav_author);
