@@ -23,48 +23,35 @@ public class BookInstance extends Book implements Serializable {
     private String owner;
     private String possessor;
     private String condition;
+    private String bookID;
+
     //private BufferedImage bookImage;
 
     private String status;
-    private ArrayList<Request> requests;
+
+
+
 
     public BookInstance (String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus){
         super(newTitle, newAuthor, newIsbn);
-        owner = newOwner;
-        possessor = newpossessor;
-        condition = newCondition;
-        status = newStatus;
-        requests = new ArrayList<Request>();
+        this.bookID = UUID.fromString(newIsbn+newOwner).toString();
+        this.owner = newOwner;
+        this.possessor = newpossessor;
+        this.condition = newCondition;
+        this.status = newStatus;
+
+
 
 
     }
 
 
-
-
-    public void addRequest(Request newRequest){
-        requests.add(newRequest);
+    public String getBookID() {
+        return bookID;
     }
 
-
-    public void deleteRequest(Request request){
-        requests.remove(request);
-    }
-
-    public ArrayList<Request> getAllRequests(){
-        return requests;
-    }
-
-    //Returns boolean if that user has sent a request for a given book
-    public boolean isRequestedBy(User user){
-        boolean isRequested = false;
-        for (Integer i  = 0; i< requests.size(); i++){
-            if (requests.get(i).getSenderUserName().equals(user.getUserName())){
-                isRequested = true;
-                return isRequested;
-            }
-        }
-        return isRequested;
+    public void GenerateBookID() {
+        this.bookID = UUID.randomUUID().toString();
     }
 
     public String getOwner() {
