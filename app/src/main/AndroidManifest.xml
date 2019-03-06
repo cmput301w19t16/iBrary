@@ -11,21 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".User_Details_Activity" />
-        <activity android:name=".Book_Details_Activity" />
+        <activity android:name="ca.rededaniskal.User_Details_Activity" />
+        <activity android:name="ca.rededaniskal.Book_Details_Activity" />
         <activity
-            android:name=".Register"
+            android:name="ca.rededaniskal.Register"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Login"
+            android:name="ca.rededaniskal.Login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Home"
+            android:name="ca.rededaniskal.Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity">
+        <activity android:name="ca.rededaniskal.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,11 +33,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Edit_Profile_Activity"
+            android:name="ca.rededaniskal.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Barcode_Scanner_Activity"
+            android:name="ca.rededaniskal.Barcode_Scanner_Activity"
             android:label="@string/title_activity_barcode__scanner_"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

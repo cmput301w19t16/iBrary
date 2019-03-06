@@ -28,10 +28,10 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+//import com.google.zxing.integration.android.IntentIntegrator;
+//import com.google.zxing.integration.android.IntentResult;
 
-public class Barcode_Scanner_Activity extends AppCompatActivity implements OnClickListener {
+public class Barcode_Scanner_Activity extends AppCompatActivity {
 
     private static final int RESULT_LOAD_IMAGE = 0;
     private static final int MY_PERMISSON_STOARAGE = 1;
@@ -49,7 +49,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode__scanner_);
 
-        //request storage permission
+        /*//request storage permission
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M &&
                 checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED)
@@ -57,14 +57,14 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements OnCli
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     MY_PERMISSON_STOARAGE);
         }
-
-        contentText = (TextView)findViewById(R.id.contentTextView);
+*/
+        //contentText = (TextView) findViewById(R.id.contentTextView);
         formalText = (TextView) findViewById(R.id.barcodeTextView);
         scanButton = (Button) findViewById(R.id.pickButton);
         imageView = (ImageView) findViewById(R.id.scanner);
-        scanButton.setOnClickListener(this);
+        //scanButton.setOnClickListener(this);
 
-        //init detector
+       /* //init detector
         detector = new BarcodeDetector.Builder(getApplicationContext())
                 .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
                 .build();
@@ -72,7 +72,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements OnCli
             textView.setText("Could not setup the detector");
         }
 
-        button.setOnClickListener(new View.OnClickListener() {
+       /* button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -80,9 +80,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements OnCli
                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, RESULT_LOAD_IMAGE);
             }
-        });
-
-
+        });*/
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -97,7 +95,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements OnCli
             }
         });
     }
-
+/*
     public void onClick(View v){
         if(v.getId() == R.id.scan_button){
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
@@ -142,5 +140,5 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements OnCli
 
         Barcode thisCode = barcodes.valueAt(0);
         textView.setText(thisCode.rawValue);
-    }
+    }*/
 }
