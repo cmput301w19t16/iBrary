@@ -3,8 +3,18 @@ package ca.rededaniskal;
 //import java.awt.image.*;
 
 import android.app.DownloadManager;
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class BookInstance extends Book {
 
@@ -24,7 +34,11 @@ public class BookInstance extends Book {
         status = newStatus;
         requests = new ArrayList<Request>();
 
+
     }
+
+
+
 
     public void addRequest(Request newRequest){
         requests.add(newRequest);

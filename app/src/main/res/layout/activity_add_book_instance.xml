@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddBookInstance">
+    <ImageView
+        android:id="@+id/addBookImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+    <TextView
+    android:id="@+id/addBookTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf= "@id/addBookImage"
+    app:layout_constraintStart_toStartOf="parent"
+    android:text="Title"
+
+    />
+    <EditText
+        android:id="@+id/addBookEditTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addBookTitle"/>
+
+    <TextView
+        android:id="@+id/addBookAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf= "@id/addBookEditTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Author"
+
+        />
+    <EditText
+        android:id="@+id/addBookEditAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addBookTitle"/>
+
+    <TextView
+        android:id="@+id/addBookISBN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf= "@id/addBookEditAuthor"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="ISBN"
+
+        />
+    <EditText
+        android:id="@+id/addBookEditISBN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addBookISBN"/>
+
+    <Button
+        android:id="@+id/addBookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/addBookEditISBN"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Add Book"
+
+        />
+</android.support.constraint.ConstraintLayout>
