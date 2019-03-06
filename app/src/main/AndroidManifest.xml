@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.rededaniskal">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,6 +35,10 @@
         <activity
             android:name=".Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Barcode_Scanner_Activity"
+            android:label="@string/title_activity_barcode__scanner_"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
