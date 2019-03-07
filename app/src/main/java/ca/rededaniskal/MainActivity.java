@@ -12,7 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Button button = findViewById(R.id.go_home_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,5 +25,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(v.getContext(), Book_Details_Activity.class);
         startActivity(intent);
         this.finish();
+
     }
 }
