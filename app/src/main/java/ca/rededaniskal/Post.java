@@ -1,27 +1,32 @@
 package ca.rededaniskal;
 
+import java.util.UUID;
+
 import java.util.Date;
 
 public class Post {
+    private String title;
     private String message;
     private Date timestamp;
     private String userName;
-    private String replyTarget;
+    private String ISBN;
+    private String postID;
+    private String type;
 
     // Constructor for a post
-    public Post(String message, String userName) {
+    public Post(String Title, String message, String userName, String ISBN, String TYPE) {
+        this.title = Title;
         this.message = message;
         this.timestamp = new Date();
         this.userName = userName;
+        this.ISBN = ISBN;
+        this.type = type;
     }
 
-    // Constructor for a reply (has additional end replyTarget)
-    public Post(String message, String userName, String replyTarget) {
-        this.timestamp = new Date();
-        this.userName = userName;
-        this.replyTarget = replyTarget;
-        this.message = "@" + replyTarget + " " + message;
-    }
+
+    public String getISBN(){ return ISBN;}
+
+    public String getType(){ return type;}
 
     public String getMessage() {
         return message;
@@ -29,6 +34,10 @@ public class Post {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setPostID(String postID){
+        this.postID = postID;
     }
 
     public Date getTimestamp() {
@@ -39,19 +48,7 @@ public class Post {
         return userName;
     }
 
-    public String getReplyTarget() {
-        return replyTarget;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public void setReplyTarget(String replyTarget) {
-        this.replyTarget = replyTarget;
     }
 }
