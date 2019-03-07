@@ -1,10 +1,12 @@
 package ca.rededaniskal;
 
 import android.media.Image;
+
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable {
     private String userName;
     private String email;
     private String phoneNumber;
@@ -58,7 +60,6 @@ public class User {
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
-
 
 
     public BookList getRequestedBooks() {
@@ -219,5 +220,28 @@ public class User {
         }
         return allReturned;
     }
-    
+
+
+    //Takes in another user, and returns the number of friends in common
+    public Integer numberMutualFriends(User user2){
+        Integer numMutualFriends = 0;
+
+        for (int i = 0; i< this.getFriends().size(); i++){
+            if (user2.getFriends().contains(this.getFriends().get(i))){ // If user is in other uses friends list
+                numMutualFriends +=1;
+            }
+        }
+
+        return numMutualFriends;
+    }
+
+
+    //Returns True is the two users are friends, false o/w
+    public Boolean isFriendsWith(User user2){
+        if (user2.getFriends().contains(user2)){
+            return true;
+        }
+        return false;
+    }
+
 }

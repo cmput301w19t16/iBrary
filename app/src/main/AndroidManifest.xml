@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddBookInstance"></activity>
+        <activity android:name=".EditBookInstance"></activity>
+        <activity
+            android:name=".AddBookInstanceActivity"
+            android:label="AddBookInstance"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".User_Details_Activity" />
         <activity android:name=".Book_Details_Activity" />
         <activity
             android:name=".Register"
