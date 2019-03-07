@@ -40,6 +40,7 @@
     <string name="title_activity_barcode__scanner_">Barcode_Scanner_Activity</string>
     <string name="Pick_pic">Pick</string>
     <string name="barcode_name">barcode</string>
+    <string name="barcodeReader">BarcodeReader</string>
     <string name="ok">OK</string>
     <string name="grant_permission">Grant Permission</string>
     <string name="permission_camera">This app needs camera permission to scan barcode</string>

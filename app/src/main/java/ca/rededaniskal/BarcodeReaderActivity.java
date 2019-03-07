@@ -1,4 +1,4 @@
-package com.notbytes.barcode_reader;
+package ca.rededaniskal;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.List;
 
+import ca.rededaniskal.BarcodeReaderFragment;
+
 public class BarcodeReaderActivity extends AppCompatActivity implements BarcodeReaderFragment.BarcodeReaderListener {
     public static String KEY_CAPTURED_BARCODE = "key_captured_barcode";
     public static String KEY_CAPTURED_RAW_BARCODE = "key_captured_raw_barcode";
@@ -19,7 +21,7 @@ public class BarcodeReaderActivity extends AppCompatActivity implements BarcodeR
     private static final String KEY_USE_FLASH = "key_use_flash";
     private boolean autoFocus = false;
     private boolean useFlash = false;
-    private BarcodeReaderFragment mBarcodeReaderFragment;
+    private ca.rededaniskal.BarcodeReaderFragment mBarcodeReaderFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,10 @@ public class BarcodeReaderActivity extends AppCompatActivity implements BarcodeR
         mBarcodeReaderFragment = attachBarcodeReaderFragment();
     }
 
-    private BarcodeReaderFragment attachBarcodeReaderFragment() {
+    private ca.rededaniskal.BarcodeReaderFragment attachBarcodeReaderFragment() {
         final FragmentManager supportFragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        BarcodeReaderFragment fragment = BarcodeReaderFragment.newInstance(autoFocus, useFlash);
+        ca.rededaniskal.BarcodeReaderFragment fragment = ca.rededaniskal.BarcodeReaderFragment.newInstance(autoFocus, useFlash);
         fragment.setListener(this);
         fragmentTransaction.replace(R.id.fm_container, fragment);
         fragmentTransaction.commitAllowingStateLoss();

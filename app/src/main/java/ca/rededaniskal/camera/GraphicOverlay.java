@@ -1,4 +1,4 @@
-package com.notbytes.barcode_reader.camera;
+package ca.rededaniskal.camera;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -34,7 +34,7 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
     private float mWidthScaleFactor = 1.0f;
     private int mPreviewHeight;
     private float mHeightScaleFactor = 1.0f;
-    private int mFacing = CameraSource.CAMERA_FACING_BACK;
+    private int mFacing = ca.rededaniskal.camera.CameraSource.CAMERA_FACING_BACK;
     private Set<T> mGraphics = new HashSet<>();
 
     /**

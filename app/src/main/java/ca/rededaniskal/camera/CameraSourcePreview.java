@@ -1,5 +1,4 @@
-
-package com.notbytes.barcode_reader.camera;
+package ca.rededaniskal.camera;
 
 import android.Manifest;
 import android.content.Context;

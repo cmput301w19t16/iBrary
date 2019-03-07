@@ -1,4 +1,4 @@
-package com.notbytes.barcode_reader;
+package ca.rededaniskal;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -38,9 +38,9 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.notbytes.barcode_reader.camera.CameraSource;
-import com.notbytes.barcode_reader.camera.CameraSourcePreview;
-import com.notbytes.barcode_reader.camera.GraphicOverlay;
+import ca.rededaniskal.camera.CameraSource;
+import ca.rededaniskal.camera.CameraSourcePreview;
+import ca.rededaniskal.camera.GraphicOverlay;
 
 import java.io.IOException;
 import java.util.List;
@@ -253,7 +253,7 @@ public class BarcodeReaderFragment extends Fragment implements View.OnTouchListe
         // graphics for each barcode on screen.  The factory is used by the multi-processor to
         // create a separate tracker instance for each barcode.
         final BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context).build();
-        BarcodeTrackerFactory barcodeFactory = new BarcodeTrackerFactory(mGraphicOverlay, this);
+        ca.rededaniskal.BarcodeTrackerFactory barcodeFactory = new ca.rededaniskal.BarcodeTrackerFactory(mGraphicOverlay, this);
         barcodeDetector.setProcessor(
                 new MultiProcessor.Builder<>(barcodeFactory).build());
 

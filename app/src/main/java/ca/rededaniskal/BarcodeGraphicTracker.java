@@ -1,4 +1,4 @@
-package com.notbytes.barcode_reader;
+package ca.rededaniskal;
 
 import android.util.Log;
 import android.util.SparseArray;
@@ -6,10 +6,12 @@ import android.util.SparseArray;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.notbytes.barcode_reader.camera.GraphicOverlay;
+import ca.rededaniskal.camera.GraphicOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.rededaniskal.BarcodeGraphic;
 
 /**
  * Generic tracker which is used for tracking or reading a barcode (and can really be used for
