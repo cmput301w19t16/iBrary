@@ -27,14 +27,6 @@
             android:text="@string/take_scan" />
 
         <TextView
-            android:id="@+id/tv_result_head"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/tv_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

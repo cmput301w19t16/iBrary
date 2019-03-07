@@ -21,8 +21,6 @@ import java.util.List;
 public class Barcode_Scanner_Activity extends AppCompatActivity implements View.OnClickListener, BarcodeReaderFragment.BarcodeReaderListener {
 
     private TextView mTvResult;
-    private TextView mTvResultHeader;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +28,6 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
         setContentView(R.layout.activity_barcode__scanner_);
         findViewById(R.id.btn_fragment).setOnClickListener(this);
         mTvResult = findViewById(R.id.tv_result);
-        mTvResultHeader = findViewById(R.id.tv_result_head);
-
 
     }
 
@@ -68,7 +64,6 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
     @Override
     public void onScanned(Barcode barcode) {
         Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
-        mTvResultHeader.setText("Barcode value from fragment");
         mTvResult.setText(barcode.rawValue);
     }
 
