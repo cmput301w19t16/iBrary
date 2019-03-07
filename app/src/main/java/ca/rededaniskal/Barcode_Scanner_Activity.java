@@ -28,11 +28,13 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_barcode__scanner_);
         findViewById(R.id.btn_activity).setOnClickListener(this);
         findViewById(R.id.btn_fragment).setOnClickListener(this);
         mTvResult = findViewById(R.id.tv_result);
         mTvResultHeader = findViewById(R.id.tv_result_head);
+
+
     }
 
     private void addBarcodeReaderFragment() {

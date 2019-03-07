@@ -8,13 +8,15 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity{
 
+    private Button buttonScanner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
         Button button = findViewById(R.id.go_home_button);
-        Button buttonScanner = findViewById(R.id.GoToScannerButton);
+        buttonScanner = findViewById(R.id.GoToScannerButton);
 
         buttonScanner.setOnClickListener(new View.OnClickListener() {
             @Override
