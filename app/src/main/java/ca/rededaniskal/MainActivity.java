@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToHome(View v){
-        Intent intent = new Intent(v.getContext(), Home.class);
+        Intent intent = new Intent(v.getContext(), Book_Details_Activity.class);
         startActivity(intent);
         this.finish();
     }

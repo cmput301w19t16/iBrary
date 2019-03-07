@@ -1,4 +1,5 @@
 package ca.rededaniskal;
+/*author: Skye*/
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class EditBookInstance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_book_instance);
         database = FirebaseDatabase.getInstance();
-        bookRef = database.getReference().child("bookInstance");
+        bookRef = database.getReference().child("bookInstances");
 
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -34,7 +34,7 @@ public class BookInstance extends Book implements Serializable {
 
     public BookInstance (String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus){
         super(newTitle, newAuthor, newIsbn);
-        this.bookID = UUID.fromString(newIsbn+newOwner).toString();
+        this.bookID = UUID.randomUUID().toString();
         this.owner = newOwner;
         this.possessor = newpossessor;
         this.condition = newCondition;
@@ -50,9 +50,7 @@ public class BookInstance extends Book implements Serializable {
         return bookID;
     }
 
-    public void GenerateBookID() {
-        this.bookID = UUID.randomUUID().toString();
-    }
+
 
     public String getOwner() {
         return owner;
