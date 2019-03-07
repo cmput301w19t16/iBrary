@@ -2,8 +2,8 @@ package ca.rededaniskal;
 
 public class textPost extends Post {
 
-    public textPost(String title, String message,
+    public textPost(String message,
                       String username, String ISBN){
-        super(title, message, username, ISBN, "textPost");
+        super(message, username, ISBN, "textPost");
     }
 }

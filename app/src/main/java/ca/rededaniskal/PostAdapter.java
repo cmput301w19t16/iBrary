@@ -2,6 +2,7 @@ package ca.rededaniskal;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -12,20 +13,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     public class PostViewHolder extends RecyclerView.ViewHolder{
         public TextView textView;
-        public PostViewHolder(TextView v){
+        public String postType;
+        public String postID;
+        public PostViewHolder(View v){
             super(v);
-            textView = v;
+            textView = v.findViewById(R.id.post_text_view);
         }
     }
 
-    public PostAdapter(){
+    public PostAdapter(ArrayList<Post> postList){
+        this.mDataset = postList;
     }
     @Override
     public PostAdapter.PostViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
-        TextView v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_text_view,
-                parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.post_card_layout, parent, false);
 
-        PostViewHolder vh = new PostViewHolder(v);
+        PostViewHolder vh = new PostViewHolder(itemView);
         return vh;
     }
 
@@ -36,12 +40,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         switch (post.getType()){
             case "ratingPost":
                 text += " just reviewed " + post.getISBN();
+
                 break;
             case "textPost":
                 text += " made a post about " + post.getISBN();
                 break;
         }
         holder.textView.setText(text);
+        holder.postType = post.getType();
+        holder.postID = post.getID();
     }
 
     @Override

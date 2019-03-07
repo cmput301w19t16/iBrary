@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 
 /**
@@ -74,15 +77,49 @@ public class home_page extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_home_page, container, false);
+        final View v = inflater.inflate(R.layout.fragment_home_page, container, false);
 
-        RecyclerView recyclerView = v.findViewById(R.id.feedRV);
+        final RecyclerView recyclerView = v.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
-        FragmentActivity c = getActivity();
-        RecyclerView.Adapter mAdapter = new PostAdapter();
+        final FragmentActivity c = getActivity();
+        final ArrayList<Post> postList = new ArrayList<Post>();
+        postList.add(new textPost("This is a text post", "User1", "Placeholder ISBN1"));
+        postList.add(new textPost("This is a text post", "User2", "Placeholder ISBN2"));
+
+        postList.add(new ratingPost("This is a ratingPost", "User6", "Placeholder ISBN", 4.0));
+        postList.add(new ratingPost("This is a ratingPost", "User7", "Placeholder ISBN", 4.0));
+        postList.add(new ratingPost("This is a ratingPost", "User8", "Placeholder ISBN", 4.0));
+        postList.add(new ratingPost("This is a ratingPost", "User9", "Placeholder ISBN", 4.0));
+
+        postList.add(new textPost("This is a text post", "User3", "Placeholder ISBN3"));
+        postList.add(new textPost("This is a text post", "User4", "Placeholder ISBN4"));
+        postList.add(new textPost("This is a text post", "User5", "Placeholder ISBN5"));
+
+        postList.add(new ratingPost("This is a ratingPost", "User10", "Placeholder ISBN", 4.0));
+        postList.add(new ratingPost("This is a ratingPost", "User11", "Placeholder ISBN", 4.0));
+        postList.add(new ratingPost("This is a ratingPost", "User12", "Placeholder ISBN", 4.0));
+
+        for (Post p: postList){
+            p.setID("Some post id");
+        }
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(c);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mAdapter);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final RecyclerAdapter adapter = new RecyclerAdapter(c);
+                c.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
+            }
+        }).start();
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return v;
     }

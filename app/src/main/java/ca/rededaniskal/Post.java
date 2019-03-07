@@ -5,7 +5,6 @@ import java.util.UUID;
 import java.util.Date;
 
 public class Post {
-    private String title;
     private String message;
     private Date timestamp;
     private String userName;
@@ -14,13 +13,12 @@ public class Post {
     private String type;
 
     // Constructor for a post
-    public Post(String Title, String message, String userName, String ISBN, String TYPE) {
-        this.title = Title;
+    public Post(String message, String userName, String ISBN, String TYPE) {
         this.message = message;
         this.timestamp = new Date();
         this.userName = userName;
         this.ISBN = ISBN;
-        this.type = type;
+        this.type = TYPE;
     }
 
 
@@ -51,4 +49,10 @@ public class Post {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public void setID(String id) {this.postID = id;}
+
+    public String getID() {return this.postID;}
+
+
 }
