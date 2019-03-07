@@ -24,7 +24,7 @@
             android:id="@+id/btn_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Scan in Fragment"/>
+            android:text="@string/take_scan" />
 
         <TextView
             android:id="@+id/tv_result_head"
