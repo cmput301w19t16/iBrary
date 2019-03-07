@@ -3,6 +3,9 @@
     package="ca.rededaniskal">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -36,6 +39,8 @@
             android:name="ca.rededaniskal.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".BarcodeReaderActivity"></activity>
+
         <activity
             android:name="ca.rededaniskal.Barcode_Scanner_Activity"
             android:label="@string/title_activity_barcode__scanner_"
