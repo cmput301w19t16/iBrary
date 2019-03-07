@@ -52,7 +52,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
             case R.id.btn_fragment:
                 addBarcodeReaderFragment();
                 break;
-            case R.id.btn_activity:
+            /*case R.id.btn_activity:
                 FragmentManager supportFragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
                 Fragment fragmentById = supportFragmentManager.findFragmentById(R.id.fm_container);
@@ -61,7 +61,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
                 }
                 fragmentTransaction.commitAllowingStateLoss();
                 launchBarCodeActivity();
-                break;
+                break;*/
         }
     }
 
