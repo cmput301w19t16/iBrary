@@ -24,13 +24,7 @@
             android:id="@+id/btn_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Scan in Fragment" />
-
-        <Button
-            android:id="@+id/btn_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Scan in activity for result" />
+            android:text="Scan in Fragment"/>
 
         <TextView
             android:id="@+id/tv_result_head"

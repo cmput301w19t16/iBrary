@@ -29,7 +29,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode__scanner_);
-        findViewById(R.id.btn_activity).setOnClickListener(this);
+        //findViewById(R.id.btn_activity).setOnClickListener(this);
         findViewById(R.id.btn_fragment).setOnClickListener(this);
         mTvResult = findViewById(R.id.tv_result);
         mTvResultHeader = findViewById(R.id.tv_result_head);
@@ -65,11 +65,11 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
         }
     }
 
-
+/*
     private void launchBarCodeActivity() {
         Intent launchIntent = BarcodeReaderActivity.getLaunchIntent(this, true, false);
         startActivityForResult(launchIntent, BARCODE_READER_ACTIVITY_REQUEST);
-    }
+    }*/
 
     @Override
 
@@ -80,13 +80,13 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
             Toast.makeText(this, "error in  scanning", Toast.LENGTH_SHORT).show();
             return;
         }
-
+/*
         if (requestCode == BARCODE_READER_ACTIVITY_REQUEST && data != null) {
             Barcode barcode = data.getParcelableExtra(BarcodeReaderActivity.KEY_CAPTURED_BARCODE);
             Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
             mTvResultHeader.setText("On Activity Result");
             mTvResult.setText(barcode.rawValue);
-        }
+        }*/
 
     }
 
