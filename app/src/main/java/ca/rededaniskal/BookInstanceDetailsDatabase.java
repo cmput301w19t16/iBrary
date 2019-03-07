@@ -22,12 +22,12 @@ public class BookInstanceDetailsDatabase {
     String BOOKREQUEST = "book-request";
     private BookInstance bookInstance;
 
-    private DatabaseReference myRef;
+
 
 
     //Constructor
     public BookInstanceDetailsDatabase() {
-        this.myRef = FirebaseDatabase.getInstance().getReference();
+
 
     }
 
@@ -35,28 +35,33 @@ public class BookInstanceDetailsDatabase {
     //returns true if successful
 
     public boolean updateBookInstance(BookInstance bookInstance){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
 
-        DatabaseReference bookInstanceRef = this.myRef.child(BOOK_INSTANCE);
+        DatabaseReference bookInstanceRef = myRef.child(BOOK_INSTANCE).child(bookInstance.getBookID());
 
+/*
+        HashMap<String, Object> bookChildUpdates = new HashMap<String, Object>();
 
-            HashMap<String, Object> bookChildUpdates = new HashMap<String, Object>();
-            HashMap<String, Object> masterChildUpdates = new HashMap<String, Object>();
-            bookChildUpdates
+        bookChildUpdates
                     .put(USER_BOOK+bookInstance.getOwner()+bookInstance.getBookID(), bookInstance);
-            if (bookInstance.getStatus().equals('b')) {
+        if (bookInstance.getStatus().equals('b')) {
             bookChildUpdates
-                    .put(BORROWED_BOOK+ bookInstance.getPossessor() + bookInstance.getBookID(), bookInstance);
+                    .put(BORROWED_BOOK+ '/'+bookInstance.getPossessor()+'/' + bookInstance.getBookID(), bookInstance);
         }
 
         bookChildUpdates
                 .put(ISBN+bookInstance.getISBN()+bookInstance.getBookID(), bookInstance);
 
         return bookInstanceRef.updateChildren(bookChildUpdates).isSuccessful();
-
+*/
+    return bookInstanceRef.setValue(bookInstance).isSuccessful();
     }
 
     public boolean deleteBook(BookInstance bookInstance){
-        DatabaseReference bookInstanceRef = this.myRef.child(BOOK_INSTANCE);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+        DatabaseReference bookInstanceRef = myRef.child(BOOK_INSTANCE);
 
 
         HashMap<String, Object> bookChildUpdates = new HashMap<String, Object>();
@@ -83,6 +88,8 @@ public class BookInstanceDetailsDatabase {
 
     //Read book details from the database by ID
     public BookInstance getBookInstanceByID(String bookID) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
         DatabaseReference bookRef = myRef.child(BOOK_INSTANCE).child(bookID);
 
         bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
