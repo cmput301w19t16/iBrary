@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import ca.rededaniskal.Barcode_Scanner_Activity;
-
-
 public class MainActivity extends AppCompatActivity{
 
     @Override
