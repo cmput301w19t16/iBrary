@@ -77,12 +77,10 @@ public class home_page extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View v = inflater.inflate(R.layout.fragment_home_page, container, false);
 
-        final RecyclerView recyclerView = v.findViewById(R.id.feedRV);
+        RecyclerView recyclerView = new RecyclerView(getContext());
         recyclerView.setHasFixedSize(true);
-        final FragmentActivity c = getActivity();
-        final ArrayList<Post> postList = new ArrayList<Post>();
+        ArrayList<Post> postList = new ArrayList<Post>();
         postList.add(new textPost("This is a text post", "User1", "Placeholder ISBN1"));
         postList.add(new textPost("This is a text post", "User2", "Placeholder ISBN2"));
 
@@ -103,25 +101,11 @@ public class home_page extends Fragment {
             p.setID("Some post id");
         }
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(c);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(new PostAdapter(postList));
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final RecyclerAdapter adapter = new RecyclerAdapter(c);
-                c.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerView.setAdapter(adapter);
-                    }
-                });
-            }
-        }).start();
-
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        return v;
+        return recyclerView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
