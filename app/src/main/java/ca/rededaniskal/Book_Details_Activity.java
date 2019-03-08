@@ -60,7 +60,7 @@ public class Book_Details_Activity extends AppCompatActivity {
 
         //Set appropriate text for the button at the bottom
 
-        if ( book.isRequestedBy(globalUser)){
+        if ( isRequested){
             Request_Cancel.setText(R.string.cancel_request);
             isRequested = true;
         }else{

@@ -13,22 +13,13 @@ import static org.junit.Assert.assertTrue;
 public class BookInstanceTest {
 
     @Test
-    public void TestRequests() {
-        Request request = new Request("John", "Jack", "Friend");
-
+    public void TestBookID(){
         BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
+        assertTrue(book.getBookID().getClass().equals(String.class));
 
-        book.addRequest(request);
-        ArrayList<Request> recievedRequest = book.getAllRequests();
-
-        assert recievedRequest.contains(request);
-
-        book.deleteRequest(request);
-
-        ArrayList<Request> allRequests = book.getAllRequests();
-
-        assertEquals(0, allRequests.size());
     }
+
+
 
     @Test
     public void TestOwner() {
@@ -87,17 +78,5 @@ public class BookInstanceTest {
         assertNotEquals("Available", status);
     }
 
-    @Test
-    public void isRequestedBy(){
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
-        User User = new User("John", "email", "location");
-        User User2 = new User("Jill", "email", "location");
-        Request request = new Request("John", "Jack", "Friend");
-
-        book.addRequest(request);
-
-        assertTrue(book.isRequestedBy(User));
-        assertFalse(book.isRequestedBy(User2));
-    }
 }
