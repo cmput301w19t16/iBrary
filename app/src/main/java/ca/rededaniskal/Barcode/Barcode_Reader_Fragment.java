@@ -155,9 +155,9 @@ public class Barcode_Reader_Fragment extends Fragment implements View.OnTouchLis
     @Override
     public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(context, attrs, savedInstanceState);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BarcodeReaderFragment);
-        autoFocus = a.getBoolean(R.styleable.BarcodeReaderFragment_auto_focus, true);
-        useFlash = a.getBoolean(R.styleable.BarcodeReaderFragment_use_flash, false);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Barcode_Reader_Fragment);
+        autoFocus = a.getBoolean(R.styleable.Barcode_Reader_Fragment_auto_focus, true);
+        useFlash = a.getBoolean(R.styleable.Barcode_Reader_Fragment_use_flash, false);
         a.recycle();
     }
 
