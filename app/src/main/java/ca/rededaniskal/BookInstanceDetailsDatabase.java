@@ -21,12 +21,19 @@ public class BookInstanceDetailsDatabase {
     String REQUEST = "requests";
     String BOOKREQUEST = "book-request";
     private BookInstance bookInstance;
+    private DatabaseReference myRef;
+    private FirebaseDatabase database;
 
 
 
 
     //Constructor
-    public BookInstanceDetailsDatabase() {
+    public BookInstanceDetailsDatabase(){
+
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+
 
 
     }
@@ -34,28 +41,27 @@ public class BookInstanceDetailsDatabase {
     //Update Book Details
     //returns true if successful
 
-    public boolean updateBookInstance(BookInstance bookInstance){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+    public void updateBookInstance(BookInstance bookInstance){
 
-        DatabaseReference bookInstanceRef = myRef.child(BOOK_INSTANCE).child(bookInstance.getBookID());
+
+        DatabaseReference bookInstanceRef = this.myRef.child(BOOK_INSTANCE).child(bookInstance.getBookID());
 
 /*
         HashMap<String, Object> bookChildUpdates = new HashMap<String, Object>();
 
         bookChildUpdates
-                    .put(USER_BOOK+bookInstance.getOwner()+bookInstance.getBookID(), bookInstance);
+                    .put(USER_BOOK+'/'+bookInstance.getOwner()+'/'+bookInstance.getBookID(), bookInstance);
         if (bookInstance.getStatus().equals('b')) {
             bookChildUpdates
                     .put(BORROWED_BOOK+ '/'+bookInstance.getPossessor()+'/' + bookInstance.getBookID(), bookInstance);
         }
 
         bookChildUpdates
-                .put(ISBN+bookInstance.getISBN()+bookInstance.getBookID(), bookInstance);
+                .put(ISBN+'/'+bookInstance.getISBN()+'/'+bookInstance.getBookID(), bookInstance);
 
         return bookInstanceRef.updateChildren(bookChildUpdates).isSuccessful();
 */
-    return bookInstanceRef.setValue(bookInstance).isSuccessful();
+    bookInstanceRef.setValue(bookInstance);
     }
 
     public boolean deleteBook(BookInstance bookInstance){
@@ -88,9 +94,8 @@ public class BookInstanceDetailsDatabase {
 
     //Read book details from the database by ID
     public BookInstance getBookInstanceByID(String bookID) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        DatabaseReference bookRef = myRef.child(BOOK_INSTANCE).child(bookID);
+
+        DatabaseReference bookRef = this.myRef.child(BOOK_INSTANCE).child(bookID);
 
         bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
