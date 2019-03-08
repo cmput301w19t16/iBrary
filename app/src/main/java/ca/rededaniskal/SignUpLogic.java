@@ -117,11 +117,5 @@ public class SignUpLogic {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    public boolean createNewUser(){
-        SignUpDB db = new SignUpDB();
-        db.createUser(email, password);
-
-        return db.isSuccess();
-    }
 
 }
