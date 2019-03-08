@@ -78,8 +78,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:maxLength="10"
-                android:autofillHints="@string/phone"
-                android:hint="@string/phone"/>
+                android:autofillHints="@string/phone_num"
+                android:hint="@string/phone_num"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton

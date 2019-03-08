@@ -1,5 +1,6 @@
 package ca.rededaniskal;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -43,19 +44,19 @@ public class SignupActivity extends AppCompatActivity {
         }
         String error1 = businessLogic.validateEmail();
         if(!error1.equals("")){
-            emailText.setError(error);
+            emailText.setError(error1);
         }
         String error2 = businessLogic.validatePassword();
         if(!error2.equals("")){
-            passwordText.setError(error);
+            passwordText.setError(error2);
         }
         String error3 = businessLogic.validateConfirm();
         if(!error3.equals("")){
-            confirmText.setError(error);
+            confirmText.setError(error3);
         }
         String error4 = businessLogic.validateUsername();
-        if(!error.equals("")){
-            usernameText.setError(error);
+        if(!error4.equals("")){
+            usernameText.setError(error4);
         }
     }
 
@@ -82,10 +83,15 @@ public class SignupActivity extends AppCompatActivity {
         if (businessLogic.isValid()){
             if(businessLogic.createNewUser()){
                 /* TODO: Pass to new intent */
+                Toast.makeText(getApplicationContext(), "Sign Up Complete", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
             }
+        }else{
+            Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
         }
-    }
 
+    }
 
 
 }

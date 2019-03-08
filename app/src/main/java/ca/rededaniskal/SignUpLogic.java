@@ -46,10 +46,10 @@ public class SignUpLogic {
         // check if phone is length 10
         String errorMessage = "";
         if (phone.isEmpty()) {
-            errorMessage = ("Please a phone");
+            errorMessage = "Please enter a phone number";
             valid = false;
         }else if (phone.length() != 10) {
-            errorMessage = ("That is not a valid phone number");
+            errorMessage = "That is not a valid phone number";
             valid = false;
         }
 
@@ -74,7 +74,7 @@ public class SignUpLogic {
 
         String errorMessage = "";
         if (password.isEmpty()) {
-            errorMessage = ("Please enter a password");
+            errorMessage = "Please enter a password";
             valid = false;
         }
         return errorMessage;
@@ -87,10 +87,10 @@ public class SignUpLogic {
 
         String errorMessage = "";
         if (confirm.isEmpty()) {
-            errorMessage = ("Please confirm the password");
+            errorMessage = "Please confirm the password";
             valid = false;
         } else if (!password.equals(confirm)) {
-            errorMessage = ("Must be the same as password");
+            errorMessage = "Must be the same as password";
             valid = false;
         }
 
@@ -103,10 +103,10 @@ public class SignUpLogic {
 
         String errorMessage = "";
         if (email.isEmpty()) {
-            errorMessage = ("Please enter an email");
+            errorMessage = "Please enter an email";
             valid = false;
         }else if(!isEmailValid(email)){
-            errorMessage = ("Invalid email");
+            errorMessage = "Invalid email";
             valid = false;
         }
         return errorMessage;
