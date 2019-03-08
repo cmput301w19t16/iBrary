@@ -1,5 +1,5 @@
 package ca.rededaniskal;
-
+/*author Skye*/
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -17,25 +17,21 @@ final class AddBookDb {
 
     }
 
-    public String addBookToDatabase(BookInstance bookInstance){
-        String slash = "/";
+    public String addBookToDatabase(BookInstance bookInstance) throws NullPointerException{
+
 
         success =bookRef.push().getKey();
 
-        HashMap<String, Object> bookChildUpdates= new HashMap<>();
-        bookChildUpdates
-                .put("user-books/"+bookInstance.getOwner()+slash+success, bookInstance);
-        if (bookInstance.getStatus()=="b") {
-            bookChildUpdates
-                    .put("borrowed-books/" + bookInstance.getPossessor()+slash + success, bookInstance);
-        }
-        bookChildUpdates
-                .put("ISBN/"+bookInstance.getISBN()+slash +success, bookInstance);
 
-        if (bookRef.updateChildren(bookChildUpdates).isSuccessful()){
+
+        if (bookRef.child(success).setValue(bookInstance).isSuccessful()){
             bookInstance.setBookID(success);
+            bookRef.child(success).setValue(bookInstance);
         }
-        else success = "";
+        else {
+            success = "";
+        }
+
 
 
 
