@@ -2,6 +2,11 @@ package ca.rededaniskal;
 
 import org.junit.Test;
 
+import ca.rededaniskal.EntityClasses.Book;
+import ca.rededaniskal.EntityClasses.Forum;
+import ca.rededaniskal.EntityClasses.Post;
+import ca.rededaniskal.EntityClasses.User;
+
 import static org.junit.Assert.*;
 
 public class ForumTest {

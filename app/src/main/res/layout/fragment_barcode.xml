@@ -6,13 +6,13 @@
 
     <fragment
         android:id="@+id/barcode_fragment"
-        android:name="ca.rededaniskal.BarcodeFragment"
+        android:name="ca.rededaniskal.Barcode.Barcode_Fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:auto_focus="true"
         app:use_flash="false" />
 
-    <ca.rededaniskal.ScannerOverlay
+    <ca.rededaniskal.Barcode.Scanner_Overlay
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#44000000"

@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.util.Date;
 
+import ca.rededaniskal.EntityClasses.Notification;
+import ca.rededaniskal.EntityClasses.Request;
+
 import static org.junit.Assert.*;
 
 public class NotificationTest {

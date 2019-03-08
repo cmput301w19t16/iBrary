@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Home">
+    tools:context=".Activities.Main_Activity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -19,30 +19,6 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="61dp">
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/home_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home_tab" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/search_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/search_tab" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/message_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/message_tab" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/profile_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/profile_tab" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
