@@ -88,7 +88,7 @@ public class AddBookInstanceActivity extends AppCompatActivity {
 
 
     public void addBookInstance() {
-        if (businessLogic.isValid()) {
+
 
 
             String userID = "del@del.com";
@@ -100,17 +100,11 @@ public class AddBookInstanceActivity extends AppCompatActivity {
             BookInstance bookInstance = new BookInstance(Title, Author, ISBN, userID, userID, "Good", "a");
 
 
-            if( !businessLogic.addBookSuccess( bookInstance ).equals("")){
-                Toast.makeText(this, "Book Saved!", Toast.LENGTH_SHORT);
-
-            }
-            else{
-                Toast.makeText(this, "Database Error!", Toast.LENGTH_SHORT);
-            }
+            System.out.print(businessLogic.addBookSuccess(bookInstance) );
 
 
 
-        }
+
 
     }
 }

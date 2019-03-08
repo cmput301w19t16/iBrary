@@ -6,7 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-final class AddBookDb {
+public class AddBookDb {
     FirebaseDatabase db;
     DatabaseReference bookRef;
     String success;
@@ -29,7 +29,7 @@ final class AddBookDb {
             bookRef.child(success).setValue(bookInstance);
         }
         else {
-            success = "";
+            success = "Error Message";
         }
 
 

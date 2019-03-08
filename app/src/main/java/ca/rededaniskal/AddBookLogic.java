@@ -44,12 +44,12 @@ public class AddBookLogic {
 
 
     public String addBookSuccess(BookInstance bookInstance){
-        String bookID;
+        String error;
 
         AddBookDb db = new AddBookDb();
-        bookID= db.addBookToDatabase(bookInstance);
+        error= db.addBookToDatabase(bookInstance);
 
-        return bookID;
+        return error;
 
 
 
