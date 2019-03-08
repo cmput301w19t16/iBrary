@@ -168,6 +168,6 @@ public class SignupActivity extends AppCompatActivity {
             this.newUser = newUser;
         }
     }
-    
+
 
 }
