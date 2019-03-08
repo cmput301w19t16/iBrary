@@ -39,6 +39,16 @@ public class SignUpDB {
         mAuth = FirebaseAuth.getInstance();
         success = false;
     }
+
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
     public void createUser(String email, String password){
 
 
@@ -68,7 +78,7 @@ public class SignUpDB {
         return newUser;
     }
 
-    public void setNewUser(FirebaseUser newUser) {
+    private void setNewUser(FirebaseUser newUser) {
         this.newUser = newUser;
     }
 }

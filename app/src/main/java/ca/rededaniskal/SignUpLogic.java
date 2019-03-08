@@ -9,6 +9,10 @@
 package ca.rededaniskal;
 
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 public class SignUpLogic {
 
     private boolean valid;
@@ -36,6 +40,7 @@ public class SignUpLogic {
         this.valid = valid;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public String validdatePhone(){
         // check if phone is all numbers
         // check if phone is length 10
@@ -52,8 +57,9 @@ public class SignUpLogic {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public String validateUsername() {
-        // TODO: Part 5: Implement a "this username is not available"
+        // TODO: Part 5: Implement "this username is not available"
         String errorMessage = "";
         if (username.isEmpty()) {
             errorMessage = "Please enter username";
@@ -63,6 +69,7 @@ public class SignUpLogic {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public String validatePassword() {
 
         String errorMessage = "";
@@ -75,6 +82,7 @@ public class SignUpLogic {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public String validateConfirm(){
 
         String errorMessage = "";
@@ -89,6 +97,8 @@ public class SignUpLogic {
         return errorMessage;
     }
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public String validateEmail() {
 
         String errorMessage = "";
@@ -102,9 +112,16 @@ public class SignUpLogic {
         return errorMessage;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public boolean isEmailValid(String email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    public boolean createNewUser(){
+        SignUpDB db = new SignUpDB();
+        db.createUser(email, password);
+
+        return db.isSuccess();
+    }
 
 }

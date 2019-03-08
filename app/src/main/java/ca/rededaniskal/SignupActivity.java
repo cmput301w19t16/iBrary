@@ -80,7 +80,9 @@ public class SignupActivity extends AppCompatActivity {
 
     public void finalPass(){
         if (businessLogic.isValid()){
-            // Pass to new intent
+            if(businessLogic.createNewUser()){
+                /* TODO: Pass to new intent */
+            }
         }
     }
 
