@@ -22,7 +22,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
     @Override
     public PostAdapter.PostViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
-        TextView v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_text_view,
+        TextView v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_fragment_view_rating_post,
                 parent, false);
 
         PostViewHolder vh = new PostViewHolder(v);
