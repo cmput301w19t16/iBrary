@@ -34,7 +34,7 @@ public class View_Own_Profile_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //private OnFragmentInteractionListener mListener;
+//    private OnFragmentInteractionListener mListener;
 
     public View_Own_Profile_Fragment() {
         // Required empty public constructor
@@ -129,6 +129,6 @@ public class View_Own_Profile_Fragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
+    /
  */
 }
