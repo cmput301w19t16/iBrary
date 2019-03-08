@@ -9,12 +9,21 @@ import android.widget.Toast;
 
 public class SignupActivity extends AppCompatActivity {
 
+    private EditText usernameText;
+    private EditText passwordText;
+    private EditText confirmText;
+    private EditText emailText;
+    private EditText phoneText;
+    private SignUpLogic businessLogic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        Button button = (Button) findViewById(R.id.button_signup);
+        Button button = findViewById(R.id.button_signup);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,7 +34,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signup() {
-        if(!validate()) {
+        if(!businessLogic.validate()) {
             Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), "Sign Up Complete", Toast.LENGTH_SHORT).show();
@@ -33,14 +42,16 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    public boolean validate() {
-        boolean valid = true;
 
-        EditText usernameText = (EditText) findViewById(R.id.input_username);
-        EditText passwordText = (EditText) findViewById(R.id.input_password);
-        EditText confirmText = (EditText) findViewById(R.id.input_confirm_password);
-        EditText emailText = (EditText) findViewById(R.id.input_email);
-        EditText phoneText = (EditText) findViewById(R.id.input_phone);
+
+
+
+    public void getInfo(){
+        usernameText = findViewById(R.id.input_username);
+        passwordText = findViewById(R.id.input_password);
+        confirmText = findViewById(R.id.input_confirm_password);
+        emailText = findViewById(R.id.input_email);
+        phoneText = findViewById(R.id.input_phone);
 
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
@@ -48,40 +59,10 @@ public class SignupActivity extends AppCompatActivity {
         String email = emailText.getText().toString();
         String phone = phoneText.getText().toString();
 
-        if (username.isEmpty()) {
-            usernameText.setError("Please enter username");
-            valid = false;
-        }
-        if (password.isEmpty()) {
-            passwordText.setError("Please enter a password");
-            valid = false;
-        }
-        if (confirm.isEmpty()) {
-            confirmText.setError("Please confirm the password");
-            valid = false;
-        } else if (!password.equals(confirm)) {
-            confirmText.setError("Must be the same as password");
-            valid = false;
-        }
-        if (email.isEmpty()) {
-            emailText.setError("Please an email");
-            valid = false;
-        } else if (!isEmailValid(email)) {
-            emailText.setError("That is not a valid email");
-            valid = false;
-        }
-        if (phone.isEmpty()) {
-            phoneText.setError("Please a phone");
-            valid = false;
-        } else if (phone.length() != 10) {
-            phoneText.setError("That is not a valid phone number");
-            valid = false;
-        }
+        businessLogic = new SignUpLogic();
 
-        return valid;
     }
 
-    public boolean isEmailValid(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
+
+
 }
