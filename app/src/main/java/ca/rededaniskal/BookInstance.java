@@ -23,7 +23,7 @@ public class BookInstance extends Book implements Serializable {
     private String owner;
     private String possessor;
     private String condition;
-    private String bookID;
+    private BookID bookID;
 
     //private BufferedImage bookImage;
 
@@ -34,7 +34,7 @@ public class BookInstance extends Book implements Serializable {
 
     public BookInstance (String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus){
         super(newTitle, newAuthor, newIsbn);
-        this.bookID = UUID.randomUUID().toString();
+        this.bookID = null;
         this.owner = newOwner;
         this.possessor = newpossessor;
         this.condition = newCondition;
@@ -45,10 +45,18 @@ public class BookInstance extends Book implements Serializable {
 
     }
 
+    public void setBookID(String key) {
+        this.bookID = BookID.getInstance(key);
+
+    }
 
     public String getBookID() {
-        return bookID;
+        if (bookID!=null){
+        return bookID.getID();}
+        else return "";
     }
+
+
 
 
 

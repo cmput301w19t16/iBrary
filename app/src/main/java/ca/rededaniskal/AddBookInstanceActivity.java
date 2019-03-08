@@ -22,7 +22,7 @@ public class AddBookInstanceActivity extends AppCompatActivity {
     private Button addBookButton;
 
     private AddBookLogic businessLogic;
-    private FirebaseDatabase db;
+
 
 
     @Override
@@ -89,7 +89,7 @@ public class AddBookInstanceActivity extends AppCompatActivity {
 
     public void addBookInstance() {
         if (businessLogic.isValid()) {
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
+
 
             String userID = "del@del.com";
             String Title = title.getText().toString();
@@ -98,9 +98,14 @@ public class AddBookInstanceActivity extends AppCompatActivity {
 
 
             BookInstance bookInstance = new BookInstance(Title, Author, ISBN, userID, userID, "Good", "a");
-            if(db.getReference().child("books").setValue(bookInstance).isSuccessful()){
+
+
+            if( !businessLogic.addBookSuccess( bookInstance ).equals("")){
                 Toast.makeText(this, "Book Saved!", Toast.LENGTH_SHORT);
 
+            }
+            else{
+                Toast.makeText(this, "Database Error!", Toast.LENGTH_SHORT);
             }
 
 
@@ -110,23 +115,4 @@ public class AddBookInstanceActivity extends AppCompatActivity {
     }
 }
 
-/*
-final class AddBookDb {
-    FirebaseDatabase db;
-    DatabaseReference bookRef;
-    boolean success;
 
-    public AddBookDb() {
-        this.db = FirebaseDatabase.getInstance();
-        this.bookRef = db.getReference().child("book-instances");
-
-    }
-
-    public boolean addBookToDatabase(BookInstance bookInstance){
-
-        success =bookRef.setValue(bookInstance).isSuccessful();
-        return success;
-    }
-
-}
-*/
