@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -14,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditBookInstance"></activity>
+        <activity android:name=".EditBookInstance"/>
         <activity
             android:name=".AddBookInstanceActivity"
             android:label="AddBookInstance"
@@ -35,24 +37,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".SignupActivity"/>
         <activity
             android:name="ca.rededaniskal.Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="ca.rededaniskal.MainActivity">
+        <activity android:name="ca.rededaniskal.MainActivity"/>
 
-        </activity>
+
         <activity
             android:name="ca.rededaniskal.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BarcodeReaderActivity"></activity>
+        <activity android:name=".BarcodeReaderActivity"/>
 
         <activity
             android:name="ca.rededaniskal.Barcode_Scanner_Activity"
             android:label="@string/title_activity_barcode__scanner_"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
+
+
 
 </manifest>
