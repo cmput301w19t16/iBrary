@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
 import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
+import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
 import ca.rededaniskal.R;
 import ca.rededaniskal.BusinessLogic.SectionsPageAdapter;
 
@@ -48,8 +49,13 @@ public class Main_Activity extends AppCompatActivity {
         adapter.addFragment(new Post_Feed_Fragment(), "Feed");
         //adapter.addFragment(new search(), "Search");
         //adapter.addFragment(new View_Own_Profile_Fragment(), "Profile");
+        adapter.addFragment(new View_Own_Profile_Fragment(), "Profile");
 
         viewPager.setAdapter(adapter);
 
+
     }
+
+
+
 }
