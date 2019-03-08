@@ -33,10 +33,11 @@ public class Login extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 //TODO: Database stuff
+
+                //For now lets go to the main screen
+                Intent intent = new Intent(v.getContext(), Home.class);
+                startActivity(intent);
 
             }
         });
@@ -45,13 +46,9 @@ public class Login extends AppCompatActivity {
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Register.class);
+                Intent intent = new Intent(v.getContext(), SignupActivity.class);
                 startActivity(intent);
             }
         });
-
-
-
     }
-
 }
