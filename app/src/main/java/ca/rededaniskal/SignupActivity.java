@@ -28,21 +28,36 @@ public class SignupActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signup();
+                getInfo();
+                validateFields();
+                finalPass();
             }
         });
     }
 
-    public void signup() {
-        if(!businessLogic.validate()) {
-            Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Sign Up Complete", Toast.LENGTH_SHORT).show();
-            // TODO: Add user to database and go to new activity
+
+    public void validateFields(){
+        String error = businessLogic.validdatePhone();
+        if(!error.equals("")){
+            phoneText.setError(error);
+        }
+        String error1 = businessLogic.validateEmail();
+        if(!error1.equals("")){
+            emailText.setError(error);
+        }
+        String error2 = businessLogic.validatePassword();
+        if(!error2.equals("")){
+            passwordText.setError(error);
+        }
+        String error3 = businessLogic.validateConfirm();
+        if(!error3.equals("")){
+            confirmText.setError(error);
+        }
+        String error4 = businessLogic.validateUsername();
+        if(!error.equals("")){
+            usernameText.setError(error);
         }
     }
-
-
 
 
 
@@ -59,8 +74,14 @@ public class SignupActivity extends AppCompatActivity {
         String email = emailText.getText().toString();
         String phone = phoneText.getText().toString();
 
-        businessLogic = new SignUpLogic();
+        businessLogic = new SignUpLogic(username, password, confirm, email, phone);
 
+    }
+
+    public void finalPass(){
+        if (businessLogic.isValid()){
+            // Pass to new intent
+        }
     }
 
 

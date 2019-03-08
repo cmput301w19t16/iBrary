@@ -18,7 +18,7 @@ public class SignUpLogic {
     private String email;
     private String phone;
 
-    public void SignUpLogic(String username, String password, String confirm, String email, String phone){
+    public SignUpLogic(String username, String password, String confirm, String email, String phone) {
         valid = true;
         this.username = username;
         this.password = password;
