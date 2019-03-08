@@ -2,6 +2,12 @@ package ca.rededaniskal;
 
 import java.util.ArrayList;
 import org.junit.Test;
+
+import ca.rededaniskal.EntityClasses.BookInstance;
+import ca.rededaniskal.EntityClasses.BookList;
+import ca.rededaniskal.EntityClasses.MasterBook;
+import ca.rededaniskal.EntityClasses.User;
+
 import static org.junit.Assert.*;
 
 public class UserUnitTest {

@@ -1,10 +1,8 @@
 package ca.rededaniskal;
 
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
-import java.util.ArrayList;
+import ca.rededaniskal.EntityClasses.BookInstance;
 
 import static org.junit.Assert.*;
 

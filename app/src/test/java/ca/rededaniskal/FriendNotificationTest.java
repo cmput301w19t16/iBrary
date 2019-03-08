@@ -1,6 +1,11 @@
 package ca.rededaniskal;
 
 import org.junit.Test;
+
+import ca.rededaniskal.EntityClasses.FriendNotification;
+import ca.rededaniskal.EntityClasses.FriendRequest;
+import ca.rededaniskal.EntityClasses.Request;
+
 import static org.junit.Assert.*;
 
 public class FriendNotificationTest {

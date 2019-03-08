@@ -3,6 +3,11 @@ package ca.rededaniskal;
 import org.junit.Test;
 
 import java.util.ArrayList;
+
+import ca.rededaniskal.EntityClasses.BookInstance;
+import ca.rededaniskal.EntityClasses.BookList;
+import ca.rededaniskal.EntityClasses.User;
+
 import static org.junit.Assert.*;
 
 public class BookListTests {

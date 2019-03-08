@@ -2,7 +2,9 @@ package ca.rededaniskal;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.FriendRequest;
+import ca.rededaniskal.EntityClasses.Request;
 
 import static org.junit.Assert.*;
 

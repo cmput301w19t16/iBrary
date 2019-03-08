@@ -5,8 +5,13 @@
 
 
 package ca.rededaniskal;
-import java.util.ArrayList;
 import java.util.Date;
+
+import ca.rededaniskal.EntityClasses.BookInstance;
+import ca.rededaniskal.EntityClasses.CheckIn;
+import ca.rededaniskal.EntityClasses.CheckOut;
+import ca.rededaniskal.EntityClasses.User;
+
 import static org.junit.Assert.*;
 
 public class ChecksTest {

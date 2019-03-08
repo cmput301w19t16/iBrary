@@ -2,6 +2,8 @@ package ca.rededaniskal;
 
 import org.junit.Test;
 
+import ca.rededaniskal.EntityClasses.MasterBook;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 

@@ -18,7 +18,7 @@
             android:layout_height="match_parent" />
     </ca.rededaniskal.camera.CameraSourcePreview>
 
-    <ca.rededaniskal.ScannerOverlay
+    <ca.rededaniskal.Barcode.ScannerOverlay
         android:id="@+id/scan_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

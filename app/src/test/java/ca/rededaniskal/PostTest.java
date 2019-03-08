@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.util.Date;
 
+import ca.rededaniskal.EntityClasses.Post;
+import ca.rededaniskal.EntityClasses.User;
+
 import static org.junit.Assert.*;
 
 public class PostTest {

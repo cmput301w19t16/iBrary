@@ -1,8 +1,11 @@
 package ca.rededaniskal;
 
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
+
+import ca.rededaniskal.EntityClasses.BookNotification;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Request;
+
 import static org.junit.Assert.*;
 
 public class BookNotificationTest {

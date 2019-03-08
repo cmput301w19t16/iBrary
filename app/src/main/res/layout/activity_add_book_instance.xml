@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_google_signin_btn_text_light_disabled"
-    tools:context=".AddBookInstanceActivity">
+    tools:context=".Activities.Add_Book_To_Library_Activity">
 
     <MediaRouteButton
 

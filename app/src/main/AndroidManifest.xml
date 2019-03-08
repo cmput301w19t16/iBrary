@@ -14,15 +14,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditBookInstance"></activity>
+        <activity android:name=".Activities.Edit_Book_Instance_Activity"></activity>
         <activity
-            android:name=".AddBookInstanceActivity"
+            android:name=".Activities.Add_Book_To_Library_Activity"
             android:label="AddBookInstance"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".User_Details_Activity" />
-        <activity android:name=".Book_Details_Activity" />
+        <activity android:name=".Activities.User_Details_Activity" />
+        <activity android:name=".Activities.Book_Details_Activity" />
         <activity
-            android:name="ca.rededaniskal.Login"
+            android:name="ca.rededaniskal.Activities.Login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -31,22 +31,22 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".Activities.SignupActivity"></activity>
         <activity
-            android:name="ca.rededaniskal.Home"
+            android:name="ca.rededaniskal.Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="ca.rededaniskal.MainActivity">
+        <activity android:name="ca.rededaniskal.Activities.Launcher_Activity">
 
         </activity>
         <activity
-            android:name="ca.rededaniskal.Edit_Profile_Activity"
+            android:name="ca.rededaniskal.Activities.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BarcodeReaderActivity"></activity>
+        <activity android:name=".Barcode.BarcodeReaderActivity"></activity>
 
         <activity
-            android:name="ca.rededaniskal.Barcode_Scanner_Activity"
+            android:name="ca.rededaniskal.Barcode.Barcode_Scanner_Activity"
             android:label="@string/title_activity_barcode__scanner_"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
