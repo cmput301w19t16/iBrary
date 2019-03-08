@@ -1,15 +1,26 @@
 package ca.rededaniskal;
+import java.util.UUID;
+
 
 public class Book {
 
     private String title;
     private String author;
     private String isbn;
+    private String id;
 
     public Book(String newTitle, String newAuthor, String newIsbn){
         title = newTitle;
         author = newAuthor;
         isbn = newIsbn;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {

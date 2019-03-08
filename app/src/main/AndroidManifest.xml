@@ -14,26 +14,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="ca.rededaniskal.User_Details_Activity" />
-        <activity android:name="ca.rededaniskal.Book_Details_Activity" />
+        <activity android:name=".EditBookInstance"></activity>
         <activity
-            android:name="ca.rededaniskal.Register"
-            android:label="@string/title_activity_register"
+            android:name=".AddBookInstanceActivity"
+            android:label="AddBookInstance"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".User_Details_Activity" />
+        <activity android:name=".Book_Details_Activity" />
         <activity
             android:name="ca.rededaniskal.Login"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".SignupActivity"></activity>
         <activity
             android:name="ca.rededaniskal.Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="ca.rededaniskal.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="ca.rededaniskal.Edit_Profile_Activity"

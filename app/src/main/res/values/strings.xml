@@ -37,6 +37,9 @@
     <string name="description">Description</string>
     <string name="request_book">Request This Book</string>
     <string name="cancel_request">Cancel Book Request</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_account">Create Account</string>
     <string name="title_activity_barcode__scanner_">Barcode_Scanner_Activity</string>
     <string name="Pick_pic">Pick</string>
     <string name="barcode_name">barcode</string>
@@ -57,6 +60,8 @@
     <string name="barcode_error">"Error reading barcode: %1$s"</string>
     <string name="grant">GRANT</string>
     <string name="cancel">CANCEL</string>
+    <string name = "take_scan">Scan ISBN</string>
+
 
 
 </resources>

@@ -14,16 +14,8 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
         Button button = findViewById(R.id.go_home_button);
         buttonScanner = findViewById(R.id.GoToScannerButton);
-
-        buttonScanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               goToScanner(v);
-            }
-        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,9 +28,14 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void goToHome(View v){
-        Intent intent = new Intent(v.getContext(), Home.class);
+//        Intent intent = new Intent(v.getContext(), Book_Details_Activity.class);
+//        startActivity(intent);
+//        this.finish();
+
+        Intent intent = new Intent(v.getContext(), SignupActivity.class);
         startActivity(intent);
         this.finish();
+
     }
     private void goToScanner(View v){
         Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
