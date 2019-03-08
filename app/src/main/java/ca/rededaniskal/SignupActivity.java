@@ -1,46 +1,85 @@
 package ca.rededaniskal;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import static android.content.ContentValues.TAG;
+
 public class SignupActivity extends AppCompatActivity {
+
+    private EditText usernameText;
+    private EditText passwordText;
+    private EditText confirmText;
+    private EditText emailText;
+    private EditText phoneText;
+    private SignUpLogic businessLogic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        Button button = (Button) findViewById(R.id.button_signup);
+        Button button = findViewById(R.id.button_signup);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signup();
+                getInfo();
+                validateFields();
+                finalPass();
             }
         });
     }
 
-    public void signup() {
-        if(!validate()) {
-            Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Sign Up Complete", Toast.LENGTH_SHORT).show();
-            // TODO: Add user to database and go to new activity
+
+    public void validateFields(){
+        String error = businessLogic.validdatePhone();
+        if(!error.equals("")){
+            phoneText.setError(error);
+        }
+        String error1 = businessLogic.validateEmail();
+        if(!error1.equals("")){
+            emailText.setError(error1);
+        }
+        String error2 = businessLogic.validatePassword();
+        if(!error2.equals("")){
+            passwordText.setError(error2);
+        }
+        String error3 = businessLogic.validateConfirm();
+        if(!error3.equals("")){
+            confirmText.setError(error3);
+        }
+        String error4 = businessLogic.validateUsername();
+        if(!error4.equals("")){
+            usernameText.setError(error4);
         }
     }
 
-    public boolean validate() {
-        boolean valid = true;
 
-        EditText usernameText = (EditText) findViewById(R.id.input_username);
-        EditText passwordText = (EditText) findViewById(R.id.input_password);
-        EditText confirmText = (EditText) findViewById(R.id.input_confirm_password);
-        EditText emailText = (EditText) findViewById(R.id.input_email);
-        EditText phoneText = (EditText) findViewById(R.id.input_phone);
+
+    public void getInfo(){
+        usernameText = findViewById(R.id.input_username);
+        passwordText = findViewById(R.id.input_password);
+        confirmText = findViewById(R.id.input_confirm_password);
+        emailText = findViewById(R.id.input_email);
+        phoneText = findViewById(R.id.input_phone);
 
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
@@ -48,40 +87,87 @@ public class SignupActivity extends AppCompatActivity {
         String email = emailText.getText().toString();
         String phone = phoneText.getText().toString();
 
-        if (username.isEmpty()) {
-            usernameText.setError("Please enter username");
-            valid = false;
-        }
-        if (password.isEmpty()) {
-            passwordText.setError("Please enter a password");
-            valid = false;
-        }
-        if (confirm.isEmpty()) {
-            confirmText.setError("Please confirm the password");
-            valid = false;
-        } else if (!password.equals(confirm)) {
-            confirmText.setError("Must be the same as password");
-            valid = false;
-        }
-        if (email.isEmpty()) {
-            emailText.setError("Please an email");
-            valid = false;
-        } else if (!isEmailValid(email)) {
-            emailText.setError("That is not a valid email");
-            valid = false;
-        }
-        if (phone.isEmpty()) {
-            phoneText.setError("Please a phone");
-            valid = false;
-        } else if (phone.length() != 10) {
-            phoneText.setError("That is not a valid phone number");
-            valid = false;
-        }
+        businessLogic = new SignUpLogic(username, password, confirm, email, phone);
 
-        return valid;
     }
 
-    public boolean isEmailValid(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    public void finalPass(){
+        if (businessLogic.isValid()){
+            SignUpDB db = new SignUpDB();
+            String email = emailText.getText().toString();
+            String password = passwordText.getText().toString();
+
+            db.createUser(email, password);
+
+            if(db.isSuccess()){
+                /* TODO: Pass to new intent */
+                Toast.makeText(getApplicationContext(), "Sign Up Complete", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
+        }
+
     }
+
+
+    public class SignUpDB {
+
+        // To read or write from the database, a database reference is needed
+        private DatabaseReference mDatabase;
+        private FirebaseAuth mAuth;
+        private boolean success;
+        private FirebaseUser newUser;
+
+        public SignUpDB(){
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+
+            // Initialize FirebaseAuth
+            mAuth = FirebaseAuth.getInstance();
+            success = false;
+        }
+
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public void setSuccess(boolean success) {
+            this.success = success;
+        }
+
+        public void createUser(String email, String password){
+
+
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //updateUI(user);
+                                success = true;
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+//                            updateUI(null);
+                            }
+
+                        }
+                    });
+        }
+
+        public FirebaseUser getNewUser() {
+            return newUser;
+        }
+
+        private void setNewUser(FirebaseUser newUser) {
+            this.newUser = newUser;
+        }
+    }
+    
+
 }
