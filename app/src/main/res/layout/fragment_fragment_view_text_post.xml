@@ -17,9 +17,9 @@
 
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/TestPostImg"
             android:layout_width="wrap_content"
-            android:layout_height="109dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -31,7 +31,7 @@
             android:src="@drawable/ic_book_black_24dp" />
 
         <TextView
-            android:id="@+id/BookTitle"
+            android:id="@+id/TextPostTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -42,10 +42,10 @@
             android:layout_marginTop="65dp"
             android:layout_marginEnd="83dp"
             android:layout_marginBottom="427dp"
-            android:text="TextView" />
+            android:text="Title goes here" />
 
         <TextView
-            android:id="@+id/BookAuthor"
+            android:id="@+id/TextPostAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -56,10 +56,10 @@
             android:layout_marginTop="109dp"
             android:layout_marginEnd="83dp"
             android:layout_marginBottom="383dp"
-            android:text="TextView" />
+            android:text="Author goes here" />
 
         <TextView
-            android:id="@+id/BookISBN"
+            android:id="@+id/TextPostISBN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -70,17 +70,31 @@
             android:layout_marginTop="148dp"
             android:layout_marginEnd="83dp"
             android:layout_marginBottom="344dp"
-            android:text="TextView" />
+            android:text="ISBN goes here" />
 
         <TextView
-            android:id="@+id/UsernamePoster"
+            android:id="@+id/TextPostUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="36dp"
             android:layout_marginTop="214dp"
-            android:text="TextView" />
+            android:text="User __ commented __" />
+
+        <TextView
+            android:id="@+id/TextPostComment"
+            android:layout_width="312dp"
+            android:layout_height="199dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="255dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="57dp"
+            android:text="Best book ever!" />
     </RelativeLayout>
 
 
