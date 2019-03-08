@@ -1,21 +1,29 @@
 {
   "project_info": {
-    "project_number": "440585002478",
-    "firebase_url": "https://ibrary-e746b.firebaseio.com",
-    "project_id": "ibrary-e746b",
-    "storage_bucket": "ibrary-e746b.appspot.com"
+    "project_number": "212907668448",
+    "firebase_url": "https://ibrary.firebaseio.com",
+    "project_id": "ibrary",
+    "storage_bucket": "ibrary.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:440585002478:android:01929685eb1c815e",
+        "mobilesdk_app_id": "1:212907668448:android:01929685eb1c815e",
         "android_client_info": {
           "package_name": "ca.rededaniskal"
         }
       },
       "oauth_client": [
         {
-          "client_id": "440585002478-3i2nmfctonoli4gc2mublvfirriccjnh.apps.googleusercontent.com",
+          "client_id": "212907668448-rdonrmiaans6cn0v4th7fhde5aariq8s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.rededaniskal",
+            "certificate_hash": "14d82493872e5c2b60597de1aad06c065e36be6c"
+          }
+        },
+        {
+          "client_id": "212907668448-7811m45idsba93thlfv11v80fgbp65gg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "ca.rededaniskal",
@@ -23,13 +31,13 @@
           }
         },
         {
-          "client_id": "440585002478-6jn8i9osfn962ed71v9t3d8s7v7v1iv0.apps.googleusercontent.com",
+          "client_id": "212907668448-isvujnb18nipa77dc4jt75emo2ptki91.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyALQ5V2iTB4TiznAiD4nOqlWMPIGyzaqc0"
+          "current_key": "AIzaSyAKjxhAk_vkugEaKR2DmfGS9v6A-WY0Nco"
         }
       ],
       "services": {
@@ -40,7 +48,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "440585002478-6jn8i9osfn962ed71v9t3d8s7v7v1iv0.apps.googleusercontent.com",
+              "client_id": "212907668448-isvujnb18nipa77dc4jt75emo2ptki91.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
