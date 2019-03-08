@@ -7,23 +7,81 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentViewTextPost">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible">
+    <RelativeLayout
+        style="@style/Widget.AppCompat.ListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/select_dialog_listview"
+        android:visibility="visible"
+        >
+
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="109dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="211dp"
+            android:layout_marginBottom="350dp"
             android:src="@drawable/ic_book_black_24dp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/BookTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text Review" />
-    </ScrollView>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="243dp"
+            android:layout_marginTop="65dp"
+            android:layout_marginEnd="83dp"
+            android:layout_marginBottom="427dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/BookAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="243dp"
+            android:layout_marginTop="109dp"
+            android:layout_marginEnd="83dp"
+            android:layout_marginBottom="383dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/BookISBN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="243dp"
+            android:layout_marginTop="148dp"
+            android:layout_marginEnd="83dp"
+            android:layout_marginBottom="344dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/UsernamePoster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="214dp"
+            android:text="TextView" />
+    </RelativeLayout>
 
 
 </android.support.v4.widget.SwipeRefreshLayout>
