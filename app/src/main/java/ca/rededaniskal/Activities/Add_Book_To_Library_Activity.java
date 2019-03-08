@@ -15,7 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ca.rededaniskal.Database.BookInstanceDetailsDatabase;
-import ca.rededaniskal.EntityClasses.BookInstance;
+import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
 public class Add_Book_To_Library_Activity extends AppCompatActivity {
@@ -66,7 +66,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             BookInstanceDetailsDatabase database = new BookInstanceDetailsDatabase();
 
 
-            BookInstance bookInstance = new BookInstance(Title, Author, ISBN, userID, userID,"Good", "a" );
+            Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID,"Good", "a" );
             database.updateBookInstance(bookInstance);
 
 

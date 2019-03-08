@@ -22,7 +22,7 @@
         <activity android:name=".Activities.User_Details_Activity" />
         <activity android:name=".Activities.Book_Details_Activity" />
         <activity
-            android:name="ca.rededaniskal.Activities.Login"
+            android:name="ca.rededaniskal.Activities.Login_Activity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.SignupActivity"></activity>
+        <activity android:name=".Activities.Signup_Activity"></activity>
         <activity
             android:name="ca.rededaniskal.Activities.Main_Activity"
             android:label="@string/title_activity_home"
@@ -43,7 +43,7 @@
             android:name="ca.rededaniskal.Activities.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Barcode.BarcodeReaderActivity"></activity>
+        <activity android:name=".Barcode.Barcode_Reader_Activity"></activity>
 
         <activity
             android:name="ca.rededaniskal.Barcode.Barcode_Scanner_Activity"

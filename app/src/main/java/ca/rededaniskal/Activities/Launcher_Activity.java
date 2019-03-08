@@ -35,7 +35,7 @@ public class Launcher_Activity extends AppCompatActivity{
 //        startActivity(intent);
 //        this.finish();
 
-        Intent intent = new Intent(v.getContext(), SignupActivity.class);
+        Intent intent = new Intent(v.getContext(), Signup_Activity.class);
         startActivity(intent);
         this.finish();
 

@@ -3,9 +3,9 @@ package ca.rededaniskal;
 import java.util.ArrayList;
 import org.junit.Test;
 
-import ca.rededaniskal.EntityClasses.BookInstance;
-import ca.rededaniskal.EntityClasses.BookList;
-import ca.rededaniskal.EntityClasses.MasterBook;
+import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 
 import static org.junit.Assert.*;
@@ -20,7 +20,7 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        MasterBook book = new MasterBook("Happy Potter", "J.K.", "1234567890");
+        Master_Book book = new Master_Book("Happy Potter", "J.K.", "1234567890");
 
         user.setFavBook(book);
 
@@ -35,7 +35,7 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        MasterBook book = new MasterBook("Happy Potter", "J.K.", "1234567890");
+        Master_Book book = new Master_Book("Happy Potter", "J.K.", "1234567890");
 
         user.setFavBook(book);
 
@@ -50,9 +50,9 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
 
-        BookList list = new BookList();
+        Book_List list = new Book_List();
         list.addBook(book);
 
         user.setRequestedBooks(list);
@@ -68,9 +68,9 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
 
-        BookList list = new BookList();
+        Book_List list = new Book_List();
         list.addBook(book);
 
         user.setRequestedBooks(list);
@@ -245,13 +245,13 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter2", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter2", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
 
         user.addOwnedBook(book);
         user.addOwnedBook(book2);
 
-        BookList list = new BookList();
+        Book_List list = new Book_List();
 
         user.setOwnedBooks(list);
 
@@ -266,10 +266,10 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter2", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter2", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
 
-        BookList list = new BookList();
+        Book_List list = new Book_List();
         list.addBook(book);
         list.addBook(book2);
 
@@ -287,10 +287,10 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter2", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter2", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
 
-        BookList list = new BookList();
+        Book_List list = new Book_List();
         list.addBook(book);
         list.addBook(book2);
 
@@ -308,10 +308,10 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter2", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter2", "J.K.", "1234567890", "D", "D", "Very Nice", "accepted");
 
-        BookList list = new BookList();
+        Book_List list = new Book_List();
         list.addBook(book);
         list.addBook(book2);
 
@@ -390,7 +390,7 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
 
         user.addRequestedBook(book);
 
@@ -405,7 +405,7 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
 
         user.addRequestedBook(book);
 
@@ -429,7 +429,7 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
 
         user.addOwnedBook(book);
 
@@ -445,7 +445,7 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "D", "d", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "D", "d", "Very Nice", "accepted");
 
         user.addOwnedBook(book);
 
@@ -466,8 +466,8 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
 
         user.addOwnedBook(book);
         user.addOwnedBook(book2);
@@ -607,8 +607,8 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "accepted");
 
         user.deleteProfile();
 
@@ -630,10 +630,10 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "e", "Very Nice", "available");
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "e", "Very Nice", "accepted");
-        BookInstance book3 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
-        BookInstance book4 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "requested");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "e", "Very Nice", "available");
+        Book_Instance book2 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "e", "Very Nice", "accepted");
+        Book_Instance book3 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
+        Book_Instance book4 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "requested");
 
         user.addOwnedBook(book);
         user.addOwnedBook(book2);
@@ -662,7 +662,7 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "dlothian", "daniela", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "dlothian", "daniela", "Very Nice", "accepted");
 
         user.addBorrowedBook(book);
 
@@ -680,7 +680,7 @@ public class UserUnitTest {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "dlothian", "daniela", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "dlothian", "daniela", "Very Nice", "accepted");
 
         user.addBorrowedBook(book);
 

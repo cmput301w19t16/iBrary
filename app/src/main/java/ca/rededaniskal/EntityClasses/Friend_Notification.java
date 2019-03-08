@@ -1,11 +1,11 @@
 package ca.rededaniskal.EntityClasses;
 
-public class FriendNotification extends Notification {
+public class Friend_Notification extends Notification {
     private String friendType;
     private String message;
 
 
-    public FriendNotification(){
+    public Friend_Notification(){
     }
 
     public String getFriendType() {

@@ -6,7 +6,7 @@ import android.util.SparseArray;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.barcode.Barcode;
-import ca.rededaniskal.camera.GraphicOverlay;
+import ca.rededaniskal.Barcode.camera.GraphicOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +17,12 @@ import java.util.List;
  * to an overlay, update the graphics as the item changes, and remove the graphics when the item
  * goes away.
  */
-class BarcodeGraphicTracker extends Tracker<Barcode> {
-    private GraphicOverlay<BarcodeGraphic> mOverlay;
-    private BarcodeGraphic mGraphic;
+class Barcode_Graphic_Tracker extends Tracker<Barcode> {
+    private GraphicOverlay<Barcode_Graphic> mOverlay;
+    private Barcode_Graphic mGraphic;
     private BarcodeGraphicTrackerListener listener;
 
-    BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> overlay, BarcodeGraphic graphic, BarcodeGraphicTrackerListener listener) {
+    Barcode_Graphic_Tracker(GraphicOverlay<Barcode_Graphic> overlay, Barcode_Graphic graphic, BarcodeGraphicTrackerListener listener) {
         mOverlay = overlay;
         mGraphic = graphic;
         this.listener = listener;

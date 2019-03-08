@@ -12,11 +12,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import ca.rededaniskal.EntityClasses.BookInstance;
+import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
 public class Edit_Book_Instance_Activity extends AppCompatActivity {
-    BookInstance bookInstance;
+    Book_Instance bookInstance;
     FirebaseDatabase database;
     DatabaseReference bookRef;
     Button saveChanges;

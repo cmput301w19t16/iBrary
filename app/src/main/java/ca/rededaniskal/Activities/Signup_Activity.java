@@ -10,7 +10,7 @@ import android.widget.Toast;
 import ca.rededaniskal.R;
 import ca.rededaniskal.BusinessLogic.SignUpLogic;
 
-public class SignupActivity extends AppCompatActivity {
+public class Signup_Activity extends AppCompatActivity {
 
     private EditText usernameText;
     private EditText passwordText;

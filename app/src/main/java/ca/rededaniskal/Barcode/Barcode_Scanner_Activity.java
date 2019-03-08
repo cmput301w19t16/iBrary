@@ -17,7 +17,7 @@ import ca.rededaniskal.R;
 
 import java.util.List;
 
-public class Barcode_Scanner_Activity extends AppCompatActivity implements View.OnClickListener, BarcodeReaderFragment.BarcodeReaderListener {
+public class Barcode_Scanner_Activity extends AppCompatActivity implements View.OnClickListener, Barcode_Reader_Fragment.BarcodeReaderListener {
 
     private TextView mTvResult;
 
@@ -31,7 +31,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
     }
 
     private void addBarcodeReaderFragment() {
-        BarcodeReaderFragment readerFragment = BarcodeReaderFragment.newInstance(true, false, View.VISIBLE);
+        Barcode_Reader_Fragment readerFragment = Barcode_Reader_Fragment.newInstance(true, false, View.VISIBLE);
         readerFragment.setListener(this);
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();

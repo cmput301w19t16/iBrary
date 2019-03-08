@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import ca.rededaniskal.EntityClasses.MasterBook;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -67,7 +67,7 @@ public class User_Details_Activity extends AppCompatActivity {
         String phone_num = user.getPhoneNumber();
         Integer mutual_friends = user.numberMutualFriends(user);
 
-        MasterBook fav_book = user.getFavBook();
+        Master_Book fav_book = user.getFavBook();
         String fav_title = fav_book.getTitle();
         String fav_author = fav_book.getAuthor();
         String fav_ISBN = fav_book.getISBN();

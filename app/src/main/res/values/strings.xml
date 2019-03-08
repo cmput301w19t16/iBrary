@@ -1,4 +1,4 @@
-<resources>
+<resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">iBrary</string>
     <string name="title_activity_home">Home</string>
     <string name="home_tab">Home</string>

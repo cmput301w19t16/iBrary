@@ -14,14 +14,14 @@ import java.util.List;
 
 import ca.rededaniskal.R;
 
-public class BarcodeReaderActivity extends AppCompatActivity implements BarcodeReaderFragment.BarcodeReaderListener {
+public class Barcode_Reader_Activity extends AppCompatActivity implements Barcode_Reader_Fragment.BarcodeReaderListener {
     public static String KEY_CAPTURED_BARCODE = "key_captured_barcode";
     public static String KEY_CAPTURED_RAW_BARCODE = "key_captured_raw_barcode";
     private static final String KEY_AUTO_FOCUS = "key_auto_focus";
     private static final String KEY_USE_FLASH = "key_use_flash";
     private boolean autoFocus = false;
     private boolean useFlash = false;
-    private BarcodeReaderFragment mBarcodeReaderFragment;
+    private Barcode_Reader_Fragment mBarcodeReaderFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +36,10 @@ public class BarcodeReaderActivity extends AppCompatActivity implements BarcodeR
         mBarcodeReaderFragment = attachBarcodeReaderFragment();
     }
 
-    private BarcodeReaderFragment attachBarcodeReaderFragment() {
+    private Barcode_Reader_Fragment attachBarcodeReaderFragment() {
         final FragmentManager supportFragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        BarcodeReaderFragment fragment = BarcodeReaderFragment.newInstance(autoFocus, useFlash);
+        Barcode_Reader_Fragment fragment = Barcode_Reader_Fragment.newInstance(autoFocus, useFlash);
         fragment.setListener(this);
         fragmentTransaction.replace(R.id.fm_container, fragment);
         fragmentTransaction.commitAllowingStateLoss();
@@ -47,7 +47,7 @@ public class BarcodeReaderActivity extends AppCompatActivity implements BarcodeR
     }
 
     public static Intent getLaunchIntent(Context context, boolean autoFocus, boolean useFlash) {
-        Intent intent = new Intent(context, BarcodeReaderActivity.class);
+        Intent intent = new Intent(context, Barcode_Reader_Activity.class);
         intent.putExtra(KEY_AUTO_FOCUS, autoFocus);
         intent.putExtra(KEY_USE_FLASH, useFlash);
         return intent;

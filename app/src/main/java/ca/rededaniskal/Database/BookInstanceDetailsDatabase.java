@@ -10,7 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-import ca.rededaniskal.EntityClasses.BookInstance;
+import ca.rededaniskal.EntityClasses.Book_Instance;
 
 public class BookInstanceDetailsDatabase {
 
@@ -22,7 +22,7 @@ public class BookInstanceDetailsDatabase {
     String ISBN = "isbn";
     String REQUEST = "requests";
     String BOOKREQUEST = "book-request";
-    private BookInstance bookInstance;
+    private Book_Instance bookInstance;
 
     private DatabaseReference myRef;
 
@@ -36,7 +36,7 @@ public class BookInstanceDetailsDatabase {
     //Update Book Details
     //returns true if successful
 
-    public boolean updateBookInstance(BookInstance bookInstance){
+    public boolean updateBookInstance(Book_Instance bookInstance){
 
         DatabaseReference bookInstanceRef = this.myRef.child(BOOK_INSTANCE);
 
@@ -57,7 +57,7 @@ public class BookInstanceDetailsDatabase {
 
     }
 
-    public boolean deleteBook(BookInstance bookInstance){
+    public boolean deleteBook(Book_Instance bookInstance){
         DatabaseReference bookInstanceRef = this.myRef.child(BOOK_INSTANCE);
 
 
@@ -84,13 +84,13 @@ public class BookInstanceDetailsDatabase {
 
 
     //Read book details from the database by ID
-    public BookInstance getBookInstanceByID(String bookID) {
+    public Book_Instance getBookInstanceByID(String bookID) {
         DatabaseReference bookRef = myRef.child(BOOK_INSTANCE).child(bookID);
 
         bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                setBookInstance((BookInstance) dataSnapshot.getValue());
+                setBookInstance((Book_Instance) dataSnapshot.getValue());
             }
 
             @Override
@@ -106,7 +106,7 @@ public class BookInstanceDetailsDatabase {
 
 
 
-    public void setBookInstance(BookInstance bookInstance) {
+    public void setBookInstance(Book_Instance bookInstance) {
         this.bookInstance = bookInstance;
     }
 

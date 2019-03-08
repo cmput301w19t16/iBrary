@@ -7,18 +7,18 @@
     android:background="#00ff00"
     android:keepScreenOn="true">
 
-    <ca.rededaniskal.camera.CameraSourcePreview
+    <ca.rededaniskal.Barcode.camera.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ca.rededaniskal.camera.GraphicOverlay
+        <ca.rededaniskal.Barcode.camera.GraphicOverlay
             android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </ca.rededaniskal.camera.CameraSourcePreview>
+    </ca.rededaniskal.Barcode.camera.CameraSourcePreview>
 
-    <ca.rededaniskal.Barcode.ScannerOverlay
+    <ca.rededaniskal.Barcode.Scanner_Overlay
         android:id="@+id/scan_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

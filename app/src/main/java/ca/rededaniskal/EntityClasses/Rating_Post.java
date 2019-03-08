@@ -2,12 +2,12 @@ package ca.rededaniskal.EntityClasses;
 
 import ca.rededaniskal.EntityClasses.Post;
 
-public class ratingPost extends Post {
+public class Rating_Post extends Post {
     private double rating;
 
 
-    public ratingPost(String message, String username, String ISBN, double rating){
-        super(message, username, ISBN, "ratingPost");
+    public Rating_Post(String message, String username, String ISBN, double rating){
+        super(message, username, ISBN, "Rating_Post");
         this.rating = rating;
     }
 

@@ -40,15 +40,15 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import ca.rededaniskal.R;
-import ca.rededaniskal.camera.CameraSource;
-import ca.rededaniskal.camera.CameraSourcePreview;
-import ca.rededaniskal.camera.GraphicOverlay;
+import ca.rededaniskal.Barcode.camera.CameraSource;
+import ca.rededaniskal.Barcode.camera.CameraSourcePreview;
+import ca.rededaniskal.Barcode.camera.GraphicOverlay;
 
 import java.io.IOException;
 import java.util.List;
 
-public class BarcodeReaderFragment extends Fragment implements View.OnTouchListener, BarcodeGraphicTracker.BarcodeGraphicTrackerListener {
-    protected static final String TAG = BarcodeReaderFragment.class.getSimpleName();
+public class Barcode_Reader_Fragment extends Fragment implements View.OnTouchListener, Barcode_Graphic_Tracker.BarcodeGraphicTrackerListener {
+    protected static final String TAG = Barcode_Reader_Fragment.class.getSimpleName();
     protected static final String KEY_AUTO_FOCUS = "key_auto_focus";
     protected static final String KEY_USE_FLASH = "key_use_flash";
     private static final String KEY_SCAN_OVERLAY_VISIBILITY = "key_scan_overlay_visibility";
@@ -64,7 +64,7 @@ public class BarcodeReaderFragment extends Fragment implements View.OnTouchListe
 
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
-    private GraphicOverlay<BarcodeGraphic> mGraphicOverlay;
+    private GraphicOverlay<Barcode_Graphic> mGraphicOverlay;
 
     // helper objects for detecting taps and pinches.
     private ScaleGestureDetector scaleGestureDetector;
@@ -74,30 +74,30 @@ public class BarcodeReaderFragment extends Fragment implements View.OnTouchListe
     private static final int PERMISSION_CALLBACK_CONSTANT = 101;
     private static final int REQUEST_PERMISSION_SETTING = 102;
     private boolean sentToSettings = false;
-    private ScannerOverlay mScanOverlay;
+    private Scanner_Overlay mScanOverlay;
     private int scanOverlayVisibility;
 
-    public BarcodeReaderFragment() {
+    public Barcode_Reader_Fragment() {
         // Required empty public constructor
     }
 
-    public static BarcodeReaderFragment newInstance(boolean autoFocus, boolean useFlash) {
+    public static Barcode_Reader_Fragment newInstance(boolean autoFocus, boolean useFlash) {
         Bundle args = new Bundle();
         args.putBoolean(KEY_AUTO_FOCUS, autoFocus);
         args.putBoolean(KEY_USE_FLASH, useFlash);
-        BarcodeReaderFragment fragment = new BarcodeReaderFragment();
+        Barcode_Reader_Fragment fragment = new Barcode_Reader_Fragment();
         fragment.setArguments(args);
         return fragment;
     }
 
 
-    public static BarcodeReaderFragment newInstance(boolean autoFocus, boolean useFlash, int scanOverlayVisibleStatus) {
+    public static Barcode_Reader_Fragment newInstance(boolean autoFocus, boolean useFlash, int scanOverlayVisibleStatus) {
 
         Bundle args = new Bundle();
         args.putBoolean(KEY_AUTO_FOCUS, autoFocus);
         args.putBoolean(KEY_USE_FLASH, useFlash);
         args.putInt(KEY_SCAN_OVERLAY_VISIBILITY, scanOverlayVisibleStatus);
-        BarcodeReaderFragment fragment = new BarcodeReaderFragment();
+        Barcode_Reader_Fragment fragment = new Barcode_Reader_Fragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -255,7 +255,7 @@ public class BarcodeReaderFragment extends Fragment implements View.OnTouchListe
         // graphics for each barcode on screen.  The factory is used by the multi-processor to
         // create a separate tracker instance for each barcode.
         final BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context).build();
-        BarcodeTrackerFactory barcodeFactory = new BarcodeTrackerFactory(mGraphicOverlay, this);
+        Barcode_Tracker_Factory barcodeFactory = new Barcode_Tracker_Factory(mGraphicOverlay, this);
         barcodeDetector.setProcessor(
                 new MultiProcessor.Builder<>(barcodeFactory).build());
 
@@ -459,7 +459,7 @@ public class BarcodeReaderFragment extends Fragment implements View.OnTouchListe
         // Find the barcode whose center is closest to the tapped point.
         Barcode best = null;
         float bestDistance = Float.MAX_VALUE;
-        for (BarcodeGraphic graphic : mGraphicOverlay.getGraphics()) {
+        for (Barcode_Graphic graphic : mGraphicOverlay.getGraphics()) {
             Barcode barcode = graphic.getBarcode();
             if (barcode.getBoundingBox().contains((int) x, (int) y)) {
                 // Exact hit, no need to keep looking.

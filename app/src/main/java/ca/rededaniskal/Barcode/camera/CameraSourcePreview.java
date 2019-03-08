@@ -1,4 +1,4 @@
-package ca.rededaniskal.camera;
+package ca.rededaniskal.Barcode.camera;
 
 import android.Manifest;
 import android.content.Context;

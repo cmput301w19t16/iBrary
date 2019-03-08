@@ -1,10 +1,8 @@
 package ca.rededaniskal.EntityClasses;
 
-import ca.rededaniskal.EntityClasses.BookExchange;
+public class Check_In extends Book_Exchange {
 
-public class CheckIn extends BookExchange {
-
-    public CheckIn(String owner, String borrower, String isbn, int bookid) {
+    public Check_In(String owner, String borrower, String isbn, int bookid) {
         super(owner, borrower, isbn, bookid);
     }
 

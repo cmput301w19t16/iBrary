@@ -5,11 +5,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-import ca.rededaniskal.EntityClasses.BookInstance;
+import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Forum;
-import ca.rededaniskal.EntityClasses.FriendRequest;
-import ca.rededaniskal.EntityClasses.MasterBook;
+import ca.rededaniskal.EntityClasses.Friend_Request;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.EntityClasses.User;
 
@@ -27,7 +27,7 @@ public class DatabaseWriter {
 
 
 
-    public boolean updateBookInstance(BookInstance bookInstance){
+    public boolean updateBookInstance(Book_Instance bookInstance){
         DatabaseReference bookInstanceRef = this.databaseRef.child("book-instances");
         DatabaseReference masterBookRef = this.databaseRef.child("master-books");
         HashMap<String, Object> bookChildUpdates = new HashMap<String, Object>();
@@ -50,7 +50,7 @@ public class DatabaseWriter {
 
 
     }
-    public void writeNewMasterBook(MasterBook masterBook){
+    public void writeNewMasterBook(Master_Book masterBook){
 
     }
     public void writeNewUser(User user){
@@ -59,7 +59,7 @@ public class DatabaseWriter {
     public void writeNewRequest(BorrowRequest borrowRequest){
 
     }
-    public void writeNewRequest(FriendRequest friendRequest){
+    public void writeNewRequest(Friend_Request friendRequest){
 
     }
 

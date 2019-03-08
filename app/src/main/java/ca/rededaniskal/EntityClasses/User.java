@@ -10,12 +10,12 @@ public class User implements Serializable {
     private String location;
     private String profilePic;
     private ArrayList<User> friends;
-    private BookList ownedBooks;
-    private BookList borrowedBooks; // Includes accepted
-    private BookList requestedBooks;
+    private Book_List ownedBooks;
+    private Book_List borrowedBooks; // Includes accepted
+    private Book_List requestedBooks;
     private ArrayList<User> blockedUsers;
 
-    private MasterBook favBook;
+    private Master_Book favBook;
 
     //Constructors
     public User(String userName, String email, String location){
@@ -26,9 +26,9 @@ public class User implements Serializable {
         this.location = location;
 
         this.friends = new ArrayList<User>();
-        this.ownedBooks = new BookList();
-        this.borrowedBooks  = new BookList();
-        this.requestedBooks = new BookList();
+        this.ownedBooks = new Book_List();
+        this.borrowedBooks  = new Book_List();
+        this.requestedBooks = new Book_List();
         this.blockedUsers = new ArrayList<User>();
 
     }
@@ -41,11 +41,11 @@ public class User implements Serializable {
 
     //Getters + setters
 
-    public MasterBook getFavBook() {
+    public Master_Book getFavBook() {
         return favBook;
     }
 
-    public void setFavBook(MasterBook favBook) {
+    public void setFavBook(Master_Book favBook) {
         this.favBook = favBook;
     }
 
@@ -59,11 +59,11 @@ public class User implements Serializable {
     }
 
 
-    public BookList getRequestedBooks() {
+    public Book_List getRequestedBooks() {
         return requestedBooks;
     }
 
-    public void setRequestedBooks(BookList requestedBooks) {
+    public void setRequestedBooks(Book_List requestedBooks) {
         this.requestedBooks = requestedBooks;
     }
 
@@ -114,19 +114,19 @@ public class User implements Serializable {
         this.friends = friends;
     }
 
-    public BookList getOwnedBooks() {
+    public Book_List getOwnedBooks() {
         return ownedBooks;
     }
 
-    public void setOwnedBooks(BookList ownedBooks) {
+    public void setOwnedBooks(Book_List ownedBooks) {
         this.ownedBooks = ownedBooks;
     }
 
-    public BookList getBorrowedBooks() {
+    public Book_List getBorrowedBooks() {
         return borrowedBooks;
     }
 
-    public void setBorrowedBooks(BookList borrowedBooks) {
+    public void setBorrowedBooks(Book_List borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
 
@@ -139,20 +139,20 @@ public class User implements Serializable {
     }
 
     //Functionality methods
-    public void addRequestedBook(BookInstance newBook){
+    public void addRequestedBook(Book_Instance newBook){
         requestedBooks.addBook(newBook);
     }
 
-    public void deleteRequestedBook(BookInstance deleteBook){
+    public void deleteRequestedBook(Book_Instance deleteBook){
         requestedBooks.removeBook(deleteBook);
     }
 
-    public void addOwnedBook(BookInstance newBook){
+    public void addOwnedBook(Book_Instance newBook){
 
         ownedBooks.addBook(newBook);
     }
 
-    public void deleteOwnedBook(BookInstance deleteBook){
+    public void deleteOwnedBook(Book_Instance deleteBook){
         ownedBooks.removeBook(deleteBook);
     }
 
@@ -160,11 +160,11 @@ public class User implements Serializable {
         ownedBooks.clear();
     }
 
-    public void addBorrowedBook(BookInstance newBook){
+    public void addBorrowedBook(Book_Instance newBook){
         borrowedBooks.addBook(newBook);
     }
 
-    public void deleteBorrowedBook(BookInstance deleteBook){
+    public void deleteBorrowedBook(Book_Instance deleteBook){
         borrowedBooks.removeBook(deleteBook);
     }
 

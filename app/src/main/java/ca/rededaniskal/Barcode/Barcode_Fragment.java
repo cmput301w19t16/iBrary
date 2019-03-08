@@ -15,14 +15,14 @@ import ca.rededaniskal.R;
 
 import java.util.List;
 
-public class BarcodeFragment extends Fragment implements BarcodeReaderFragment.BarcodeReaderListener {
-    private static final String TAG = BarcodeFragment.class.getSimpleName();
+public class Barcode_Fragment extends Fragment implements Barcode_Reader_Fragment.BarcodeReaderListener {
+    private static final String TAG = Barcode_Fragment.class.getSimpleName();
 
-    private BarcodeReaderFragment barcodeReader;
+    private Barcode_Reader_Fragment barcodeReader;
 
-    public static BarcodeFragment newInstance() {
+    public static Barcode_Fragment newInstance() {
         Bundle args = new Bundle();
-        BarcodeFragment fragment = new BarcodeFragment();
+        Barcode_Fragment fragment = new Barcode_Fragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -38,7 +38,7 @@ public class BarcodeFragment extends Fragment implements BarcodeReaderFragment.B
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_barcode, container, false);
 
-        barcodeReader = (BarcodeReaderFragment) getChildFragmentManager().findFragmentById(R.id.barcode_fragment);
+        barcodeReader = (Barcode_Reader_Fragment) getChildFragmentManager().findFragmentById(R.id.barcode_fragment);
         barcodeReader.setListener(this);
         return view;
     }

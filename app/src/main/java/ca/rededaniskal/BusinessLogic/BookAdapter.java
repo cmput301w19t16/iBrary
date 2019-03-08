@@ -13,19 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
-import ca.rededaniskal.EntityClasses.BookInstance;
-import ca.rededaniskal.EntityClasses.BookList;
+import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder>{
     public Context mctx;
-    private BookList bookList;
+    private Book_List bookList;
 
     /**
      * Instantiates a new Entry adapter.
      */
-    public BookAdapter(Context mctx, BookList bookList) {
+    public BookAdapter(Context mctx, Book_List bookList) {
         this.mctx = mctx;
         this.bookList = bookList;
     }
@@ -51,7 +51,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
      */
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder  bookViewHolder, final int i) {
-        final BookInstance book = bookList.getBookByIndex(i);
+        final Book_Instance book = bookList.getBookByIndex(i);
 
         //Set the book attributes
         bookViewHolder.bookTitle.setText(book.getTitle());

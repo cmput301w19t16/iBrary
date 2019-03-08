@@ -1,29 +1,30 @@
-package ca.rededaniskal.Activities;
+package ca.rededaniskal.Activities.Fragments;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import ca.rededaniskal.R;
+import java.util.ArrayList;
+
+import ca.rededaniskal.EntityClasses.Post;
+import ca.rededaniskal.EntityClasses.Text_Post;
+import ca.rededaniskal.BusinessLogic.PostAdapter;
+import ca.rededaniskal.EntityClasses.Rating_Post;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link personal_profile.OnFragmentInteractionListener} interface
+ * {@link Post_Feed_Fragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link personal_profile#newInstance} factory method to
+ * Use the {@link Post_Feed_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class personal_profile extends Fragment {
-
-
+public class Post_Feed_Fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,12 +34,11 @@ public class personal_profile extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    //OnFragmentInteractionListener mListener;
 
-    public personal_profile() {
+    public Post_Feed_Fragment() {
         // Required empty public constructor
     }
-
 
     /**
      * Use this factory method to create a new instance of
@@ -46,18 +46,17 @@ public class personal_profile extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment personal_profile.
+     * @return A new instance of fragment Post_Feed_Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static personal_profile newInstance(String param1, String param2) {
-        personal_profile fragment = new personal_profile();
+    public static Post_Feed_Fragment newInstance(String param1, String param2) {
+        Post_Feed_Fragment fragment = new Post_Feed_Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,34 +65,51 @@ public class personal_profile extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_personal_profile,container, false);
 
-        Button editButton = v.findViewById(R.id.edit_user);
+        RecyclerView recyclerView = new RecyclerView(getContext());
+        recyclerView.setHasFixedSize(true);
+        ArrayList<Post> postList = new ArrayList<Post>();
+        postList.add(new Text_Post("This is a text post", "User1", "Placeholder ISBN1"));
+        postList.add(new Text_Post("This is a text post", "User2", "Placeholder ISBN2"));
 
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Edit_Profile_Activity.class);
-                startActivity(intent);
-            }
-        });
+        postList.add(new Rating_Post("This is a Rating_Post", "User6", "Placeholder ISBN", 4.0));
+        postList.add(new Rating_Post("This is a Rating_Post", "User7", "Placeholder ISBN", 4.0));
+        postList.add(new Rating_Post("This is a Rating_Post", "User8", "Placeholder ISBN", 4.0));
+        postList.add(new Rating_Post("This is a Rating_Post", "User9", "Placeholder ISBN", 4.0));
 
-        return v;
+        postList.add(new Text_Post("This is a text post", "User3", "Placeholder ISBN3"));
+        postList.add(new Text_Post("This is a text post", "User4", "Placeholder ISBN4"));
+        postList.add(new Text_Post("This is a text post", "User5", "Placeholder ISBN5"));
+
+        postList.add(new Rating_Post("This is a Rating_Post", "User10", "Placeholder ISBN", 4.0));
+        postList.add(new Rating_Post("This is a Rating_Post", "User11", "Placeholder ISBN", 4.0));
+        postList.add(new Rating_Post("This is a Rating_Post", "User12", "Placeholder ISBN", 4.0));
+
+        for (Post p: postList){
+            p.setID("Some post id");
+        }
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(new PostAdapter(postList));
+
+        return recyclerView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
+    /**
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -109,7 +125,7 @@ public class personal_profile extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
+    } */
 
     /**
      * This interface must be implemented by activities that contain this
@@ -120,9 +136,9 @@ public class personal_profile extends Fragment {
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
-     */
+     *//**
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
+    }*/
 }

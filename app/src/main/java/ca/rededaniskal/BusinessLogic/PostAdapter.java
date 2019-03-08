@@ -41,11 +41,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         Post post = mDataset.get(position);
         String text = post.getUserName();
         switch (post.getType()){
-            case "ratingPost":
+            case "Rating_Post":
                 text += " just reviewed " + post.getISBN();
 
                 break;
-            case "textPost":
+            case "Text_Post":
                 text += " made a post about " + post.getISBN();
                 break;
         }

@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import ca.rededaniskal.R;
 
-public class Login extends AppCompatActivity {
+public class Login_Activity extends AppCompatActivity {
     Button loginButton;
     Button RegisterButton;
     EditText name;
@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SignupActivity.class);
+                Intent intent = new Intent(v.getContext(), Signup_Activity.class);
                 startActivity(intent);
             }
         });

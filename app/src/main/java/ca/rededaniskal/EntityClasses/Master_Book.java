@@ -4,14 +4,14 @@ import java.util.HashMap;
 
 import ca.rededaniskal.EntityClasses.Book;
 
-public class MasterBook extends Book {
+public class Master_Book extends Book {
 
     private Double avgRating;
     private Integer totalNumRating;
     private Double sumRatings;
     private HashMap<String, Double>mapUsersRating;
 
-    public MasterBook(String newTitle, String newAuthor, String newIsbn){
+    public Master_Book(String newTitle, String newAuthor, String newIsbn){
         super(newTitle, newAuthor, newIsbn);
         avgRating = -1.00;
         totalNumRating = -1;

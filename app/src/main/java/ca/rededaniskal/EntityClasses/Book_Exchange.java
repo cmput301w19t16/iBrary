@@ -2,7 +2,7 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.Date;
 
-public abstract class  BookExchange {
+public abstract class Book_Exchange {
     private String location;
     private Date time;
     private String owner;
@@ -10,7 +10,7 @@ public abstract class  BookExchange {
     private String isbn;
     private int bookid;
 
-    public BookExchange(String owner, String borrower, String isbn, int bookid) {
+    public Book_Exchange(String owner, String borrower, String isbn, int bookid) {
         this.owner = owner;
         this.borrower = borrower;
         this.isbn = isbn;

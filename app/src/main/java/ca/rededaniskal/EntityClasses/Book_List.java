@@ -2,31 +2,31 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.ArrayList;
 
-public class BookList {
-    private ArrayList<BookInstance> books;
+public class Book_List {
+    private ArrayList<Book_Instance> books;
 
-    public BookList(){
+    public Book_List(){
         books = new ArrayList<>();
     }
 
-    public void addBook(BookInstance newBook){
+    public void addBook(Book_Instance newBook){
         books.add(newBook);
     }
 
-    public void removeBook(BookInstance removeBook){
+    public void removeBook(Book_Instance removeBook){
         books.remove(removeBook);
     }
 
-    public BookInstance getBookByIndex(Integer ind){
+    public Book_Instance getBookByIndex(Integer ind){
         return books.get(ind);
     }
 
-    public ArrayList<BookInstance> getBooks(){
+    public ArrayList<Book_Instance> getBooks(){
         return books;
     }
 
-    public ArrayList<BookInstance> getBooksByStatus(String status){
-        ArrayList<BookInstance> returnBooks = new ArrayList<>();
+    public ArrayList<Book_Instance> getBooksByStatus(String status){
+        ArrayList<Book_Instance> returnBooks = new ArrayList<>();
         for (Integer i = 0; i < books.size(); i++){
             if (books.get(i).getStatus() == status){
                 returnBooks.add(books.get(i));

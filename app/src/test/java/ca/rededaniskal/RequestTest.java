@@ -3,7 +3,7 @@ package ca.rededaniskal;
 import org.junit.Test;
 
 import ca.rededaniskal.EntityClasses.BorrowRequest;
-import ca.rededaniskal.EntityClasses.FriendRequest;
+import ca.rededaniskal.EntityClasses.Friend_Request;
 import ca.rededaniskal.EntityClasses.Request;
 
 import static org.junit.Assert.*;
@@ -13,7 +13,7 @@ public class RequestTest {
     public void getUsernames(){
         String user1 = "Nick";
         String user2 = "Daniela";
-        Request request = new FriendRequest(user1, user2);
+        Request request = new Friend_Request(user1, user2);
         assertEquals(user1, request.getSenderUserName());
         assertEquals(user2, request.getRecipientUserName());
     }
@@ -22,7 +22,7 @@ public class RequestTest {
     public void setUsernames(){
         String user1 = "Nick";
         String user2 = "Daniela";
-        Request request = new FriendRequest("mark", "Joe");
+        Request request = new Friend_Request("mark", "Joe");
         request.setRecipientUserName(user2);
         request.setSenderUserName(user1);
         assertEquals(user1, request.getSenderUserName());
@@ -32,8 +32,8 @@ public class RequestTest {
     @Test
     public void testRequestType(){
         String requestType = "BorrowRequest";
-        Request request = new FriendRequest("mark", "Joe");
-        assertEquals("FriendRequest", request.getRequestType());
+        Request request = new Friend_Request("mark", "Joe");
+        assertEquals("Friend_Request", request.getRequestType());
         request.setRequestType(requestType);
         assertEquals(requestType, request.getRequestType());
     }
@@ -41,14 +41,14 @@ public class RequestTest {
     @Test
     public void getStatus(){
         String status = "Pending";
-        Request request = new FriendRequest("mark", "Joe");
+        Request request = new Friend_Request("mark", "Joe");
         assertEquals(status, request.getStatus());
     }
 
     @Test
     public void setStatus(){
         String status = "Something Else";
-        Request request = new FriendRequest("mark", "Joe");
+        Request request = new Friend_Request("mark", "Joe");
         request.setStatus(status);
         assertEquals(status, request.getStatus());
     }
@@ -56,7 +56,7 @@ public class RequestTest {
     @Test
     public void Accept(){
         String status = "Accepted";
-        Request request = new FriendRequest("mark", "Joe");
+        Request request = new Friend_Request("mark", "Joe");
         request.accept();
         assertEquals(status, request.getStatus());
     }
@@ -64,7 +64,7 @@ public class RequestTest {
     @Test
     public void Deny(){
         String status = "Denied";
-        Request request = new FriendRequest("mark", "Joe");
+        Request request = new Friend_Request("mark", "Joe");
         request.deny();
         assertEquals(status, request.getStatus());
     }
@@ -72,7 +72,7 @@ public class RequestTest {
     @Test
     public void Cancel(){
         String status = "Cancelled";
-        Request request = new FriendRequest("mark", "Joe");
+        Request request = new Friend_Request("mark", "Joe");
         request.cancel();
         assertEquals(status, request.getStatus());
     }
@@ -80,7 +80,7 @@ public class RequestTest {
     @Test
     public void testRequestId(){
         int requestId = 1;
-        Request request = new FriendRequest("mark", "Joe");
+        Request request = new Friend_Request("mark", "Joe");
         request.setRequestId(requestId);
         assertEquals(requestId, request.getRequestId());
     }

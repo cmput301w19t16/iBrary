@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import ca.rededaniskal.EntityClasses.BookInstance;
+import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -49,7 +49,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         //Get what was passed in and display it
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        BookInstance book = (BookInstance) extras.get("book"); //Get the book
+        Book_Instance book = (Book_Instance) extras.get("book"); //Get the book
 
         DisplayTitle.setText(book.getTitle());
         DisplayAuthor.setText(book.getAuthor());

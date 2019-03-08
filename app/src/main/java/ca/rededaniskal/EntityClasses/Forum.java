@@ -6,7 +6,7 @@ public class Forum {
 
     private ArrayList<Post> posts = new ArrayList<>();
     private Post newPost;
-    private MasterBook Book;
+    private Master_Book Book;
     private String forumID;
     private String userName;
 

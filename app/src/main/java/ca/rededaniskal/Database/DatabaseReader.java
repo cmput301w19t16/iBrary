@@ -12,22 +12,22 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Map;
 
-import ca.rededaniskal.EntityClasses.BookInstance;
-import ca.rededaniskal.EntityClasses.BookList;
-import ca.rededaniskal.EntityClasses.MasterBook;
+import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.Post;
 
 public class DatabaseReader {
     private FirebaseDatabase database;
     private DatabaseReference listRef;
-    private BookList bookList;
+    private Book_List bookList;
     private ArrayList<String> userList;
-    private ArrayList<MasterBook> masterBookList;
+    private ArrayList<Master_Book> masterBookList;
     private ArrayList<Post> postList;
 
-    private BookInstance bookInstance;
+    private Book_Instance bookInstance;
     private String user;
-    private MasterBook masterBook;
+    private Master_Book masterBook;
 
 
 
@@ -41,7 +41,7 @@ public class DatabaseReader {
 
 
 
-    public BookList getFilteredBookList(String filterby, String filterVal){
+    public Book_List getFilteredBookList(String filterby, String filterVal){
 
         DatabaseReference userBooksRef = this.listRef.child("bookInstances");
         Query query = userBooksRef.orderByChild(filterby).equalTo(filterVal);
@@ -84,7 +84,7 @@ public class DatabaseReader {
 
 
 
-    public ArrayList<MasterBook> getFilteredMasterBookList(String filterby, String filterVal) {
+    public ArrayList<Master_Book> getFilteredMasterBookList(String filterby, String filterVal) {
 
 
 
@@ -106,13 +106,13 @@ public class DatabaseReader {
 
 
 
-    public BookInstance getBookInstanceByID(String bookID) {
+    public Book_Instance getBookInstanceByID(String bookID) {
         DatabaseReference bookRef = listRef.child("bookInstances").child(bookID);
 
         bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                setBookInstance((BookInstance) dataSnapshot.getValue());
+                setBookInstance((Book_Instance) dataSnapshot.getValue());
             }
 
             @Override
@@ -124,13 +124,13 @@ public class DatabaseReader {
 
     }
 
-    public MasterBook getMasterBookInstanceByISBN(String masterBookIsbn) {
+    public Master_Book getMasterBookInstanceByISBN(String masterBookIsbn) {
         DatabaseReference bookRef = listRef.child("masterBooks").child(masterBookIsbn);
 
         bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                setMasterBook((MasterBook) dataSnapshot.getValue());
+                setMasterBook((Master_Book) dataSnapshot.getValue());
             }
 
             @Override
@@ -164,9 +164,9 @@ public class DatabaseReader {
 
 
     private void populateBookList(Map<String, Object> stringObjectMap) {
-        this.bookList = new BookList();
+        this.bookList = new Book_List();
         for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
-            this.bookList.addBook((BookInstance)entry.getValue());
+            this.bookList.addBook((Book_Instance)entry.getValue());
         }
 
     }
@@ -179,14 +179,14 @@ public class DatabaseReader {
     }
 
     private void populateMasterBookList(Map<String, Object> stringObjectMap) {
-        this.masterBookList = new ArrayList<MasterBook>();
+        this.masterBookList = new ArrayList<Master_Book>();
         for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
-            this.masterBookList.add((MasterBook)entry.getValue());
+            this.masterBookList.add((Master_Book)entry.getValue());
         }
 
     }
 
-    public void setBookInstance(BookInstance bookInstance) {
+    public void setBookInstance(Book_Instance bookInstance) {
         this.bookInstance = bookInstance;
     }
 
@@ -194,7 +194,7 @@ public class DatabaseReader {
         this.user = user;
     }
 
-    public void setMasterBook(MasterBook masterBook) {
+    public void setMasterBook(Master_Book masterBook) {
         this.masterBook = masterBook;
     }
 }

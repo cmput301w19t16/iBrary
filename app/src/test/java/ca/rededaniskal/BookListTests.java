@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import ca.rededaniskal.EntityClasses.BookInstance;
-import ca.rededaniskal.EntityClasses.BookList;
+import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.User;
 
 import static org.junit.Assert.*;
@@ -14,7 +14,7 @@ public class BookListTests {
 
     @Test
     public void addBook(){
-        BookList list = new BookList();
+        Book_List list = new Book_List();
 
         String name = "John Doe";
         String email = "john@gmail.com";
@@ -22,7 +22,7 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book);
 
         assertTrue(list.getBooks().contains(book));
@@ -31,7 +31,7 @@ public class BookListTests {
     }
     @Test
     public void removeBook(){
-        BookList list = new BookList();
+        Book_List list = new Book_List();
 
         String name = "John Doe";
         String email = "john@gmail.com";
@@ -39,7 +39,7 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book);
 
         assertTrue(list.getBooks().contains(book));
@@ -48,7 +48,7 @@ public class BookListTests {
     }
     @Test
     public void getBookByIndex(){
-        BookList list = new BookList();
+        Book_List list = new Book_List();
 
         String name = "John Doe";
         String email = "john@gmail.com";
@@ -56,10 +56,10 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book);
 
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book2);
 
         assertEquals(book, list.getBookByIndex(0));
@@ -68,7 +68,7 @@ public class BookListTests {
     @Test
     public void getBooks(){
 
-        BookList list = new BookList();
+        Book_List list = new Book_List();
 
         String name = "John Doe";
         String email = "john@gmail.com";
@@ -76,13 +76,13 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book);
 
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
         list.addBook(book2);
 
-        ArrayList<BookInstance> testlist = new ArrayList<>();
+        ArrayList<Book_Instance> testlist = new ArrayList<>();
         testlist.add(book);
         testlist.add(book2);
 
@@ -93,7 +93,7 @@ public class BookListTests {
 
         String status = "accepted";
 
-        BookList list = new BookList();
+        Book_List list = new Book_List();
 
         String name = "John Doe";
         String email = "john@gmail.com";
@@ -101,8 +101,8 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
         list.addBook(book);
         list.addBook(book2);
 
@@ -112,7 +112,7 @@ public class BookListTests {
     @Test
     public void size(){
 
-        BookList list = new BookList();
+        Book_List list = new Book_List();
 
         String name = "John Doe";
         String email = "john@gmail.com";
@@ -120,8 +120,8 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
         list.addBook(book);
         list.addBook(book2);
 
@@ -130,7 +130,7 @@ public class BookListTests {
     }
     @Test
     public void clear(){
-        BookList list = new BookList();
+        Book_List list = new Book_List();
 
         String name = "John Doe";
         String email = "john@gmail.com";
@@ -138,8 +138,8 @@ public class BookListTests {
         String location  = "Edmonton, AB";
         User user = new User(name, email, phoneNumber, location);
 
-        BookInstance book = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
-        BookInstance book2 = new BookInstance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
+        Book_Instance book = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "D", "Very Nice", "accepted");
+        Book_Instance book2 = new Book_Instance("Happy Potter", "J.K.", "1234567890", "d", "d", "Very Nice", "borrowed");
         list.addBook(book);
         list.addBook(book2);
 

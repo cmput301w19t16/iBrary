@@ -2,8 +2,8 @@ package ca.rededaniskal;
 
 import org.junit.Test;
 
-import ca.rededaniskal.EntityClasses.FriendNotification;
-import ca.rededaniskal.EntityClasses.FriendRequest;
+import ca.rededaniskal.EntityClasses.Friend_Notification;
+import ca.rededaniskal.EntityClasses.Friend_Request;
 import ca.rededaniskal.EntityClasses.Request;
 
 import static org.junit.Assert.*;
@@ -12,16 +12,16 @@ public class FriendNotificationTest {
 
     @Test
     public void requestType(){
-        FriendNotification friendNotification = new FriendNotification();
+        Friend_Notification friendNotification = new Friend_Notification();
         friendNotification.setUsername("dlothian");
 
-        Request request = new FriendRequest("dlothian", "daniela");
+        Request request = new Friend_Request("dlothian", "daniela");
         friendNotification.setRequest(request);
         friendNotification.requestType();
         String requestType = friendNotification.getFriendType();
         assertEquals("requested", requestType);
 
-        Request request2 = new FriendRequest("daniela", "dlothian");
+        Request request2 = new Friend_Request("daniela", "dlothian");
         friendNotification.setRequest(request2);
         friendNotification.requestType();
         String requestType2 = friendNotification.getFriendType();
@@ -31,16 +31,16 @@ public class FriendNotificationTest {
 
     @Test
     public void setMessage(){
-        FriendNotification friendNotification = new FriendNotification();
-        Request request = new FriendRequest("dlothian", "daniela");
+        Friend_Notification friendNotification = new Friend_Notification();
+        Request request = new Friend_Request("dlothian", "daniela");
         friendNotification.setRequest(request);
         friendNotification.setFriendType("requested");
         friendNotification.setMessage();
         String expected = friendNotification.getRequest().getSenderUserName() + " has sent you a friend request";
         assertEquals(expected, friendNotification.getMessage());
 
-        FriendNotification friendNotification2 = new FriendNotification();
-        Request request2 = new FriendRequest("dlothian", "daniela");
+        Friend_Notification friendNotification2 = new Friend_Notification();
+        Request request2 = new Friend_Request("dlothian", "daniela");
         friendNotification2.setRequest(request2);
         friendNotification2.setFriendType("accepted");
         friendNotification2.setMessage();

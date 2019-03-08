@@ -1,7 +1,7 @@
 /*
  *
  * Created by Delaney on 07/03/2019
- * Handles the business logic of SignupActivity
+ * Handles the business logic of Signup_Activity
  *
  * */
 

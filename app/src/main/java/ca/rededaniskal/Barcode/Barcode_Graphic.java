@@ -6,13 +6,13 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 import com.google.android.gms.vision.barcode.Barcode;
-import ca.rededaniskal.camera.GraphicOverlay;
+import ca.rededaniskal.Barcode.camera.GraphicOverlay;
 
 /**
  * Graphic instance for rendering barcode position, size, and ID within an associated graphic
  * overlay view.
  */
-public class BarcodeGraphic extends GraphicOverlay.Graphic {
+public class Barcode_Graphic extends GraphicOverlay.Graphic {
 
     private int mId;
 
@@ -28,7 +28,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
     private Paint mTextPaint;
     private volatile Barcode mBarcode;
 
-    BarcodeGraphic(GraphicOverlay overlay) {
+    Barcode_Graphic(GraphicOverlay overlay) {
         super(overlay);
 
         mCurrentColorIndex = (mCurrentColorIndex + 1) % COLOR_CHOICES.length;
