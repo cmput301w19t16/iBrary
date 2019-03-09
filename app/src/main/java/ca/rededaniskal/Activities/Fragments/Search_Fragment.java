@@ -1,11 +1,17 @@
 package ca.rededaniskal.Activities.Fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import java.util.ArrayList;
+
+import ca.rededaniskal.Activities.Search_Activity;
 import ca.rededaniskal.R;
 
 /**
@@ -27,6 +33,12 @@ public class Search_Fragment extends Fragment {
     private String mParam2;
 
     //private OnFragmentInteractionListener mListener;
+
+
+    Button searchBy;
+    String[] filterOptions;
+    boolean[] selectedOptions;
+    ArrayList<Integer> chosenOptions = new ArrayList<>();
 
     public Search_Fragment() {
         // Required empty public constructor
@@ -62,8 +74,72 @@ public class Search_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        final View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+
+        searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
+        filterOptions = getResources().getStringArray(R.array.filter_search_options);
+        selectedOptions = new boolean[filterOptions.length];
+
+
+        searchBy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.search_by);
+                builder.setMultiChoiceItems(filterOptions, selectedOptions, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+                        if(isChecked){
+                            chosenOptions.add(position);
+                        }else{
+                            chosenOptions.remove((Integer.valueOf(position)));
+                        }
+                    }
+                });
+
+                builder.setCancelable(false);
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        String item = "";
+                        for (int i = 0; i < chosenOptions.size(); i++) {
+                            item = item + filterOptions[chosenOptions.get(i)];
+                            if (i != chosenOptions.size() - 1) {
+                                item = item + ", ";
+                            }
+                        }
+                        //mItemSelected.setText(item);
+                    }
+                });
+
+                builder.setNegativeButton(R.string.dismiss, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.setNeutralButton(R.string.clear_all, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        for (int i = 0; i < selectedOptions.length; i++) {
+                            selectedOptions[i] = false;
+                            chosenOptions.clear();
+                            //mItemSelected.setText("");
+                        }
+                    }
+                });
+
+                AlertDialog mDialog = builder.create();
+                mDialog.show();
+            }
+        });
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_search_, container, false);
+        return view;
     }
 /*
     // TODO: Rename method, update argument and hook method into UI event

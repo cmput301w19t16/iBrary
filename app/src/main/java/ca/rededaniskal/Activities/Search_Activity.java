@@ -18,17 +18,18 @@ import ca.rededaniskal.R;
 
 public class Search_Activity extends AppCompatActivity {
 
+    /*
     Button searchBy;
     String[] filterOptions;
     boolean[] selectedOptions;
-    ArrayList<Integer> chosenOptions = new ArrayList<>();
+    ArrayList<Integer> chosenOptions = new ArrayList<>();*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_);
 
-        searchBy = (Button) findViewById(R.id.FilterSearchButton);
+        /*searchBy = (Button) findViewById(R.id.FilterSearchButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
 
@@ -86,7 +87,7 @@ public class Search_Activity extends AppCompatActivity {
                 mDialog.show();
             }
         });
-
+*/
 
 
 
