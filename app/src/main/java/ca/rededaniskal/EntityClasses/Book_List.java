@@ -1,8 +1,9 @@
 package ca.rededaniskal.EntityClasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Book_List {
+public class Book_List implements Serializable {
     private ArrayList<Book_Instance> books;
 
     public Book_List(){

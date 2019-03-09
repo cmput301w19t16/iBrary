@@ -1,8 +1,9 @@
 package ca.rededaniskal.EntityClasses;
+import java.io.Serializable;
 import java.util.UUID;
 
 
-public class Book {
+public class Book implements Serializable {
 
     private String title;
     private String author;

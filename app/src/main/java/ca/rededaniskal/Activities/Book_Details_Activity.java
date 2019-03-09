@@ -48,8 +48,9 @@ public class Book_Details_Activity extends AppCompatActivity {
 
         //Get what was passed in and display it
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        Book_Instance book = (Book_Instance) extras.get("book"); //Get the book
+        //Bundle extras = intent.getExtras();
+
+        Book_Instance book = (Book_Instance) intent.getSerializableExtra("book"); //Get the book
 
         DisplayTitle.setText(book.getTitle());
         DisplayAuthor.setText(book.getAuthor());

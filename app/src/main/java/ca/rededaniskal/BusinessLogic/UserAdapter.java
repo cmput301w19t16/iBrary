@@ -68,6 +68,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
 
         //Set on click listener for the icon (in order to add friends)
+        /*
         userViewHolder.statusIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,16 +78,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             }
         });
 
+        */
 
 
         //if User clicks on another User, will start the user details Activity
         userViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
                 Intent intent = new Intent(mctx, User_Details_Activity.class); // TODO: change the name of this for the
-                bundle.putSerializable("KEY", user);
-                intent.putExtras(bundle); // Pass in the position of entry to be changed in the list
+                intent.putExtra("user", user);
                 mctx.startActivity(intent);
             }
         });
@@ -116,8 +116,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             super(itemView);
             profilePic = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the Users image
             statusIcon = itemView.findViewById(R.id.StatusIcon);
-            UserName = itemView.findViewById(R.id.UserName);
-            UserLocation = itemView.findViewById(R.id.UserLocation);
+            UserName = itemView.findViewById(R.id.BookTitle);
+            UserLocation = itemView.findViewById(R.id.BookAuthor);
             UserMutualFriends = itemView.findViewById(R.id.UserMutualFriends);
         }
     }

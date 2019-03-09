@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import ca.rededaniskal.Activities.Edit_Profile_Activity;
+import ca.rededaniskal.Activities.Login_Activity;
 import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
 import ca.rededaniskal.Activities.View_Friends_Activity;
 import ca.rededaniskal.Activities.View_My_Library_Activity;
@@ -82,6 +83,7 @@ public class View_Own_Profile_Fragment extends Fragment {
         Button viewLibrary = (Button) v.findViewById(R.id.my_library);
         Button viewBorrowedRequested = (Button) v.findViewById(R.id.borrowed_requested_books);
         Button viewFriends = (Button) v.findViewById(R.id.friends_listbutton);
+        Button logout = (Button) v.findViewById(R.id.logout);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +117,14 @@ public class View_Own_Profile_Fragment extends Fragment {
             }
         });
 
-
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: need logic here to log user out
+                Intent intent = new Intent(getActivity(), Login_Activity.class);
+                startActivity(intent);
+            }
+        });
 
         return v;
     }
