@@ -18,7 +18,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static android.content.ContentValues.TAG;
+
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 import ca.rededaniskal.BusinessLogic.SignUpLogic;
 
@@ -101,17 +106,15 @@ public class Signup_Activity extends AppCompatActivity {
 
             db.createUser(email, password);
 
-            if(db.isSuccess()){
-                /* TODO: Pass to new intent */
-                Toast.makeText(getApplicationContext(), "Sign Up Complete", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
             }
-        }else{
-            Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
-        }
 
     }
+
+
+    public void nextActivity(){
+        startActivity(new Intent(Signup_Activity.this,Main_Activity.class));
+    }
+
 
 
     public class SignUpDB {
@@ -121,6 +124,7 @@ public class Signup_Activity extends AppCompatActivity {
         private FirebaseAuth mAuth;
         private boolean success;
         private FirebaseUser newUser;
+        private User user;
 
         public SignUpDB(){
             mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -150,6 +154,7 @@ public class Signup_Activity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                nextActivity();
                                 //updateUI(user);
                                 success = true;
                             } else {
@@ -162,12 +167,17 @@ public class Signup_Activity extends AppCompatActivity {
                     });
         }
 
-        public FirebaseUser getNewUser() {
-            return newUser;
+        public User getUser() {
+            return user;
         }
 
-        private void setNewUser(FirebaseUser newUser) {
-            this.newUser = newUser;
+        public void setUser(User user) {
+            mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+//            Map<String, User> users = new HashMap<>();
+//            users.put("alanisawesome", new User("June 23, 1912", "Alan Turing"));
+//            users.put("gracehop", new User("December 9, 1906", "Grace Hopper"));
+//
+//            usersRef.setValueAsync(users);
         }
     }
 
