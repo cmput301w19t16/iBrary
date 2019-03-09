@@ -9,12 +9,12 @@ import android.view.View;
 
 import ca.rededaniskal.R;
 
-public class View_Rating_Post_Activity extends AppCompatActivity {
+public class View_Text_Post_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view__rating__post_);
+        setContentView(R.layout.activity_view__text__post_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 /*

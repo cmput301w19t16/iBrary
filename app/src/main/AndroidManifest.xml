@@ -36,7 +36,7 @@
             android:name=".Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.Launcher_Activity"></activity>
+        <activity android:name=".Activities.Launcher_Activity" />
         <activity
             android:name=".Activities.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"
@@ -49,6 +49,10 @@
         <activity
             android:name=".Activities.View_Rating_Post_Activity"
             android:label="@string/title_activity_view__rating__post_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.View_Text_Post_Activity"
+            android:label="@string/title_activity_view__text__post_"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

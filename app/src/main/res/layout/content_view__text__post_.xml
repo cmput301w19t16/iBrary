@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.SwipeRefreshLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/swiperefresh"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".Activities.View_Rating_Post_Activity"
-tools:showIn="@layout/activity_view__rating__post_">>
+    android:id="@+id/swiperefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.View_Rating_Post_Activity"
+    tools:showIn="@layout/activity_view__rating__post_">>
 
 
     <android.support.constraint.ConstraintLayout
@@ -57,7 +57,7 @@ tools:showIn="@layout/activity_view__rating__post_">>
             app:layout_constraintTop_toBottomOf="@+id/ViewTextPostTitle" />
 
         <TextView
-            android:id="@+id/ViewRatingPostISBN"
+            android:id="@+id/ViewTextPostISBN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -108,7 +108,7 @@ tools:showIn="@layout/activity_view__rating__post_">>
             app:layout_constraintTop_toBottomOf="@+id/ViewTextPostComment" />
 
         <TextView
-            android:id="@+id/ViewRatingPostRating"
+            android:id="@+id/ViewTextPostRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
