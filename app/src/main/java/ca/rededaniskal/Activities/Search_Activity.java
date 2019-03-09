@@ -1,3 +1,5 @@
+//Tutorial for selecting more than one option in search
+//https://www.youtube.com/redirect?q=https%3A%2F%2Fgithub.com%2Fcodingdemos%2FMultichoiceTutorial&redir_token=zWJM5OoUtOrwMvfLlGWm1qv4-B98MTU1MjE5NTgxMEAxNTUyMTA5NDEw&event=video_description&v=wfADRuyul04
 package ca.rededaniskal.Activities;
 
 import android.content.DialogInterface;
