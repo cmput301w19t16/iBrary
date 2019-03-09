@@ -79,6 +79,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 switch (holder.postType){
                     case "Text_Post":
                         intent = new Intent(fragment.getContext(), View_Text_Post_Activity.class);
+                        fragment.startActivity(intent);
                         break;
                     case "Rating_Post":
                         intent = new Intent(fragment.getContext(), View_Rating_Post_Activity.class);
