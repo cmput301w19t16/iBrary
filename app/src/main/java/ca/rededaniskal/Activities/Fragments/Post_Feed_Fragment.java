@@ -3,6 +3,7 @@ package ca.rededaniskal.Activities.Fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,9 +78,12 @@ public class Post_Feed_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        FragmentActivity act = getActivity();
+
         final View view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
         swipeContainer = view.findViewById(R.id.swipeContainer);
+
 
         final RecyclerView recyclerView = view.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
@@ -106,21 +110,21 @@ public class Post_Feed_Fragment extends Fragment {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        final PostAdapter postAdapter = new PostAdapter(postList);
-        recyclerView.setAdapter(new PostAdapter(postList));
+        final PostAdapter postAdapter = new PostAdapter(postList, Post_Feed_Fragment.this);
+        recyclerView.setAdapter(postAdapter);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 postList.add(new Post("This post should now show up",
                         "blank", "blank", "Display"));
-                recyclerView.setAdapter(new PostAdapter(postList));
+                recyclerView.setAdapter(new PostAdapter(postList, Post_Feed_Fragment.this));
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         // Stop animation (This will be after 3 seconds)
                         swipeContainer.setRefreshing(false);
                     }
-                }, 1300); // Delay in millis
+                }, 300); // Delay in millis
 
             }
         });
