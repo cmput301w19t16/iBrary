@@ -15,6 +15,10 @@ public class Book_Instance extends Book implements Serializable {
 
     private String status;
 
+    public Book_Instance(){
+
+    }
+
 
 
 

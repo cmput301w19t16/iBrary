@@ -14,39 +14,28 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.HashMap;
-import java.util.Map;
+
+
 
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 
-import static com.google.firebase.database.FirebaseDatabase.getInstance;
 
 
 public class Data_Provider {
-
+    private Integer u;
+    private char readOr;
     private Book_Instance book_instance;
-
-
-
-
-
-
-    static final String owner ="owner";
-    static final String author= "author";
-    static final String possessor = "possessor";
-    static final String title = "title";
-    static final String isbn = "isbn";
-
-    //Hash Map to keep track of the data structure tree
-
-
-
+    private Book_List book_list;
     private HashMap<Integer, String> urls;
 
     public Data_Provider() {
+
         urls = new HashMap<>();
         urls.put(-1, "master-books");
+
         urls.put(2, "book-instances");
+        urls.put(3,"book-instances/all-books" );
         urls.put(4, "book-status/a");
         urls.put(6, "book-status/b");
         urls.put(8, "book-status/r");
@@ -57,6 +46,9 @@ public class Data_Provider {
         urls.put(23, "posts");
         urls.put(14, "requests");
 
+        book_list = new Book_List();
+
+
 
 
     }
@@ -65,14 +57,36 @@ public class Data_Provider {
 
 
 
-    public Book_List bookQuery(String url, String selection, String[] selectionArgs, String sortOrder) {
+
+    public Book_List getBook_list() {
+        return book_list;
+    }
+
+    public void bookQuery(Integer url) {
+        //String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference bookRef= FirebaseDatabase
                 .getInstance()
                 .getReference()
                 .child(urls.get(url));
 
+        bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot d: dataSnapshot.getChildren()){
+                    Book_Instance b  =d.getValue(Book_Instance.class);
+                    collect_books(b);
+                }
 
-        return null;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                throw databaseError.toException();
+            }
+        });
+
+
+        return;
 
 
 
@@ -97,6 +111,7 @@ public class Data_Provider {
 
                @Override
                public void onCancelled(@NonNull DatabaseError databaseError) {
+                   throw databaseError.toException();
 
 
                }
@@ -122,7 +137,7 @@ public class Data_Provider {
         if (!newRef.child(id).setValue(book_instance).isSuccessful()){
             return false;
         };
-        
+
         for (Integer i: urls.keySet()){
             newRef = databaseReference.child(urls.get(i));
             if (i%2 ==0 && i>2) {
@@ -133,23 +148,13 @@ public class Data_Provider {
 
 
                 if (i%17 ==0){
-                    newRef.child(user).child(id).setValue(book_instance);
-
-
+                    if(!newRef.child(user).child(id).setValue(book_instance).isSuccessful()){
+                        return false;
+                    }
                 }
-
-
             }
-
-
         }
-
-
-
-
-
-
-        return false;
+        return true;
     }
 
 
@@ -182,17 +187,55 @@ public class Data_Provider {
     }
 
 
-    public Integer update() {
+    public boolean update(Book_Instance book_instance) {
+        String id = book_instance.getBookID();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference newRef = databaseReference.child(urls.get(2));
+
+        if (!newRef.child(id).setValue(book_instance).isSuccessful()){
+            return false;
+        };
+
+        for (Integer i: urls.keySet()){
+            newRef = databaseReference.child(urls.get(i));
+            if (i%2 ==0 && i>2) {
+                if (!newRef.child(id).setValue(book_instance).isSuccessful()){
+                    return  false;
+                }
 
 
-        return 0;
+
+                if (i%17 ==0){
+                    newRef.child(user).child(id).setValue(book_instance);
+
+
+                }
+
+
+            }
 
 
         }
 
 
+
+
+
+
+        return true;
+    }
+
+
+
+
     public void setBook_instance(Book_Instance book){
         this.book_instance = book;
+    }
+
+    private void collect_books(Book_Instance b){
+        this.book_list.addBook(b);
+
     }
 
 

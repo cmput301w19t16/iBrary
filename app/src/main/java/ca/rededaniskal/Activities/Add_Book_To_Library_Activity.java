@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
+import ca.rededaniskal.Database.Data_Provider;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 
@@ -100,6 +102,13 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
 
             Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "a");
+
+            Data_Provider data_provider = new Data_Provider();
+
+            if (data_provider.insert(bookInstance)){
+                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            }
+
 
 
 
