@@ -1,5 +1,7 @@
 package ca.rededaniskal;
 
+import ca.rededaniskal.EntityClasses.Book_Instance;
+
 public class AddBookLogic {
 
     private String title;
@@ -43,7 +45,7 @@ public class AddBookLogic {
 
 
 
-    public String addBookSuccess(BookInstance bookInstance){
+    public String addBookSuccess(Book_Instance bookInstance){
         String bookID;
 
         AddBookDb db = new AddBookDb();

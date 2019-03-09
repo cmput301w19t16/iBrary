@@ -4,13 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    android:background="@color/colorPrimaryDark"
-    tools:context=".AddBookInstanceActivity">
-=======
     android:background="@color/common_google_signin_btn_text_light_disabled"
     tools:context=".Activities.Add_Book_To_Library_Activity">
->>>>>>> RevanBranch
+
 
     <Button
         android:id="@+id/addBookButton"
@@ -57,7 +53,6 @@
                 android:padding="1dip"
                 android:text="Title"
                 android:textColor="#000"
-
                 android:textSize="22dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/addBookInfoTable"

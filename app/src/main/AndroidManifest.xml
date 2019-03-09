@@ -16,11 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".EditBookInstance"/>
-=======
         <activity android:name=".Activities.Edit_Book_Instance_Activity"></activity>
->>>>>>> RevanBranch
         <activity
             android:name=".Activities.Add_Book_To_Library_Activity"
             android:label="AddBookInstance"
@@ -37,32 +33,19 @@
             </intent-filter>
         </activity>
 
-<<<<<<< HEAD
-        <activity android:name=".SignupActivity"/>
-=======
         <activity android:name=".Activities.Signup_Activity"></activity>
->>>>>>> RevanBranch
         <activity
             android:name="ca.rededaniskal.Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-<<<<<<< HEAD
-        <activity android:name="ca.rededaniskal.MainActivity"/>
 
-=======
-        <activity android:name="ca.rededaniskal.Activities.Launcher_Activity">
->>>>>>> RevanBranch
+        <activity android:name="ca.rededaniskal.Activities.Launcher_Activity"/>
 
         <activity
             android:name="ca.rededaniskal.Activities.Edit_Profile_Activity"
-            android:label="@string/title_activity_edit__profile_"
+            android:label="@string/title_activity_edit__profile"
             android:theme="@style/AppTheme.NoActionBar" />
-<<<<<<< HEAD
-        <activity android:name=".BarcodeReaderActivity"/>
-=======
         <activity android:name=".Barcode.Barcode_Reader_Activity"></activity>
->>>>>>> RevanBranch
-
         <activity
             android:name="ca.rededaniskal.Barcode.Barcode_Scanner_Activity"
             android:label="@string/title_activity_barcode__scanner_"

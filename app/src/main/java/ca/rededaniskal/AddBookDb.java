@@ -6,6 +6,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
+import ca.rededaniskal.EntityClasses.Book_Instance;
+
 final class AddBookDb {
     FirebaseDatabase db;
     DatabaseReference bookRef;
@@ -17,7 +19,7 @@ final class AddBookDb {
 
     }
 
-    public String addBookToDatabase(BookInstance bookInstance) throws NullPointerException{
+    public String addBookToDatabase(Book_Instance bookInstance) throws NullPointerException{
 
 
         success =bookRef.push().getKey();

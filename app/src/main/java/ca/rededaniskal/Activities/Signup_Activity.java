@@ -1,10 +1,7 @@
 package ca.rededaniskal.Activities;
 
-<<<<<<< HEAD:app/src/main/java/ca/rededaniskal/SignupActivity.java
 import android.content.Intent;
 import android.support.annotation.NonNull;
-=======
->>>>>>> RevanBranch:app/src/main/java/ca/rededaniskal/Activities/Signup_Activity.java
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;

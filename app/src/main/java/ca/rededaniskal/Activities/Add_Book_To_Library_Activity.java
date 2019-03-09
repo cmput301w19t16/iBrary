@@ -17,9 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import ca.rededaniskal.AddBookLogic;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
-public class AddBookInstanceActivity extends AppCompatActivity {
-    private static final String TAG = "AddBookInstanceActivity";
-
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -30,9 +27,10 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
 public class Add_Book_To_Library_Activity extends AppCompatActivity {
+    private static final String TAG = "Add_Book_To_Library_Activity";
     private FirebaseAuth mAuth;
     private DatabaseReference bookRef;
-    String currentUserID;
+    private String currentUserID;
     private EditText title, author, isbn;
     private Button addBookButton;
 
@@ -95,8 +93,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             author.setError(error2);
 
         }
-
-
 
     }
 
