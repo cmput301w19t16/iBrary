@@ -35,7 +35,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
 
     //UI stuff
     private EditText editTitle, editAuthor, editISBN, editDescription;
-    private Button openScanner, save;
+    private Button openScanner, save, delete;
     private FloatingActionButton openCamera;
     private ImageView cover;
 
@@ -61,6 +61,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         openScanner = findViewById(R.id.openScanner);
         openCamera = findViewById(R.id.openCamera);
         save = findViewById(R.id.save);
+        delete = findViewById(R.id.delete);
 
         cover = findViewById(R.id.BookCover);
 
@@ -98,6 +99,16 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
                 //validateFields();
                 //editBookInstance();
 
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: delete the book instance
+
+                Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
+                startActivity(intent);
             }
         });
     }
