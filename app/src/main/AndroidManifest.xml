@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.rededaniskal">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -14,7 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.Edit_Book_Instance_Activity"></activity>
+        <activity android:name=".Activities.View_Friends_Activity"></activity>
+        <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
+        <activity android:name=".Activities.View_My_Library_Activity" />
+        <activity android:name=".Activities.Edit_Book_Instance_Activity" />
         <activity
             android:name=".Activities.Add_Book_To_Library_Activity"
             android:label="AddBookInstance"
@@ -22,33 +25,30 @@
         <activity android:name=".Activities.User_Details_Activity" />
         <activity android:name=".Activities.Book_Details_Activity" />
         <activity
-            android:name="ca.rededaniskal.Activities.Login_Activity"
+            android:name=".Activities.Login_Activity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Activities.Signup_Activity"></activity>
+        <activity android:name=".Activities.Signup_Activity" />
         <activity
-            android:name="ca.rededaniskal.Activities.Main_Activity"
+            android:name=".Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="ca.rededaniskal.Activities.Launcher_Activity">
-
-        </activity>
+        <activity android:name=".Activities.Launcher_Activity" />
         <activity
-            android:name="ca.rededaniskal.Activities.Edit_Profile_Activity"
+            android:name=".Activities.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Barcode.Barcode_Reader_Activity"></activity>
-
+        <activity android:name=".Barcode.Barcode_Reader_Activity" />
         <activity
-            android:name="ca.rededaniskal.Barcode.Barcode_Scanner_Activity"
+            android:name=".Barcode.Barcode_Scanner_Activity"
             android:label="@string/title_activity_barcode__scanner_"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

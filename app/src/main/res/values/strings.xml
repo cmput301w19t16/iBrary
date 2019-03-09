@@ -1,4 +1,4 @@
-<resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">iBrary</string>
     <string name="title_activity_home">Home</string>
     <string name="home_tab">Home</string>
@@ -60,8 +60,10 @@
     <string name="barcode_error">"Error reading barcode: %1$s"</string>
     <string name="grant">GRANT</string>
     <string name="cancel">CANCEL</string>
-    <string name = "take_scan">Scan ISBN</string>
-
+    <string name="take_scan">Scan ISBN</string>
+    <string name="borrowed">Borrowed</string>
+    <string name="requested">Requested</string>
+    <string name="my_friends">My Friends</string>
 
 
 </resources>
