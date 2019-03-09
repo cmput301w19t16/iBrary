@@ -9,13 +9,14 @@ tools:context=".Activities.View_My_Library_Activity">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/DisplayBooks"
         android:layout_width="395dp"
-        android:layout_height="521dp"
+        android:layout_height="632dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MyLibrary" />
+        app:layout_constraintTop_toBottomOf="@+id/filter" />
 
     <TextView
         android:id="@+id/MyLibrary"
@@ -24,11 +25,11 @@ tools:context=".Activities.View_My_Library_Activity">
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/design_default_color_primary"
         android:gravity="center_horizontal"
         android:text="@string/library"
-        android:textSize="25dp"
         android:textColor="@color/common_google_signin_btn_text_dark"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,6 +48,16 @@ tools:context=".Activities.View_My_Library_Activity">
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_white_24dp" />
+
+    <Button
+        android:id="@+id/filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="28dp"
+        android:text="@string/filter_by"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MyLibrary" />
 
 
 </android.support.constraint.ConstraintLayout>

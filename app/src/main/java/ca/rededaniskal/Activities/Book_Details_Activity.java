@@ -3,6 +3,7 @@ package ca.rededaniskal.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     Button GoToForum;
     Button Request_Cancel;
+    Button Edit;
 
     boolean isRequested; //Auxillary variable for keeping track of where we need to go
 
@@ -39,18 +41,17 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayISBN = (TextView) findViewById(R.id.DisplayISBN);
         DisplayOwner = (TextView) findViewById(R.id.DisplayOwner) ;
         DisplayStatus = (TextView) findViewById(R.id.DisplayStatus);
-        DisplayDescription = (TextView) findViewById(R.id.addDescription);
+        DisplayDescription = (TextView) findViewById(R.id.editDescription);
 
         BookCover = (ImageView) findViewById(R.id.BookCover);
 
         GoToForum = (Button) findViewById(R.id.GoToForum); //TODO: GO TO ACTIVITy
         Request_Cancel = (Button) findViewById(R.id.request_cancel);
+        Edit = findViewById(R.id.Edit);
 
         //Get what was passed in and display it
         Intent intent = getIntent();
-        //Bundle extras = intent.getExtras();
-
-        Book_Instance book = (Book_Instance) intent.getSerializableExtra("book"); //Get the book
+        final Book_Instance book = (Book_Instance) intent.getSerializableExtra("book"); //Get the book
 
         DisplayTitle.setText(book.getTitle());
         DisplayAuthor.setText(book.getAuthor());
@@ -60,7 +61,14 @@ public class Book_Details_Activity extends AppCompatActivity {
         //DisplayDescription.setText(book.get); TODO: Descriptions?
 
         //TODO: Make this the actual user
-        final User globalUser = new User("username", "email", "location");
+        final User globalUser = new User("Revan", "email", "location");
+
+        //Set the visibility of Edit
+        if (globalUser.getUserName().equals(book.getOwner()))
+        {
+            Edit.setVisibility(View.VISIBLE); //SHOW the button
+            Request_Cancel.setVisibility(View.INVISIBLE);
+        }
 
         //Set appropriate text for the button at the bottom
 
@@ -73,6 +81,15 @@ public class Book_Details_Activity extends AppCompatActivity {
         }
 
         //Set On-Click listeners
+
+        Edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Edit_Book_Instance_Activity.class);
+                intent.putExtra("book", book);
+                startActivity(intent);
+            }
+        });
 
         //TODO: Make this go to forum
         /*

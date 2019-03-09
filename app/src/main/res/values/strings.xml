@@ -82,6 +82,16 @@
     <string name="new_book">New Book</string>
     <string name="open_scanner">Open Scanner</string>
     <string name="add_book">Add Book To Library</string>
+    <string name="filter_by">Filter By</string>
+    <string name="edit">Edit</string>
+    <string name="edit_book">Edit Book</string>
+    <string name="edit_description">Edit Book Description</string>
+    <string-array name="filter_my_library">
+        <item>Available</item>
+        <item>Requested</item>
+        <item>Accepted</item>
+        <item>Borrowed</item>
+    </string-array>
 
 
 </resources>

@@ -79,7 +79,6 @@ public class Search_Fragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-
         searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
@@ -142,7 +141,7 @@ public class Search_Fragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
-    }
+}
 /*
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
