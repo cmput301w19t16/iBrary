@@ -1,6 +1,6 @@
 package ca.rededaniskal.Database;
 /*author Skye*/
-import android.support.annotation.NonNull;
+/*import android.support.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -198,5 +198,6 @@ public class DatabaseReader {
         this.masterBook = masterBook;
     }
 }
+*/
 
 

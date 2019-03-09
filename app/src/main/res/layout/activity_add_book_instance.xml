@@ -7,24 +7,31 @@
     android:background="@color/common_google_signin_btn_text_light_disabled"
     tools:context=".Activities.Add_Book_To_Library_Activity">
 
-    <MediaRouteButton
 
-        android:id="@+id/addBookImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <Button
+        android:id="@+id/addBookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="132dp"
+        android:text="ADD"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-        />
     <TextView
+        android:id="@+id/titleAddBook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="100dp"
+        android:text="Add a Book"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/addBookImage"
 
-        />
+        app:layout_constraintTop_toBottomOf="@id/addBookButton"
+        app:layout_constraintVertical_bias="0.207" />
 
     <TableLayout
         android:id="@+id/addBookInfoTable"
@@ -32,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:background="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/addBookImage"
+        app:layout_constraintTop_toBottomOf="@id/titleAddBook"
         tools:layout_editor_absoluteX="8dp">
 
         <TableRow>
@@ -46,7 +53,6 @@
                 android:padding="1dip"
                 android:text="Title"
                 android:textColor="#000"
-
                 android:textSize="22dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/addBookInfoTable"
@@ -131,18 +137,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addBookISBN" />
         </TableRow>
+
     </TableLayout>
 
-    <Button
-        android:id="@+id/addBookButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
 
-        android:layout_marginTop="140dp"
-        android:background="@android:color/white"
 
-        android:text="Add Book"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addBookInfoTable" />
 </android.support.constraint.ConstraintLayout>
