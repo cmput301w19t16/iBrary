@@ -124,7 +124,7 @@ public class Post_Feed_Fragment extends Fragment {
                         // Stop animation (This will be after 3 seconds)
                         swipeContainer.setRefreshing(false);
                     }
-                }, 1300); // Delay in millis
+                }, 300); // Delay in millis
 
             }
         });
