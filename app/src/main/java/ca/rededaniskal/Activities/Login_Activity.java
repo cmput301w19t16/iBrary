@@ -29,12 +29,12 @@ public class Login_Activity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Log_In_Logic logic;
+    private Login_Activity.SignInDB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //Toolbar toolbar = findViewById(R.id.toolbar); TODO: ???
 
         //Set the buttons and Edit Texts
         loginButton = (Button) findViewById(R.id.button);
@@ -49,11 +49,14 @@ public class Login_Activity extends AppCompatActivity {
                 validateFields();
                 finalPass();
                 //For now lets go to the main screen
-//                Intent intent = new Intent(v.getContext(), Main_Activity.class);
-//                startActivity(intent);
+                if(db.isSuccess()) {
+                    Intent intent = new Intent(v.getContext(), Main_Activity.class);
+                    startActivity(intent);
+                }
 
             }
         });
+
 
         //Set on click listeners
         RegisterButton.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +66,7 @@ public class Login_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
 
@@ -82,27 +86,26 @@ public class Login_Activity extends AppCompatActivity {
         }
     }
 
-    public void finalPass(){
-        if (logic.isValid()){
-            Login_Activity.SignUpDB db = new Login_Activity.SignUpDB();
+    public void finalPass() {
+        if (logic.isValid()) {
+            db = new Login_Activity.SignInDB();
             String em = email.getText().toString();
             String pass = password.getText().toString();
 
             db.signInUser(em, pass);
-
-            if(db.isSuccess()){
-                /* TODO: Pass to new intent */
-                Toast.makeText(getApplicationContext(), "Sign In Success", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getApplicationContext(), "Sign In Failed", Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            Toast.makeText(getApplicationContext(), "Sign In Failed", Toast.LENGTH_SHORT).show();
+            String m = Boolean.toString(db.isSuccess());
+            Log.d(TAG, m);
         }
-
     }
 
-    public class SignUpDB {
+    public void nextActivity(){
+        startActivity(new Intent(Login_Activity.this,Main_Activity.class));
+    }
+
+
+
+//    Enclosed database class
+    public class SignInDB {
 
         // To read or write from the database, a database reference is needed
         private DatabaseReference mDatabase;
@@ -110,7 +113,7 @@ public class Login_Activity extends AppCompatActivity {
         private boolean success;
         private FirebaseUser newUser;
 
-        public SignUpDB(){
+        public SignInDB(){
             mDatabase = FirebaseDatabase.getInstance().getReference();
 
             // Initialize FirebaseAuth
@@ -138,11 +141,14 @@ public class Login_Activity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-//                                updateUI(user);
+                                Toast.makeText(getApplicationContext(), "Sign In Success", Toast.LENGTH_SHORT).show();
+                                nextActivity();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
 //                                updateUI(null);
+                                success = false;
+                                Toast.makeText(getApplicationContext(), "Sign In Failed", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
