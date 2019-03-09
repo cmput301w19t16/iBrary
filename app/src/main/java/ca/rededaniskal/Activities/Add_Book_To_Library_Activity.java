@@ -45,7 +45,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book_instance);
-        
+
         //Set buttons and EditTexts
         addTitle = findViewById(R.id.addTitle);
         addAuthor = findViewById(R.id.addAuthor);
@@ -61,34 +61,24 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
                 getInfo();
                 validateFields();
                 addBookInstance();
-
-
             }
         };
+
         addBook.setOnClickListener(onClickListener);
-
-
     }
 
-
     public void getInfo() {
-        //title = findViewById(R.id.addBookEditTitle);
-        //author = findViewById(R.id.addBookEditAuthor);
-        //isbn = findViewById(R.id.addBookEditISBN);
-
-
         String Title = addTitle.getText().toString();
         String Author = addAuthor.getText().toString();
         String ISBN = addISBN.getText().toString();
 
         businessLogic = new AddBookLogic(Title, Author, ISBN);
-
     }
 
     public void validateFields() {
-        String error = businessLogic.validateAuthor();
+        String error = businessLogic.validateTitle();
         if (!error.equals("")){
-            addAuthor.setError(error);
+            addTitle.setError(error);
 
         }
         String error1 = businessLogic.validateAuthor();
@@ -96,27 +86,21 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             addAuthor.setError(error1);
 
         }
-        String error2 = businessLogic.validateAuthor();
+    String error2 = businessLogic.validateISBN();
         if (!error2.equals("")){
-            addAuthor.setError(error2);
-
+            addISBN.setError(error2);
         }
-
     }
-
 
     public void addBookInstance() {
         if (businessLogic.isValid()) {
-
 
             String userID = "del@del.com";
             String Title = addTitle.getText().toString();
             String Author = addAuthor.getText().toString();
             String ISBN = addISBN.getText().toString();
 
-
             Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "a");
-
 
             if( !businessLogic.addBookSuccess( bookInstance ).equals("")){
                 Toast.makeText(this, "Book Saved!", Toast.LENGTH_SHORT);
@@ -125,11 +109,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             else{
                 Toast.makeText(this, "Database Error!", Toast.LENGTH_SHORT);
             }
-
-
-
         }
-
     }
 }
 
