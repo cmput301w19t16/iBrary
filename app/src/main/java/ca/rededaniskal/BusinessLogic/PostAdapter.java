@@ -1,44 +1,46 @@
 package ca.rededaniskal.BusinessLogic;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
+import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
+import ca.rededaniskal.Activities.Login_Activity;
+import ca.rededaniskal.Activities.View_Rating_Post_Activity;
+import ca.rededaniskal.Activities.View_Text_Post_Activity;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
     private ArrayList<Post> mDataset;
+    public Post_Feed_Fragment fragment;
 
-    public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class PostViewHolder extends RecyclerView.ViewHolder{
         public TextView textView;
         public String postType;
         public String postID;
         public View view;
+
         public PostViewHolder(View v){
             super(v);
             view = v;
             textView = v.findViewById(R.id.post_text_view);
-
-        }
-
-        @Override
-        public void onClick(View v) {
-            launchAppropriateActivity();
-        }
-        
-        public void launchAppropriateActivity(){
-            return;
         }
     }
 
-    public PostAdapter(ArrayList<Post> postList){
+    public PostAdapter(ArrayList<Post> postList, Post_Feed_Fragment frag){
+        this.fragment = frag;
         this.mDataset = postList;
     }
     @Override
@@ -51,7 +53,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     @Override
-    public void onBindViewHolder(PostViewHolder holder, int position){
+    public void onBindViewHolder(final PostViewHolder holder, int position){
         Post post = mDataset.get(position);
         String text = post.getUserName();
         switch (post.getType()){
@@ -65,9 +67,31 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             case "alert":
                 text = post.getMessage();
         }
+
         holder.textView.setText(text);
         holder.postType = post.getType();
         holder.postID = post.getID();
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                switch (holder.postType){
+                    case "Text_Post":
+                        intent = new Intent(fragment.getContext(), View_Text_Post_Activity.class);
+                        break;
+                    case "Rating_Post":
+                        intent = new Intent(fragment.getContext(), View_Rating_Post_Activity.class);
+                        break;
+                    default:
+                        intent = new Intent(fragment.getContext(), Login_Activity.class);
+                        break;
+
+            }
+            fragment.startActivity(intent);
+        }
+    });
+
     }
 
     @Override
