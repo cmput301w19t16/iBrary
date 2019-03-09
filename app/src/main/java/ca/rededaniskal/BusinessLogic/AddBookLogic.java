@@ -1,6 +1,4 @@
-package ca.rededaniskal;
-
-import ca.rededaniskal.EntityClasses.Book_Instance;
+package ca.rededaniskal.BusinessLogic;
 
 public class AddBookLogic {
 
@@ -45,17 +43,6 @@ public class AddBookLogic {
 
 
 
-    public String addBookSuccess(Book_Instance bookInstance){
-        String bookID;
-
-        AddBookDb db = new AddBookDb();
-        bookID= db.addBookToDatabase(bookInstance);
-
-        return bookID;
-
-
-
-    }
 
 
 

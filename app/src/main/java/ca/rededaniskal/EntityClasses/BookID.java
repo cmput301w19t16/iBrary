@@ -1,4 +1,4 @@
-package ca.rededaniskal;
+package ca.rededaniskal.EntityClasses;
 
 public class BookID {
 

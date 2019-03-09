@@ -2,23 +2,14 @@ package ca.rededaniskal.EntityClasses;
 
 //import java.awt.image.*;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.io.Serializable;
-import java.util.UUID;
-
-import ca.rededaniskal.BookID;
 
 public class Book_Instance extends Book implements Serializable {
 
     private String owner;
     private String possessor;
     private String condition;
-    private BookID bookID;
+    private String bookID;
 
     //private BufferedImage bookImage;
 
@@ -41,13 +32,13 @@ public class Book_Instance extends Book implements Serializable {
     }
 
     public void setBookID(String key) {
-        this.bookID = BookID.getInstance(key);
+        this.bookID = BookID.getInstance(key).getID();
 
     }
 
     public String getBookID() {
         if (bookID!=null){
-        return bookID.getID();}
+        return bookID;}
         else return "";
     }
 
