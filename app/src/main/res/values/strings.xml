@@ -69,7 +69,31 @@
     <string name="title_activity_view__text__post_">View_Text_Post_Activity</string>
     <string name="title_activity_search_">Search_Activity</string>
     <string name="already_has_account">Already have an account? Click here</string>
-
+    <string name="search">Search</string>
+    <string name="search_by">Search By</string>
+    <string-array name="filter_search_options">
+        <item>Author</item>
+        <item>Title</item>
+        <item>ISBN</item>
+        <item>Friends</item>
+    </string-array>
+    <string name="dismiss">Dismiss</string>
+    <string name="clear_all">Clear all</string>
+    <string name="add_description">Add Book Description (optional)</string>
+    <string name="new_book">New Book</string>
+    <string name="open_scanner">Open Scanner</string>
+    <string name="add_book">Add Book To Library</string>
+    <string name="filter_by">Filter By</string>
+    <string name="edit">Edit</string>
+    <string name="edit_book">Edit Book</string>
+    <string name="edit_description">Edit Book Description</string>
+    <string-array name="filter_my_library">
+        <item>Available</item>
+        <item>Requested</item>
+        <item>Accepted</item>
+        <item>Borrowed</item>
+    </string-array>
+>>>>>>> 48621801bb6f8f81c53b097bc895abdb1252d205
 
 
 </resources>
