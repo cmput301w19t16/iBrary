@@ -73,7 +73,7 @@ public class View_Own_Profile_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_personal_profile,container, false);
+        View v = inflater.inflate(R.layout.fragment_personal_profile, container, false);
 
         Button editButton = v.findViewById(R.id.edit_user);
 
