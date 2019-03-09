@@ -65,6 +65,17 @@
     <string name="gave">and rated it ...</string>
     <string name="title_activity_view__text__post_">View_Text_Post_Activity</string>
     <string name="title_activity_search_">Search_Activity</string>
+    <string name="search">Search</string>
+    <string name="search_by">Search By</string>
+    <string-array name="filter_search_options">
+        <item>Author</item>
+        <item>Title</item>
+        <item>ISBN</item>
+        <item>Friends</item>
+    </string-array>
+    <string name="dismiss">Dismiss</string>
+    <string name="clear_all">Clear all</string>
+
 
 
 </resources>
