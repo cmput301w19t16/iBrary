@@ -53,6 +53,10 @@
         <activity
             android:name=".Activities.View_Text_Post_Activity"
             android:label="@string/title_activity_view__text__post_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.Search_Activity"
+            android:label="@string/title_activity_search_"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
