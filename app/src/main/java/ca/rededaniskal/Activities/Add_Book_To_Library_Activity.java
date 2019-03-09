@@ -45,7 +45,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
     //For Camera
     private static final int CAMERA_REQUEST = 1888;
-    private ImageView imageView;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     @Override
