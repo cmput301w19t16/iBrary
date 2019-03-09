@@ -39,7 +39,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayISBN = (TextView) findViewById(R.id.DisplayISBN);
         DisplayOwner = (TextView) findViewById(R.id.DisplayOwner) ;
         DisplayStatus = (TextView) findViewById(R.id.DisplayStatus);
-        DisplayDescription = (TextView) findViewById(R.id.DisplayDescription);
+        DisplayDescription = (TextView) findViewById(R.id.addDescription);
 
         BookCover = (ImageView) findViewById(R.id.BookCover);
 

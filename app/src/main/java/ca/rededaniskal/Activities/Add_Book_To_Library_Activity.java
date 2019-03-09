@@ -2,12 +2,14 @@ package ca.rededaniskal.Activities;
 
 /*author : Skye*/
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,22 +32,28 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     private static final String TAG = "Add_Book_To_Library_Activity";
     private FirebaseAuth mAuth;
     private DatabaseReference bookRef;
-    private String currentUserID;
-    private EditText title, author, isbn;
-    private Button addBookButton;
+
+    //UI stuff
+
+    private EditText addTitle, addAuthor, addISBN, addDescription;
+    private Button openScanner, addBook;
+    private FloatingActionButton openCamera;
 
     private AddBookLogic businessLogic;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_add_book_instance);
-        addBookButton = findViewById(R.id.addBookButton);
+        
+        //Set buttons and EditTexts
+        addTitle = findViewById(R.id.addTitle);
+        addAuthor = findViewById(R.id.addAuthor);
+        addISBN = findViewById(R.id.addISBN);
 
+        openScanner = findViewById(R.id.openScanner);
+        openCamera = findViewById(R.id.openCamera);
+        addBook = findViewById(R.id.addBook);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -57,21 +65,21 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
             }
         };
-        addBookButton.setOnClickListener(onClickListener);
+        addBook.setOnClickListener(onClickListener);
 
 
     }
 
 
     public void getInfo() {
-        title = findViewById(R.id.addBookEditTitle);
-        author = findViewById(R.id.addBookEditAuthor);
-        isbn = findViewById(R.id.addBookEditISBN);
+        //title = findViewById(R.id.addBookEditTitle);
+        //author = findViewById(R.id.addBookEditAuthor);
+        //isbn = findViewById(R.id.addBookEditISBN);
 
 
-        String Title = title.getText().toString();
-        String Author = author.getText().toString();
-        String ISBN = isbn.getText().toString();
+        String Title = addTitle.getText().toString();
+        String Author = addAuthor.getText().toString();
+        String ISBN = addISBN.getText().toString();
 
         businessLogic = new AddBookLogic(Title, Author, ISBN);
 
@@ -80,17 +88,17 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     public void validateFields() {
         String error = businessLogic.validateAuthor();
         if (!error.equals("")){
-            author.setError(error);
+            addAuthor.setError(error);
 
         }
         String error1 = businessLogic.validateAuthor();
         if (!error1.equals("")){
-            author.setError(error1);
+            addAuthor.setError(error1);
 
         }
         String error2 = businessLogic.validateAuthor();
         if (!error2.equals("")){
-            author.setError(error2);
+            addAuthor.setError(error2);
 
         }
 
@@ -102,9 +110,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
 
             String userID = "del@del.com";
-            String Title = title.getText().toString();
-            String Author = author.getText().toString();
-            String ISBN = isbn.getText().toString();
+            String Title = addTitle.getText().toString();
+            String Author = addAuthor.getText().toString();
+            String ISBN = addISBN.getText().toString();
 
 
             Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "a");

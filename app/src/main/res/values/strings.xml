@@ -78,7 +78,10 @@
     </string-array>
     <string name="dismiss">Dismiss</string>
     <string name="clear_all">Clear all</string>
-
+    <string name="add_description">Add Book Description (optional)</string>
+    <string name="new_book">New Book</string>
+    <string name="open_scanner">Open Scanner</string>
+    <string name="add_book">Add Book To Library</string>
 
 
 </resources>

@@ -28,9 +28,6 @@ public class View_Friends_Activity extends AppCompatActivity {
         User user = new User("Revan", "revan@ualberta", "Red Deer");
         Friends.add(user);
 
-
-
-
         recyclerView = (RecyclerView) findViewById(R.id.DisplayFriends);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -38,8 +35,5 @@ public class View_Friends_Activity extends AppCompatActivity {
         userAdapter = new UserAdapter(this, Friends);
         recyclerView.setAdapter(userAdapter);
         userAdapter.notifyDataSetChanged();
-
-
-
     }
 }
