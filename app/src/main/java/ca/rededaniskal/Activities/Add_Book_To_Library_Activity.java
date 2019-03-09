@@ -12,18 +12,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import ca.rededaniskal.AddBookLogic;
+import ca.rededaniskal.BusinessLogic.AddBookLogic;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import ca.rededaniskal.Database.BookInstanceDetailsDatabase;
-import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
 public class Add_Book_To_Library_Activity extends AppCompatActivity {

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="borrowed_requested_books" type="id">borrowed_requested_books</item>
-    <item name="edit_user" type="id">edit_user</item>
-</resources>
