@@ -13,7 +13,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_edit__profile_" />
+    <include
+        android:id="@+id/included"
+        layout="@layout/content_edit__profile_" />
 
 
 

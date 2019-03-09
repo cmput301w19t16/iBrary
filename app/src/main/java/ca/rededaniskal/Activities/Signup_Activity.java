@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +30,7 @@ public class Signup_Activity extends AppCompatActivity {
     private EditText confirmText;
     private EditText emailText;
     private EditText phoneText;
+    private TextView user_exists;
     private SignUpLogic businessLogic;
 
     @Override
@@ -39,13 +41,20 @@ public class Signup_Activity extends AppCompatActivity {
 
         Button button = findViewById(R.id.button_signup);
 
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getInfo();
                 validateFields();
                 finalPass();
+            }
+        });
+
+        user_exists = findViewById(R.id.user_exists);
+        user_exists.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
