@@ -22,7 +22,7 @@
     <string name="hello_blank_fragment">this is placeholder text</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="logout">Logout</string>
-    <string name="title_activity_edit__profile_">Edit_Profile_Activity</string>
+    <string name="title_activity_edit__profile">Edit_Profile_Activity</string>
     <string name="save">Save</string>
     <string name="old_pass">Old Password</string>
     <string name="new_pass">New Password</string>

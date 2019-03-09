@@ -18,7 +18,7 @@ public class Launcher_Activity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.go_home_button);
-        buttonScanner = findViewById(R.id.GoToScannerButton);
+        buttonScanner = findViewById(R.id.go_to_scanner_button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +31,7 @@ public class Launcher_Activity extends AppCompatActivity{
     }
 
     private void goToHome(View v){
+
 //        Intent intent = new Intent(v.getContext(), Book_Details_Activity.class);
 //        startActivity(intent);
 //        this.finish();
