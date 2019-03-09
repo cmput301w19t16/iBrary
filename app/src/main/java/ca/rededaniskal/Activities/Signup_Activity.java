@@ -35,6 +35,7 @@ public class Signup_Activity extends AppCompatActivity {
     private EditText emailText;
     private EditText phoneText;
     private SignUpLogic businessLogic;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +95,8 @@ public class Signup_Activity extends AppCompatActivity {
         String email = emailText.getText().toString();
         String phone = phoneText.getText().toString();
 
+        user = new User(username, email, phone, "");
+
         businessLogic = new SignUpLogic(username, password, confirm, email, phone);
 
     }
@@ -117,6 +120,10 @@ public class Signup_Activity extends AppCompatActivity {
 
 
 
+
+
+    //--------- SIGNUPDB ENCLOSED CLASS ------------ //
+
     public class SignUpDB {
 
         // To read or write from the database, a database reference is needed
@@ -124,7 +131,7 @@ public class Signup_Activity extends AppCompatActivity {
         private FirebaseAuth mAuth;
         private boolean success;
         private FirebaseUser newUser;
-        private User user;
+
 
         public SignUpDB(){
             mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -154,6 +161,7 @@ public class Signup_Activity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                setUser();
                                 nextActivity();
                                 //updateUI(user);
                                 success = true;
@@ -167,17 +175,12 @@ public class Signup_Activity extends AppCompatActivity {
                     });
         }
 
-        public User getUser() {
-            return user;
-        }
 
-        public void setUser(User user) {
+        public void setUser() {
+
             mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-//            Map<String, User> users = new HashMap<>();
-//            users.put("alanisawesome", new User("June 23, 1912", "Alan Turing"));
-//            users.put("gracehop", new User("December 9, 1906", "Grace Hopper"));
-//
-//            usersRef.setValueAsync(users);
+            mDatabase.setValue(user);
+
         }
     }
 
