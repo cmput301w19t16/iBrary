@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -36,19 +38,20 @@
             android:name="ca.rededaniskal.Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="ca.rededaniskal.Activities.Launcher_Activity">
 
-        </activity>
+        <activity android:name="ca.rededaniskal.Activities.Launcher_Activity"/>
+
         <activity
             android:name="ca.rededaniskal.Activities.Edit_Profile_Activity"
-            android:label="@string/title_activity_edit__profile_"
+            android:label="@string/title_activity_edit__profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Barcode.Barcode_Reader_Activity"></activity>
-
         <activity
             android:name="ca.rededaniskal.Barcode.Barcode_Scanner_Activity"
             android:label="@string/title_activity_barcode__scanner_"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
+
+
 
 </manifest>
