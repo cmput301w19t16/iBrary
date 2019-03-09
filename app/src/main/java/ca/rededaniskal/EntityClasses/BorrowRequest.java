@@ -1,5 +1,11 @@
 package ca.rededaniskal.EntityClasses;
 
+/**
+ * Represents a borrow request, used to distinct between Friend_Request
+ *
+ * @see Request
+ * @see Friend_Request
+ */
 public class BorrowRequest extends Request {
     private String isbn;
     private int bookId;

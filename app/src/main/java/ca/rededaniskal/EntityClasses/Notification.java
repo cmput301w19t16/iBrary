@@ -2,6 +2,12 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.Date;
 
+/**
+ * Represents the notification superclass
+ *
+ * @see BookNotification
+ * @see Friend_Notification
+ */
 public class Notification {
     private Date timestamp;
     private String username;

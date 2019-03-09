@@ -3,6 +3,12 @@ package ca.rededaniskal.EntityClasses;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Represents the User class. Contains all relevant information to user such as friends and books
+ * related to user.
+ *
+ * @see Book
+ */
 public class User implements Serializable {
     private String userName;
     private String email;
@@ -178,6 +184,9 @@ public class User implements Serializable {
         friends.remove(removedFriend);
     }
 
+    /**
+     * This method removes all the friends from the user's friend list
+     */
     public void removeAllFriends(){
         for (int i = 0; i < friends.size(); i++){
             friends.get(i).removeFriend(this);
@@ -194,6 +203,11 @@ public class User implements Serializable {
         blockedUsers.remove(blockedUser);
     }
 
+    /**
+     * This method deletes a user's profile, given they do not have any borrowed books and all the
+     * books they own are their own. This is to prevent a user from borrowing multiple books,
+     * then deleting their profile, and stealing those books
+     */
     public void deleteProfile(){
         assert(borrowedBooks.size() == 0);
         assert (this.allBooksReturned() == true);
@@ -208,8 +222,11 @@ public class User implements Serializable {
         blockedUsers.clear();
     }
 
-    //returns True if all the users books are with the user
-    public boolean allBooksReturned(){
+    /**
+     * This method checks if the user has all their books returned
+     * This means the user's list of ownedBooks does not contain any books that are not owned by the user
+     * @return True if all the users books are with the user
+     */    public boolean allBooksReturned(){
         boolean allReturned = true;
         for (int i = 0; i < ownedBooks.size(); i++){
             if ((ownedBooks.getBookByIndex(i).getStatus().equals("accepted")) || (ownedBooks.getBookByIndex(i).getStatus().equals("borrowed"))){
@@ -221,8 +238,11 @@ public class User implements Serializable {
     }
 
 
-    //Takes in another user, and returns the number of friends in common
-    public Integer numberMutualFriends(User user2){
+    /**
+     * This method takes in a different user, and displays the number of friends in common
+     * @param user2
+     * @return The number of mutual friends between the user and user2
+     */    public Integer numberMutualFriends(User user2){
         Integer numMutualFriends = 0;
 
         for (int i = 0; i< this.getFriends().size(); i++){
@@ -235,8 +255,11 @@ public class User implements Serializable {
     }
 
 
-    //Returns True is the two users are friends, false o/w
-    public Boolean isFriendsWith(User user2){
+    /**
+     * This method takes in a different user, and checks if they are friends with the app user
+     * @param user2
+     * @return true if the two users are friends, false otherwise
+     */    public Boolean isFriendsWith(User user2){
         if (user2.getFriends().contains(user2)){
             return true;
         }

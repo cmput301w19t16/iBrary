@@ -5,6 +5,11 @@ import java.util.HashMap;
 
 import ca.rededaniskal.EntityClasses.Book;
 
+/**
+ * Represents a book that had been added to the database of books at some point
+ *
+ * @see Book
+ */
 public class Master_Book extends Book implements Serializable {
 
     private Double avgRating;

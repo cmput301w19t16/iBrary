@@ -1,5 +1,8 @@
 package ca.rededaniskal.EntityClasses;
 
+/**
+ * Represents a book that the user has begun borrowing
+ */
 public class Check_In extends Book_Exchange {
 
     public Check_In(String owner, String borrower, String isbn, int bookid) {

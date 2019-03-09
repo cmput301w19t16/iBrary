@@ -4,6 +4,13 @@ import java.util.UUID;
 
 import java.util.Date;
 
+/**
+ * Represents the post class that will be used in the main feed and also the Forum posts
+ *
+ * @see Rating_Post
+ * @see Text_Post
+ * @see Forum
+ */
 public class Post {
     private String message;
     private Date timestamp;

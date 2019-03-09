@@ -2,6 +2,9 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a forum of a book where a user can discuss a book through different posts
+ */
 public class Forum {
 
     private ArrayList<Post> posts = new ArrayList<>();

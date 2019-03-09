@@ -3,6 +3,11 @@ package ca.rededaniskal.EntityClasses;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of books
+ *
+ * @see Book_Instance
+ */
 public class Book_List implements Serializable {
     private ArrayList<Book_Instance> books;
 
@@ -26,6 +31,13 @@ public class Book_List implements Serializable {
         return books;
     }
 
+    /**
+     * Returns all books with the given status
+     *
+     * @param status    the status of the book requested
+     * @return a list of books with the specified status
+     * @see Book_Instance
+     */
     public ArrayList<Book_Instance> getBooksByStatus(String status){
         ArrayList<Book_Instance> returnBooks = new ArrayList<>();
         for (Integer i = 0; i < books.size(); i++){

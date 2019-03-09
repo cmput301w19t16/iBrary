@@ -2,6 +2,13 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.Date;
 
+/**
+ * Represents the exchange of a book between two users of the app
+ *
+ * @see Book_Instance
+ * @see Check_In
+ * @see Check_Out
+ */
 public abstract class Book_Exchange {
     private String location;
     private Date time;

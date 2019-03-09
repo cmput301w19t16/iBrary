@@ -1,5 +1,11 @@
 package ca.rededaniskal.EntityClasses;
 
+/**
+ * Represents the superclass of request
+ *
+ * @see Friend_Request
+ * @see BorrowRequest
+ */
 public class Request {
     private String senderUserName;
     private String recipientUserName;

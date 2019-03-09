@@ -2,7 +2,9 @@ package ca.rededaniskal.EntityClasses;
 import java.io.Serializable;
 import java.util.UUID;
 
-
+/**
+ * Represents a book that exists in the database
+ */
 public class Book implements Serializable {
 
     private String title;

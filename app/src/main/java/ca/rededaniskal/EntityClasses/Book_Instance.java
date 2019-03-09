@@ -13,6 +13,11 @@ import java.util.UUID;
 
 import ca.rededaniskal.BookID;
 
+/**
+ * Represents an instance of a book that currently exists, and has an owner
+ *
+ * @see Book
+ */
 public class Book_Instance extends Book implements Serializable {
 
     private String owner;

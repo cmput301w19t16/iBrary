@@ -13,6 +13,7 @@ import ca.rededaniskal.R;
 public class Edit_Profile_Activity extends AppCompatActivity {
     Button saveButton;
     Button editProfilePicture;
+    boolean isValid = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,6 @@ public class Edit_Profile_Activity extends AppCompatActivity {
 
         saveButton = (Button) findViewById(R.id.saveButton);
         editProfilePicture = (Button) findViewById(R.id.EditProfilePic);
-
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,13 +36,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
                 //TODO: Call new Activities from here
             }
         });
-
-
-
     }
-
-
-
 
 
 

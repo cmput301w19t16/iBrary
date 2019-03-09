@@ -2,6 +2,9 @@ package ca.rededaniskal.EntityClasses;
 
 import ca.rededaniskal.EntityClasses.Post;
 
+/**
+ * Represents a type of post which involved a rating
+ */
 public class Rating_Post extends Post {
     private double rating;
 

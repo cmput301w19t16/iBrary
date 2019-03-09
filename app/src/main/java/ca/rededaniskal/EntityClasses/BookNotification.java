@@ -1,5 +1,12 @@
 package ca.rededaniskal.EntityClasses;
 
+/**
+ * Represents a notification related to books
+ * This notification type will be shown when book is requested or accepted
+ *
+ * @see Notification
+ * @see Request
+ */
 public class BookNotification extends Notification {
 
     private String bookRequestType;
