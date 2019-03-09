@@ -10,24 +10,25 @@
         android:id="@+id/BookCover"
         android:layout_width="122dp"
         android:layout_height="128dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_book_black_24dp" />
 
     <TableLayout
         android:id="@+id/tableLayout2"
-        android:layout_width="249dp"
-        android:layout_height="179dp"
+        android:layout_width="353dp"
+        android:layout_height="181dp"
+
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/BookCover"
-
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BookCover">
 
 
         <TableRow
@@ -75,7 +76,7 @@
 
             <TextView
                 android:id="@+id/DisplayAuthor"
-                android:layout_width="260dp"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:padding="1dip"
@@ -172,7 +173,7 @@
 
             <Button
                 android:id="@+id/GoToForum"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
                 android:gravity="center"
@@ -186,30 +187,16 @@
     </TableLayout>
 
     <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/description"
-        android:textColor="?attr/actionMenuTextColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BookCover" />
-
-    <TextView
-        android:id="@+id/addDescription"
+        android:id="@+id/editDescription"
         android:layout_width="361dp"
-        android:layout_height="192dp"
+        android:layout_height="127dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Book Description Here"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
 
     <Button
         android:id="@+id/request_cancel"
@@ -221,7 +208,20 @@
         android:text="Request or Cancel Request"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
+    <Button
+        android:id="@+id/Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        android:layout_marginEnd="8dp"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/request_cancel" />
 
 
 </android.support.constraint.ConstraintLayout>
