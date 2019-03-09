@@ -11,11 +11,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activities.View_Friends_Activity"></activity>
+        <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
+        <activity android:name=".Activities.View_My_Library_Activity" />
         <activity android:name=".Activities.Edit_Book_Instance_Activity" />
         <activity
             android:name=".Activities.Add_Book_To_Library_Activity"
@@ -38,7 +42,6 @@
             android:name=".Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".Activities.Launcher_Activity" />
         <activity
             android:name=".Activities.Edit_Profile_Activity"
@@ -61,7 +64,6 @@
             android:name=".Activities.Search_Activity"
             android:label="@string/title_activity_search_"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
     </application>
 
 
