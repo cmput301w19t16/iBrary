@@ -180,7 +180,8 @@ public class Signup_Activity extends AppCompatActivity {
         public void setUser() {
 
             mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-            mDatabase.setValue(user);
+            String key = mDatabase.push().getKey();
+            mDatabase.child(key).setValue(user);
 
         }
     }

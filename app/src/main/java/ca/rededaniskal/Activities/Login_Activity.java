@@ -53,14 +53,6 @@ public class Login_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 validateFields();
                 finalPass();
-                //TODO: DB login in only if authentication passes
-
-                //For now lets go to the main screen
-                if(db.isSuccess()) {
-                    Intent intent = new Intent(v.getContext(), Main_Activity.class);
-                    startActivity(intent);
-                }
-
             }
         });
 
@@ -100,8 +92,6 @@ public class Login_Activity extends AppCompatActivity {
             String pass = password.getText().toString();
 
             db.signInUser(em, pass);
-            String m = Boolean.toString(db.isSuccess());
-            Log.d(TAG, m);
         }
     }
 
@@ -139,7 +129,7 @@ public class Login_Activity extends AppCompatActivity {
 
         public void signInUser(String email, String password){
 
-
+            Log.d(TAG, "*********-----> IN signInUser");
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -157,8 +147,10 @@ public class Login_Activity extends AppCompatActivity {
                                 success = false;
                                 Toast.makeText(getApplicationContext(), "Sign In Failed", Toast.LENGTH_SHORT).show();
                             }
+                            Log.d(TAG, "*********----->COMPLETED");
                         }
                     });
+
         }
 
         public FirebaseUser getNewUser() {
