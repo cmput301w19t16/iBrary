@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 import ca.rededaniskal.Database.Data_Provider;
+
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -37,6 +39,8 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
 public class Add_Book_To_Library_Activity extends AppCompatActivity {
+
+
     private static final String TAG = "Add_Book_To_Library_Activity";
 
     private FirebaseAuth mAuth;
@@ -142,6 +146,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
             Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "a");
 
+
             if( !businessLogic.addBookSuccess( bookInstance ).equals("")){
                 Toast.makeText(this, "Book Saved!", Toast.LENGTH_SHORT);
 
@@ -152,6 +157,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             }
         }
     }
+
 
 
     //Code From https://stackoverflow.com/a/5991757
