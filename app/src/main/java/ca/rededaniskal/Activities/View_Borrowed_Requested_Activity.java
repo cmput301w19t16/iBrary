@@ -24,6 +24,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         Data_Provider dp = new Data_Provider();
         dp.bookQuery(3);
         Book_List BL =dp.getBook_list();
+
         recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

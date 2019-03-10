@@ -18,6 +18,9 @@ public class User implements Serializable {
     private Master_Book favBook;
 
     //Constructors
+
+    public User(){}
+
     public User(String userName, String email, String location){
         // TODO: check if userName is unique
 

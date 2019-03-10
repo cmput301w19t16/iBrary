@@ -3,7 +3,6 @@ package ca.rededaniskal.BusinessLogic;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.Serializable;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
@@ -102,7 +99,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             super(itemView);
             //imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
 
-            bookTitle = itemView.findViewById(R.id.BookTitle);
+            bookTitle = itemView.findViewById(R.id.requestInfo);
             bookAuthor = itemView.findViewById(R.id.BookAuthor);
             bookISBN = itemView.findViewById(R.id.BookISBN);
             bookStatus = itemView.findViewById(R.id.bookStatus);
