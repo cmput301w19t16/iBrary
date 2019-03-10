@@ -5,7 +5,7 @@ public class Request {
     private String recipientUserName;
     private String requestType;
     private String status;
-    private int requestId;
+    private String requestId;
 
 
     public Request(String senderUserName, String recipientUserName, String type){
@@ -59,11 +59,11 @@ public class Request {
         this.setStatus("Cancelled");
     }
 
-    public int getRequestId() {
+    public String getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(int requestId) {
+    public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
 }

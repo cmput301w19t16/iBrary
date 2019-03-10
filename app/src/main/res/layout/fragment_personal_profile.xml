@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/friends_list"
+                android:id="@+id/friends_listbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/UserName"
+                android:id="@+id/requestInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorBackgroundFloating"
@@ -216,7 +216,7 @@
         app:layout_constraintTop_toBottomOf="@+id/change_info" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

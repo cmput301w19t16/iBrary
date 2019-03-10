@@ -4,142 +4,186 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_google_signin_btn_text_light_disabled"
-    tools:context=".Activities.Add_Book_To_Library_Activity">
+    tools:context=".Activities.Book_Details_Activity">
 
-
-    <Button
-        android:id="@+id/addBookButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="132dp"
-        android:text="ADD"
-
+    <ImageView
+        android:id="@+id/BookCover"
+        android:layout_width="136dp"
+        android:layout_height="151dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/titleAddBook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:text="Add a Book"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@id/addBookButton"
-        app:layout_constraintVertical_bias="0.207" />
+        app:layout_constraintTop_toBottomOf="@+id/EditBook"
+        app:srcCompat="@drawable/ic_book_black_24dp" />
 
     <TableLayout
-        android:id="@+id/addBookInfoTable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:background="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/titleAddBook"
-        tools:layout_editor_absoluteX="8dp">
+        android:id="@+id/tableLayout2"
+        android:layout_width="372dp"
+        android:layout_height="179dp"
 
-        <TableRow>
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BookCover">
+
+
+        <TableRow
+            android:id="@+id/row1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/Title"
+                android:layout_width="66dp"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorBackgroundFloating"
+                android:padding="1dip"
+                android:text="@string/book_title"
+                android:textColor="#000"
+                android:textSize="12dp" />
 
-                android:id="@+id/addBookTitle"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/addTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Location"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:padding="1dip"
-                android:text="Title"
+                android:text="@string/author"
                 android:textColor="#000"
-                android:textSize="22dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/addBookInfoTable"
-
-
-                />
-        </TableRow>
-
-        <TableRow>
+                android:textSize="12dp" />
 
             <EditText
-                android:id="@+id/addBookEditTitle"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:textColor="#000"
-                android:textSize="22dp"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:id="@+id/addAuthor"
+                android:layout_width="305dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
         </TableRow>
 
-        <TableRow>
+
+        <TableRow
+            android:id="@+id/row3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/addBookAuthor"
-                android:layout_width="match_parent"
+                android:id="@+id/ISBN"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:padding="1dip"
-                android:text="Author"
+                android:text="@string/isbn"
                 android:textColor="#000"
-                android:textSize="22dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addBookEditTitle"
-
-                />
-        </TableRow>
-
-        <TableRow>
+                android:textSize="12dp" />
 
             <EditText
-                android:id="@+id/addBookEditAuthor"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:textColor="#000"
-                android:textSize="22dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addBookEditTitle" />
+                android:id="@+id/addISBN"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:id="@+id/row4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/addBookISBN"
-                android:layout_width="match_parent"
+                android:id="@+id/scan"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:padding="1dip"
-                android:text="ISBN"
+                android:text="@string/take_scan"
                 android:textColor="#000"
-                android:textSize="22dp"
-                app:layout_constraintBottom_toTopOf="@id/addBookEditISBN"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addBookEditAuthor"
+                android:textSize="12dp" />
 
-                />
+            <Button
+                android:id="@+id/openScanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/open_scanner"
+                tools:layout_editor_absoluteX="205dp"
+                tools:layout_editor_absoluteY="383dp" />
+
+
         </TableRow>
 
-        <TableRow android:layout_height="149dp">
-
-            <EditText
-                android:id="@+id/addBookEditISBN"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:textColor="#000"
-                android:textSize="22dp"
-                app:layout_constraintBottom_toBottomOf="@id/addBookInfoTable"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addBookISBN" />
-        </TableRow>
 
     </TableLayout>
 
+    <EditText
+        android:id="@+id/editDescription"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="380dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/add_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/openCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="68dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="52dp"
+        android:clickable="true"
+        app:backgroundTint="@color/design_default_color_primary"
+        app:layout_constraintStart_toEndOf="@+id/BookCover"
+        app:layout_constraintTop_toBottomOf="@+id/EditBook"
+        app:srcCompat="@drawable/ic_add_a_photo_white_24dp" />
+
+    <TextView
+        android:id="@+id/EditBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="25dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/design_default_color_primary"
+        android:text="@string/new_book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/add_book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
 
 
 </android.support.constraint.ConstraintLayout>

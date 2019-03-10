@@ -37,22 +37,18 @@ public class User_Details_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_user__details_);
 
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null){
-            user_received = (User) getIntent().getSerializableExtra("USER");
-            fillData(user_received);
-        }
+
+        user_received = (User) intent.getSerializableExtra("user");
+        fillData(user_received);
+
     }
-
-
-    public void fillData(User user) {
+        public void fillData(User user) {
 
         DisplayUsername = (TextView) findViewById(R.id.DisplayUserName);
         DisplayLocation = (TextView) findViewById(R.id.DisplayLocation);
         DisplayEmail = (TextView) findViewById(R.id.DisplayEmail);
         DisplayPhoneNum = (TextView) findViewById(R.id.DisplayPhoneNumber);
         DisplayMutualFriends = (TextView) findViewById(R.id.UserMutualFriends);
-
 
         DisplayFavTitle = (TextView) findViewById(R.id.DisplayBookTitle);
         DisplayFavAuthor = (TextView) findViewById(R.id.DisplayBookAuthor);
@@ -67,10 +63,10 @@ public class User_Details_Activity extends AppCompatActivity {
         String phone_num = user.getPhoneNumber();
         Integer mutual_friends = user.numberMutualFriends(user);
 
-        Master_Book fav_book = user.getFavBook();
-        String fav_title = fav_book.getTitle();
-        String fav_author = fav_book.getAuthor();
-        String fav_ISBN = fav_book.getISBN();
+        //Master_Book fav_book = user.getFavBook();
+        //String fav_title = fav_book.getTitle();
+        //String fav_author = fav_book.getAuthor();
+        //String fav_ISBN = fav_book.getISBN();
         //  fav_image = fav_book.get
         // user_image = ...
 
@@ -78,10 +74,12 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayLocation.setText(location);
         DisplayEmail.setText(email);
         DisplayPhoneNum.setText(phone_num);
-        DisplayMutualFriends.setText(mutual_friends);
+        DisplayMutualFriends.setText(mutual_friends.toString().concat(" Mutual Friends"));
 
-        DisplayFavTitle.setText(fav_title);
-        DisplayFavAuthor.setText(fav_author);
-        DisplayFavISBN.setText(fav_ISBN);
+        //DisplayFavTitle.setText(fav_title);
+        //DisplayFavAuthor.setText(fav_author);
+        //DisplayFavISBN.setText(fav_ISBN);
     }
+
+
 }

@@ -7,7 +7,9 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activities.Main2Activity"></activity>
+        <activity android:name=".Activities.Take_Picture_Activity" />
+        <activity android:name=".Activities.View_Friends_Activity" />
+        <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
+        <activity android:name=".Activities.View_My_Library_Activity" />
         <activity android:name=".Activities.Edit_Book_Instance_Activity" />
         <activity
             android:name=".Activities.Add_Book_To_Library_Activity"
@@ -38,7 +45,6 @@
             android:name=".Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".Activities.Launcher_Activity" />
         <activity
             android:name=".Activities.Edit_Profile_Activity"
@@ -60,10 +66,7 @@
         <activity
             android:name=".Activities.Search_Activity"
             android:label="@string/title_activity_search_"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
-
-
 
 </manifest>

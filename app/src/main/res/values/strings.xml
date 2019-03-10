@@ -22,7 +22,7 @@
     <string name="hello_blank_fragment">this is placeholder text</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="logout">Logout</string>
-    <string name="title_activity_edit__profile">Edit_Profile_Activity</string>
+    <string name="title_activity_edit__profile_">Edit_Profile_Activity</string>
     <string name="save">Save</string>
     <string name="old_pass">Old Password</string>
     <string name="new_pass">New Password</string>
@@ -61,10 +61,40 @@
     <string name="grant">GRANT</string>
     <string name="cancel">CANCEL</string>
     <string name="take_scan">Scan ISBN</string>
+    <string name="borrowed">Borrowed</string>
+    <string name="requested">Requested</string>
+    <string name="my_friends">My Friends</string>
     <string name="title_activity_view__rating__post_">View_Rating_Post_Activity</string>
     <string name="gave">and rated it ...</string>
     <string name="title_activity_view__text__post_">View_Text_Post_Activity</string>
     <string name="title_activity_search_">Search_Activity</string>
+    <string name="search">Search</string>
+    <string name="search_by">Search By</string>
+    <string-array name="filter_search_options">
+        <item>Author</item>
+        <item>Title</item>
+        <item>ISBN</item>
+        <item>Friends</item>
+    </string-array>
+    <string name="dismiss">Dismiss</string>
+    <string name="clear_all">Clear all</string>
+    <string name="add_description">Add Book Description (optional)</string>
+    <string name="new_book">New Book</string>
+    <string name="open_scanner">Open Scanner</string>
+    <string name="add_book">Add Book To Library</string>
+    <string name="filter_by">Filter By</string>
+    <string name="edit">Edit</string>
+    <string name="edit_book">Edit Book</string>
+    <string name="edit_description">Edit Book Description</string>
+    <string name="remove">Remove from Library</string>
+    <string name="welcome">Welcome to iBrary</string>
+    <string name="requests">requests this book</string>
+    <string-array name="filter_my_library">
+        <item>Available</item>
+        <item>Requested</item>
+        <item>Accepted</item>
+        <item>Borrowed</item>
+    </string-array>
 
 
 </resources>

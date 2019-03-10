@@ -1,10 +1,11 @@
 package ca.rededaniskal.EntityClasses;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import ca.rededaniskal.EntityClasses.Book;
 
-public class Master_Book extends Book {
+public class Master_Book extends Book implements Serializable {
 
     private Double avgRating;
     private Integer totalNumRating;

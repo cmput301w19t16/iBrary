@@ -6,39 +6,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
+import ca.rededaniskal.Activities.View_Rating_Post_Activity;
+import ca.rededaniskal.Activities.View_Text_Post_Activity;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
     private ArrayList<Post> mDataset;
+    public Post_Feed_Fragment fragment;
 
-    public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView textView;
+    public class PostViewHolder extends RecyclerView.ViewHolder{
+        public TextView postTitle;
+        public TextView postBodyText;
         public String postType;
         public String postID;
         public View view;
+
         public PostViewHolder(View v){
             super(v);
             view = v;
-            textView = v.findViewById(R.id.post_text_view);
-
-        }
-
-        @Override
-        public void onClick(View v) {
-            launchAppropriateActivity();
-        }
-        
-        public void launchAppropriateActivity(){
-            return;
+            postTitle = v.findViewById(R.id.post_title);
+            postBodyText = v.findViewById(R.id.post_body_text);
         }
     }
 
-    public PostAdapter(ArrayList<Post> postList){
+    public PostAdapter(ArrayList<Post> postList, Post_Feed_Fragment frag){
+        this.fragment = frag;
         this.mDataset = postList;
     }
     @Override
@@ -51,23 +50,50 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     @Override
-    public void onBindViewHolder(PostViewHolder holder, int position){
+    public void onBindViewHolder(final PostViewHolder holder, int position){
         Post post = mDataset.get(position);
-        String text = post.getUserName();
+        String titleText = post.getUserName();
+        String bodyText = "";
         switch (post.getType()){
             case "Rating_Post":
-                text += " just reviewed " + post.getISBN();
-
+                titleText += " just reviewed " + post.getISBN();
+                bodyText += post.getMessage();
                 break;
             case "Text_Post":
-                text += " made a post about " + post.getISBN();
+                titleText += " made a post about " + post.getISBN();
+                bodyText += post.getMessage();
                 break;
             case "alert":
-                text = post.getMessage();
+                titleText = post.getMessage();
         }
-        holder.textView.setText(text);
+
+        holder.postTitle.setText(titleText);
+        holder.postBodyText.setText(bodyText);
         holder.postType = post.getType();
         holder.postID = post.getID();
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                switch (holder.postType){
+                    case "Text_Post":
+                        intent = new Intent(fragment.getContext(), View_Text_Post_Activity.class);
+                        fragment.startActivity(intent);
+                        break;
+                    case "Rating_Post":
+                        intent = new Intent(fragment.getContext(), View_Rating_Post_Activity.class);
+                        fragment.startActivity(intent);
+                        break;
+                    default:
+                        Toast.makeText(fragment.getActivity(), "All out of posts. " +
+                                "Refresh for more!", Toast.LENGTH_LONG).show();
+                        break;
+
+            }
+        }
+    });
+
     }
 
     @Override

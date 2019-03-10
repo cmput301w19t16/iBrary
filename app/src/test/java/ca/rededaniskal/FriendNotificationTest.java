@@ -2,7 +2,6 @@ package ca.rededaniskal;
 
 import org.junit.Test;
 
-import ca.rededaniskal.EntityClasses.Friend_Notification;
 import ca.rededaniskal.EntityClasses.Friend_Request;
 import ca.rededaniskal.EntityClasses.Request;
 

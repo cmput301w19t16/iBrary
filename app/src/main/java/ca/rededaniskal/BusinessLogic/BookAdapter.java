@@ -3,7 +3,6 @@ package ca.rededaniskal.BusinessLogic;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,10 +63,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         bookViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
                 Intent intent = new Intent(mctx, Book_Details_Activity.class); // TODO: change the name of this for the
-                bundle.putSerializable("KEY", book);
-                intent.putExtras(bundle); // Pass in the postion of entry to be changed in the list
+                intent.putExtra("book", book);
                 mctx.startActivity(intent);
             }
         });
@@ -96,11 +93,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
          */
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
+            //imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
 
-            bookTitle = itemView.findViewById(R.id.UserName);
-            bookAuthor = itemView.findViewById(R.id.time);
-            bookISBN = itemView.findViewById(R.id.UserMutualFriend);
+            bookTitle = itemView.findViewById(R.id.requestInfo);
+            bookAuthor = itemView.findViewById(R.id.BookAuthor);
+            bookISBN = itemView.findViewById(R.id.BookISBN);
             bookStatus = itemView.findViewById(R.id.bookStatus);
             bookOwner = itemView.findViewById(R.id.bookOwner);
         }
