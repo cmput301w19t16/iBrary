@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
@@ -139,22 +140,14 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     public void addBookInstance() {
         if (businessLogic.isValid()) {
 
-            String userID = "del@del.com";
+            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
             String Title = addTitle.getText().toString();
             String Author = addAuthor.getText().toString();
             String ISBN = addISBN.getText().toString();
 
             Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "a");
-
-
-            if( !businessLogic.addBookSuccess( bookInstance ).equals("")){
-                Toast.makeText(this, "Book Saved!", Toast.LENGTH_SHORT);
-
-            }
-            else{
-                Toast.makeText(this, "Database Error!", Toast.LENGTH_SHORT);
-
-            }
+            AddBookDb db = new AddBookDb();
+            db.addBookToDatabase(bookInstance);
         }
     }
 
@@ -186,3 +179,42 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 }
 
 
+
+
+
+
+final class AddBookDb {
+    FirebaseDatabase db;
+    DatabaseReference bookRef;
+    String success;
+
+    public AddBookDb() {
+        this.db = FirebaseDatabase.getInstance();
+        this.bookRef = db.getReference().child("book-instances");
+
+    }
+
+    public String addBookToDatabase(Book_Instance bookInstance) throws NullPointerException{
+
+
+        success =bookRef.push().getKey();
+
+
+
+        if (bookRef.child(success).setValue(bookInstance).isSuccessful()){
+            bookInstance.setBookID(success);
+            bookRef.child(success).setValue(bookInstance);
+        }
+        else {
+            success = "";
+        }
+
+
+
+
+
+
+        return success;
+    }
+
+}

@@ -115,11 +115,13 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
     }
 
     public void getInfo() {
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String Title = editTitle.getText().toString();
         String Author = editAuthor.getText().toString();
         String ISBN = editISBN.getText().toString();
 
-        //businessLogic = new editBookLogic(Title, Author, ISBN);
+
+        businessLogic = new AddBookLogic(Title,Author,ISBN);
     }
 
     public void validateFields() {
@@ -141,23 +143,19 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
 
     public void editBookInstance() {
         if (businessLogic.isValid()) {
+            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            String userID = "del@del.com";
+
             String Title = editTitle.getText().toString();
             String Author = editAuthor.getText().toString();
             String ISBN = editISBN.getText().toString();
 
             Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "a");
 
-            if( !businessLogic.addBookSuccess( bookInstance ).equals("")){
-                Toast.makeText(this, "Book Saved!", Toast.LENGTH_SHORT);
 
             }
-            else{
-                Toast.makeText(this, "Database Error!", Toast.LENGTH_SHORT);
-            }
         }
-    }
+
 
     //Code From https://stackoverflow.com/a/5991757
     @Override
@@ -181,4 +179,44 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             cover.setImageBitmap(photo);
         }
     }
+
+
+
+
+    final class EditBookDb {
+        FirebaseDatabase db;
+        DatabaseReference bookRef;
+        String success;
+
+        public EditBookDb() {
+            this.db = FirebaseDatabase.getInstance();
+            this.bookRef = db.getReference().child("book-instances");
+
+        }
+
+        public String EditBookData(Book_Instance bookInstance) throws NullPointerException{
+
+
+            success =bookRef.push().getKey();
+
+
+
+            if (bookRef.child(success).setValue(bookInstance).isSuccessful()){
+                bookInstance.setBookID(success);
+                bookRef.child(success).setValue(bookInstance);
+            }
+            else {
+                success = "";
+            }
+
+
+
+
+
+
+            return success;
+        }
+
+    }
+
 }

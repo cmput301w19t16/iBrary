@@ -56,7 +56,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         profilePicture = findViewById(R.id.profile_image);
 
         saveButton = (Button) findViewById(R.id.saveButton);
-        editProfilePic = findViewById(R.id.editProfilePic);
+        //editProfilePic = findViewById(R.id.editProfilePic);
 
         newUsername = findViewById(R.id.new_username);
         newPhone = findViewById(R.id.new_phone);

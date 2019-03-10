@@ -1,6 +1,7 @@
 package ca.rededaniskal.Activities;
 
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.R;
 
 public class View_Borrowed_Requested_Activity extends AppCompatActivity {
+    private Context context = this;
 
     private Book_List BL;
     private RecyclerView recyclerView;
@@ -43,10 +45,8 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__borrowed__requested_);
 
-        readBookDB db = new readBookDB();
+        readBookDB db = new readBookDB(context);
 
-        BL = new Book_List();
-        BL.addBook(new Book_Instance("Title", "Me", "1111111111", "you", "you", "good", "a"));
 
 
         recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);
@@ -61,12 +61,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
     }
 
-    public void loadBook(Book_Instance book_instance){
-        this.BL.addBook(book_instance);
 
-
-
-    }
 
 
 
@@ -74,15 +69,16 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
         private DatabaseReference mdatabase;
         private String TAG= "ViewBORROWED";
+        private  Context context;
 
 
-        public readBookDB(){
-            getBookInstance();
+        public readBookDB(Context context){
+            this.context = context;
+
         }
 
-        private void getBookInstance(){
-//            Query query = FirebaseDatabase.getInstance().getReference("book-instances")
-//                    .child("book-instances").child("all-books");
+        private void update(){
+
             mdatabase = FirebaseDatabase.getInstance().getReference("book-instances");
             mdatabase.addListenerForSingleValueEvent(valueEventListener);
         }
@@ -92,10 +88,15 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "**************---> In OnDataChange");
                 if (dataSnapshot.exists()){
+                    Book_List book_list = new Book_List();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
                         Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
                         Log.d(TAG, "**************--->"+book_instance.getOwner());
+                        book_list.addBook(book_instance);
+
                     }
+                    updateBookView(book_list);
                 }
             }
 
@@ -106,36 +107,24 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         };
 
 
-    }
 
-    /*public Book_List Load_books(Map<String, Map<String, String>> map){
-       this.BL = new Book_List();
-        for (Map<String,String> m : map.values()){
-            this.BL
-                    .addBook(
-                            new Book_Instance(m.get("title"),
-                                    m.get("author"),
-                                    m.get("isbn"),
-                                    m.get("owner"),
-                                    m.get("possessor"),
-                                    m.get("condition"),
-                                    m.get("status"))
-                    );
-            if (this.BL.size()==0){
-                try{
-                    throw new Exception("The books WERENT ADDED!!!!!!!!!!!! at VIEWBoorowedbooks");
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
+        public void updateBookView(Book_List book_list){
+            recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
+
+
+            bookAdapter = new BookAdapter(this.context, book_list);
+            recyclerView.setAdapter(bookAdapter);
+            bookAdapter.notifyDataSetChanged();
+
 
 
         }
-
-        return this.BL;
     }
-*/
-
-
 
 }
+
+
+
+
