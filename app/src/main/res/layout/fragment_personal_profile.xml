@@ -149,7 +149,7 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/DisplayLocation"
+                android:id="@+id/DisplayPhoneNumber"
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
@@ -203,7 +203,7 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/DisplayPhoneNumber"
+                android:id="@+id/DisplayLocation"
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"

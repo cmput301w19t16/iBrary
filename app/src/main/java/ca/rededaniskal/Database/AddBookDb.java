@@ -1,4 +1,4 @@
-package ca.rededaniskal;
+package ca.rededaniskal.Database;
 /*author Skye*/
 
 import com.google.firebase.database.DatabaseReference;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
-final class AddBookDb {
+public class AddBookDb {
     FirebaseDatabase db;
     DatabaseReference bookRef;
     String success;

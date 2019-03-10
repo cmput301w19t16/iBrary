@@ -18,7 +18,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static android.content.ContentValues.TAG;
+
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 import ca.rededaniskal.BusinessLogic.SignUpLogic;
 
@@ -30,6 +35,7 @@ public class Signup_Activity extends AppCompatActivity {
     private EditText emailText;
     private EditText phoneText;
     private SignUpLogic businessLogic;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,8 @@ public class Signup_Activity extends AppCompatActivity {
                 getInfo();
                 validateFields();
                 finalPass();
+
+
             }
         });
     }
@@ -90,6 +98,8 @@ public class Signup_Activity extends AppCompatActivity {
         String email = emailText.getText().toString();
         String phone = phoneText.getText().toString();
 
+        user = new User(username, email, phone, "");
+
         businessLogic = new SignUpLogic(username, password, confirm, email, phone);
 
     }
@@ -102,18 +112,20 @@ public class Signup_Activity extends AppCompatActivity {
 
             db.createUser(email, password);
 
-            if(db.isSuccess()){
-                /* TODO: Pass to new intent */
-                Toast.makeText(getApplicationContext(), "Sign Up Complete", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
             }
-        }else{
-            Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_SHORT).show();
-        }
 
     }
 
+
+    public void nextActivity(){
+        startActivity(new Intent(Signup_Activity.this,Main_Activity.class));
+    }
+
+
+
+
+
+    //--------- SIGNUPDB ENCLOSED CLASS ------------ //
 
     public class SignUpDB {
 
@@ -122,6 +134,7 @@ public class Signup_Activity extends AppCompatActivity {
         private FirebaseAuth mAuth;
         private boolean success;
         private FirebaseUser newUser;
+
 
         public SignUpDB(){
             mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -151,6 +164,8 @@ public class Signup_Activity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                setUser();
+                                nextActivity();
                                 //updateUI(user);
                                 success = true;
                             } else {
@@ -163,12 +178,14 @@ public class Signup_Activity extends AppCompatActivity {
                     });
         }
 
-        public FirebaseUser getNewUser() {
-            return newUser;
-        }
 
-        private void setNewUser(FirebaseUser newUser) {
-            this.newUser = newUser;
+        public void setUser() {
+            Log.d(TAG, "IN setUser");
+            Log.d(TAG, user.getEmail());
+            mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+            String key = mDatabase.push().getKey();
+            mDatabase.child(key).setValue(user);
+
         }
     }
 
