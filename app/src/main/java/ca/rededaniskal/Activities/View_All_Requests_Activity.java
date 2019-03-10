@@ -1,3 +1,13 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View all your requests
+ *
+ * ISSUES:
+ * Needs DB support
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.os.Bundle;
@@ -53,8 +63,5 @@ public class View_All_Requests_Activity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
     }
-
 }

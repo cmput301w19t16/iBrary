@@ -1,3 +1,13 @@
+/* TYPE:
+ * Fragment Activity
+ *
+ * PURPOSE:
+ * Search Books and users from the main screen
+ *
+ * ISSUES:
+ * Needs DB support and filtering
+ *
+ */
 //Tutorial for selecting more than one option in search
 //https://www.youtube.com/redirect?q=https%3A%2F%2Fgithub.com%2Fcodingdemos%2FMultichoiceTutorial&redir_token=zWJM5OoUtOrwMvfLlGWm1qv4-B98MTU1MjE5NTgxMEAxNTUyMTA5NDEw&event=video_description&v=wfADRuyul04
 package ca.rededaniskal.Activities.Fragments;
@@ -19,8 +29,6 @@ import ca.rededaniskal.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Search_Fragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link Search_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */

@@ -1,3 +1,15 @@
+/* TYPE:
+ * Fragment Activity
+ *
+ * PURPOSE:
+ * Notifications fragment within the main screen
+ * Displays friend and borrow requests
+ *
+ * ISSUES:
+ * Needs to link to the relevant request
+ *
+ */
+
 package ca.rededaniskal.Activities.Fragments;
 
 import android.content.Intent;
@@ -36,8 +48,6 @@ import static android.content.ContentValues.TAG;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Notifications_Fragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link Notifications_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
@@ -79,6 +89,7 @@ public class Notifications_Fragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +98,7 @@ public class Notifications_Fragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,8 +124,6 @@ public class Notifications_Fragment extends Fragment {
 //        }
 
 
-
-
         Notification n = new Notification("You", "notiID", false);
         n.setRequestType("Friend_Request");
         notiList.add(n);
@@ -134,11 +144,11 @@ public class Notifications_Fragment extends Fragment {
         p.setRequestType("something not accounted for");
         notiList.add(p);
 
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         final Notification_Adapter notiAdapter = new Notification_Adapter(notiList, Notifications_Fragment.this);
         recyclerView.setAdapter(notiAdapter);
+
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

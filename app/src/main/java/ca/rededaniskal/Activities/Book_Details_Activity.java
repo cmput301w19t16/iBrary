@@ -1,3 +1,16 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View the details of a book if it is not your book
+ * Send a request for a book if it is not your book
+ * View the requests for this book if it is your book
+ * Navigate to editing the book if it is your book
+ *
+ * ISSUES:
+ * Needs to DB support
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.content.Intent;

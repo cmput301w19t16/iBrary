@@ -1,4 +1,13 @@
-package ca.rededaniskal.Activities;
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View details of another user
+ *
+ * ISSUES:
+ * Need to be able to send requests to this user
+ *
+ */package ca.rededaniskal.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +23,7 @@ import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 /**
- * @author Daniela
+ * @author Daniela, Revan
  */
 
 public class User_Details_Activity extends AppCompatActivity {
