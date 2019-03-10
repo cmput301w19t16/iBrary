@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.Main2Activity"></activity>
+        <activity android:name=".Activities.Main2Activity" />
         <activity android:name=".Activities.Take_Picture_Activity" />
         <activity android:name=".Activities.View_Friends_Activity" />
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
@@ -67,6 +67,10 @@
             android:name=".Activities.Search_Activity"
             android:label="@string/title_activity_search_"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.View_All_Requests_Activity"
+            android:label="@string/title_activity_view__all__requests_"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
