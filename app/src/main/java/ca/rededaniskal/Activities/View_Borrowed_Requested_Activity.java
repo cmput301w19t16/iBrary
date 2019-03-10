@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Switch;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.Database.Data_Provider;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.R;
 
@@ -20,8 +21,9 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__borrowed__requested_);
-
-        Book_List BL = new Book_List();//TODO: DB get the borrowed and requested books of the user
+        Data_Provider dp = new Data_Provider();
+        dp.bookQuery(3);
+        Book_List BL =dp.getBook_list();
 
         recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);
         recyclerView.setHasFixedSize(true);
