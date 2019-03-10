@@ -31,16 +31,14 @@ public class View_All_Requests_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //For testing
+
         //TODO: DB load the libary of requested books for the current user
 
+        //For testing
         Request request1 = new Request("Daniela", "Skye", "book");
         Request request2 = new Request("Daniela", "Nick", "book");
         requestList.add(request1);
         requestList.add(request2);
-
-       // Book_Instance HP = new Book_Instance("HappyPotter", "JK", "123", "Revan", "Daniela", "Very Nice", "Requested");
-        //BL.addBook(HP);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__all__requests_);
