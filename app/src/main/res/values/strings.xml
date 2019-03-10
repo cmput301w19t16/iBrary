@@ -95,6 +95,9 @@
         <item>Accepted</item>
         <item>Borrowed</item>
     </string-array>
+    <string name="title_activity_view__all__requests_">View_All_Requests_Activity</string>
+    <string name="view_all_request">All Book Requests</string>
+    <string name="my_requests">All Requests on My Books</string>
 
 
 </resources>
