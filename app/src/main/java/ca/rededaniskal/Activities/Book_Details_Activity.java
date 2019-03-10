@@ -3,12 +3,20 @@ package ca.rededaniskal.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
 import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -27,6 +35,10 @@ public class Book_Details_Activity extends AppCompatActivity {
     Button GoToForum;
     Button Request_Cancel;
     Button Edit;
+
+    RecyclerView viewRequests;
+
+    BorrowRequestAdapter requestAdapter;
 
     boolean isRequested; //Auxillary variable for keeping track of where we need to go
 
@@ -49,6 +61,10 @@ public class Book_Details_Activity extends AppCompatActivity {
         Request_Cancel = (Button) findViewById(R.id.request_cancel);
         Edit = findViewById(R.id.Edit);
 
+        viewRequests = (RecyclerView) findViewById(R.id.viewRequests);
+
+
+
         //Get what was passed in and display it
         Intent intent = getIntent();
         final Book_Instance book = (Book_Instance) intent.getSerializableExtra("book"); //Get the book
@@ -63,15 +79,32 @@ public class Book_Details_Activity extends AppCompatActivity {
         //TODO: Make this the actual user
         final User globalUser = new User("Revan", "email", "location");
 
-        //Set the visibility of Edit
+        //Set the visibility of Edit + cardView
         if (globalUser.getUserName().equals(book.getOwner()))
         {
             Edit.setVisibility(View.VISIBLE); //SHOW the button
             Request_Cancel.setVisibility(View.INVISIBLE);
+            viewRequests.setHasFixedSize(true);
+            viewRequests.setLayoutManager(new LinearLayoutManager(this));
+
+            //for Testing
+            BorrowRequest br = new BorrowRequest("revan", "revan", "123", 123);
+            BorrowRequest br2 = new BorrowRequest("revan", "revan", "123", 123);
+            BorrowRequest br3 = new BorrowRequest("revan", "revan", "123", 123);
+
+            ArrayList<BorrowRequest> l = new ArrayList<>();
+            l.add(br);
+            l.add(br2);
+            l.add(br3);
+
+            requestAdapter = new BorrowRequestAdapter(this, l);
+            viewRequests.setAdapter(requestAdapter);
+            requestAdapter.notifyDataSetChanged();
+        }else{
+            viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
 
         //Set appropriate text for the button at the bottom
-
         if ( isRequested){
             Request_Cancel.setText(R.string.cancel_request);
             isRequested = true;

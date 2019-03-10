@@ -88,6 +88,7 @@
     <string name="edit_description">Edit Book Description</string>
     <string name="remove">Remove from Library</string>
     <string name="welcome">Welcome to iBrary</string>
+    <string name="requests">requests this book</string>
     <string-array name="filter_my_library">
         <item>Available</item>
         <item>Requested</item>

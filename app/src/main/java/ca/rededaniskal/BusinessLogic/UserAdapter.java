@@ -3,7 +3,6 @@ package ca.rededaniskal.BusinessLogic;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -116,7 +115,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             super(itemView);
             profilePic = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the Users image
             statusIcon = itemView.findViewById(R.id.StatusIcon);
-            UserName = itemView.findViewById(R.id.BookTitle);
+            UserName = itemView.findViewById(R.id.requestInfo);
             UserLocation = itemView.findViewById(R.id.BookAuthor);
             UserMutualFriends = itemView.findViewById(R.id.UserMutualFriends);
         }
