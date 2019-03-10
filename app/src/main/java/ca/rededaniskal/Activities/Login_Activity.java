@@ -90,7 +90,7 @@ public class Login_Activity extends AppCompatActivity {
             db = new Login_Activity.SignInDB();
             String em = email.getText().toString();
             String pass = password.getText().toString();
-
+            Log.d(TAG, "*********----->"+pass);
             db.signInUser(em, pass);
         }
     }
