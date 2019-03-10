@@ -77,11 +77,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
      */
     @Override
     public int getItemCount() {
+        if (bookList ==null){
+            return 0;
+        }
+
         return bookList.size();
     }
 
     /**
-     * The type Entry view holder, the obbject to actually hold an entry
+     * The type Entry view holder, the object to actually hold an entry
      */
     class BookViewHolder extends RecyclerView.ViewHolder {
 

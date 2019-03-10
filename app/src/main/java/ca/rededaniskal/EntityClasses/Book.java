@@ -10,6 +10,10 @@ public class Book implements Serializable {
     private String isbn;
     private String id;
 
+    public Book(){
+
+    }
+
     public Book(String newTitle, String newAuthor, String newIsbn){
         title = newTitle;
         author = newAuthor;

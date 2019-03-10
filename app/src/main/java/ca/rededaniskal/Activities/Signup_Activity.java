@@ -53,6 +53,8 @@ public class Signup_Activity extends AppCompatActivity {
                 getInfo();
                 validateFields();
                 finalPass();
+
+
             }
         });
     }
@@ -178,7 +180,8 @@ public class Signup_Activity extends AppCompatActivity {
 
 
         public void setUser() {
-
+            Log.d(TAG, "IN setUser");
+            Log.d(TAG, user.getEmail());
             mDatabase = FirebaseDatabase.getInstance().getReference("Users");
             String key = mDatabase.push().getKey();
             mDatabase.child(key).setValue(user);

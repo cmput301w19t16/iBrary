@@ -13,8 +13,6 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import ca.rededaniskal.Database.SignUpDB;
-
 public class SignUpLogic {
 
     private boolean valid;

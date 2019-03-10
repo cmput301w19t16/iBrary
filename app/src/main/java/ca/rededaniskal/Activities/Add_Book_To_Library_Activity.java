@@ -1,6 +1,8 @@
 package ca.rededaniskal.Activities;
 
-/*author : Skye*/
+
+
+//author : Skye
 
 import android.Manifest;
 import android.app.Activity;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,15 +27,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
+import ca.rededaniskal.Database.AddBookDb;
+
+
+import ca.rededaniskal.Database.Data_Provider;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
+
 import ca.rededaniskal.R;
 
 public class Add_Book_To_Library_Activity extends AppCompatActivity {
+
+
     private static final String TAG = "Add_Book_To_Library_Activity";
+
     private FirebaseAuth mAuth;
     private DatabaseReference bookRef;
 
@@ -41,6 +52,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     private Button openScanner, addBook;
     private FloatingActionButton openCamera;
     private ImageView cover;
+
 
     private AddBookLogic businessLogic;
 
@@ -134,6 +146,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             String ISBN = addISBN.getText().toString();
 
             Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "a");
+            AddBookDb db = new AddBookDb();
+            db.addBookToDatabase(bookInstance);
+
 
             if( !businessLogic.addBookSuccess( bookInstance ).equals("")){
                 Toast.makeText(this, "Book Saved!", Toast.LENGTH_SHORT);
@@ -141,9 +156,12 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             }
             else{
                 Toast.makeText(this, "Database Error!", Toast.LENGTH_SHORT);
+
             }
         }
     }
+
+
 
     //Code From https://stackoverflow.com/a/5991757
     @Override
@@ -158,6 +176,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
             }
+
         }
     }
 
