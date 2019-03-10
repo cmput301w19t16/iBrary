@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import ca.rededaniskal.AddBookLogic;
+import ca.rededaniskal.BusinessLogic.AddBookLogic;
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;

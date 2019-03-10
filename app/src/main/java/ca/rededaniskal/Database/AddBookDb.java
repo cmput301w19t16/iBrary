@@ -1,4 +1,4 @@
-package ca.rededaniskal;
+package ca.rededaniskal.Database;
 /*author Skye*/
 
 import com.google.firebase.database.DatabaseReference;
