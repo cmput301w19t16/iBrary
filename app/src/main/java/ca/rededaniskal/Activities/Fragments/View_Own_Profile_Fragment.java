@@ -106,6 +106,7 @@ public class View_Own_Profile_Fragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_personal_profile, container, false);
         db = new currentUserDetailsDB();
+
         Button editButton = v.findViewById(R.id.edit_user);
         Button viewLibrary = (Button) v.findViewById(R.id.my_library);
         Button viewBorrowedRequested = (Button) v.findViewById(R.id.borrowed_requested_books);
