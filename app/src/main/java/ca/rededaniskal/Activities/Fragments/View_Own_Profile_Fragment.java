@@ -1,3 +1,13 @@
+/* TYPE:
+ * Fragment
+ *
+ * PURPOSE:
+ * View your own info
+ * Navigate to editing your profile, viewing library, seeing borrowed and requested books and friends
+ *
+ * ISSUES:
+ *
+ */
 package ca.rededaniskal.Activities.Fragments;
 
 import android.content.Context;
@@ -41,9 +51,6 @@ import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link View_Own_Profile_Fragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link View_Own_Profile_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */

@@ -1,3 +1,13 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View your friends
+ *
+ * ISSUES:
+ * Needs DB support
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +24,7 @@ import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
+//Author: Revan
 public class View_Friends_Activity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;

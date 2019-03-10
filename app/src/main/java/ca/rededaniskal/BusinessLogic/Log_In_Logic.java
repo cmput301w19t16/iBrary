@@ -1,9 +1,17 @@
+/* TYPE:
+ * Logic
+ *
+ * PURPOSE:
+ * Handles business logic for Login_Activity
+ *
+ * ISSUES:
+ */
 package ca.rededaniskal.BusinessLogic;
 
 
 /*
 Created by Delaney Lothian 09/03/2019
-Handles business logic for Login_Activity
+
  */
 
 public class Log_In_Logic {

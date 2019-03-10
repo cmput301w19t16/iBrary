@@ -1,3 +1,12 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * Used to test stuff, not a part of the app itself
+ *
+ * ISSUES:
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.content.Intent;

@@ -1,4 +1,12 @@
-package ca.rededaniskal.Activities;
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * Signup for app
+ *
+ * ISSUES:
+ *
+ */package ca.rededaniskal.Activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -44,8 +52,6 @@ public class Signup_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         Button button = findViewById(R.id.button_signup);
-
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,8 +59,6 @@ public class Signup_Activity extends AppCompatActivity {
                 getInfo();
                 validateFields();
                 finalPass();
-
-
             }
         });
     }
@@ -84,7 +88,6 @@ public class Signup_Activity extends AppCompatActivity {
     }
 
 
-
     public void getInfo(){
         usernameText = findViewById(R.id.input_username);
         passwordText = findViewById(R.id.input_password);
@@ -99,10 +102,10 @@ public class Signup_Activity extends AppCompatActivity {
         String phone = phoneText.getText().toString();
 
         user = new User(username, email, phone, "");
-
         businessLogic = new SignUpLogic(username, password, confirm, email, phone);
 
     }
+
 
     public void finalPass(){
         if (businessLogic.isValid()){
@@ -113,17 +116,12 @@ public class Signup_Activity extends AppCompatActivity {
             db.createUser(email, password);
 
             }
-
     }
 
 
     public void nextActivity(){
         startActivity(new Intent(Signup_Activity.this,Main_Activity.class));
     }
-
-
-
-
 
     //--------- SIGNUPDB ENCLOSED CLASS ------------ //
 
@@ -149,13 +147,13 @@ public class Signup_Activity extends AppCompatActivity {
             return success;
         }
 
+
         public void setSuccess(boolean success) {
             this.success = success;
         }
 
+
         public void createUser(String email, String password){
-
-
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(Signup_Activity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -173,7 +171,6 @@ public class Signup_Activity extends AppCompatActivity {
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
 //                            updateUI(null);
                             }
-
                         }
                     });
         }
@@ -188,6 +185,4 @@ public class Signup_Activity extends AppCompatActivity {
 
         }
     }
-
-
 }

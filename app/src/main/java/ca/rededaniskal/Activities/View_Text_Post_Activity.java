@@ -1,3 +1,13 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View a Text post
+ *
+ * ISSUES:
+ * Needs DB support
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.os.Bundle;

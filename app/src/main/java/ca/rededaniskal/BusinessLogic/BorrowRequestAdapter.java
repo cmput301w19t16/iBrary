@@ -1,3 +1,11 @@
+/* TYPE:
+ * Adapter
+ *
+ * PURPOSE:
+ * Adapter for viewing Borrow requests
+ *
+ * ISSUES:
+ */
 package ca.rededaniskal.BusinessLogic;
 //Created by Daniela, Revan
 
