@@ -58,5 +58,7 @@ dependencies {
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.6.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+
 }
 apply plugin: 'com.google.gms.google-services'

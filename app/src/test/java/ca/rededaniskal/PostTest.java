@@ -5,61 +5,40 @@ import org.junit.Test;
 import java.util.Date;
 
 import ca.rededaniskal.EntityClasses.Post;
+import ca.rededaniskal.EntityClasses.Rating_Post;
+import ca.rededaniskal.EntityClasses.Text_Post;
 import ca.rededaniskal.EntityClasses.User;
 
 import static org.junit.Assert.*;
 
 public class PostTest {
     @Test
-    public void TestGetAndSetMessage() {
-        User user = new User("alex chan", "a@c.ca", "Edmonton");
+    public void TestRating_Post() {
+        User user = new User ("John smith", "js@js.ca", "toronto");
 
-        Post post = new Post("this is a post", user.getUserName());
+        Rating_Post post = new Rating_Post("message", user.getUserName(), "123", 2.5);
 
-        assertEquals("this is a post", post.getMessage());
+        assertEquals(2.5, post.getRating());
 
-        post.setMessage("this is a changed post");
+        post.setRating(3.5);
 
-        assertEquals("this is a changed post", post.getMessage());
+        assertEquals(3.5, post.getRating());
+
+        assertEquals("Rating_Post", post.getType());
+
+        assertEquals("John smith", post.getUserName());
     }
 
-    @Test
-    public void TestGetAndSetTimestamp() {
-        User user = new User("alex chan", "123@321.ca", "Calgary");
+    public void TestText_Post() {
+        User user = new User ("John smith", "js@js.ca", "toronto");
 
-        Post post = new Post("this is a post", user.getUserName());
+        Text_Post post = new Text_Post("message", user.getUserName(), "123");
+
+        assertEquals("Text_Post", post.getType());
 
         Date timestamp = new Date();
         assertEquals(timestamp, post.getTimestamp());
-
-//        post.setTimestamp("2019-12-31");
-//        assertFalse(timestamp, post.getTimestamp());
     }
 
-    @Test
-    public void TestGetandSetUsername() {
-        User user = new User("alex chan", "123@321.ca", "calgart");
 
-        Post post = new Post("this is a new psot", user.getUserName());
-
-        assertEquals("alex chan", post.getUserName());
-
-        post.setUserName("john poop");
-        assertEquals("john poop", post.getUserName());
-    }
-
-    @Test
-    public void TestGetAndSetReply() {
-        User user = new User("john smith", "js@js.ca", "toronto");
-
-        User user2 = new User("bob jones", "bj@bs.ca", "toronton");
-
-        Post post = new Post("thi a post", user.getUserName(), user2.getUserName());
-
-        assertEquals("bob jones", user2.getUserName());
-
-        post.setReplyTarget("james cameron");
-        assertEquals("james cameron", post.getReplyTarget());
-
-    }
 }
