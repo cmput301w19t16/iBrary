@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
+import ca.rededaniskal.Database.AddBookDb;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -134,6 +135,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             String ISBN = addISBN.getText().toString();
 
             Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "a");
+            AddBookDb db = new AddBookDb();
+            db.addBookToDatabase(bookInstance);
 
             if( !businessLogic.addBookSuccess( bookInstance ).equals("")){
                 Toast.makeText(this, "Book Saved!", Toast.LENGTH_SHORT);
