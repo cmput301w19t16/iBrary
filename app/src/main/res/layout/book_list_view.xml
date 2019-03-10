@@ -30,7 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/UserName"
+                android:id="@+id/requestInfo"
                 android:layout_width="255dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/UserLocation"
+                android:id="@+id/BookAuthor"
                 android:layout_width="255dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -54,10 +54,10 @@
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/UserName" />
+                app:layout_constraintTop_toBottomOf="@+id/requestInfo" />
 
             <TextView
-                android:id="@+id/UserMutualFriend"
+                android:id="@+id/BookISBN"
                 android:layout_width="255dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -68,7 +68,7 @@
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/UserLocation" />
+                app:layout_constraintTop_toBottomOf="@+id/BookAuthor" />
 
             <TextView
                 android:id="@+id/bookStatus"
@@ -79,7 +79,7 @@
                 android:text="Status"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/UserMutualFriend" />
+                app:layout_constraintTop_toBottomOf="@+id/BookISBN" />
 
             <TextView
                 android:id="@+id/bookOwner"
@@ -90,7 +90,7 @@
                 android:text="Owned By"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 app:layout_constraintStart_toEndOf="@+id/bookStatus"
-                app:layout_constraintTop_toBottomOf="@+id/UserMutualFriend" />
+                app:layout_constraintTop_toBottomOf="@+id/BookISBN" />
 
 
         </android.support.constraint.ConstraintLayout>

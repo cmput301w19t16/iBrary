@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +31,7 @@ public class Login_Activity extends AppCompatActivity {
     private EditText password;
     private Log_In_Logic logic;
     private Login_Activity.SignInDB db;
+    ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,9 @@ public class Login_Activity extends AppCompatActivity {
         RegisterButton = (Button) findViewById(R.id.button2);
         email  = (EditText) findViewById(R.id.editText5);
         password = (EditText)findViewById(R.id.editText6);
+        logo = (ImageView) findViewById(R.id.Logo);
+
+        logo.setImageResource(R.mipmap.ic_launcher);
 
         //Set on click listeners
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +53,8 @@ public class Login_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 validateFields();
                 finalPass();
+                //TODO: DB login in only if authentication passes
+
                 //For now lets go to the main screen
                 if(db.isSuccess()) {
                     Intent intent = new Intent(v.getContext(), Main_Activity.class);

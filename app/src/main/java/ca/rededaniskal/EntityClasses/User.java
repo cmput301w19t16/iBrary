@@ -24,12 +24,14 @@ public class User implements Serializable {
         this.userName = userName;
         this.email = email;
         this.location = location;
+        this.phoneNumber = "Not Provided";
 
         this.friends = new ArrayList<User>();
         this.ownedBooks = new Book_List();
         this.borrowedBooks  = new Book_List();
         this.requestedBooks = new Book_List();
         this.blockedUsers = new ArrayList<User>();
+
 
     }
 

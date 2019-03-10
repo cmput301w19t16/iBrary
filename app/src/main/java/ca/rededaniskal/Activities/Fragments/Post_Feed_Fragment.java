@@ -1,7 +1,10 @@
 package ca.rededaniskal.Activities.Fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.EntityClasses.Text_Post;
 import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.EntityClasses.Rating_Post;
+import ca.rededaniskal.R;
 
 
 /**
@@ -29,6 +33,7 @@ public class Post_Feed_Fragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private SwipeRefreshLayout swipeContainer;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,22 +70,21 @@ public class Post_Feed_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
-
-
-
-    }
+            }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        RecyclerView recyclerView = new RecyclerView(getContext());
+        final View view = inflater.inflate(R.layout.fragment_feed, container, false);
+
+        swipeContainer = view.findViewById(R.id.swipeContainer);
+
+
+        final RecyclerView recyclerView = view.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
-        ArrayList<Post> postList = new ArrayList<Post>();
+        final ArrayList<Post> postList = new ArrayList<Post>();
         postList.add(new Text_Post("This is a text post", "User1", "Placeholder ISBN1"));
         postList.add(new Text_Post("This is a text post", "User2", "Placeholder ISBN2"));
 
@@ -103,9 +107,26 @@ public class Post_Feed_Fragment extends Fragment {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new PostAdapter(postList));
+        final PostAdapter postAdapter = new PostAdapter(postList, Post_Feed_Fragment.this);
+        recyclerView.setAdapter(postAdapter);
 
-        return recyclerView;
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                postList.add(new Post("This post should now show up",
+                        "blank", "blank", "Display"));
+                recyclerView.setAdapter(new PostAdapter(postList, Post_Feed_Fragment.this));
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        // Stop animation (This will be after 3 seconds)
+                        swipeContainer.setRefreshing(false);
+                    }
+                }, 300); // Delay in millis
+
+            }
+        });
+
+        return swipeContainer;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
