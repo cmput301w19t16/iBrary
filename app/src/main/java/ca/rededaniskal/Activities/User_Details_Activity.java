@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -79,6 +82,20 @@ public class User_Details_Activity extends AppCompatActivity {
         //DisplayFavTitle.setText(fav_title);
         //DisplayFavAuthor.setText(fav_author);
         //DisplayFavISBN.setText(fav_ISBN);
+    }
+
+    public class userDetailsDB{
+        private FirebaseAuth mAuth;
+        private String email;
+        private String username;
+        private String location;
+        private String phone;
+
+        public userDetailsDB() {
+
+//            mAuth = FirebaseAuth.getInstance();
+//            FirebaseUser currentUser = mAuth.getCurrentUser();
+        }
     }
 
 

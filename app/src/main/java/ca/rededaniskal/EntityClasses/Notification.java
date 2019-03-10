@@ -5,10 +5,17 @@ import java.util.Date;
 public class Notification {
     private Date timestamp;
     private String username;
-    private Request request;
+    private String requestID;
+    private boolean seen;
+    private String requestType;
 
 
-    public void Notification(){
+    public Notification(String user, String req, boolean s){
+        timestamp = new Date();
+        requestID = req;
+        username = user;
+        seen = s;
+        requestType = "";
     }
 
     public Date getTimestamp() {
@@ -19,6 +26,14 @@ public class Notification {
         this.timestamp = timestamp;
     }
 
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -27,15 +42,15 @@ public class Notification {
         this.username = username;
     }
 
-    public Request getRequest() {
-        return request;
+    public String getRequest() {
+        return requestID;
     }
 
-    public void setRequest(Request request) {
-        this.request = request;
+    public void setRequest(String request) {
+        this.requestID = request;
     }
 
-    public void viewRequest(Request request){
-//        Create intent to view request
-    }
+    public boolean getSeen(){ return this.seen;}
+
+    public void setSeen(Boolean s){this.seen = s;}
 }

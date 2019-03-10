@@ -42,6 +42,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__borrowed__requested_);
+
         readBookDB db = new readBookDB();
 
         BL = new Book_List();

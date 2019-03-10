@@ -2,7 +2,6 @@ package ca.rededaniskal;
 
 import org.junit.Test;
 
-import ca.rededaniskal.EntityClasses.BookNotification;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Request;
 
