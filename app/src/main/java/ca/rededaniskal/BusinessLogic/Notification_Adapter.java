@@ -1,3 +1,11 @@
+/* TYPE:
+ * Adapter
+ *
+ * PURPOSE:
+ * Adapter for viewing Notifications
+ *
+ * ISSUES:
+ */
 package ca.rededaniskal.BusinessLogic;
 
 import android.content.Intent;
@@ -20,6 +28,7 @@ import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
+//Author: Nick
 public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adapter.Notification_View_Holder> {
     private ArrayList<Notification> mDataset;
     public Notifications_Fragment fragment;

@@ -1,3 +1,10 @@
+/* TYPE:
+ * Adapter
+ *
+ * PURPOSE:
+ *
+ * ISSUES:
+ */
 package ca.rededaniskal.BusinessLogic;
 
 import android.support.v4.app.Fragment;

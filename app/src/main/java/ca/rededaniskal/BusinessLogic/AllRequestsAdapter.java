@@ -1,3 +1,11 @@
+/* TYPE:
+ * Adapter
+ *
+ * PURPOSE:
+ * Adapter for viewing your requests
+ *
+ * ISSUES:
+ */
 package ca.rededaniskal.BusinessLogic;
 
 import android.content.Context;
