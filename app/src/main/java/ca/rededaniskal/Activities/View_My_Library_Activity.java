@@ -34,6 +34,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //For testing
+        //TODO: DB load the libary of the current user
         Book_List BL = new Book_List();
         Book_Instance HP = new Book_Instance("HappyPotter", "JK", "123", "Revan", "Daniela", "Very Nice", "Requested");
         BL.addBook(HP);

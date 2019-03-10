@@ -43,6 +43,7 @@ public class Signup_Activity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: DB add user to database
                 getInfo();
                 validateFields();
                 finalPass();

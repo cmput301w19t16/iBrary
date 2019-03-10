@@ -89,6 +89,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: DB
                 getInfo();
                 validateFields();
                 addBookInstance();

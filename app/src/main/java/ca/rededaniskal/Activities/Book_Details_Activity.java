@@ -136,25 +136,26 @@ public class Book_Details_Activity extends AppCompatActivity {
         });
         */
         /*
+
+        //TODO: DB
         Request_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Case cancel book
+                //Case cancel book request
                 if (isRequested){
-
-
                     Request_Cancel.setText(R.string.request_book);
                     isRequested = false;
+
+                    //TODO: remove from database
 
                 }else{
                     //Case Request book
                     Request_Cancel.setText(R.string.cancel_request);
-                    //TODO: database stuff
 
                     Request request = new Request(globalUser.getUserName(), ,"borrow" );
-
                     isRequested = true;
 
+                    //TODO: add request to database
                 }
             }
         });

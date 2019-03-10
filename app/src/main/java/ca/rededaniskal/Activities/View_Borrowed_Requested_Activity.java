@@ -21,7 +21,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__borrowed__requested_);
 
-        Book_List BL = new Book_List();//TODO: Get rid of this
+        Book_List BL = new Book_List();//TODO: DB get the borrowed and requested books of the user
 
         recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);
         recyclerView.setHasFixedSize(true);

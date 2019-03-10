@@ -36,7 +36,7 @@ public class Login_Activity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Database stuff
+                //TODO: DB login in only if authentication passes
 
                 //For now lets go to the main screen
                 Intent intent = new Intent(v.getContext(), Main_Activity.class);
