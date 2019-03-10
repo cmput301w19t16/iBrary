@@ -120,7 +120,7 @@ public class View_Own_Profile_Fragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: need logic here to log user out
+                //TODO: DB log user out
                 Intent intent = new Intent(getActivity(), Login_Activity.class);
                 startActivity(intent);
             }

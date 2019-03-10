@@ -67,17 +67,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
 
         //Set on click listener for the icon (in order to add friends)
-        /*
+
         userViewHolder.statusIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!globalUser.isFriendsWith(user)){ // if they are not friends
-                    //TODO: Send friend request
+                    //TODO: DB add request to db
                 }
             }
         });
 
-        */
 
 
         //if User clicks on another User, will start the user details Activity

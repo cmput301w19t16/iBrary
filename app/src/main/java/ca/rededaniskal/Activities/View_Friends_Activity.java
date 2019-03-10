@@ -23,7 +23,7 @@ public class View_Friends_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__friends_);
 
-        ArrayList<User> Friends = new ArrayList<>(); //TODO: Get rid of this
+        ArrayList<User> Friends = new ArrayList<>(); //TODO: DB get friends of the current user
 
         User user = new User("Revan", "revan@ualberta", "Red Deer");
         Friends.add(user);

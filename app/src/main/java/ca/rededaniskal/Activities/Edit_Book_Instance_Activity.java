@@ -95,6 +95,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: DB push changes to DB
                 //getInfo();
                 //validateFields();
                 //editBookInstance();
@@ -105,7 +106,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: delete the book instance
+                //TODO: DB delete the book instance from db
 
                 Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                 startActivity(intent);

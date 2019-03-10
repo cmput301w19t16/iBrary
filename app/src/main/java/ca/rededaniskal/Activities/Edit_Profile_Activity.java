@@ -52,7 +52,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: DB stuff here
+                //TODO: DB push changes to DB
 
             }
         });
