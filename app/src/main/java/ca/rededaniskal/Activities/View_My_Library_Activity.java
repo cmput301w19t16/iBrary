@@ -55,9 +55,9 @@ public class View_My_Library_Activity extends AppCompatActivity {
         //For testing
         //TODO: DB load the libary of the current user
         Book_List BL = new Book_List();
-        Book_Instance HP = new Book_Instance("HappyPotter", "JK", "123", "R", "Daniela", "Very Nice", "Requested");
-        BL.addBook(HP);
-
+//        Book_Instance HP = new Book_Instance("HappyPotter", "JK", "123", "R", "Daniela", "Very Nice", "Requested");
+//        BL.addBook(HP);
+//
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__my__library_);
 

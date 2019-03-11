@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -62,6 +63,7 @@ public class Book_Details_Activity extends AppCompatActivity {
     Button Edit;
 
     RecyclerView viewRequests;
+    private Book_Instance book;
 
     BorrowRequestAdapter requestAdapter;
     ArrayList<BorrowRequest> l;
@@ -92,7 +94,7 @@ public class Book_Details_Activity extends AppCompatActivity {
 
         //Get what was passed in and display it
         Intent intent = getIntent();
-        final Book_Instance book = (Book_Instance) intent.getSerializableExtra("book"); //Get the book
+        book = (Book_Instance) intent.getSerializableExtra("book"); //Get the book
 
         DisplayTitle.setText(book.getTitle());
         DisplayAuthor.setText(book.getAuthor());
@@ -112,9 +114,10 @@ public class Book_Details_Activity extends AppCompatActivity {
             viewRequests.setLayoutManager(new LinearLayoutManager(this));
 
             //for Testing
-            BorrowRequest br = new BorrowRequest("revan", "revan", "123", "123");
-            BorrowRequest br2 = new BorrowRequest("revan", "revan", "123", "123");
-            BorrowRequest br3 = new BorrowRequest("revan", "revan", "123", "123");
+//            BorrowRequest br = new BorrowRequest("revan", "revan", "123", "123");
+//            BorrowRequest br2 = new BorrowRequest("revan", "revan", "123", "123");
+//            BorrowRequest br3 = new BorrowRequest("revan", "revan", "123", "123");
+
 
             l = new ArrayList<>();
 //            l.add(br);
@@ -124,11 +127,10 @@ public class Book_Details_Activity extends AppCompatActivity {
             requestAdapter = new BorrowRequestAdapter(this, l);
             viewRequests.setAdapter(requestAdapter);
             requestAdapter.notifyDataSetChanged();
+            requestsOnBookDB db = new requestsOnBookDB();
 
-            Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests");
+        }else{
 
-            query.addListenerForSingleValueEvent(valueEventListener2);
-        } else {
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
         BookDetailsdb db = new BookDetailsdb();
@@ -165,7 +167,7 @@ public class Book_Details_Activity extends AppCompatActivity {
             }
         });
         */
-        /*
+
         //TODO: DB
         Request_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,13 +180,14 @@ public class Book_Details_Activity extends AppCompatActivity {
                 }else{
                     //Case Request book
                     Request_Cancel.setText(R.string.cancel_request);
-                    Request request = new Request(globalUser.getUserName(), ,"borrow" );
+//                    BorrowRequest request = new Request(globalUser.getUserName(), ,"borrow" );
                     isRequested = true;
+                    requestsOnBookDB db = new requestsOnBookDB(book);
                     //TODO: add request to database
                 }
             }
         });
-        */
+
     }
 
     ValueEventListener valueEventListener2 = new ValueEventListener() {
@@ -268,8 +271,144 @@ private class BookDetailsdb{
 
 }
 
+    private void returnToLogin() {
+        startActivity(new Intent(this, Login_Activity.class));
+    }
+
+
+
+    // ------------------ Enclosed Database Class ----------------- //
+
+
+    private class requestsOnBookDB {
+        private String email;
+        private FirebaseAuth mAuth;
+        private FirebaseUser user;
+        private String username;
+        private DatabaseReference mDatabase;
+        private boolean submit;
+        private Book_Instance boook;
+
+
+
+        public requestsOnBookDB() {
+            submit = false;
+            mAuth = FirebaseAuth.getInstance();
+            user = mAuth.getCurrentUser();
+            if (user != null) {
+                email = user.getEmail();
+                getUsername();
+
+            } else {
+                returnToLogin();
+            }
+        }
+
+
+        public requestsOnBookDB(Book_Instance book){
+            submit = true;
+            this.boook = book;
+            mAuth = FirebaseAuth.getInstance();
+            user = mAuth.getCurrentUser();
+            if (user != null) {
+                email = user.getEmail();
+                getUsername();
+
+            } else {
+                returnToLogin();
+            }
+
+        }
+
+        private void createRequest(){
+//            BorrowRequest requ = new BorrowRequest(username, book., book.getISBN(), book.getBookID());
+        }
+
+        private void submitRequest(BorrowRequest request){
+            mDatabase = FirebaseDatabase.getInstance().getReference("BorrowRequests");
+            String key = mDatabase.push().getKey();
+            mDatabase.child(key).setValue(request);
+        }
+
+        private void getUsername() {
+            Log.d(TAG, "*********----->/Email: "+email);
+            Query query = FirebaseDatabase.getInstance().getReference("Users")
+                    .orderByChild("email").equalTo(email);
+
+            query.addListenerForSingleValueEvent(valueEventListener1);
+        }
+
+
+        ValueEventListener valueEventListener1 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "*********----->onDataChange1");
+                if (dataSnapshot.exists()) {
+                    Log.d(TAG, "*********----->exists");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User u = snapshot.getValue(User.class);
+                        Log.d(TAG, "*********----->username: "+u.getUserName());
+                        username = u.getUserName();
+                    }
+                    if (submit){
+                        createRequest();
+                    }else {
+                        getRequests();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        private void getOwnerUserName(String uid){
+        }
+
+
+        private void getRequests() {
+
+            Query query2 = FirebaseDatabase.getInstance().getReference("BorrowRequests")
+                    .orderByChild("recipientUserName").equalTo(username);
+
+            query2.addListenerForSingleValueEvent(valueEventListener3);
+        }
+
+        ValueEventListener valueEventListener3 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "*********----->onDataChange3");
+                l.clear();
+                if (dataSnapshot.exists()) {
+                    Log.d(TAG, "*********----->exists");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        BorrowRequest request = snapshot.getValue(BorrowRequest.class);
+                        if (request.getIsbn().equals(book.getISBN())) {
+                            Log.d(TAG, "*********----->Books " + request.getIsbn());
+                            l.add(request);
+                        }
+                    }
+                    l.add(new BorrowRequest());
+                    requestAdapter.notifyDataSetChanged();
+
+                    Log.d(TAG, "*********----->length" + l.size());
+//                    requestAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
 
     }
+
+}
 
 
 
