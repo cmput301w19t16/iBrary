@@ -12,14 +12,23 @@ package ca.rededaniskal.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -62,6 +71,8 @@ public class View_My_Library_Activity extends AppCompatActivity {
         bookAdapter = new BookAdapter(this, BL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
+        readmyBookDB db = new readmyBookDB();
+        db.update();
 
         filter = findViewById(R.id.filter);
         fab = (FloatingActionButton) findViewById(R.id.addBookToLibrary);
@@ -127,6 +138,67 @@ public class View_My_Library_Activity extends AppCompatActivity {
                 mDialog.show();
             }
         });
+
+    }
+
+    public void updateBookView(Book_List book_list){
+        bookAdapter = new BookAdapter(this, book_list);
+
+        recyclerView.setAdapter(bookAdapter);
+        bookAdapter.notifyDataSetChanged();
+
+
+
+    }
+
+
+
+    private class readmyBookDB{
+
+        private DatabaseReference mdatabase;
+        String TAG;
+
+
+
+
+        public readmyBookDB(){
+
+            update();
+
+        }
+
+        private void update(){
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user).child("my-books");
+            mdatabase.addListenerForSingleValueEvent(valueEventListener);
+        }
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG, "**************---> In OnDataChange");
+                if (dataSnapshot.exists()){
+                    Book_List book_list = new Book_List();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                        Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
+                        Log.d(TAG, "**************--->"+book_instance.getOwner());
+                        book_list.addBook(book_instance);
+
+                    }
+                    updateBookView(book_list);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+
+
 
     }
 }

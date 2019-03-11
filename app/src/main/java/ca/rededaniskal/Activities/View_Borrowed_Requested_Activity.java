@@ -19,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Switch;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +40,7 @@ import ca.rededaniskal.R;
 //Author: Revan, Skye
 public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
+
     private Book_List BL;
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
@@ -51,10 +53,8 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__borrowed__requested_);
 
-        readBookDB db = new readBookDB();
 
-        BL = new Book_List();
-        BL.addBook(new Book_Instance("HappyPotter", "JK", "123", "R", "Daniela", "Very Nice", "Requested"));
+
 
         recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);
         recyclerView.setHasFixedSize(true);
@@ -63,27 +63,46 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         bookAdapter = new BookAdapter(this, BL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
+
+        readBookDB db = new readBookDB();
+        db.update();
+
+
+
+    }
+    public void updateBookView(Book_List book_list){
+        bookAdapter = new BookAdapter(this, book_list);
+
+
+        recyclerView.setAdapter(bookAdapter);
+        bookAdapter.notifyDataSetChanged();
+
+
+
     }
 
-    public void loadBook(Book_Instance book_instance){
-        this.BL.addBook(book_instance);
-    }
+
+
 
 
     private class readBookDB{
         private DatabaseReference mdatabase;
-        private String TAG= "ViewBORROWED";
+        String TAG;
+
+
 
 
         public readBookDB(){
-            getBookInstance();
+
+            update();
+
         }
 
 
-        private void getBookInstance(){
-//            Query query = FirebaseDatabase.getInstance().getReference("book-instances")
-//                    .child("book-instances").child("all-books");
-            mdatabase = FirebaseDatabase.getInstance().getReference("book-instances");
+        private void update(){
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user);
             mdatabase.addListenerForSingleValueEvent(valueEventListener);
         }
 
@@ -93,10 +112,15 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "**************---> In OnDataChange");
                 if (dataSnapshot.exists()){
+                    Book_List book_list = new Book_List();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
                         Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
                         Log.d(TAG, "**************--->"+book_instance.getOwner());
+                        book_list.addBook(book_instance);
+
                     }
+                    updateBookView(book_list);
                 }
             }
 
@@ -105,33 +129,10 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
             }
         };
+
+
+
     }
 
-    /*public Book_List Load_books(Map<String, Map<String, String>> map){
-       this.BL = new Book_List();
-        for (Map<String,String> m : map.values()){
-            this.BL
-                    .addBook(
-                            new Book_Instance(m.get("title"),
-                                    m.get("author"),
-                                    m.get("isbn"),
-                                    m.get("owner"),
-                                    m.get("possessor"),
-                                    m.get("condition"),
-                                    m.get("status"))
-                    );
-            if (this.BL.size()==0){
-                try{
-                    throw new Exception("The books WERENT ADDED!!!!!!!!!!!! at VIEWBoorowedbooks");
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-
-
-        }
-
-        return this.BL;
-    }
-*/
 }
+
