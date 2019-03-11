@@ -58,7 +58,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         bookAdapter = new BookAdapter(this, BL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
-        readBookDB db = new readBookDB(context);
+        readBookDB db = new readBookDB();
         db.update();
 
 
@@ -82,11 +82,11 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         private DatabaseReference mdatabase;
         String TAG;
 
-        private Context context;
 
 
-        public readBookDB(Context context){
-            this.context = context;
+
+        public readBookDB(){
+
             update();
 
         }

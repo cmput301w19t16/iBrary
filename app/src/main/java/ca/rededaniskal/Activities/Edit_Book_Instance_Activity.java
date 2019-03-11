@@ -30,8 +30,7 @@ import ca.rededaniskal.R;
 
 public class Edit_Book_Instance_Activity extends AppCompatActivity {
     private static final String TAG = "Add_Book_To_Library_Activity";
-    private FirebaseAuth mAuth;
-    private DatabaseReference bookRef;
+
 
     //UI stuff
     private EditText editTitle, editAuthor, editISBN, editDescription;
@@ -51,7 +50,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_book_instance);
 
         Intent intent = getIntent();
-        Book_Instance book = (Book_Instance) intent.getSerializableExtra("book");
+        final Book_Instance book = (Book_Instance) intent.getSerializableExtra("book");
 
         //Set buttons and EditTexts
         editTitle = findViewById(R.id.editTitle);
@@ -95,10 +94,10 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: DB push changes to DB
-                //getInfo();
-                //validateFields();
-                //editBookInstance();
+
+                getInfo();
+                validateFields();
+                editBookInstance(book);
 
             }
         });
@@ -141,7 +140,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         }
     }
 
-    public void editBookInstance() {
+    public void editBookInstance(Book_Instance book) {
         if (businessLogic.isValid()) {
             String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -150,8 +149,12 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             String Author = editAuthor.getText().toString();
             String ISBN = editISBN.getText().toString();
 
-            Book_Instance bookInstance = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "a");
+            Book_Instance bookInstance =
+                    new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus());
+            bookInstance.setBookID(book.getBookID());
 
+            EditBookDb db = new EditBookDb();
+            db.EditBookData(bookInstance);
 
             }
         }
@@ -183,40 +186,35 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
 
 
 
-    final class EditBookDb {
-        FirebaseDatabase db;
-        DatabaseReference bookRef;
-        String success;
+    private class EditBookDb {
+
 
         public EditBookDb() {
-            this.db = FirebaseDatabase.getInstance();
-            this.bookRef = db.getReference().child("book-instances");
+
 
         }
 
-        public String EditBookData(Book_Instance bookInstance) throws NullPointerException{
+        public boolean EditBookData(Book_Instance bookInstance) throws NullPointerException{
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("book-instances")
+                    .child(user)
+                    .child(bookInstance.getBookID());
+            return  bookRef.setValue(bookInstance).isSuccessful();
 
 
-            success =bookRef.push().getKey();
-
-
-
-            if (bookRef.child(success).setValue(bookInstance).isSuccessful()){
-                bookInstance.setBookID(success);
-                bookRef.child(success).setValue(bookInstance);
-            }
-            else {
-                success = "";
-            }
-
-
-
-
-
-
-            return success;
         }
 
+
+        public boolean DeleteBook(String node){
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("book-instances")
+                    .child(user)
+                    .child(node);
+            return bookRef.removeValue().isComplete();
+
+
+
+        }
     }
 
 }
