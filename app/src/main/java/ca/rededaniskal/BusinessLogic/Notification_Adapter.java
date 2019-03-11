@@ -64,8 +64,8 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     @Override
     public void onBindViewHolder(final Notification_View_Holder holder, final int position){
         Notification notification = mDataset.get(position);
-        //String titleText = notification.getUsername();
-        String titleText = "Someone ";
+        String titleText = notification.getRequest() + " ";
+
         if (notification.getSeen()){
             holder.newAlertStar.setRating(1);
         }
