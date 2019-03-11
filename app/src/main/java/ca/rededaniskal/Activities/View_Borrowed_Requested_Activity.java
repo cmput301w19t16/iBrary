@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Switch;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,7 +46,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__borrowed__requested_);
 
-        readBookDB db = new readBookDB(context);
+
 
 
 
@@ -57,6 +58,17 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         bookAdapter = new BookAdapter(this, BL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
+        readBookDB db = new readBookDB(context);
+        db.update();
+
+
+    }
+    public void updateBookView(Book_List book_list){
+        bookAdapter = new BookAdapter(this, book_list);
+
+        recyclerView.setAdapter(bookAdapter);
+        bookAdapter.notifyDataSetChanged();
+
 
 
     }
@@ -68,18 +80,21 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
     private class readBookDB{
 
         private DatabaseReference mdatabase;
-        private String TAG= "ViewBORROWED";
-        private  Context context;
+        String TAG;
+
+        private Context context;
 
 
         public readBookDB(Context context){
             this.context = context;
+            update();
 
         }
 
         private void update(){
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            mdatabase = FirebaseDatabase.getInstance().getReference("book-instances");
+            mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user);
             mdatabase.addListenerForSingleValueEvent(valueEventListener);
         }
 
@@ -108,19 +123,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
 
 
-        public void updateBookView(Book_List book_list){
-            recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
 
-
-            bookAdapter = new BookAdapter(this.context, book_list);
-            recyclerView.setAdapter(bookAdapter);
-            bookAdapter.notifyDataSetChanged();
-
-
-
-        }
     }
 
 }

@@ -176,21 +176,21 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             cover.setImageBitmap(photo);
         }
     }
-}
 
 
 
 
 
 
-final class AddBookDb {
+private class AddBookDb {
     FirebaseDatabase db;
     DatabaseReference bookRef;
     String success;
 
     public AddBookDb() {
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.db = FirebaseDatabase.getInstance();
-        this.bookRef = db.getReference().child("book-instances");
+        this.bookRef = db.getReference().child("book-instances").child(user);
 
     }
 
@@ -217,4 +217,5 @@ final class AddBookDb {
         return success;
     }
 
+}
 }
