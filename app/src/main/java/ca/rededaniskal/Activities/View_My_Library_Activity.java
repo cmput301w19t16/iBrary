@@ -105,14 +105,16 @@ public class View_My_Library_Activity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        String item = "";
+                       /* String item = "";
                         for (int i = 0; i < chosenOptions.size(); i++) {
                             item = item + filterOptions[chosenOptions.get(i)];
                             if (i != chosenOptions.size() - 1) {
                                 item = item + ", ";
                             }
                         }
-                        //mItemSelected.setText(item);
+                        //mItemSelected.setText(item);*/
+                       new readmyBookDB().update();
+
                     }
                 });
 
@@ -142,7 +144,9 @@ public class View_My_Library_Activity extends AppCompatActivity {
     }
 
     public void updateBookView(Book_List book_list){
-        bookAdapter = new BookAdapter(this, book_list);
+        Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);
+
+        bookAdapter = new BookAdapter(this, filter.newBooks());
 
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
