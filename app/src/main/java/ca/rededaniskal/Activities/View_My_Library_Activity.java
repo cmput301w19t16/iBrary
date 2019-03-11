@@ -144,9 +144,14 @@ public class View_My_Library_Activity extends AppCompatActivity {
     }
 
     public void updateBookView(Book_List book_list){
+        if (chosenOptions.size()!=0){
         Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);
+        bookAdapter = new BookAdapter(this, filter.newBooks());
+        }
+        else {
 
-        bookAdapter = new BookAdapter(this, book_list);
+            bookAdapter = new BookAdapter(this, book_list);
+        }
 
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
