@@ -2,12 +2,12 @@ package ca.rededaniskal.EntityClasses;
 
 public class BorrowRequest extends Request {
     private String isbn;
-    private int bookId;
+    private String bookId;
 
     public BorrowRequest() {
     }
 
-    public BorrowRequest(String senderUserName, String recipientUserName, String isbn, int bookId) {
+    public BorrowRequest(String senderUserName, String recipientUserName, String isbn, String bookId) {
         super(senderUserName, recipientUserName, "BorrowRequest");
         this.bookId = bookId;
         this.isbn = isbn;
@@ -21,11 +21,11 @@ public class BorrowRequest extends Request {
         this.isbn = isbn;
     }
 
-    public int getBookId() {
+    public String getBookId() {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(String bookId) {
         this.bookId = bookId;
     }
 }

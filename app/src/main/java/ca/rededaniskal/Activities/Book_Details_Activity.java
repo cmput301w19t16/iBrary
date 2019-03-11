@@ -114,9 +114,9 @@ public class Book_Details_Activity extends AppCompatActivity {
             viewRequests.setLayoutManager(new LinearLayoutManager(this));
 
             //for Testing
-            BorrowRequest br = new BorrowRequest("revan", "revan", "123", 123);
-            BorrowRequest br2 = new BorrowRequest("revan", "revan", "123", 123);
-            BorrowRequest br3 = new BorrowRequest("revan", "revan", "123", 123);
+            BorrowRequest br = new BorrowRequest("revan", "revan", "123", "123");
+            BorrowRequest br2 = new BorrowRequest("revan", "revan", "123", "123");
+            BorrowRequest br3 = new BorrowRequest("revan", "revan", "123", "123");
 
             l = new ArrayList<>();
 //            l.add(br);
@@ -196,8 +196,10 @@ public class Book_Details_Activity extends AppCompatActivity {
             if (dataSnapshot.exists()) {
                 Log.d(TAG, "*********----->exists");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    BorrowRequest request = snapshot.getValue(BorrowRequest.class);
-                    l.add(request);
+
+                        BorrowRequest request = snapshot.getValue(BorrowRequest.class);
+                        l.add(request);
+
                 }
 
                 Log.d(TAG, "*********----->"+l);
