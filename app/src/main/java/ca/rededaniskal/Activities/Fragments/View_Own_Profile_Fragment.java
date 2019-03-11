@@ -38,8 +38,10 @@ import java.util.List;
 
 import ca.rededaniskal.Activities.Edit_Profile_Activity;
 import ca.rededaniskal.Activities.Login_Activity;
+import ca.rededaniskal.Activities.View_All_Books_Activity;
 import ca.rededaniskal.Activities.View_All_Requests_Activity;
 import ca.rededaniskal.Activities.Main_Activity;
+import ca.rededaniskal.Activities.View_All_Users_Activity;
 import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
 import ca.rededaniskal.Activities.View_Friends_Activity;
 import ca.rededaniskal.Activities.View_My_Library_Activity;
@@ -121,7 +123,8 @@ public class View_Own_Profile_Fragment extends Fragment {
         Button viewFriends = (Button) v.findViewById(R.id.friends_listbutton);
         Button logout = (Button) v.findViewById(R.id.logout);
         Button viewAllRequests = (Button) v.findViewById(R.id.view_all_requests);
-
+        Button viewAllUsers = (Button) v.findViewById(R.id.viewUsers);
+        Button viewAllBooks = (Button) v.findViewById(R.id.viewBooks);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +171,22 @@ public class View_Own_Profile_Fragment extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), Login_Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        viewAllUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), View_All_Users_Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        viewAllBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), View_All_Books_Activity.class);
                 startActivity(intent);
             }
         });
