@@ -99,13 +99,12 @@ public class Signup_Activity extends AppCompatActivity {
                 client.getLastLocation().addOnSuccessListener(Signup_Activity.this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location2) {
-                        if(location!=null) {
+                        if(location2!=null) {
                             //newLocation.setText(location.getLatitude() + " " + location.getLongitude());
                             location.setText(getAddressName(location2.getLatitude(), location2.getLongitude()));
                         }
                     }
                 });
-
             }
         });
     }
