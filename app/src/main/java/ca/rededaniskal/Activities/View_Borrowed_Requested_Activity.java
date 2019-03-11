@@ -46,7 +46,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         readBookDB db = new readBookDB();
 
         BL = new Book_List();
-        BL.addBook(new Book_Instance("Title", "Me", "1111111111", "you", "you", "good", "a"));
+        BL.addBook(new Book_Instance("Title", "Me", "1111111111", "R", "you", "good", "a"));
 
 
         recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);

@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ca.rededaniskal.BusinessLogic.Log_In_Logic;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
@@ -96,6 +97,7 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     public void nextActivity(){
+
         startActivity(new Intent(Login_Activity.this,Main_Activity.class));
     }
 
