@@ -1,3 +1,12 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * Log in to the app
+ *
+ * ISSUES:
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.content.Intent;
@@ -20,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ca.rededaniskal.BusinessLogic.Log_In_Logic;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
@@ -56,7 +66,6 @@ public class Login_Activity extends AppCompatActivity {
             }
         });
 
-
         //Set on click listeners
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +94,7 @@ public class Login_Activity extends AppCompatActivity {
         }
     }
 
+
     public void finalPass() {
         if (logic.isValid()) {
             db = new Login_Activity.SignInDB();
@@ -95,10 +105,11 @@ public class Login_Activity extends AppCompatActivity {
         }
     }
 
+
     public void nextActivity(){
+
         startActivity(new Intent(Login_Activity.this,Main_Activity.class));
     }
-
 
 
 //    Enclosed database class
@@ -156,6 +167,7 @@ public class Login_Activity extends AppCompatActivity {
         public FirebaseUser getNewUser() {
             return newUser;
         }
+
 
         private void setNewUser(FirebaseUser newUser) {
             this.newUser = newUser;

@@ -2,12 +2,11 @@
  * Adapter
  *
  * PURPOSE:
- * Adapter for viewing Borrow requests
+ * Adapter for viewing your requests
  *
  * ISSUES:
  */
 package ca.rededaniskal.BusinessLogic;
-//Created by Daniela, Revan
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,42 +25,42 @@ import ca.rededaniskal.Activities.Book_Details_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
-public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdapter.BorrowRequestViewHolder>{
+public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.AllRequestsViewHolder> {
     public Context mctx;
-    private ArrayList<BorrowRequest> list;
+    private ArrayList<Request> list;
 
     /**
      * Instantiates a new Entry adapter.
      */
-    public BorrowRequestAdapter(Context mctx,  ArrayList<BorrowRequest> list) {
+    public AllRequestsAdapter(Context mctx, ArrayList<Request> list) {
         this.mctx = mctx;
         this.list = list;
     }
 
     /**
      * When View Holder is created
-     *
      */
     @NonNull
     @Override
-    public BorrowRequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AllRequestsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(mctx);
         View view = inflater.inflate(R.layout.request_card, null);
-        BorrowRequestViewHolder holder = new BorrowRequestViewHolder(view);
+        AllRequestsViewHolder holder = new AllRequestsViewHolder(view);
         return holder;
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
-        final BorrowRequest request = list.get(i);
+    public void onBindViewHolder(@NonNull AllRequestsViewHolder allRequestsViewHolder, final int i) {
+        final Request request = list.get(i);
 
-        borrowRequestViewHolder.requestInfo.setText( request.getSenderUserName());
+        allRequestsViewHolder.requestInfo.setText(request.getSenderUserName());
 
-        borrowRequestViewHolder.accept.setOnClickListener(new View.OnClickListener() {
+        allRequestsViewHolder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO: DB add a book request to the database
@@ -69,7 +68,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             }
         });
 
-        borrowRequestViewHolder.cancel.setOnClickListener(new View.OnClickListener() {
+        allRequestsViewHolder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO: DB remove the book request to the database
@@ -84,16 +83,16 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     }
 
     /**
-     * The type Entry view holder, the obbject to actually hold an entry
+     * The type Entry view holder, the object to actually hold an entry
      */
-    class BorrowRequestViewHolder extends RecyclerView.ViewHolder {
+    class AllRequestsViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView profilePic;
+        ImageView bookCover;
         TextView requestInfo;
         ImageButton accept, cancel;
 
-        public BorrowRequestViewHolder(@NonNull View itemView) {
-            //TODO: profile pic
+        public AllRequestsViewHolder(@NonNull View itemView) {
+            //TODO: book cover
             super(itemView);
             requestInfo = itemView.findViewById(R.id.requestInfo);
             accept = itemView.findViewById(R.id.accept);

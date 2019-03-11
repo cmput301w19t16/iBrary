@@ -1,3 +1,13 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * Edit you own profile
+ *
+ * ISSUES:
+ * Needs DB Image support
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.Manifest;
@@ -36,6 +46,7 @@ import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
 
+//Author: RevaN
 public class Edit_Profile_Activity extends AppCompatActivity {
     Button saveButton;
     FloatingActionButton editProfilePic;
@@ -88,9 +99,6 @@ public class Edit_Profile_Activity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
 
@@ -137,6 +145,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         startActivity(new Intent(this, Login_Activity.class));
     }
 
+
     public class editUserDetailsDB{
         private FirebaseAuth mAuth;
         private String email;
@@ -146,6 +155,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         private FirebaseUser user;
         private DatabaseReference mDatabase;
         private List<User> userList;
+
 
         public editUserDetailsDB() {
             mAuth = FirebaseAuth.getInstance();
@@ -157,14 +167,13 @@ public class Edit_Profile_Activity extends AppCompatActivity {
 
             } else {
                 returnToLogin();
-
             }
         }
 
 
         private void saveNewDetails(){
-
         }
+
 
         private void getUserDetails(){
             mDatabase = FirebaseDatabase.getInstance().getReference("Users");
@@ -174,7 +183,6 @@ public class Edit_Profile_Activity extends AppCompatActivity {
 
             Log.d(TAG, "*********----->"+email);
             query.addListenerForSingleValueEvent(valueEventListener);
-
         }
 
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -192,13 +200,10 @@ public class Edit_Profile_Activity extends AppCompatActivity {
                 }
             }
 
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         };
-
     }
-
-
 }

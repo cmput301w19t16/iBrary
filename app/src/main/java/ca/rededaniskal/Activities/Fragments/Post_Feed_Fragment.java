@@ -1,3 +1,13 @@
+/* TYPE:
+ * Fragment Activity
+ *
+ * PURPOSE:
+ * View activity feed of you friends (forum posts, etc)
+ *
+ * ISSUES:
+ * Needs DB support
+ *
+ */
 package ca.rededaniskal.Activities.Fragments;
 
 import android.os.Bundle;
@@ -22,9 +32,6 @@ import ca.rededaniskal.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Post_Feed_Fragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link Post_Feed_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */

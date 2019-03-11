@@ -1,3 +1,12 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * Main page which holds fragments for search, feed, notifications and user profile
+ *
+ * ISSUES:
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.support.design.widget.TabLayout;
@@ -30,14 +39,12 @@ public class Main_Activity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-
         mViewPager = findViewById(R.id.container);
         setUpViewPager(mViewPager);
 
@@ -45,6 +52,7 @@ public class Main_Activity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
     }
+
 
     private void setUpViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
@@ -54,10 +62,5 @@ public class Main_Activity extends AppCompatActivity {
         adapter.addFragment(new Notifications_Fragment(), "Alerts");
 
         viewPager.setAdapter(adapter);
-
-
     }
-
-
-
 }

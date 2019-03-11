@@ -1,5 +1,17 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * Edit a book you own
+ *
+ * ISSUES:
+ * Needs DB support
+ * Needs to save image to DB
+ * Needs to have scanner communicate with DB and this activity
+ *
+ */
 package ca.rededaniskal.Activities;
-/*author: Skye*/
+/*author: Skye, Revan*/
 
 import android.Manifest;
 import android.app.Activity;

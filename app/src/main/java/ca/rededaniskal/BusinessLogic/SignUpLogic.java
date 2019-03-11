@@ -1,13 +1,17 @@
-/*
+/* TYPE:
+ * Logic
+ *
+ * PURPOSE:
+ * Handles the business logic of Signup_Activity
+ *
+ * ISSUES:
+ *
  *
  * Created by Delaney on 07/03/2019
- * Handles the business logic of Signup_Activity
  *
  * */
 
-
 package ca.rededaniskal.BusinessLogic;
-
 
 import android.annotation.TargetApi;
 import android.os.Build;

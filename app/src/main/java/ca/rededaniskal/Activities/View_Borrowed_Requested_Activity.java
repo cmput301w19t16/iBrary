@@ -1,7 +1,15 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View all your requested and borrowed books
+ *
+ * ISSUES:
+ * Needs DB support
+ *
+ */
 package ca.rededaniskal.Activities;
 
-
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -29,8 +37,9 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.R;
 
+//Author: Revan, Skye
 public class View_Borrowed_Requested_Activity extends AppCompatActivity {
-    private Context context = this;
+
 
     private Book_List BL;
     private RecyclerView recyclerView;
@@ -41,11 +50,8 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__borrowed__requested_);
-
 
 
 
@@ -54,17 +60,19 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         bookAdapter = new BookAdapter(this, BL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
+
         readBookDB db = new readBookDB();
         db.update();
+
 
 
     }
     public void updateBookView(Book_List book_list){
         bookAdapter = new BookAdapter(this, book_list);
+
 
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
@@ -78,7 +86,6 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
 
     private class readBookDB{
-
         private DatabaseReference mdatabase;
         String TAG;
 
@@ -91,12 +98,14 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
         }
 
+
         private void update(){
             String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user);
             mdatabase.addListenerForSingleValueEvent(valueEventListener);
         }
+
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -123,11 +132,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
 
 
-
     }
 
 }
-
-
-
 
