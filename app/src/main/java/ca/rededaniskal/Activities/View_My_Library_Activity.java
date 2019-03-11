@@ -72,7 +72,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
         readmyBookDB db = new readmyBookDB();
-        db.update();
+//        db.update();
 
         filter = findViewById(R.id.filter);
         fab = (FloatingActionButton) findViewById(R.id.addBookToLibrary);
@@ -146,7 +146,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
     public void updateBookView(Book_List book_list){
         Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);
 
-        bookAdapter = new BookAdapter(this, filter.newBooks());
+        bookAdapter = new BookAdapter(this, book_list);
 
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();

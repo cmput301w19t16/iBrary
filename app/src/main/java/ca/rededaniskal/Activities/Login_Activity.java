@@ -50,22 +50,6 @@ public class Login_Activity extends AppCompatActivity {
 
 
 
-        BorrowRequest br = new BorrowRequest("Alex", "Delaney", "7482843285", "-L_hrK5xfjrzXng9SvIQ");
-        DatabaseReference m = FirebaseDatabase.getInstance().getReference("BorrowRequests");
-        String key = m.push().getKey();
-        m.child(key).setValue(br);
-
-        BorrowRequest br1 = new BorrowRequest("Daniella", "Delaney", "7482843285", "-L_hrK5xfjrzXng9SvIQ");
-        DatabaseReference m1 = FirebaseDatabase.getInstance().getReference("BorrowRequests");
-        String key1 = m1.push().getKey();
-        m1.child(key1).setValue(br1);
-
-        BorrowRequest br2 = new BorrowRequest("Delaney", "Shyndman", "7482843285", "-L_hrK5xfjrzXng9SvIQ");
-        DatabaseReference m2 = FirebaseDatabase.getInstance().getReference("BorrowRequests");
-        String key2 = m2.push().getKey();
-        m2.child(key2).setValue(br2);
-
-
         //Set the buttons and Edit Texts
         loginButton = (Button) findViewById(R.id.button);
         RegisterButton = (Button) findViewById(R.id.button2);
