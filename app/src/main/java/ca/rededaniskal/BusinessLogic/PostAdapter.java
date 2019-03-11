@@ -45,12 +45,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
     }
 
+
     public PostAdapter(ArrayList<Post> postList, Post_Feed_Fragment frag){
         this.fragment = frag;
         this.mDataset = postList;
     }
+
+
     @Override
     public PostAdapter.PostViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
+        //Set the Layout
         View itemView = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.post_card_layout, parent, false);
 
@@ -58,11 +62,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return vh;
     }
 
+
     @Override
     public void onBindViewHolder(final PostViewHolder holder, int position){
+        //Bind a post to the view
         Post post = mDataset.get(position);
         String titleText = post.getUserName();
         String bodyText = "";
+
+        //Set the body text based on post type
         switch (post.getType()){
             case "Rating_Post":
                 titleText += " just reviewed " + post.getISBN();
@@ -98,7 +106,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                         Toast.makeText(fragment.getActivity(), "All out of posts. " +
                                 "Refresh for more!", Toast.LENGTH_LONG).show();
                         break;
-
             }
         }
     });
@@ -110,17 +117,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return mDataset.size();
     }
 
+
     public void clear() {
         mDataset.clear();
         this.checkEmpty();
         this.notifyDataSetChanged();
     }
 
+
     // Add a list of items -- change to type used
     public void addAll(List<Post> list) {
         mDataset.addAll(list);
         this.notifyDataSetChanged();
     }
+
 
     public void checkEmpty(){
         if (mDataset.size() == 0){
@@ -129,5 +139,4 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
         return;
     }
-
 }

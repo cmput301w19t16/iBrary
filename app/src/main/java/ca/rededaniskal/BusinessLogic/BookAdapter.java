@@ -5,6 +5,7 @@
  * Adapter for viewing Book lists
  *
  * ISSUES:
+ * Display images from DB
  */
 package ca.rededaniskal.BusinessLogic;
 // Created by Revan on 2019-03-03
@@ -45,6 +46,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //Set the layout
         LayoutInflater inflater = LayoutInflater.from(mctx);
         View view = inflater.inflate(R.layout.book_list_view, null);
         BookViewHolder holder = new BookViewHolder(view);
