@@ -37,6 +37,11 @@ import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
+/**
+ * This activity lets the user edit the information of a book that they own. They can change the
+ * information, or delete the book.
+ */
+
 
 public class Edit_Book_Instance_Activity extends AppCompatActivity {
     private static final String TAG = "Add_Book_To_Library_Activity";

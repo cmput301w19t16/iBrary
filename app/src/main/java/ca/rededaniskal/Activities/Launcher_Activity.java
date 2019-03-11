@@ -18,6 +18,15 @@ import android.widget.Button;
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 import ca.rededaniskal.R;
 
+/**
+ * This activity is not yet implemented yet, but will be for part 5.
+ * It is a convenience activity which will automatically log the user in if they have an account.
+ * It will check if they have login info stored on the device, and if so, log them in,
+ * otherwise it will take them to the login page.
+ *
+ * Todo: Get login data to be stored locally so that we can implement this activity
+ */
+
 public class Launcher_Activity extends AppCompatActivity{
 
     private Button buttonScanner;

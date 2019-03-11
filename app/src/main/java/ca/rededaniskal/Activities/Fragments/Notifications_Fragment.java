@@ -45,6 +45,21 @@ import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
 
+
+/**
+ * This fragment lets the user see all of their notifications.
+ * Each notification is associated with a request, such as a friend request, or a book request.
+ *
+ * Todo for part 5
+ * make it so that when you click on a notification, it takes you to a new
+ * activity which shows the information about that notification's related request.
+ * It should also retrieve notifications from the database, as well as update them.
+ *
+ * Currently, it only removes the "new" notification star when a notification is clicked, and
+ * uses dummy data to demo.
+ * It also updates the list when the list is refreshed by pulling down.
+ */
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -100,6 +115,10 @@ public class Notifications_Fragment extends Fragment {
     }
 
 
+    /*
+    This function grabs the recyclerview and swipeRefreshLayout and sets the onSwipeRefresh function
+     */
+    //Todo: Get rid of dummy data and make it retrieve actual data.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -169,46 +188,8 @@ public class Notifications_Fragment extends Fragment {
         return swipeContainer;
     }
 
-    /**
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    /*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     *
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
+    //This function takes the user back to the login page if they go back a page, as well as logs
+    //them out.
 
     private void returnToLogin() {
         startActivity(new Intent(getActivity(), Login_Activity.class));
@@ -221,6 +202,9 @@ public class Notifications_Fragment extends Fragment {
         private FirebaseUser user;
         private DatabaseReference mDatabase;
         private List<Request> requestList;
+
+
+        //This function retrieves the users requests from the database.
 
         public getUserRequestsDB() {
             mAuth = FirebaseAuth.getInstance();
@@ -243,6 +227,8 @@ public class Notifications_Fragment extends Fragment {
             return requestList;
         }
 
+        //This function gets the user's details
+
         private void getUserDetails(){
             mDatabase = FirebaseDatabase.getInstance().getReference("Users");
             Query query = FirebaseDatabase.getInstance().getReference("Users")
@@ -253,6 +239,8 @@ public class Notifications_Fragment extends Fragment {
             query.addListenerForSingleValueEvent(valueEventListener);
 
         }
+
+        //This function updates the notifications if the database changes.
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -274,6 +262,7 @@ public class Notifications_Fragment extends Fragment {
             }
         };
 
+        //Returns who sent the request
 
         private void getUserRequestSender(){
             mDatabase = FirebaseDatabase.getInstance().getReference("Users");
@@ -285,6 +274,8 @@ public class Notifications_Fragment extends Fragment {
             query.addListenerForSingleValueEvent(valueEventListener1);
 
         }
+
+        //Keeps track of when users get updated in database.
 
         ValueEventListener valueEventListener1 = new ValueEventListener() {
             @Override
@@ -304,6 +295,8 @@ public class Notifications_Fragment extends Fragment {
 
             }
         };
+
+        //Gets the recipient of the request
 
         private void getUserRequestRecipent(){
             mDatabase = FirebaseDatabase.getInstance().getReference("Requests");

@@ -23,6 +23,11 @@ import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
 import ca.rededaniskal.R;
 import ca.rededaniskal.BusinessLogic.SectionsPageAdapter;
 
+/**
+ * This activity keeps track of all of the tabs which run on the "homepage" of our app.
+ * The tabs we have are: "post feed", "search", "profile", and "notificaitons".
+ */
+
 public class Main_Activity extends AppCompatActivity {
 
     /**

@@ -34,6 +34,11 @@ import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * This lets the user enter their login information and log in, or lets them go to the register
+ * activity.
+ */
+
 public class Login_Activity extends AppCompatActivity {
     private Button loginButton;
     private Button RegisterButton;

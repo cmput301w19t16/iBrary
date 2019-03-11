@@ -29,6 +29,25 @@ import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.EntityClasses.Rating_Post;
 import ca.rededaniskal.R;
 
+/**
+ * This fragment is to view the activities of your friends. It ties very closely with our "wow"
+ * factor, since it aims to make viewing forums and finding new books more easy.
+ *
+ * This fragment shows posts with updates from your friends, such as adding books, reviewing books,
+ * as well as showing posts from forums you are subscribed to.
+ *
+ * Clicking on a post takes you to a new screen which lets you see the full post, as well as
+ * see the comments and comment on the post.
+ *
+ * Todo for part 5
+ * Make it so that posts load from the database.
+ * Add forum posts.
+ *
+ * What we have so far:
+ * Shows list of posts, which can be clicked on to go to new activity
+ * List updates when the user pulls down at the top of the list.
+ */
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,7 +96,10 @@ public class Post_Feed_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-            }
+    }
+
+    //This function gets the recyclerview and refreshlayout, and fills it with data.
+    //Todo: make this stop using dummy data and instead get it from the database.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,38 +155,4 @@ public class Post_Feed_Fragment extends Fragment {
 
         return swipeContainer;
     }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    /**
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    } */
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     *//**
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 }

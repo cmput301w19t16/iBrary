@@ -46,6 +46,11 @@ import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * This activity lets the user view a book's details.
+ * If they own the book, it also lets them go to the edit book activity.
+ */
+
 //Author: Revan
 public class Book_Details_Activity extends AppCompatActivity {
 

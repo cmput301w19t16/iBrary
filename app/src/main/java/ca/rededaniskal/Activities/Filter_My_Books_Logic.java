@@ -15,6 +15,10 @@ import java.util.HashMap;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 
+/**
+ * This class takes care of filtering books based on different qualifiers.
+ */
+
 public class Filter_My_Books_Logic {
     ArrayList<Integer> filter;
     Book_List book_list;
