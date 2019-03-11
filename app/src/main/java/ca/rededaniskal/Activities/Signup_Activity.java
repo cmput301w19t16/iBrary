@@ -9,15 +9,22 @@
  */package ca.rededaniskal.Activities;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,6 +42,17 @@ import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 import ca.rededaniskal.BusinessLogic.SignUpLogic;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
+
 public class Signup_Activity extends AppCompatActivity {
 
     private EditText usernameText;
@@ -44,6 +62,9 @@ public class Signup_Activity extends AppCompatActivity {
     private EditText phoneText;
     private SignUpLogic businessLogic;
     private User user;
+
+    private FusedLocationProviderClient client;
+    TextView location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +82,49 @@ public class Signup_Activity extends AppCompatActivity {
                 finalPass();
             }
         });
+
+        location = findViewById(R.id.location);
+
+        client = LocationServices.getFusedLocationProviderClient(this);
+
+        requestPermission();
+
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (ActivityCompat.checkSelfPermission(Signup_Activity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                client.getLastLocation().addOnSuccessListener(Signup_Activity.this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location2) {
+                        if(location!=null) {
+                            //newLocation.setText(location.getLatitude() + " " + location.getLongitude());
+                            location.setText(getAddressName(location2.getLatitude(), location2.getLongitude()));
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    private String getAddressName(double lat, double lon) {
+        String address = "";
+        Geocoder geocoder = new Geocoder(Signup_Activity.this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lon, 1);
+            address = addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return address;
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[] {ACCESS_FINE_LOCATION}, 1);
+
     }
 
 
