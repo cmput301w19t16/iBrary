@@ -40,7 +40,6 @@ import ca.rededaniskal.R;
 //Author: Revan, Skye
 public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
-
     private Book_List BL;
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
@@ -53,9 +52,6 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__borrowed__requested_);
 
-
-
-
         recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -66,42 +62,28 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
         readBookDB db = new readBookDB();
         db.update();
-
-
-
     }
+
+
     public void updateBookView(Book_List book_list){
         bookAdapter = new BookAdapter(this, book_list);
-
-
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
-
-
-
     }
 
-
-
-
-
+    //***Enclosed Database helper class***
     private class readBookDB{
         private DatabaseReference mdatabase;
         String TAG;
 
 
-
-
         public readBookDB(){
-
             update();
-
         }
 
 
         private void update(){
             String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
             mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user);
             mdatabase.addListenerForSingleValueEvent(valueEventListener);
         }
@@ -124,15 +106,10 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
                 }
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         };
-
-
-
     }
-
 }
-
