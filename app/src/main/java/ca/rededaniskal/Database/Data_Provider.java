@@ -1,6 +1,9 @@
 package ca.rededaniskal.Database;
 //reference :  https://www.youtube.com/watch?v=zVjSnhJu9qw
 
+/*author : Skye*/
+//SCRATCH PAD FOR DATABASE-------> Not real, just figuring things out.
+
 
 import android.content.Context;
 import android.support.annotation.NonNull;

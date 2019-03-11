@@ -113,7 +113,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: DB
+               //on click, gets info from the edittext field, validates them in AddBookLogic
+                // calls addBookInstance() which creates the database object to add the book
+                //Once the book is added, its details are passed to View_My_Library, and the
+                // view is refreshed
                 getInfo();
                 validateFields();
                 Book_Instance book = addBookInstance();
@@ -140,6 +143,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     }
 
     public void validateFields() {
+
+        //Currently raises no errors, businessLogic is always Valid
+        //TODO: implement this when testing stages are done for basic functionality
         String error = businessLogic.validateTitle();
         if (!error.equals("")){
             addTitle.setError(error);
@@ -205,15 +211,21 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
 
 
-
+//-------------------EMBEDDED DATABASE CLASS----------------//
+    //TODO: Improve encapsulation?
 
 
 private class AddBookDb {
+
     FirebaseDatabase db;
     DatabaseReference bookRef;
     String success;
 
     public AddBookDb() {
+        //Creates a new reference to the correct path in the Firebase
+        //Book instances are stored under there unique id, under my-books,
+        //under unique user Uid, under book-instnces.
+
         String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.db = FirebaseDatabase.getInstance();
         this.bookRef = db.getReference().child("book-instances")
@@ -230,8 +242,12 @@ private class AddBookDb {
         Log.d(TAG, "***********---->" +bookInstance.getBookID());
 
         DatabaseReference m = FirebaseDatabase.getInstance().getReference("all_books");
+        //Gets key and sets unique book id;
+
         String key = m.push().getKey();
         m.child(key).setValue(bookInstance);
+        //Stores value
+        //TODO: update master-book
 
         if (bookRef.child(success).setValue(bookInstance).isSuccessful()){
             return success;

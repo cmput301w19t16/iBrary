@@ -1,4 +1,13 @@
 package ca.rededaniskal.Activities;
+/*author Skye*/
+
+//Given a book_list from View_My_Library_Activity, filters books by status
+
+//TODO: Move to correct folder
+
+
+
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +37,7 @@ public class Filter_My_Books_Logic {
        hashMap.put(1, "Requested");
        hashMap.put(2, "Accepted");
        hashMap.put(3, "Borrowed");
+       //Create usable filter
 
        for (Integer k:filter){
            s.add(hashMap.get(k));
