@@ -42,6 +42,14 @@ import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 
 import ca.rededaniskal.R;
 
+/**
+ * This activity lets a user input information about a book, and then adds it to their library
+ * in the database.
+ *
+ * Todo for part 5:
+ * Make the user's photo saved in the database
+ */
+
 public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
     private static final String TAG = "Add_Book_To_Library_Activity";
@@ -156,6 +164,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         }
     }
 
+    //This adds the books to the database.
+
     public Book_Instance addBookInstance() {
 
         if (businessLogic.isValid()) {
@@ -203,10 +213,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         }
     }
 
-
-
-
-
+    //From this part onwards is the database logic stuff.
 
 private class AddBookDb {
     FirebaseDatabase db;

@@ -50,6 +50,21 @@ import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * This fragment is for viewing one's own profile.
+ * It also acts as a portal to many other activities, including: logout, edit profile,
+ * friends list, view requested/borrowed books, view all book requests, my library, view all
+ * users, view all books.
+ *
+ * Todo for part 5
+ * Remove the "view all books" and "view all users" buttons when search gets implemented
+ * add user profile picture from database
+ * make the buttons fit on the screen better
+ *
+ * What we have so far:
+ * all of the buttons lead to the appropriate activity.
+ */
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -208,51 +223,6 @@ public class View_Own_Profile_Fragment extends Fragment {
         l.setText(location);
         u.setText(username);
     }
-
-    /**
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-
-/**
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-    /
- */
 
     private void returnToLogin() {
         startActivity(new Intent(getActivity(), Login_Activity.class));

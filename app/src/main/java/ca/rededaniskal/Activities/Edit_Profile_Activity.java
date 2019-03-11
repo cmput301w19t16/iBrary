@@ -46,6 +46,10 @@ import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * This activity lets a user update their personal information.
+ */
+
 //Author: RevaN
 public class Edit_Profile_Activity extends AppCompatActivity {
     Button saveButton;
