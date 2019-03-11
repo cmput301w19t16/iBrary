@@ -25,7 +25,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.View_All_Books_Activity"></activity>
         <activity android:name=".Activities.View_All_Users_Activity" />
-
         <activity android:name=".Activities.View_Friends_Activity" />
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
         <activity android:name=".Activities.View_My_Library_Activity" />
@@ -38,7 +37,6 @@
         <activity android:name=".Activities.Book_Details_Activity" />
         <activity
             android:name=".Activities.Login_Activity"
-            android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
