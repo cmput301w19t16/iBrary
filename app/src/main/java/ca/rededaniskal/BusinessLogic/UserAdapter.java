@@ -68,7 +68,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
 
         //If they are Friends, set the icon to the friends icon
-        if ( globalUser.isFriendsWith(user)){
+        if ( true ){
             userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_black_24dp);
         }else{
             userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_add_black_24dp);
