@@ -27,14 +27,14 @@ public class AddBookLogic {
     private String author;
     private String ISBN;
 
-
+    //Constructor
     public AddBookLogic(String title, String author, String ISBN) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
     }
 
-
+    //Validate the author of the new book
     public String validateTitle() {
         String error = "";
         String[] words = this.title.split("/s*");
@@ -53,11 +53,10 @@ public class AddBookLogic {
         }
         title = words.toString();
 
-
         return error;
     }
 
-
+    //Validate the author of the new book
     public String validateAuthor() {
         String error = "";
 
@@ -71,14 +70,12 @@ public class AddBookLogic {
 
             }
             author = words.toString();
-
-
         }
 
         return error;
     }
 
-
+    //Validate the ISBN
     public String validateISBN() {
         String error = "";
         int how_many=0;
@@ -95,19 +92,15 @@ public class AddBookLogic {
                 if (Character.isDigit(digit)){
 
                 }
-
-
             }
         }
 
         return error;
     }
 
-
+    //Returns Whether the book is valid
     public boolean isValid() {
 
         return true;
     }
-
-
 }

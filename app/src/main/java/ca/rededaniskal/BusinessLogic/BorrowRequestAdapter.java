@@ -42,7 +42,7 @@ import static android.support.constraint.Constraints.TAG;
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdapter.BorrowRequestViewHolder>{
     public Context mctx;
-    private ArrayList<BorrowRequest> list;
+    private ArrayList<BorrowRequest> list; //List of Requests
 
     /**
      * Instantiates a new Entry adapter.
@@ -59,6 +59,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     @NonNull
     @Override
     public BorrowRequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //Set the Layout
         LayoutInflater inflater = LayoutInflater.from(mctx);
         View view = inflater.inflate(R.layout.request_card, null);
         BorrowRequestViewHolder holder = new BorrowRequestViewHolder(view);
@@ -70,19 +71,18 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     public void onBindViewHolder(@NonNull final BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
         final BorrowRequest request = list.get(i);
 
+        //Set Fields
         borrowRequestViewHolder.requestInfo.setText( request.getSenderUserName());
-
         borrowRequestViewHolder.bookInfo.setText( request.getBookId() );
 
-
+        //Set onClick listeners
         borrowRequestViewHolder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO: DB add a book request to the database
 
+
                 Log.d(TAG, "*********------> I JUST DONT KNOW");
-
-
                 Log.d(TAG, "*********------> I JUST DONT KNOW: "+request.getSenderUserName());
 //                list.remove(borrowRequestViewHolder.getAdapterPosition());
 //                notifyItemRemoved(borrowRequestViewHolder.getAdapterPosition());
@@ -97,8 +97,6 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
                     list.remove(j);
                     notifyDataSetChanged();
                 }
-
-
             }
         });
 
