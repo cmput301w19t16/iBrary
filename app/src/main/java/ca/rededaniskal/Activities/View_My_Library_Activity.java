@@ -82,6 +82,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Add_Book_To_Library_Activity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
