@@ -7,7 +7,10 @@
  * ISSUES:
  */
 package ca.rededaniskal.BusinessLogic;
+/*author : Skye */
+//NOT IMPLEMENTED FOR PROJECT PART 4: CODE FOR VALIDATING THE BOOK INSTANCE FIELDS
 
+//TODO: validate book id, validate against master, validate 10-digit and 13-digit isbn
 
 //import ca.rededaniskal.Database.AddBookDb;
 import java.lang.reflect.Array;

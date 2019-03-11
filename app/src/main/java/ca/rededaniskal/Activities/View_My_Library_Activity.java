@@ -145,6 +145,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
     }
 
     public void updateBookView(Book_List book_list){
+        //uses filter book logic to allow users to filter books by status
         if (chosenOptions.size()!=0){
         Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);
         bookAdapter = new BookAdapter(this, filter.newBooks());
