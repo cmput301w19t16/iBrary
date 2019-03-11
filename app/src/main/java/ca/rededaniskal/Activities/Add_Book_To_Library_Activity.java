@@ -121,6 +121,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), Book_Details_Activity.class);
                 intent.putExtra("book", book);
                 startActivity(intent);
+                //getParent().finish();
+                finish();
 
             }
         };

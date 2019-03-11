@@ -9,6 +9,7 @@
 package ca.rededaniskal.BusinessLogic;
 // Created by Revan on 2019-03-03
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -26,13 +27,13 @@ import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder>{
-    public Context mctx;
+    public Activity mctx;
     private Book_List bookList;
 
     /**
      * Instantiates a new Entry adapter.
      */
-    public BookAdapter(Context mctx, Book_List bookList) {
+    public BookAdapter(Activity mctx, Book_List bookList) {
         this.mctx = mctx;
         this.bookList = bookList;
     }
@@ -74,6 +75,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                 Intent intent = new Intent(mctx, Book_Details_Activity.class); // TODO: change the name of this for the
                 intent.putExtra("book", book);
                 mctx.startActivity(intent);
+                mctx.finish();
             }
         });
     }

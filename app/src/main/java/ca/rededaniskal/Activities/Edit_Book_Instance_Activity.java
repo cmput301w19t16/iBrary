@@ -120,6 +120,8 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
 
                 Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                 startActivity(intent);
+                //getParent().finish();
+                finish();
             }
         });
     }
@@ -166,7 +168,8 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
 
             EditBookDb db = new EditBookDb();
             db.EditBookData(bookInstance);
-
+            //getParent().finish();
+            finish();
             }
         }
 

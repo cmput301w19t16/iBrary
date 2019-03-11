@@ -153,6 +153,7 @@ public class Book_Details_Activity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), Edit_Book_Instance_Activity.class);
                 intent.putExtra("book", book);
                 startActivity(intent);
+                finish();
             }
         });
 
