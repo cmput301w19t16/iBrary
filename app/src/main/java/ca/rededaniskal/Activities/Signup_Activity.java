@@ -6,7 +6,8 @@
  *
  * ISSUES:
  *
- */package ca.rededaniskal.Activities;
+ */
+package ca.rededaniskal.Activities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -89,9 +90,11 @@ public class Signup_Activity extends AppCompatActivity {
 
         requestPermission();
 
+        //Set onClick Listeners
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Get the user location and set the relevent fields
 
                 if (ActivityCompat.checkSelfPermission(Signup_Activity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
@@ -110,6 +113,7 @@ public class Signup_Activity extends AppCompatActivity {
         });
     }
 
+
     private String getAddressName(double lat, double lon) {
         String address = "";
         Geocoder geocoder = new Geocoder(Signup_Activity.this, Locale.getDefault());
@@ -122,12 +126,12 @@ public class Signup_Activity extends AppCompatActivity {
         return address;
     }
 
+
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[] {ACCESS_FINE_LOCATION}, 1);
-
     }
 
-
+    //Make sure the fields are valid before signup
     public void validateFields(){
         String error = businessLogic.validdatePhone();
         if(!error.equals("")){
@@ -178,7 +182,6 @@ public class Signup_Activity extends AppCompatActivity {
             String password = passwordText.getText().toString();
 
             db.createUser(email, password);
-
             }
     }
 

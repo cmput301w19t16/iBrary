@@ -1,3 +1,13 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View all Users
+ * Temporary until search is implemented
+ *
+ * ISSUES:
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +44,7 @@ public class View_All_Users_Activity extends AppCompatActivity {
 
         Users = new ArrayList<>(); //TODO: DB get friends of the current user
 
+        //Set the recycler view
         recyclerView =  findViewById(R.id.DisplayUsers);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -45,6 +56,7 @@ public class View_All_Users_Activity extends AppCompatActivity {
     }
 
 
+    //*** Enclosed Database class***
     private class getAllUsers{
         DatabaseReference mDatabase;
 
@@ -79,5 +91,4 @@ public class View_All_Users_Activity extends AppCompatActivity {
             }
         };
     }
-
 }

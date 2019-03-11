@@ -1,3 +1,13 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View all Books
+ * Temporary until search is implemented
+ *
+ * ISSUES:
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.support.design.widget.FloatingActionButton;
@@ -35,8 +45,9 @@ public class View_All_Books_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__all__books_);
 
-        BL = new Book_List();
+        BL = new Book_List(); //Initiatize books to be displayed
 
+        //Set the card views
         recyclerView = (RecyclerView) findViewById(R.id.DisplayBooks);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -46,8 +57,8 @@ public class View_All_Books_Activity extends AppCompatActivity {
         bookAdapter.notifyDataSetChanged();
 
         getAllBooks db = new getAllBooks();
-
     }
+
 
     private class getAllBooks{
         DatabaseReference mDatabase;
@@ -60,6 +71,7 @@ public class View_All_Books_Activity extends AppCompatActivity {
             mDatabase = FirebaseDatabase.getInstance().getReference("all_books");
             mDatabase.addListenerForSingleValueEvent(valueEventListener);
         }
+
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -76,6 +88,7 @@ public class View_All_Books_Activity extends AppCompatActivity {
                     bookAdapter.notifyDataSetChanged();
                 }
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

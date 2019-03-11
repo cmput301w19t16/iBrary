@@ -75,17 +75,14 @@ public class View_All_Requests_Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         db = new getAllUserRequests();
-
-
     }
 
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));
     }
 
+    //*** Enclosed Database helper class***
     private class getAllUserRequests {
         private String email;
         private FirebaseAuth mAuth;
@@ -93,7 +90,7 @@ public class View_All_Requests_Activity extends AppCompatActivity {
         private String username;
 
 
-
+        //Get all the requests
         public getAllUserRequests() {
             mAuth = FirebaseAuth.getInstance();
             user = mAuth.getCurrentUser();
