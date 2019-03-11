@@ -114,21 +114,19 @@ public class Post_Feed_Fragment extends Fragment {
         final RecyclerView recyclerView = view.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
         final ArrayList<Post> postList = new ArrayList<Post>();
-        postList.add(new Text_Post("This is a text post", "User1", "Placeholder ISBN1"));
-        postList.add(new Text_Post("This is a text post", "User2", "Placeholder ISBN2"));
+        postList.add(new Text_Post("Loved this Book!", "Nick", "Happy Potter"));
+        postList.add(new Text_Post("Can I borrow this from anyone?", "Revan", "Oxford English Dictionary"));
 
-        postList.add(new Rating_Post("This is a Rating_Post", "User6", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User7", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User8", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User9", "Placeholder ISBN", 4.0));
+        postList.add(new Rating_Post("Very Good", "Revan", "Happy Potter", 5.0));
+        postList.add(new Rating_Post("Enjoyed", "Skye", "Happy Potter", 4.0));
 
-        postList.add(new Text_Post("This is a text post", "User3", "Placeholder ISBN3"));
-        postList.add(new Text_Post("This is a text post", "User4", "Placeholder ISBN4"));
-        postList.add(new Text_Post("This is a text post", "User5", "Placeholder ISBN5"));
 
-        postList.add(new Rating_Post("This is a Rating_Post", "User10", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User11", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User12", "Placeholder ISBN", 4.0));
+        postList.add(new Text_Post("Looking forward to reading this", "Revan", "Happy Potter 2"));
+        postList.add(new Text_Post("Illuminating", "Skye", "Happy Potter"));
+        postList.add(new Text_Post("Luminous", "Skye", "Happy Potter2"));
+
+        postList.add(new Rating_Post("Good read :) ", "Alex", "The Hobbit", 3.0));
+        postList.add(new Rating_Post("Excellent!", "Daniela", "BLAW", 5.0));
 
         for (Post p: postList){
             p.setID("Some post id");

@@ -19,22 +19,25 @@ public class Log_In_Logic {
     private String password;
     private boolean valid;
 
+    //Constructor
     public Log_In_Logic(String email, String password) {
         valid = true;
         this.email = email;
         this.password = password;
-
-
     }
+
 
     public boolean isValid() {
         return valid;
     }
 
+
     public void setValid(boolean valid) {
         this.valid = valid;
     }
 
+
+    //Validates the password field
     public String validatePassword(){
         String errorMessage = "";
         if (password.isEmpty()){
@@ -44,6 +47,8 @@ public class Log_In_Logic {
         return errorMessage;
     }
 
+
+    //Validates the email field
     public String validateEmail(){
         String errorMessage = "";
         if (email.isEmpty()){

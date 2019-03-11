@@ -49,15 +49,12 @@ public class View_My_Library_Activity extends AppCompatActivity {
     String[] filterOptions;
     boolean[] selectedOptions;
     ArrayList<Integer> chosenOptions = new ArrayList<>();
+    Book_List BL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //For testing
-        //TODO: DB load the libary of the current user
-        Book_List BL = new Book_List();
-//        Book_Instance HP = new Book_Instance("HappyPotter", "JK", "123", "R", "Daniela", "Very Nice", "Requested");
-//        BL.addBook(HP);
-//
+        BL = new Book_List();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__my__library_);
 
@@ -72,20 +69,22 @@ public class View_My_Library_Activity extends AppCompatActivity {
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
         readmyBookDB db = new readmyBookDB();
-//        db.update();
 
         filter = findViewById(R.id.filter);
         fab = (FloatingActionButton) findViewById(R.id.addBookToLibrary);
 
+        //Set the on Click listeners
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Add a new book
                 Intent intent = new Intent(v.getContext(), Add_Book_To_Library_Activity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
+        //For filtering options
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,14 +105,6 @@ public class View_My_Library_Activity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                       /* String item = "";
-                        for (int i = 0; i < chosenOptions.size(); i++) {
-                            item = item + filterOptions[chosenOptions.get(i)];
-                            if (i != chosenOptions.size() - 1) {
-                                item = item + ", ";
-                            }
-                        }
-                        //mItemSelected.setText(item);*/
                        new readmyBookDB().update();
 
                     }
@@ -144,7 +135,9 @@ public class View_My_Library_Activity extends AppCompatActivity {
 
     }
 
+    //Update the View
     public void updateBookView(Book_List book_list){
+        //uses filter book logic to allow users to filter books by status
         if (chosenOptions.size()!=0){
         Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);
         bookAdapter = new BookAdapter(this, filter.newBooks());
@@ -156,33 +149,28 @@ public class View_My_Library_Activity extends AppCompatActivity {
 
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
-
-
-
     }
 
 
-
+    //Class responsible for reading DB
     private class readmyBookDB{
 
         private DatabaseReference mdatabase;
         String TAG;
 
 
-
-
         public readmyBookDB(){
-
             update();
 
         }
 
+
         private void update(){
             String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
             mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user).child("my-books");
             mdatabase.addListenerForSingleValueEvent(valueEventListener);
         }
+
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -195,20 +183,15 @@ public class View_My_Library_Activity extends AppCompatActivity {
                         Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
                         Log.d(TAG, "**************--->"+book_instance.getOwner());
                         book_list.addBook(book_instance);
-
                     }
                     updateBookView(book_list);
                 }
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         };
-
-
-
-
     }
 }

@@ -143,24 +143,24 @@ public class Notifications_Fragment extends Fragment {
 //        }
 
 
-        Notification n = new Notification("You", "notiID", false);
+        Notification n = new Notification("You", "Alex", true);
         n.setRequestType("Friend_Request");
         notiList.add(n);
 
-        Notification i = new Notification("You", "notiID", true);
+        Notification i = new Notification("You", "Nick", true);
         i.setRequestType("Borrow_Request");
         notiList.add(i);
 
-        Notification j = new Notification("You", "notiID", true);
+        Notification j = new Notification("You", "Skye", true);
         j.setRequestType("Return_Request");
         notiList.add(j);
 
-        Notification k = new Notification("You", "notiID", false);
+        Notification k = new Notification("You", "Delaney", true);
         k.setRequestType("Friend_Request");
         notiList.add(k);
 
-        final Notification p = new Notification("You", "notiID", false);
-        p.setRequestType("something not accounted for");
+        final Notification p = new Notification("You", "False", true);
+        p.setRequestType("Friend_Request");
         notiList.add(p);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());

@@ -54,6 +54,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
     @Override
     public Notification_Adapter.Notification_View_Holder onCreateViewHolder (ViewGroup parent, int viewType){
+        //Set the layout
         View itemView = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.notifications_card_layout, parent, false);
 
@@ -63,6 +64,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
     @Override
     public void onBindViewHolder(final Notification_View_Holder holder, final int position){
+        // Binds an item to the view
         Notification notification = mDataset.get(position);
         String titleText = notification.getRequest() + " ";
 
@@ -73,6 +75,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
             holder.newAlertStar.setRating(0);
         }
 
+        //set the text of the notification based on the type
         switch (notification.getRequestType()){
             case "Friend_Request":
                 titleText += " sent you a friend request!";
@@ -91,6 +94,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         holder.postTitle.setText(titleText);
         holder.requestType = notification.getRequestType();
 
+        //Set the on click listener (for when users click on a notification to silence it)
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,5 +130,4 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         }
         return;
     }
-
 }

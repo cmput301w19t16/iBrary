@@ -1,6 +1,6 @@
 package ca.rededaniskal.Database;
 /*author Skye*/
-
+//SCRATCH PAD FOR DATABASE-------> Not real, just figuring things out.
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
