@@ -15,6 +15,7 @@
     <string name="phone_num">Phone Number:</string>
     <string name="email">Email:</string>
     <string name="location">Location:</string>
+    <string name="set_location">Click here to set Location</string>
     <string name="friend_list">Friends List</string>
     <string name="borrow_requests">Borrowed/Requested Books</string>
     <string name="library">My Library</string>
@@ -95,6 +96,11 @@
         <item>Accepted</item>
         <item>Borrowed</item>
     </string-array>
+    <string name="title_activity_view__all__requests_">View_All_Requests_Activity</string>
+    <string name="view_all_request">All Book Requests</string>
+    <string name="my_requests">All Requests on My Books</string>
+    <string name="view_all_users">View All Users</string>
+    <string name="view_all_books">View All Books</string>
 
 
 </resources>

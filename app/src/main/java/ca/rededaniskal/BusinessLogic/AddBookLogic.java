@@ -1,3 +1,11 @@
+/* TYPE:
+ * Logic
+ *
+ * PURPOSE:
+ * Logic relevent to adding a book
+ *
+ * ISSUES:
+ */
 package ca.rededaniskal.BusinessLogic;
 
 
@@ -17,15 +25,15 @@ public class AddBookLogic {
         this.ISBN = ISBN;
     }
 
-    public String validateTitle(){
 
+    public String validateTitle(){
         String error ="";
 
         return error;
     }
 
-    public String validateAuthor(){
 
+    public String validateAuthor(){
         String error ="";
 
         return error;
@@ -33,18 +41,16 @@ public class AddBookLogic {
 
 
     public String validateISBN(){
-
         String error ="";
-
 
         return error;
     }
+
 
     public boolean isValid(){
 
         return true;
     }
-
 
 
     public String addBookSuccess(Book_Instance bookInstance){
@@ -54,13 +60,5 @@ public class AddBookLogic {
 //        bookID= db.addBookToDatabase(bookInstance);
 //
         return bookID;
-
-
-
     }
-
-
-
-
-
 }

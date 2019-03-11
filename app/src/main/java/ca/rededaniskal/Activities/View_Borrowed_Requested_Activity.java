@@ -1,5 +1,14 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View all your requested and borrowed books
+ *
+ * ISSUES:
+ * Needs DB support
+ *
+ */
 package ca.rededaniskal.Activities;
-
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +36,7 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.R;
 
+//Author: Revan, Skye
 public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
     private Book_List BL;
@@ -38,8 +48,6 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__borrowed__requested_);
 
@@ -48,30 +56,21 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         BL = new Book_List();
         BL.addBook(new Book_Instance("Title", "Me", "1111111111", "R", "you", "good", "a"));
 
-
         recyclerView = (RecyclerView) findViewById(R.id.ViewBooks);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         bookAdapter = new BookAdapter(this, BL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
-
-
     }
 
     public void loadBook(Book_Instance book_instance){
         this.BL.addBook(book_instance);
-
-
-
     }
 
 
-
     private class readBookDB{
-
         private DatabaseReference mdatabase;
         private String TAG= "ViewBORROWED";
 
@@ -80,12 +79,14 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
             getBookInstance();
         }
 
+
         private void getBookInstance(){
 //            Query query = FirebaseDatabase.getInstance().getReference("book-instances")
 //                    .child("book-instances").child("all-books");
             mdatabase = FirebaseDatabase.getInstance().getReference("book-instances");
             mdatabase.addListenerForSingleValueEvent(valueEventListener);
         }
+
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -104,8 +105,6 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
             }
         };
-
-
     }
 
     /*public Book_List Load_books(Map<String, Map<String, String>> map){
@@ -135,7 +134,4 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         return this.BL;
     }
 */
-
-
-
 }

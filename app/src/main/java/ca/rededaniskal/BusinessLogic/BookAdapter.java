@@ -1,3 +1,11 @@
+/* TYPE:
+ * Adapter
+ *
+ * PURPOSE:
+ * Adapter for viewing Book lists
+ *
+ * ISSUES:
+ */
 package ca.rededaniskal.BusinessLogic;
 // Created by Revan on 2019-03-03
 
@@ -85,7 +93,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     }
 
     /**
-     * The type Entry view holder, the obbject to actually hold an entry
+     * The type Entry view holder, the object to actually hold an entry
      */
     class BookViewHolder extends RecyclerView.ViewHolder {
 

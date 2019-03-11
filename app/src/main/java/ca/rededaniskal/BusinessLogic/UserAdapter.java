@@ -1,3 +1,11 @@
+/* TYPE:
+ * Adapter
+ *
+ * PURPOSE:
+ * Adapter for viewing Users
+ *
+ * ISSUES:
+ */
 package ca.rededaniskal.BusinessLogic;
 // Created by Revan on 2019-03-03
 

@@ -1,3 +1,13 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * View the books you own
+ *
+ * ISSUES:
+ * Needs pretty much everything
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.content.DialogInterface;

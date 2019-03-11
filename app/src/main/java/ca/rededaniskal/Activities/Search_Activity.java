@@ -1,3 +1,13 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * Search for books and other others
+ *
+ * ISSUES:
+ * Needs pretty much everything
+ *
+ */
 package ca.rededaniskal.Activities;
 
 import android.os.Bundle;

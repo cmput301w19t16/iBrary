@@ -1,3 +1,11 @@
+/* TYPE:
+ * Adapter
+ *
+ * PURPOSE:
+ * Adapter for viewing Posts
+ *
+ * ISSUES:
+ */
 package ca.rededaniskal.BusinessLogic;
 
 import android.content.Intent;
@@ -17,6 +25,7 @@ import ca.rededaniskal.Activities.View_Text_Post_Activity;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
+//Author: Nick
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
     private ArrayList<Post> mDataset;
     public Post_Feed_Fragment fragment;

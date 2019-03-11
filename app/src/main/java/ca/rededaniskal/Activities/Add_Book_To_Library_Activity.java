@@ -1,8 +1,14 @@
+/* TYPE:
+ * Activity
+ *
+ * PURPOSE:
+ * Add a Book to your library
+ *
+ * ISSUES:
+ *
+ */
 package ca.rededaniskal.Activities;
-
-
-
-//author : Skye
+//author : Skye, Revan
 
 import android.Manifest;
 import android.app.Activity;
@@ -40,7 +46,6 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
 public class Add_Book_To_Library_Activity extends AppCompatActivity {
-
 
     private static final String TAG = "Add_Book_To_Library_Activity";
 
@@ -160,8 +165,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             }
         }
     }
-
-
 
     //Code From https://stackoverflow.com/a/5991757
     @Override
