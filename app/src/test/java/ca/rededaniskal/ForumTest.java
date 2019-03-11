@@ -19,7 +19,7 @@ public class ForumTest {
 
         Forum forumPosts = new Forum(book, user.getUserName());
 
-        Post post = new Post("First Forum Post Test", forumPosts.getUserName());
+        Post post = new Post("this is a post", user.getUserName(), "333", "Friend");
         forumPosts.addPost(post);
         assertTrue(forumPosts.hasPost(post));
     }
@@ -32,7 +32,7 @@ public class ForumTest {
 
         Forum forumPosts = new Forum(book, user.getUserName());
 
-        Post post = new Post("Second Forum Post Test", forumPosts.getUserName());
+        Post post = new Post("this is a post", user.getUserName(), "333", "Friend");
         forumPosts.deletePost(post);
         assertFalse(forumPosts.hasPost(post));
     }
@@ -47,10 +47,10 @@ public class ForumTest {
 
         Forum forumPosts = new Forum(book, user.getUserName());
 
-        Post post = new Post("First Post Test", forumPosts.getUserName());
+        Post post = new Post("this is a post", user.getUserName(), "333", "Friend");
         forumPosts.addPost(post);
 
-        Post reply = new Post("Reply post test", forumPosts.getUserName(), user2.getUserName());
+        Post reply = new Post("this is a post", user.getUserName(), "333", "Friend");
         forumPosts.addPost(reply);
 
         assertEquals("@james smith Reply post test", reply.getMessage());
