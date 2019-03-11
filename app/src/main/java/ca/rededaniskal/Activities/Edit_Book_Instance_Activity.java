@@ -117,7 +117,8 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: DB delete the book instance from db
+                EditBookDb db = new EditBookDb();
+                db.DeleteBook(book.getBookID());
 
                 Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                 startActivity(intent);
@@ -217,12 +218,12 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         }
 
 
-        public boolean DeleteBook(String node){
+        public void DeleteBook(String node){
             String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("book-instances")
+            DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("book-instances").child("my-books")
                     .child(user)
                     .child(node);
-            return bookRef.removeValue().isComplete();
+            bookRef.removeValue();
 
 
 

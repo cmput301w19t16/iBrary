@@ -14,6 +14,7 @@
 package ca.rededaniskal.Activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -25,8 +26,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -100,10 +103,10 @@ public class Book_Details_Activity extends AppCompatActivity {
         //DisplayDescription.setText(book.get); TODO: Descriptions?
 
         //TODO: Make this the actual user
-        final User globalUser = new User("R", "email", "location");
+        String globalUser = FirebaseAuth.getInstance().getUid();
 
         //Set the visibility of Edit + cardView
-        if (globalUser.getUserName().equals(book.getOwner()))
+        if (globalUser.equals(book.getOwner()))
         {
             Edit.setVisibility(View.VISIBLE); //SHOW the button
             Request_Cancel.setVisibility(View.INVISIBLE);
@@ -130,9 +133,10 @@ public class Book_Details_Activity extends AppCompatActivity {
         }else{
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
+        bookInUserRequests(book.getBookID());
 
         //Set appropriate text for the button at the bottom
-        if ( isRequested){
+        if ( book.getStatus()=="Requested"&& isRequested){
             Request_Cancel.setText(R.string.cancel_request);
             isRequested = true;
         }else{
@@ -211,4 +215,66 @@ public class Book_Details_Activity extends AppCompatActivity {
 
         }
     };
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void bookInUserRequests(String bookid) {
+
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference requestBook = FirebaseDatabase.getInstance().getReference("book-instances")
+                .child(user)
+                .child("my-requests")
+                .child(bookid);
+        requestBook.addListenerForSingleValueEvent(requestedListener);
+
+
+
+    }
+
+
+
+        ValueEventListener requestedListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    setTrue();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                databaseError.toException();
+
+            }
+        };
+    public void setTrue() {
+        this.isRequested = true;
+
+    }
+
+
+
+
+    }
+
+
+

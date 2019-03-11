@@ -170,7 +170,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
         private void update(){
             String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user);
+            mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user).child("my-books");
             mdatabase.addListenerForSingleValueEvent(valueEventListener);
         }
 
