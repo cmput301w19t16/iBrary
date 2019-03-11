@@ -78,13 +78,22 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
         cover = findViewById(R.id.BookCover);
 
-        openScanner.setOnClickListener(new View.OnClickListener() {
+        /*openScanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
                 startActivity(intent);
             }
+        });*/
+
+        openScanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
+                startActivityForResult(intent, 1);
+            }
         });
+
 
 
         openCamera.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +194,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             cover.setImageBitmap(photo);
+        }
+        else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
+            String ISBN = data.getStringExtra("ISBN");
+            addISBN.setText(ISBN);
         }
     }
 

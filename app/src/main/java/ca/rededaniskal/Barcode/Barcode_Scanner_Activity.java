@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.vision.barcode.Barcode;
 
+import ca.rededaniskal.Activities.Add_Book_To_Library_Activity;
 import ca.rededaniskal.R;
 
 import java.util.List;
@@ -62,9 +63,19 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
 
     @Override
     public void onScanned(Barcode barcode) {
+        Intent intent = new Intent(this, Add_Book_To_Library_Activity.class);
+        intent.putExtra("ISBN", barcode.rawValue);
         Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
         mTvResult.setText(barcode.rawValue);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
+
+    /*@Override
+    public void onScanned(Barcode barcode) {
+        Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
+        mTvResult.setText(barcode.rawValue);
+    }*/
 
     @Override
     public void onScannedMultiple(List<Barcode> barcodes) {
