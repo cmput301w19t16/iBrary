@@ -71,7 +71,9 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         final BorrowRequest request = list.get(i);
 
         borrowRequestViewHolder.requestInfo.setText( request.getSenderUserName());
+
         borrowRequestViewHolder.bookInfo.setText( request.getBookId() );
+
 
         borrowRequestViewHolder.accept.setOnClickListener(new View.OnClickListener() {
             @Override

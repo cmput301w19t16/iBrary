@@ -29,10 +29,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -211,6 +209,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
             DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("book-instances")
                     .child(user)
+                    .child("my-books")
                     .child(bookInstance.getBookID());
             return  bookRef.setValue(bookInstance).isSuccessful();
 
@@ -220,8 +219,8 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
 
         public void DeleteBook(String node){
             String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("book-instances").child("my-books")
-                    .child(user)
+            DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("book-instances").child(user)
+                    .child("my-books")
                     .child(node);
             bookRef.removeValue();
 
