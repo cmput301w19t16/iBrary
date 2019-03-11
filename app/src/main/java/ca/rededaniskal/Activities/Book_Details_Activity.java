@@ -25,24 +25,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
-import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -57,8 +51,6 @@ public class Book_Details_Activity extends AppCompatActivity {
     TextView DisplayOwner;
     TextView DisplayStatus;
     TextView DisplayDescription;
-    private getUserRequestsDB db;
-    private User globalUser;
 
     ImageView BookCover;
 
@@ -68,25 +60,21 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     RecyclerView viewRequests;
 
-    private Book_Instance book;
-    private ArrayList<BorrowRequest> actual;
-
     BorrowRequestAdapter requestAdapter;
+    ArrayList<BorrowRequest> l;
 
     boolean isRequested; //Auxillary variable for keeping track of where we need to go
-
-    ArrayList<BorrowRequest> RL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book__details_);
-        db = new getUserRequestsDB();
+
         //Set the attributes to their corresponding views
         DisplayTitle = (TextView) findViewById(R.id.DisplayTitle);
         DisplayAuthor = (TextView) findViewById(R.id.DisplayAuthor);
         DisplayISBN = (TextView) findViewById(R.id.DisplayISBN);
-        DisplayOwner = (TextView) findViewById(R.id.DisplayOwner);
+        DisplayOwner = (TextView) findViewById(R.id.DisplayOwner) ;
         DisplayStatus = (TextView) findViewById(R.id.DisplayStatus);
         DisplayDescription = (TextView) findViewById(R.id.editDescription);
 
@@ -97,6 +85,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         Edit = findViewById(R.id.Edit);
 
         viewRequests = (RecyclerView) findViewById(R.id.viewRequests);
+
 
 
         //Get what was passed in and display it
@@ -113,35 +102,54 @@ public class Book_Details_Activity extends AppCompatActivity {
         //TODO: Make this the actual user
         final User globalUser = new User("R", "email", "location");
 
+        //Set the visibility of Edit + cardView
+        if (globalUser.getUserName().equals(book.getOwner()))
+        {
+            Edit.setVisibility(View.VISIBLE); //SHOW the button
+            Request_Cancel.setVisibility(View.INVISIBLE);
+            viewRequests.setHasFixedSize(true);
+            viewRequests.setLayoutManager(new LinearLayoutManager(this));
 
-        Edit.setVisibility(View.VISIBLE); //SHOW the button
-        Request_Cancel.setVisibility(View.INVISIBLE);
-//        viewRequests.setHasFixedSize(true);
-        viewRequests.setLayoutManager(new LinearLayoutManager(this));
+            //for Testing
+            BorrowRequest br = new BorrowRequest("revan", "revan", "123", 123);
+            BorrowRequest br2 = new BorrowRequest("revan", "revan", "123", 123);
+            BorrowRequest br3 = new BorrowRequest("revan", "revan", "123", 123);
 
-        //for Testing
-        BorrowRequest br = new BorrowRequest("revan", "Revan", "123", 123);
-        BorrowRequest br2 = new BorrowRequest("revan", "Revan", "123", 123);
-        BorrowRequest br3 = new BorrowRequest("revan", "Revan", "123", 123);
+            l = new ArrayList<>();
+//            l.add(br);
+//            l.add(br2);
+//            l.add(br3);
 
-        ArrayList<BorrowRequest> l = new ArrayList<>();
-        l.add(br);
-        l.add(br2);
-        l.add(br3);
-        RL = new ArrayList<>();
-        requestAdapter = new BorrowRequestAdapter(this, RL);
-        viewRequests.setAdapter(requestAdapter);
-        requestAdapter.notifyDataSetChanged();
+            requestAdapter = new BorrowRequestAdapter(this, l);
+            viewRequests.setAdapter(requestAdapter);
+            requestAdapter.notifyDataSetChanged();
+
+            Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests");
+
+            query.addListenerForSingleValueEvent(valueEventListener2);
+        }else{
+            viewRequests.setVisibility(viewRequests.INVISIBLE);
+        }
 
         //Set appropriate text for the button at the bottom
-        if (isRequested) {
+        if ( isRequested){
             Request_Cancel.setText(R.string.cancel_request);
             isRequested = true;
-        } else {
+        }else{
             Request_Cancel.setText(R.string.request_book);
             isRequested = false;
         }
 
+        //Set On-Click listeners
+
+        Edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Edit_Book_Instance_Activity.class);
+                intent.putExtra("book", book);
+                startActivity(intent);
+            }
+        });
 
         //TODO: Make this go to forum
         /*
@@ -154,216 +162,53 @@ public class Book_Details_Activity extends AppCompatActivity {
             }
         });
         */
-
-//        //TODO: DB
-//        Request_Cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //Case cancel book request
-//                if (isRequested){
-//                    Request_Cancel.setText(R.string.request_book);
-//                    isRequested = false;
-//
-//                    //TODO: remove from database
-//
-//                }else{
-//                    //Case Request book
-//                    Request_Cancel.setText(R.string.cancel_request);
-//
-////                    Request request = new Request(globalUser.getUserName(), ,"borrow" );
-//                    isRequested = true;
-//
-//                    //TODO: add request to database
-//                }
-//            }
-//        });
-
-
-//        db = new getUserRequestsDB();
-
-    }
-//    private void LoadRequests(){
-//        Log.d(TAG, "*********----->LoadRequests");
-//        globalUser = db.getUser();
-//
-//        //Set the visibility of Edit + cardView
-//        if (db.getUsername().equals(book.getOwner()))
-//        {
-//            Log.d(TAG, "*********----->isOwner");
-//            Edit.setVisibility(View.VISIBLE); //SHOW the button
-//            Request_Cancel.setVisibility(View.INVISIBLE);
-////            viewRequests.setHasFixedSize(true);
-////            viewRequests.setLayoutManager(new LinearLayoutManager(this));
-//
-//            ArrayList<BorrowRequest> requests = db.getRequestList();
-//            Log.d(TAG, "*********----->Length"+requests.size());
-//            ArrayList<BorrowRequest> actual = new ArrayList<>();
-//
-//            for(int i = 0; i < requests.size(); i++){
-//                Log.d(TAG, "*********----->"+requests.get(i).getIsbn());
-//                if(requests.get(i).getIsbn().equals(book.getISBN())){
-//                    Log.d(TAG, "*********----->At least 1");
-//                    actual.add(requests.get(i));
-//                }
-//
-//            }
-//
-////            requestAdapter = new BorrowRequestAdapter(this, actual);
-////            viewRequests.setAdapter(requestAdapter);
-////            requestAdapter.notifyDataSetChanged();
-//        }else{
-//            viewRequests.setVisibility(viewRequests.INVISIBLE);
-//        }
-//
-//
-//    }
-
-    private void returnToLogin() {
-        startActivity(new Intent(this, Login_Activity.class));
-    }
-
-    public class getUserRequestsDB{
-        private FirebaseAuth mAuth;
-        private String email;
-        private String username;
-        private FirebaseUser user;
-        private DatabaseReference mDatabase;
-        private ArrayList<BorrowRequest> requestList;
-        private User User;
-
-        public getUserRequestsDB() {
-            mAuth = FirebaseAuth.getInstance();
-            user = mAuth.getCurrentUser();
-            requestList = new ArrayList<BorrowRequest>();
-            if (user != null) {
-                email = user.getEmail();
-                getUserDetails();
-//                getUserRequestSender();
-//                getUserRequestRecipent();
-//
-
-
-
-            } else {
-                returnToLogin();
-
-            }
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public ca.rededaniskal.EntityClasses.User getUser() {
-            return User;
-        }
-
-        public ArrayList<BorrowRequest> getRequestList() {
-            return requestList;
-        }
-
-        private void getUserDetails(){
-            Query query = FirebaseDatabase.getInstance().getReference("Users")
-                    .orderByChild("email")
-                    .equalTo(email);
-
-            Log.d(TAG, "*********----->"+email);
-            query.addListenerForSingleValueEvent(valueEventListener);
-
-
-        }
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        /*
+        //TODO: DB
+        Request_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "*********----->onDataChange");
-                if (dataSnapshot.exists()) {
-                    Log.d(TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        //Log.d(TAG, "*********----->"+snapshot.getValue());
-                        User = snapshot.getValue(User.class);
-                        username = User.getUserName();
-                    }
-                    getUserRequestRecipent();
+            public void onClick(View v) {
+                //Case cancel book request
+                if (isRequested){
+                    Request_Cancel.setText(R.string.request_book);
+                    isRequested = false;
+                    //TODO: remove from database
+                }else{
+                    //Case Request book
+                    Request_Cancel.setText(R.string.cancel_request);
+                    Request request = new Request(globalUser.getUserName(), ,"borrow" );
+                    isRequested = true;
+                    //TODO: add request to database
                 }
             }
+        });
+        */
+    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+    ValueEventListener valueEventListener2 = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            Log.d(TAG, "*********----->onDataChange2");
+//            l.clear();
+            if (dataSnapshot.exists()) {
+                Log.d(TAG, "*********----->exists");
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    BorrowRequest request = snapshot.getValue(BorrowRequest.class);
+                    l.add(request);
+                }
 
-            }
-        };
+                Log.d(TAG, "*********----->"+l);
+                l.add(new BorrowRequest());
+                requestAdapter.notifyDataSetChanged();
 
-
-//        private void getUserRequestSender(){
-//            Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
-//                    .orderByChild("senderUserName")
-//                    .equalTo(username);
-//
-//            Log.d(TAG, "*********----->"+username);
-//
-//            query.addListenerForSingleValueEvent(valueEventListener1);
-//
-//
-//        }
-//
-////        ValueEventListener valueEventListener1 = new ValueEventListener() {
-////            @Override
-////            public void onDataChange(DataSnapshot dataSnapshot) {
-////                Log.d(TAG, "*********----->onDataChange1");
-////                if (dataSnapshot.exists()) {
-////                    Log.d(TAG, "*********----->exists");
-////                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-////                        BorrowRequest request = snapshot.getValue(BorrowRequest.class);
-////                        requestList.add(request);
-////                    }
-////                }
-////                getUserRequestRecipent();
-////
-////            }
-////
-////            @Override
-////            public void onCancelled(DatabaseError databaseError) {
-////
-////            }
-////        };
-
-        private void getUserRequestRecipent(){
-            Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
-                    .orderByChild("recipientUserName")
-                    .equalTo(username);
-
-            Log.d(TAG, "*********----->"+username);
-            query.addListenerForSingleValueEvent(valueEventListener2);
-
-        }
-
-        ValueEventListener valueEventListener2 = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "*********----->onDataChange2");
-                RL.clear();
-                if (dataSnapshot.exists()) {
-                    Log.d(TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        BorrowRequest request = snapshot.getValue(BorrowRequest.class);
-                        RL.add(request);
-                        requestAdapter.notifyDataSetChanged();
-//                        actual.add(request);
-                    }
-                    Log.d(TAG, "*********----->length"+RL.size());
+                Log.d(TAG, "*********----->length"+l.size());
 //                    requestAdapter.notifyDataSetChanged();
-                }
-
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        }
 
-            }
-        };
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
 
-    }
-
+        }
+    };
 }
-
