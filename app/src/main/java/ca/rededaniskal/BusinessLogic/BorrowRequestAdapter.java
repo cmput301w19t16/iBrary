@@ -60,6 +60,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         final BorrowRequest request = list.get(i);
 
         borrowRequestViewHolder.requestInfo.setText( request.getSenderUserName());
+        borrowRequestViewHolder.bookInfo.setText( Integer.toString(request.getBookId()) );
 
         borrowRequestViewHolder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +91,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
         ImageView profilePic;
         TextView requestInfo;
+        TextView bookInfo;
         ImageButton accept, cancel;
 
         public BorrowRequestViewHolder(@NonNull View itemView) {
@@ -98,6 +100,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             requestInfo = itemView.findViewById(R.id.requestInfo);
             accept = itemView.findViewById(R.id.accept);
             cancel = itemView.findViewById(R.id.cancel);
+            bookInfo = itemView.findViewById(R.id.bookInfo);
         }
     }
 }
