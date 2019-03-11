@@ -13,7 +13,7 @@ public class BookNotificationTest {
     public void requestType(){
         BookNotification bookNotification = new BookNotification();
         bookNotification.setUsername("dlothian");
-        Request request = new BorrowRequest("dlothian", "daniela", "1234", 2);
+        Request request = new BorrowRequest("dlothian", "daniela", "1234", "2");
         request.setStatus("Accepted");
         bookNotification.setRequest(request);
         bookNotification.requestType();
@@ -40,7 +40,7 @@ public class BookNotificationTest {
     public void setMessage(){
         BookNotification bookNotification = new BookNotification();
         bookNotification.setUsername("dlothian");
-        Request request = new BorrowRequest("dlothian", "daniela", "1234", 2);
+        Request request = new BorrowRequest("dlothian", "daniela", "1234", "2");
         request.setStatus("Accepted");
         bookNotification.setRequest(request);
         bookNotification.requestType();

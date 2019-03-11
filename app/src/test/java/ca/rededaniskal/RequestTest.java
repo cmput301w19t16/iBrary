@@ -89,7 +89,7 @@ public class RequestTest {
     public void testISBN(){
         String ISBN = "10-5";
         BorrowRequest request = new BorrowRequest("mark", "Joe",
-                        "2", 15);
+                        "2", "15");
         request.setIsbn(ISBN);
         assertEquals(ISBN, request.getIsbn());
     }
@@ -98,7 +98,7 @@ public class RequestTest {
     public void testBookId(){
         int bookId = 5;
         BorrowRequest request = new BorrowRequest("mark", "Joe",
-                "2", 15);
+                "2", "15");
         request.setBookId(bookId);
         assertEquals(bookId, request.getBookId());
     }
