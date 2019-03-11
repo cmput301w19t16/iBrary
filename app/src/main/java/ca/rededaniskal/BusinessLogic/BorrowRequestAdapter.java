@@ -71,7 +71,9 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         final BorrowRequest request = list.get(i);
 
         borrowRequestViewHolder.requestInfo.setText( request.getSenderUserName());
-        borrowRequestViewHolder.bookInfo.setText( Integer.toString(request.getBookId()) );
+
+        borrowRequestViewHolder.bookInfo.setText( request.getBookId() );
+
 
         borrowRequestViewHolder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +107,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             public void onClick(View v) {
 //                list.remove(i);
 //                notifyDataSetChanged();
-                Log.d(TAG, "************------> Req Object: "+ list.get(i));
+//                Log.d(TAG, "************------> Req Object: "+ list.get(i));
                 //TODO: DB remove the book request to the database
                 request.setStatus("Denied");
                 updateRequestDB db = new updateRequestDB(request);
