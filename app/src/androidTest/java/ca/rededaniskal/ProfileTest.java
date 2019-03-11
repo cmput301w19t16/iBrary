@@ -79,6 +79,15 @@ public class ProfileTest extends ActivityTestRule<Main_Activity>{
     }
 
     @Test
+    public void TestAllBookRequests() {
+        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
+        solo.clickOnText("Profile");
+        solo.clickOnButton("All Book Requests");
+        solo.assertCurrentActivity("Wrong activity", View_Borrowed_Requested_Activity.class);
+
+    }
+
+    @Test
     public void TestLibrary() {
         solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
         solo.clickOnText("Profile");
@@ -86,11 +95,11 @@ public class ProfileTest extends ActivityTestRule<Main_Activity>{
         solo.assertCurrentActivity("Wrong activity", View_My_Library_Activity.class);
     }
 
-    @Test
-    public void TestLogout() {
-        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
-        solo.clickOnText("Profile");
-        solo.clickOnButton("Logout");
-        solo.assertCurrentActivity("Wrong activity", Login_Activity.class);
-    }
+//    @Test
+//    public void TestLogout() {
+//        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
+//        solo.clickOnText("Profile");
+//        solo.clickOnButton("Logout");
+//        solo.assertCurrentActivity("Wrong activity", Login_Activity.class);
+//    }
 }
