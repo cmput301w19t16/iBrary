@@ -222,7 +222,9 @@ private class AddBookDb {
         bookInstance.setBookID(success);
         Log.d(TAG, "***********---->" +bookInstance.getBookID());
 
-
+        DatabaseReference m = FirebaseDatabase.getInstance().getReference("all_books");
+        String key = m.push().getKey();
+        m.child(key).setValue(bookInstance);
 
         if (bookRef.child(success).setValue(bookInstance).isSuccessful()){
             return success;
