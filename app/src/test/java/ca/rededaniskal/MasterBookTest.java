@@ -2,6 +2,8 @@ package ca.rededaniskal;
 
 import org.junit.Test;
 
+import ca.rededaniskal.EntityClasses.Master_Book;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -9,7 +11,7 @@ public class MasterBookTest {
 
     @Test
     public void TestAddRating() {
-        MasterBook book = new MasterBook("Programming", "Jack", "978-3-16-148410-0");
+        Master_Book book = new Master_Book("Programming", "Jack", "978-3-16-148410-0");
 
         book.addRating("dteodore", 5.00);
         Double rating = book.getUserRating("dteodore");
@@ -22,7 +24,7 @@ public class MasterBookTest {
 
     @Test
     public void TestGetAvgRating() {
-        MasterBook book = new MasterBook("Programming", "Jack", "978-3-16-148410-0");
+        Master_Book book = new Master_Book("Programming", "Jack", "978-3-16-148410-0");
 
         book.addRating("dteodore", 5.00);
         book.addRating("revan", 0.00);
@@ -35,7 +37,7 @@ public class MasterBookTest {
 
     @Test
     public void TestGetUserRatings() {
-        MasterBook book = new MasterBook("Programming", "Jack", "978-3-16-148410-0");
+        Master_Book book = new Master_Book("Programming", "Jack", "978-3-16-148410-0");
 
         book.addRating("dteodore", 5.00);
         book.addRating("revan", 0.00);
@@ -49,7 +51,7 @@ public class MasterBookTest {
 
     @Test
     public void TestDeleteUserRating() {
-        MasterBook book = new MasterBook("Programming", "Jack", "978-3-16-148410-0");
+        Master_Book book = new Master_Book("Programming", "Jack", "978-3-16-148410-0");
 
         book.addRating("dteodore", 5.00);
         book.addRating("revan", 0.00);

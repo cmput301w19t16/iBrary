@@ -1,6 +1,9 @@
 package ca.rededaniskal;
 
 import org.junit.Test;
+
+import ca.rededaniskal.EntityClasses.Book;
+
 import static org.junit.Assert.*;
 
 public class BookTest {

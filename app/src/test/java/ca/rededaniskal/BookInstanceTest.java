@@ -1,10 +1,8 @@
 package ca.rededaniskal;
 
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
-import java.util.ArrayList;
+import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import static org.junit.Assert.*;
 
@@ -13,26 +11,17 @@ import static org.junit.Assert.assertTrue;
 public class BookInstanceTest {
 
     @Test
-    public void TestRequests() {
-        Request request = new Request("John", "Jack", "Friend");
+    public void TestBookID(){
+        Book_Instance book = new Book_Instance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
+        assertTrue(book.getBookID().getClass().equals(String.class));
 
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
-
-        book.addRequest(request);
-        ArrayList<Request> recievedRequest = book.getAllRequests();
-
-        assert recievedRequest.contains(request);
-
-        book.deleteRequest(request);
-
-        ArrayList<Request> allRequests = book.getAllRequests();
-
-        assertEquals(0, allRequests.size());
     }
+
+
 
     @Test
     public void TestOwner() {
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
+        Book_Instance book = new Book_Instance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
         String owner = book.getOwner();
 
@@ -42,7 +31,7 @@ public class BookInstanceTest {
     @Test
     public void TestPossessor() {
 
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
+        Book_Instance book = new Book_Instance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
         String possessor = book.getPossessor();
 
@@ -58,7 +47,7 @@ public class BookInstanceTest {
     @Test
     public void TestCondition() {
 
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
+        Book_Instance book = new Book_Instance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
         String condition = book.getCondition();
 
@@ -74,7 +63,7 @@ public class BookInstanceTest {
     @Test
     public void TestStatus() {
 
-        BookInstance book = new BookInstance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
+        Book_Instance book = new Book_Instance("Programming", "Jack", "978-3-16-148410-0", "Jill", "Jill", "Perfect!", "Available");
 
         String status = book.getStatus();
 
@@ -86,4 +75,6 @@ public class BookInstanceTest {
 
         assertNotEquals("Available", status);
     }
+
+
 }
