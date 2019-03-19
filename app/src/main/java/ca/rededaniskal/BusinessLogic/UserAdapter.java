@@ -45,6 +45,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //Set the layout
         LayoutInflater inflater = LayoutInflater.from(mctx);
         View view = inflater.inflate(R.layout.user_list_view, null);
         UserViewHolder holder = new UserViewHolder(view);
@@ -66,16 +67,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         userViewHolder.UserMutualFriends.setText(globalUser.numberMutualFriends(user).toString());// TODO: Implement global User
         //TODO: Set Profile Pic
 
-
         //If they are Friends, set the icon to the friends icon
-        if ( globalUser.isFriendsWith(user)){
+        if ( true ){
             userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_black_24dp);
         }else{
             userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_add_black_24dp);
         }
 
         //Set on click listener for the icon (in order to add friends)
-
         userViewHolder.statusIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,8 +83,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 }
             }
         });
-
-
 
         //if User clicks on another User, will start the user details Activity
         userViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

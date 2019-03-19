@@ -7,6 +7,7 @@ public class Request {
     private String status;
     private String requestId;
 
+    public Request(){}
 
     public Request(String senderUserName, String recipientUserName, String type){
         this.senderUserName = senderUserName;

@@ -40,10 +40,13 @@ public class SignUpLogic {
         return valid;
     }
 
+
     public void setValid(boolean valid) {
         this.valid = valid;
     }
 
+
+    //Validate the Phoene Field
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public String validdatePhone(){
         // check if phone is all numbers
@@ -61,6 +64,7 @@ public class SignUpLogic {
     }
 
 
+    //Validate the Username Field
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public String validateUsername() {
         // TODO: Part 5: Implement "this username is not available"
@@ -73,6 +77,7 @@ public class SignUpLogic {
     }
 
 
+    //Validate the password Field
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public String validatePassword() {
 
@@ -83,7 +88,6 @@ public class SignUpLogic {
         }
         return errorMessage;
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
@@ -101,6 +105,8 @@ public class SignUpLogic {
         return errorMessage;
     }
 
+
+    //Validate the email Field
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public String validateEmail() {
@@ -116,10 +122,10 @@ public class SignUpLogic {
         return errorMessage;
     }
 
+
+    //helper function for validating email
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public boolean isEmailValid(String email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
-
-
 }

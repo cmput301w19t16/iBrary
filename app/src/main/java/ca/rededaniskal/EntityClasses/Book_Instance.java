@@ -36,7 +36,7 @@ public class Book_Instance extends Book implements Serializable {
     }
 
     public void setBookID(String key) {
-        this.bookID = BookID.getInstance(key).getID();
+       this.bookID =key;
 
     }
 

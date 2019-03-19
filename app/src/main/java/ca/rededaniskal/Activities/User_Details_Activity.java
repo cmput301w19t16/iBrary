@@ -54,6 +54,7 @@ public class User_Details_Activity extends AppCompatActivity {
         fillData(user_received);
 
     }
+
         public void fillData(User user) {
 
         DisplayUsername = (TextView) findViewById(R.id.DisplayUserName);
@@ -93,6 +94,8 @@ public class User_Details_Activity extends AppCompatActivity {
         //DisplayFavISBN.setText(fav_ISBN);
     }
 
+
+    //Enclosed BD helper class
     public class userDetailsDB{
         private FirebaseAuth mAuth;
         private String email;
@@ -101,11 +104,6 @@ public class User_Details_Activity extends AppCompatActivity {
         private String phone;
 
         public userDetailsDB() {
-
-//            mAuth = FirebaseAuth.getInstance();
-//            FirebaseUser currentUser = mAuth.getCurrentUser();
         }
     }
-
-
 }

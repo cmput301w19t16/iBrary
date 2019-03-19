@@ -46,6 +46,10 @@ import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * This activity lets a user update their personal information.
+ */
+
 //Author: RevaN
 public class Edit_Profile_Activity extends AppCompatActivity {
     Button saveButton;
@@ -67,7 +71,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         profilePicture = findViewById(R.id.profile_image);
 
         saveButton = (Button) findViewById(R.id.saveButton);
-        editProfilePic = findViewById(R.id.editProfilePic);
+        //editProfilePic = findViewById(R.id.editProfilePic);
 
         newUsername = findViewById(R.id.new_username);
         newPhone = findViewById(R.id.new_phone);
@@ -81,26 +85,45 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: DB push changes to DB
-
+                User use = getTexts();
+                db.saveNewDetails(use);
             }
         });
 
-        editProfilePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkSelfPermission(Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA},
-                            MY_CAMERA_PERMISSION_CODE);
-                } else {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                }
-            }
-        });
+//        editProfilePic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (checkSelfPermission(Manifest.permission.CAMERA)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//                    requestPermissions(new String[]{Manifest.permission.CAMERA},
+//                            MY_CAMERA_PERMISSION_CODE);
+//                } else {
+//                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+//                }
+//            }
+//        });
     }
 
+
+    public User getTexts(){
+        Log.d(TAG, "*********----->getTexts");
+
+        EditText e = findViewById(R.id.new_email);
+        EditText p = findViewById(R.id.new_phone);
+        EditText l = findViewById(R.id.new_location);
+        EditText u = findViewById(R.id.new_username);
+        String email =  e.getText().toString();
+        String phone = p.getText().toString();
+        String location = l.getText().toString();
+        String username = u.getText().toString();
+        Log.d(TAG, "*********----->LEAVING getTexts");
+
+        User user = new User(username, email, phone, location);
+
+        return user;
+
+    }
 
     public void setTexts(String email, String phone, String location, String username){
         Log.d(TAG, "*********----->setTexts");
@@ -146,6 +169,9 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     }
 
 
+
+    // ------------------ Enclosed Database Class ------------------ //
+
     public class editUserDetailsDB{
         private FirebaseAuth mAuth;
         private String email;
@@ -155,6 +181,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         private FirebaseUser user;
         private DatabaseReference mDatabase;
         private List<User> userList;
+        private String key;
 
 
         public editUserDetailsDB() {
@@ -171,7 +198,10 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         }
 
 
-        private void saveNewDetails(){
+        private void saveNewDetails(User user){
+            mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+            mDatabase.child(key).setValue(user);
+
         }
 
 
@@ -194,7 +224,10 @@ public class Edit_Profile_Activity extends AppCompatActivity {
                     Log.d(TAG, "*********----->exists");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         //Log.d(TAG, "*********----->"+snapshot.getValue());
+                        key = snapshot.getKey();
+                        Log.d(TAG, "*********----->ID: "+key);
                         User user = snapshot.getValue(User.class);
+
                         setTexts(user.getEmail(), user.getPhoneNumber(), user.getLocation(), user.getUserName());
                     }
                 }

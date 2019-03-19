@@ -29,6 +29,25 @@ import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.EntityClasses.Rating_Post;
 import ca.rededaniskal.R;
 
+/**
+ * This fragment is to view the activities of your friends. It ties very closely with our "wow"
+ * factor, since it aims to make viewing forums and finding new books more easy.
+ *
+ * This fragment shows posts with updates from your friends, such as adding books, reviewing books,
+ * as well as showing posts from forums you are subscribed to.
+ *
+ * Clicking on a post takes you to a new screen which lets you see the full post, as well as
+ * see the comments and comment on the post.
+ *
+ * Todo for part 5
+ * Make it so that posts load from the database.
+ * Add forum posts.
+ *
+ * What we have so far:
+ * Shows list of posts, which can be clicked on to go to new activity
+ * List updates when the user pulls down at the top of the list.
+ */
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,7 +96,10 @@ public class Post_Feed_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-            }
+    }
+
+    //This function gets the recyclerview and refreshlayout, and fills it with data.
+    //Todo: make this stop using dummy data and instead get it from the database.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,21 +114,19 @@ public class Post_Feed_Fragment extends Fragment {
         final RecyclerView recyclerView = view.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
         final ArrayList<Post> postList = new ArrayList<Post>();
-        postList.add(new Text_Post("This is a text post", "User1", "Placeholder ISBN1"));
-        postList.add(new Text_Post("This is a text post", "User2", "Placeholder ISBN2"));
+        postList.add(new Text_Post("Loved this Book!", "Nick", "Happy Potter"));
+        postList.add(new Text_Post("Can I borrow this from anyone?", "Revan", "Oxford English Dictionary"));
 
-        postList.add(new Rating_Post("This is a Rating_Post", "User6", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User7", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User8", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User9", "Placeholder ISBN", 4.0));
+        postList.add(new Rating_Post("Very Good", "Revan", "Happy Potter", 5.0));
+        postList.add(new Rating_Post("Enjoyed", "Skye", "Happy Potter", 4.0));
 
-        postList.add(new Text_Post("This is a text post", "User3", "Placeholder ISBN3"));
-        postList.add(new Text_Post("This is a text post", "User4", "Placeholder ISBN4"));
-        postList.add(new Text_Post("This is a text post", "User5", "Placeholder ISBN5"));
 
-        postList.add(new Rating_Post("This is a Rating_Post", "User10", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User11", "Placeholder ISBN", 4.0));
-        postList.add(new Rating_Post("This is a Rating_Post", "User12", "Placeholder ISBN", 4.0));
+        postList.add(new Text_Post("Looking forward to reading this", "Revan", "Happy Potter 2"));
+        postList.add(new Text_Post("Illuminating", "Skye", "Happy Potter"));
+        postList.add(new Text_Post("Luminous", "Skye", "Happy Potter2"));
+
+        postList.add(new Rating_Post("Good read :) ", "Alex", "The Hobbit", 3.0));
+        postList.add(new Rating_Post("Excellent!", "Daniela", "BLAW", 5.0));
 
         for (Post p: postList){
             p.setID("Some post id");
@@ -135,38 +155,4 @@ public class Post_Feed_Fragment extends Fragment {
 
         return swipeContainer;
     }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    /**
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    } */
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     *//**
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 }

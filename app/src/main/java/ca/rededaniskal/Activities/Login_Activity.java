@@ -29,9 +29,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ca.rededaniskal.BusinessLogic.Log_In_Logic;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
+
+/**
+ * This lets the user enter their login information and log in, or lets them go to the register
+ * activity.
+ */
 
 public class Login_Activity extends AppCompatActivity {
     private Button loginButton;
@@ -46,6 +52,8 @@ public class Login_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         //Set the buttons and Edit Texts
         loginButton = (Button) findViewById(R.id.button);
@@ -106,6 +114,7 @@ public class Login_Activity extends AppCompatActivity {
 
 
     public void nextActivity(){
+
         startActivity(new Intent(Login_Activity.this,Main_Activity.class));
     }
 

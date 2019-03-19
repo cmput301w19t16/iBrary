@@ -79,7 +79,7 @@ public class RequestTest {
 
     @Test
     public void testRequestId(){
-        int requestId = 1;
+        String requestId = "1";
         Request request = new Friend_Request("mark", "Joe");
         request.setRequestId(requestId);
         assertEquals(requestId, request.getRequestId());
@@ -89,16 +89,16 @@ public class RequestTest {
     public void testISBN(){
         String ISBN = "10-5";
         BorrowRequest request = new BorrowRequest("mark", "Joe",
-                        "2", 15);
+                        "2", "15");
         request.setIsbn(ISBN);
         assertEquals(ISBN, request.getIsbn());
     }
 
     @Test
     public void testBookId(){
-        int bookId = 5;
+        String bookId = "5";
         BorrowRequest request = new BorrowRequest("mark", "Joe",
-                "2", 15);
+                "2", "15");
         request.setBookId(bookId);
         assertEquals(bookId, request.getBookId());
     }

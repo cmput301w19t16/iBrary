@@ -2,7 +2,7 @@
  * Activity
  *
  * PURPOSE:
- * View your friends
+ * View your all your friends
  *
  * ISSUES:
  * Needs DB support

@@ -2,6 +2,7 @@
  * Adapter
  *
  * PURPOSE:
+ * Used for the main activity to keep track of fragments
  *
  * ISSUES:
  */
@@ -23,6 +24,7 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
+
     public void addFragment(Fragment fragment, String title){
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
@@ -33,14 +35,15 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
         return mFragmentTitleList.get(position);
     }
 
+
     @Override
     public Fragment getItem(int position){
         return mFragmentList.get(position);
     }
 
+
     @Override
     public int getCount(){
         return mFragmentList.size();
     }
-
 }

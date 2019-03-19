@@ -47,6 +47,7 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
     @NonNull
     @Override
     public AllRequestsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //Set the layout of each card
         LayoutInflater inflater = LayoutInflater.from(mctx);
         View view = inflater.inflate(R.layout.request_card, null);
         AllRequestsViewHolder holder = new AllRequestsViewHolder(view);
@@ -56,10 +57,13 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AllRequestsViewHolder allRequestsViewHolder, final int i) {
+        //Bind an an element of the list to the cardview
         final Request request = list.get(i);
 
+        allRequestsViewHolder.bookInfo.setText(request.getSenderUserName());
         allRequestsViewHolder.requestInfo.setText(request.getSenderUserName());
 
+        //Set onClick listeners
         allRequestsViewHolder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +76,6 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
             @Override
             public void onClick(View v) {
                 //TODO: DB remove the book request to the database
-
             }
         });
     }
@@ -82,13 +85,13 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
         return list.size();
     }
 
-    /**
+    /*
      * The type Entry view holder, the object to actually hold an entry
      */
     class AllRequestsViewHolder extends RecyclerView.ViewHolder {
 
         ImageView bookCover;
-        TextView requestInfo;
+        TextView requestInfo, bookInfo;
         ImageButton accept, cancel;
 
         public AllRequestsViewHolder(@NonNull View itemView) {
@@ -97,6 +100,7 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
             requestInfo = itemView.findViewById(R.id.requestInfo);
             accept = itemView.findViewById(R.id.accept);
             cancel = itemView.findViewById(R.id.cancel);
+            bookInfo = itemView.findViewById(R.id.bookInfo);
         }
     }
 }
