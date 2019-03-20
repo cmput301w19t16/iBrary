@@ -32,6 +32,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
@@ -216,7 +222,46 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             String ISBN = data.getStringExtra("ISBN");
             addISBN.setText(ISBN);
+            getOtherBookDetails(ISBN);
         }
+    }
+
+    private void getOtherBookDetails(String ISBN){
+
+        String isbnURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:".concat(ISBN);
+        URL url = new URL(isbnURL);
+
+        HttpURLConnection response = (HttpURLConnection)isbnURL.openConnection();
+        response.setRequestMethod("GET");
+        response.connect();
+
+        BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(url.openStream()));
+
+        char[] buffer = new char[1024];
+
+        String jsonString = new String();
+
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            sb.append(line+"\n");
+        }
+        bufferedReader.close();
+
+        jsonString = sb.toString();
+
+        //System.out.println("JSON: " + jsonString);
+        response.disconnect();
+
+        return new JSONObject(jsonString);
+
+/*
+        InputStream inputStream = response.getInputStream();
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String title = bufferedReader["volumeInfo"]["title"];
+        String title = bufferedReader["volumeInfo"]["authors"];
+        response.disconnect();*/
     }
 
 //-------------------EMBEDDED DATABASE CLASS----------------//
