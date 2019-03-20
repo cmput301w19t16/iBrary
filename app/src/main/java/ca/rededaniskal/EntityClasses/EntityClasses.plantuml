@@ -1,0 +1,373 @@
+@startuml
+
+title __ENTITYCLASSES's Class Diagram__\n
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Book {
+          - title : String
+          - author : String
+          - isbn : String
+          - id : String
+          + Book()
+          + Book()
+          + getId()
+          + setId()
+          + getTitle()
+          + setTitle()
+          + getAuthor()
+          + setAuthor()
+          + getISBN()
+          + setISBN()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class BookID {
+          ~ ID : String
+          {static} - bookID : BookID
+          # BookID()
+          {static} + getInstance()
+          + getID()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      abstract class Book_Exchange {
+          - location : String
+          - time : Date
+          - owner : String
+          - borrower : String
+          - isbn : String
+          - bookid : int
+          + Book_Exchange()
+          + getLocation()
+          + setLocation()
+          + getTime()
+          + setTime()
+          + getOwner()
+          + setOwner()
+          + getBorrower()
+          + setBorrower()
+          + getIsbn()
+          + setIsbn()
+          + getBookid()
+          + setBookid()
+          + scanISBN()
+          {abstract} + updateBookStatus()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Book_Instance {
+          - owner : String
+          - possessor : String
+          - condition : String
+          - bookID : String
+          - status : String
+          + Book_Instance()
+          + Book_Instance()
+          + setBookID()
+          + getBookID()
+          + getOwner()
+          + getPossessor()
+          + setPossessor()
+          + getCondition()
+          + setCondition()
+          + setStatus()
+          + getStatus()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Book_List {
+          - books : ArrayList<Book_Instance>
+          + Book_List()
+          + addBook()
+          + removeBook()
+          + getBookByIndex()
+          + getBooks()
+          + getBooksByStatus()
+          + size()
+          + clear()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class BorrowRequest {
+          - isbn : String
+          - bookId : String
+          + BorrowRequest()
+          + BorrowRequest()
+          + getIsbn()
+          + setIsbn()
+          + getBookId()
+          + setBookId()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Check_In {
+          + Check_In()
+          + updateBookStatus()
+          + addBookToBorrowed()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Check_Out {
+          + Check_Out()
+          + updateBookStatus()
+          + removeBookFromBorrowed()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Forum {
+          - posts : ArrayList<Post>
+          - forumID : String
+          - userName : String
+          + Forum()
+          + addPost()
+          + hasPost()
+          + deletePost()
+          + getForumID()
+          + getUserName()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Friend_Request {
+          + Friend_Request()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Master_Book {
+          - avgRating : Double
+          - totalNumRating : Integer
+          - sumRatings : Double
+          - mapUsersRating : HashMap<String, Double>
+          + Master_Book()
+          + addRating()
+          + getAvgRating()
+          + getUserRating()
+          + deleteUserRating()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Notification {
+          - timestamp : Date
+          - username : String
+          - requestID : String
+          - seen : boolean
+          - requestType : String
+          + Notification()
+          + getTimestamp()
+          + setTimestamp()
+          + getRequestType()
+          + setRequestType()
+          + getUsername()
+          + setUsername()
+          + getRequest()
+          + setRequest()
+          + getSeen()
+          + setSeen()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Post {
+          - message : String
+          - timestamp : Date
+          - userName : String
+          - ISBN : String
+          - postID : String
+          - type : String
+          + Post()
+          + getISBN()
+          + getType()
+          + getMessage()
+          + setMessage()
+          + setPostID()
+          + getTimestamp()
+          + getUserName()
+          + setUserName()
+          + setID()
+          + getID()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Rating_Post {
+          - rating : double
+          + Rating_Post()
+          + getRating()
+          + setRating()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Request {
+          - senderUserName : String
+          - recipientUserName : String
+          - requestType : String
+          - status : String
+          - requestId : String
+          + Request()
+          + Request()
+          + getSenderUserName()
+          + setSenderUserName()
+          + getRecipientUserName()
+          + setRecipientUserName()
+          + getRequestType()
+          + setRequestType()
+          + getStatus()
+          + setStatus()
+          + accept()
+          + deny()
+          + cancel()
+          + getRequestId()
+          + setRequestId()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class Text_Post {
+          + Text_Post()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.EntityClasses {
+      class User {
+          - userName : String
+          - email : String
+          - phoneNumber : String
+          - location : String
+          - profilePic : String
+          - friends : ArrayList<User>
+          - blockedUsers : ArrayList<User>
+          + User()
+          + User()
+          + User()
+          + getFavBook()
+          + setFavBook()
+          + getProfilePic()
+          + setProfilePic()
+          + getRequestedBooks()
+          + setRequestedBooks()
+          + getUserName()
+          + setUserName()
+          + getEmail()
+          + setEmail()
+          + getPhoneNumber()
+          + setPhoneNumber()
+          + getLocation()
+          + setLocation()
+          + getFriends()
+          + setFriends()
+          + getOwnedBooks()
+          + setOwnedBooks()
+          + getBorrowedBooks()
+          + setBorrowedBooks()
+          + getBlockedUsers()
+          + setBlockedUsers()
+          + addRequestedBook()
+          + deleteRequestedBook()
+          + addOwnedBook()
+          + deleteOwnedBook()
+          + removeAllOwnedBooks()
+          + addBorrowedBook()
+          + deleteBorrowedBook()
+          + addFriend()
+          + removeFriend()
+          + removeAllFriends()
+          + addBlockedUser()
+          + removeBlockedUser()
+          + deleteProfile()
+          + allBooksReturned()
+          + numberMutualFriends()
+          + isFriendsWith()
+      }
+    }
+  }
+  
+
+  Book -up-|> Serializable
+  Book_Instance -up-|> Serializable
+  Book_Instance -up-|> Book
+  Book_List -up-|> Serializable
+  BorrowRequest -up-|> Request
+  Check_In -up-|> Book_Exchange
+  Check_Out -up-|> Book_Exchange
+  Forum o-- Post : newPost
+  Forum o-- Master_Book : Book
+  Friend_Request -up-|> Request
+  Master_Book -up-|> Serializable
+  Master_Book -up-|> Book
+  Rating_Post -up-|> Post
+  Text_Post -up-|> Post
+  User -up-|> Serializable
+  User o-- Book_List : ownedBooks
+  User o-- Book_List : borrowedBooks
+  User o-- Book_List : requestedBooks
+  User o-- Master_Book : favBook
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
