@@ -32,11 +32,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
@@ -246,6 +249,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         while ((line = bufferedReader.readLine()) != null) {
             sb.append(line+"\n");
         }
+
         bufferedReader.close();
 
         jsonString = sb.toString();
@@ -253,15 +257,11 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         //System.out.println("JSON: " + jsonString);
         response.disconnect();
 
-        return new JSONObject(jsonString);
+        JSONObject jObj = new JSONObject(jsonString);
+        JSONObject subObj = jObj.getJSONObject("items");
+        String title = subObj.getString("title");
+        ArrayList<String> author = subObj.getString("author");
 
-/*
-        InputStream inputStream = response.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String title = bufferedReader["volumeInfo"]["title"];
-        String title = bufferedReader["volumeInfo"]["authors"];
-        response.disconnect();*/
     }
 
 //-------------------EMBEDDED DATABASE CLASS----------------//
