@@ -8,13 +8,14 @@
  *
  */
 package ca.rededaniskal.Activities;
-//author : Skye, Revan
+//author : Skye, Revan, Daniela
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -31,10 +32,13 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.loopj.android.http.HttpGet;
 
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -50,6 +54,8 @@ import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 
 
 import ca.rededaniskal.R;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 /**
  * This activity lets a user input information about a book, and then adds it to their library
@@ -229,28 +235,64 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         }
     }
 
-    private void getOtherBookDetails(String ISBN){
+    private class getOtherBookDetails(String ISBN) extends AsyncTask<String, Void, String> {
 
-        String isbnURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:".concat(ISBN);
-        URL url = new URL(isbnURL);
 
-        HttpURLConnection response = (HttpURLConnection)isbnURL.openConnection();
-        response.setRequestMethod("GET");
-        response.connect();
 
-        BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(url.openStream()));
+        @Override
+        protected String doInBackground(String bookURLs) {
+            StringBuilder sb = new StringBuilder();
+            for (String bookSearchURL : bookURLs) {
+                HttpClient bookClient = new DefaultHttpClient();
+            }
+            try {
+                HttpGet bookGet = new HttpGet(bookSearchURL);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
 
-        char[] buffer = new char[1024];
+        }
+
+
+        String isbnURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN + "&key=your_key";
+        URL url = new URL("http://www.android.com/");
+
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        try {
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            String inputLine;
+            while ((inputLine = bin.readLine()) != null) {
+                sb.append(inputLine);
+            }
+        } finally {
+                urlConnection.disconnect();
+            }
+        }
+
+
+
+
+
+
+
+        try
+        {
+            URL url = new URL(isbnURL);
+            HttpURLConnection response = (HttpURLConnection)isbnURL.openConnection();
+            response.setRequestMethod("GET");
+            response.connect();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException("Url Exception" + e);
+        }
+
+        //https://stackoverflow.com/questions/42652810/how-to-fetch-data-from-an-url-in-android
 
         String jsonString = new String();
 
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            sb.append(line+"\n");
-        }
-
-        bufferedReader.close();
 
         jsonString = sb.toString();
 
@@ -263,6 +305,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         ArrayList<String> author = subObj.getString("author");
 
     }
+
 
 //-------------------EMBEDDED DATABASE CLASS----------------//
     //TODO: Improve encapsulation?
