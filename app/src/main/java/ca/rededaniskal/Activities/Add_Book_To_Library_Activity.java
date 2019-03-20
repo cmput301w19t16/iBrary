@@ -48,14 +48,13 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
+import ca.rededaniskal.BusinessLogic.ConnectNetworkLogic;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 
 
 import ca.rededaniskal.R;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 /**
  * This activity lets a user input information about a book, and then adds it to their library
@@ -231,11 +230,11 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             String ISBN = data.getStringExtra("ISBN");
             addISBN.setText(ISBN);
-            getOtherBookDetails(ISBN);
+            ConnectNetworkLogic.doInBackground(ISBN);
         }
     }
 
-    private class getOtherBookDetails(String ISBN) extends AsyncTask<String, Void, String> {
+    /*private class getOtherBookDetails(String ISBN) extends AsyncTask<String, Void, String> {
 
 
 
@@ -304,7 +303,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         String title = subObj.getString("title");
         ArrayList<String> author = subObj.getString("author");
 
-    }
+    }*/
 
 
 //-------------------EMBEDDED DATABASE CLASS----------------//
