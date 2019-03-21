@@ -12,10 +12,12 @@ package ca.rededaniskal.Activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -32,23 +35,11 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.loopj.android.http.HttpGet;
-
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
-import ca.rededaniskal.BusinessLogic.ConnectNetworkLogic;
+import ca.rededaniskal.BusinessLogic.FetchBook;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -222,6 +213,42 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         }
     }
 
+
+    public void getMoreBookDetails(String ISBN) {
+        // Get the search string from the input field.
+        //String queryString = mBookInput.getText().toString();
+
+        // Hide the keyboard when the button is pushed.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
+        // Check the status of the network connection.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
+        if (networkInfo != null && networkInfo.isConnected() && ISBN != null) {
+            new FetchBook(addTitle, addAuthor).execute(ISBN);
+        }
+        // Otherwise update the TextView to tell the user there is no connection or no search term.
+        /*else {
+            if (queryString.length() == 0) {
+                mAuthorText.setText("");
+                mTitleText.setText(R.string.no_search_term);
+            } else {
+                mAuthorText.setText("");
+                mTitleText.setText(R.string.no_network);
+            }
+        }*/
+    }
+
+
+
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -230,80 +257,11 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             String ISBN = data.getStringExtra("ISBN");
             addISBN.setText(ISBN);
-            ConnectNetworkLogic.doInBackground(ISBN);
+            getMoreBookDetails(ISBN);
         }
     }
 
-    /*private class getOtherBookDetails(String ISBN) extends AsyncTask<String, Void, String> {
 
-
-
-        @Override
-        protected String doInBackground(String bookURLs) {
-            StringBuilder sb = new StringBuilder();
-            for (String bookSearchURL : bookURLs) {
-                HttpClient bookClient = new DefaultHttpClient();
-            }
-            try {
-                HttpGet bookGet = new HttpGet(bookSearchURL);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-
-
-        String isbnURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN + "&key=your_key";
-        URL url = new URL("http://www.android.com/");
-
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        try {
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-            String inputLine;
-            while ((inputLine = bin.readLine()) != null) {
-                sb.append(inputLine);
-            }
-        } finally {
-                urlConnection.disconnect();
-            }
-        }
-
-
-
-
-
-
-
-        try
-        {
-            URL url = new URL(isbnURL);
-            HttpURLConnection response = (HttpURLConnection)isbnURL.openConnection();
-            response.setRequestMethod("GET");
-            response.connect();
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException("Url Exception" + e);
-        }
-
-        //https://stackoverflow.com/questions/42652810/how-to-fetch-data-from-an-url-in-android
-
-        String jsonString = new String();
-
-
-        jsonString = sb.toString();
-
-        //System.out.println("JSON: " + jsonString);
-        response.disconnect();
-
-        JSONObject jObj = new JSONObject(jsonString);
-        JSONObject subObj = jObj.getJSONObject("items");
-        String title = subObj.getString("title");
-        ArrayList<String> author = subObj.getString("author");
-
-    }*/
 
 
 //-------------------EMBEDDED DATABASE CLASS----------------//

@@ -1,4 +1,4 @@
-//https://github.com/google-developer-training/android-fundamentals/blob/master/WhoWroteIt/app/src/main/java/com/example/android/whowroteit/FetchBook.java
+//Modified by based off https://github.com/google-developer-training/android-fundamentals/blob/master/WhoWroteIt/app/src/main/java/com/example/android/whowroteit/FetchBook.java
 /*
  * Copyright (C) 2016 Google Inc.
  *
@@ -46,10 +46,9 @@ public class FetchBook extends AsyncTask<String,Void,String>{
     private static final String LOG_TAG = FetchBook.class.getSimpleName();
 
     // Constructor providing a reference to the views in MainActivity
-    public FetchBook(TextView titleText, TextView authorText, EditText bookInput) {
+    public FetchBook(TextView titleText, TextView authorText) {
         this.mTitleText = titleText;
         this.mAuthorText = authorText;
-        this.mBookInput = bookInput;
     }
 
 
