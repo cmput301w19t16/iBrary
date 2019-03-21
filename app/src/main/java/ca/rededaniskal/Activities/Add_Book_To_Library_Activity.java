@@ -214,7 +214,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     }
 
 
-    public void getMoreBookDetails(View view, String ISBN) {
+    public void getMoreBookDetails(String ISBN) {
         // Get the search string from the input field.
         //String queryString = mBookInput.getText().toString();
 
@@ -231,7 +231,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && ISBN != null) {
-            new FetchBook(addTitle, addAuthor).execute(ISBN);
+            new FetchBook(ISBN).execute();
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         /*else {
@@ -253,7 +253,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             String ISBN = data.getStringExtra("ISBN");
             addISBN.setText(ISBN);
-            getMoreBookDetails(, ISBN);
+            getMoreBookDetails(ISBN);
         }
     }
 

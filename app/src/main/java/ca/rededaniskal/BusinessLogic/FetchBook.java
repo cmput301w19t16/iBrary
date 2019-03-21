@@ -42,14 +42,16 @@ public class FetchBook extends AsyncTask<String,Void,String>{
     private EditText mBookInput;
     private TextView mTitleText;
     private TextView mAuthorText;
+    private String ISBN;
 
     // Class name for Log tag
     private static final String LOG_TAG = FetchBook.class.getSimpleName();
 
     // Constructor providing a reference to the views in MainActivity
-    public FetchBook(TextView titleText, TextView authorText) {
-        this.mTitleText = titleText;
-        this.mAuthorText = authorText;
+    public FetchBook(String ISBN) {
+        this.ISBN = ISBN;
+        //this.mTitleText = titleText;
+        //this.mAuthorText = authorText;
     }
 
 
@@ -78,14 +80,16 @@ public class FetchBook extends AsyncTask<String,Void,String>{
             final String BOOK_BASE_URL =  "https://www.googleapis.com/books/v1/volumes?";
 
             final String QUERY_PARAM = "q"; // Parameter for the search string.
-            final String MAX_RESULTS = "maxResults"; // Parameter that limits search results.
-            final String PRINT_TYPE = "printType"; // Parameter to filter by print type.
+            //final String MAX_RESULTS = "maxResults"; // Parameter that limits search results.
+            //final String PRINT_TYPE = "printType"; // Parameter to filter by print type.
+            final String givenISBN = ISBN;
 
             // Build up your query URI, limiting results to 10 items and printed books.
             Uri builtURI = Uri.parse(BOOK_BASE_URL).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, queryString)
-                    .appendQueryParameter(MAX_RESULTS, "10")
-                    .appendQueryParameter(PRINT_TYPE, "books")
+                    //.appendQueryParameter(MAX_RESULTS, "10")
+                    //.appendQueryParameter(PRINT_TYPE, "books")
+                    .appendQueryParameter(givenISBN, queryString)
                     .build();
 
             URL requestURL = new URL(builtURI.toString());
