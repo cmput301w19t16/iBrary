@@ -30,6 +30,7 @@ package ca.rededaniskal.BusinessLogic;
         import java.io.InputStreamReader;
         import java.net.HttpURLConnection;
         import java.net.URL;
+        import ca.rededaniskal.R;
 
 /**
  * AsyncTask implementation that opens a network connection and
@@ -184,18 +185,17 @@ public class FetchBook extends AsyncTask<String,Void,String>{
             if (title != null && authors != null){
                 mTitleText.setText(title);
                 mAuthorText.setText(authors);
-                mBookInput.setText("");
-            } else {
+            } /*else {
                 // If none are found, update the UI to show failed results.
                 mTitleText.setText(R.string.no_results);
                 mAuthorText.setText("");
-            }
+            }*/
 
         } catch (Exception e){
             // If onPostExecute does not receive a proper JSON string,
             // update the UI to show failed results.
-            mTitleText.setText(R.string.no_results);
-            mAuthorText.setText("");
+           /* mTitleText.setText(R.string.no_results);
+            mAuthorText.setText("");*/
             e.printStackTrace();
         }
     }
