@@ -231,7 +231,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && ISBN != null) {
-            new FetchBook(ISBN).execute();
+            new FetchBook(addTitle, addAuthor, ISBN).execute();
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         /*else {

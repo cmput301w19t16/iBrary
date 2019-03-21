@@ -48,10 +48,10 @@ public class FetchBook extends AsyncTask<String,Void,String>{
     private static final String LOG_TAG = FetchBook.class.getSimpleName();
 
     // Constructor providing a reference to the views in MainActivity
-    public FetchBook(String ISBN) {
+    public FetchBook(TextView titleText,TextView authorText, String ISBN) {
         this.ISBN = ISBN;
-        //this.mTitleText = titleText;
-        //this.mAuthorText = authorText;
+        this.mTitleText = titleText;
+        this.mAuthorText = authorText;
     }
 
 
