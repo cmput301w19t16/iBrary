@@ -9,6 +9,7 @@ public class User implements Serializable {
     private String phoneNumber;
     private String location;
     private String profilePic;
+    private String UID;
     private ArrayList<User> friends;
     private Book_List ownedBooks;
     private Book_List borrowedBooks; // Includes accepted
@@ -171,6 +172,15 @@ public class User implements Serializable {
 
     public void deleteBorrowedBook(Book_Instance deleteBook){
         borrowedBooks.removeBook(deleteBook);
+    }
+
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public void addFriend(User newFriend){
