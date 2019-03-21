@@ -58,10 +58,11 @@ public class FetchBook extends Activity {
         this.ISBN = ISBN;
         this.mTitleText = titleText;
         this.mAuthorText = authorText;
-        getMoreBookDetails(ISBN);
     }
 
-    public void getMoreBookDetails(String ISBN) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
         // Get the search string from the input field.
         //String queryString = mBookInput.getText().toString();
 
@@ -103,6 +104,7 @@ public class FetchBook extends Activity {
             }
         }*/
     }
+
     private String createURL(String ISBN){
         return "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN;
     }

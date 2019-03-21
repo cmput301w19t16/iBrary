@@ -92,8 +92,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
                 startActivityForResult(intent, 1);
-                new FetchBook(addTitle, addAuthor, isbn);
-                addISBN.setText(isbn);
             }
         });
 
@@ -208,6 +206,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             isbn = data.getStringExtra("ISBN");
+            new FetchBook(addTitle, addAuthor, isbn);
+            addISBN.setText(isbn);
         }
     }
 
