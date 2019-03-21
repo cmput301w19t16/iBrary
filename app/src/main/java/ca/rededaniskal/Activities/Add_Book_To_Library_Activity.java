@@ -214,7 +214,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     }
 
 
-    public void getMoreBookDetails(String ISBN) {
+    public void getMoreBookDetails(View view, String ISBN) {
         // Get the search string from the input field.
         //String queryString = mBookInput.getText().toString();
 
@@ -245,10 +245,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         }*/
     }
 
-
-
-
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -257,7 +253,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             String ISBN = data.getStringExtra("ISBN");
             addISBN.setText(ISBN);
-            getMoreBookDetails(ISBN);
+            getMoreBookDetails(, ISBN);
         }
     }
 
