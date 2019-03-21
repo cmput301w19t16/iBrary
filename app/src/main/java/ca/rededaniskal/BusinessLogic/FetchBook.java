@@ -16,11 +16,13 @@
  */
 package ca.rededaniskal.BusinessLogic;
 
+        import android.app.Activity;
         import android.content.Context;
         import android.net.ConnectivityManager;
         import android.net.NetworkInfo;
         import android.net.Uri;
         import android.os.AsyncTask;
+        import android.os.Bundle;
         import android.os.IBinder;
         import android.view.View;
         import android.view.inputmethod.InputMethodManager;
@@ -42,7 +44,7 @@ package ca.rededaniskal.BusinessLogic;
  * AsyncTask implementation that opens a network connection and
  * query's the Book Service API.
  */
-public class FetchBook extends AsyncTask<String,Void,String>{
+public class FetchBook extends Activity {
 
     // Variables for the results TextViews
     private TextView mTitleText;
@@ -111,153 +113,156 @@ public class FetchBook extends AsyncTask<String,Void,String>{
     // Constructor providing a reference to the views in MainActivity
 
 
-
-    /**
-     * Makes the Books API call off of the UI thread.
-     *
-     * @param params String array containing the search data.
-     * @return Returns the JSON string from the Books API or
-     *         null if the connection failed.
-     */
-    @Override
-    protected String doInBackground(String... params) {
-
-        // Get the search string
-        //String queryString = params[0];
+    private class MyTask extends AsyncTask<String,Void,String> {
 
 
-        // Set up variables for the try block that need to be closed in the finally block.
-        HttpURLConnection urlConnection = null;
-        BufferedReader reader = null;
-        String bookJSONString = null;
+        /**
+         * Makes the Books API call off of the UI thread.
+         *
+         * @param params String array containing the search data.
+         * @return Returns the JSON string from the Books API or
+         * null if the connection failed.
+         */
+        @Override
+        protected String doInBackground(String... params) {
 
-        // Attempt to query the Books API.
-        try {
-            // Base URI for the Books API.
-            final String BOOK_BASE_URL =  "https://www.googleapis.com/books/v1/volumes?";
+            // Get the search string
+            //String queryString = params[0];
 
-            final String QUERY_PARAM = "q"; // Parameter for the search string.
-            //final String MAX_RESULTS = "maxResults"; // Parameter that limits search results.
-            //final String PRINT_TYPE = "printType"; // Parameter to filter by print type.
-            final String givenISBN = ISBN;
 
-            // Build up your query URI, limiting results to 10 items and printed books.
-            Uri builtURI = Uri.parse(BOOK_BASE_URL).buildUpon()
-                    .appendQueryParameter(QUERY_PARAM, queryString)
-                    //.appendQueryParameter(MAX_RESULTS, "10")
-                    //.appendQueryParameter(PRINT_TYPE, "books")
-                    .appendQueryParameter(givenISBN, queryString)
-                    .build();
+            // Set up variables for the try block that need to be closed in the finally block.
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+            String bookJSONString = null;
 
-            URL requestURL = new URL(builtURI.toString());
+            // Attempt to query the Books API.
+            try {
+                // Base URI for the Books API.
+                final String BOOK_BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
 
-            // Open the network connection.
-            urlConnection = (HttpURLConnection) requestURL.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
+                final String QUERY_PARAM = "q"; // Parameter for the search string.
+                //final String MAX_RESULTS = "maxResults"; // Parameter that limits search results.
+                //final String PRINT_TYPE = "printType"; // Parameter to filter by print type.
+                final String givenISBN = ISBN;
 
-            // Get the InputStream.
-            InputStream inputStream = urlConnection.getInputStream();
+                // Build up your query URI, limiting results to 10 items and printed books.
+                Uri builtURI = Uri.parse(BOOK_BASE_URL).buildUpon()
+                        .appendQueryParameter(QUERY_PARAM, queryString)
+                        //.appendQueryParameter(MAX_RESULTS, "10")
+                        //.appendQueryParameter(PRINT_TYPE, "books")
+                        .appendQueryParameter(givenISBN, queryString)
+                        .build();
 
-            // Read the response string into a StringBuilder.
-            StringBuilder builder = new StringBuilder();
+                URL requestURL = new URL(builtURI.toString());
 
-            reader = new BufferedReader(new InputStreamReader(inputStream));
+                // Open the network connection.
+                urlConnection = (HttpURLConnection) requestURL.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                // but it does make debugging a *lot* easier if you print out the completed buffer for debugging.
-                builder.append(line + "\n");
-            }
+                // Get the InputStream.
+                InputStream inputStream = urlConnection.getInputStream();
 
-            if (builder.length() == 0) {
-                // Stream was empty.  No point in parsing.
-                // return null;
-                return null;
-            }
-            bookJSONString = builder.toString();
+                // Read the response string into a StringBuilder.
+                StringBuilder builder = new StringBuilder();
 
-            // Catch errors.
-        } catch (IOException e) {
-            e.printStackTrace();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            // Close the connections.
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                    // but it does make debugging a *lot* easier if you print out the completed buffer for debugging.
+                    builder.append(line + "\n");
                 }
 
+                if (builder.length() == 0) {
+                    // Stream was empty.  No point in parsing.
+                    // return null;
+                    return null;
+                }
+                bookJSONString = builder.toString();
+
+                // Catch errors.
+            } catch (IOException e) {
+                e.printStackTrace();
+
+                // Close the connections.
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
+
+            // Return the raw response.
+            return bookJSONString;
         }
 
-        // Return the raw response.
-        return bookJSONString;
-    }
+        /**
+         * Handles the results on the UI thread. Gets the information from
+         * the JSON and updates the Views.
+         *
+         * @param s Result from the doInBackground method containing the raw JSON response,
+         *          or null if it failed.
+         */
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                // Convert the response into a JSON object.
+                JSONObject jsonObject = new JSONObject(s);
+                // Get the JSONArray of book items.
+                JSONArray itemsArray = jsonObject.getJSONArray("items");
 
-    /**
-     * Handles the results on the UI thread. Gets the information from
-     * the JSON and updates the Views.
-     *
-     * @param s Result from the doInBackground method containing the raw JSON response,
-     *          or null if it failed.
-     */
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        try {
-            // Convert the response into a JSON object.
-            JSONObject jsonObject = new JSONObject(s);
-            // Get the JSONArray of book items.
-            JSONArray itemsArray = jsonObject.getJSONArray("items");
+                // Initialize iterator and results fields.
+                int i = 0;
+                String title = null;
+                String authors = null;
 
-            // Initialize iterator and results fields.
-            int i = 0;
-            String title = null;
-            String authors = null;
+                // Look for results in the items array, exiting when both the title and author
+                // are found or when all items have been checked.
+                while (i < itemsArray.length() || (authors == null && title == null)) {
+                    // Get the current item information.
+                    JSONObject book = itemsArray.getJSONObject(i);
+                    JSONObject volumeInfo = book.getJSONObject("volumeInfo");
 
-            // Look for results in the items array, exiting when both the title and author
-            // are found or when all items have been checked.
-            while (i < itemsArray.length() || (authors == null && title == null)) {
-                // Get the current item information.
-                JSONObject book = itemsArray.getJSONObject(i);
-                JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+                    // Try to get the author and title from the current item,
+                    // catch if either field is empty and move on.
+                    try {
+                        title = volumeInfo.getString("title");
+                        authors = volumeInfo.getString("authors");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                // Try to get the author and title from the current item,
-                // catch if either field is empty and move on.
-                try {
-                    title = volumeInfo.getString("title");
-                    authors = volumeInfo.getString("authors");
-                } catch (Exception e){
-                    e.printStackTrace();
+                    // Move to the next item.
+                    i++;
                 }
 
-                // Move to the next item.
-                i++;
-            }
-
-            // If both are found, display the result.
-            if (title != null && authors != null){
-                mTitleText.setText(title);
-                mAuthorText.setText(authors);
-            } /*else {
+                // If both are found, display the result.
+                if (title != null && authors != null) {
+                    mTitleText.setText(title);
+                    mAuthorText.setText(authors);
+                } /*else {
                 // If none are found, update the UI to show failed results.
                 mTitleText.setText(R.string.no_results);
                 mAuthorText.setText("");
             }*/
 
-        } catch (Exception e){
-            // If onPostExecute does not receive a proper JSON string,
-            // update the UI to show failed results.
+            } catch (Exception e) {
+                // If onPostExecute does not receive a proper JSON string,
+                // update the UI to show failed results.
            /* mTitleText.setText(R.string.no_results);
             mAuthorText.setText("");*/
-            e.printStackTrace();
+                e.printStackTrace();
+            }
         }
     }
 }
