@@ -39,6 +39,7 @@ import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
+import ca.rededaniskal.Database.SignUpDB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 import ca.rededaniskal.BusinessLogic.SignUpLogic;
@@ -177,7 +178,7 @@ public class Signup_Activity extends AppCompatActivity {
 
     public void finalPass(){
         if (businessLogic.isValid()){
-            SignUpDB db = new SignUpDB();
+            SignUpDB db = new SignUpDB(this);
             String email = emailText.getText().toString();
             String password = passwordText.getText().toString();
 
@@ -190,66 +191,13 @@ public class Signup_Activity extends AppCompatActivity {
         startActivity(new Intent(Signup_Activity.this,Main_Activity.class));
     }
 
+    public String getUserEmail(){return user.getEmail();}
+
+    public User getUser() {
+        return user;
+    }
+
     //--------- SIGNUPDB ENCLOSED CLASS ------------ //
 
-    public class SignUpDB {
 
-        // To read or write from the database, a database reference is needed
-        private DatabaseReference mDatabase;
-        private FirebaseAuth mAuth;
-        private boolean success;
-        private FirebaseUser newUser;
-
-
-        public SignUpDB(){
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-
-            // Initialize FirebaseAuth
-            mAuth = FirebaseAuth.getInstance();
-            success = false;
-        }
-
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
-
-
-        public void createUser(String email, String password){
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(Signup_Activity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "createUserWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                setUser();
-                                nextActivity();
-                                //updateUI(user);
-                                success = true;
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            updateUI(null);
-                            }
-                        }
-                    });
-        }
-
-
-        public void setUser() {
-            Log.d(TAG, "IN setUser");
-            Log.d(TAG, user.getEmail());
-            mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-            String key = mDatabase.push().getKey();
-            mDatabase.child(key).setValue(user);
-
-        }
-    }
 }

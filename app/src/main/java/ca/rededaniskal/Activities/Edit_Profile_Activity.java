@@ -45,6 +45,7 @@ import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
+import ca.rededaniskal.Database.editUserDetailsDB;
 
 /**
  * This activity lets a user update their personal information.
@@ -81,7 +82,8 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         oldPassword = findViewById(R.id.old_pass);
         newPassword = findViewById(R.id.new_pass);
         confirmNewPassword = findViewById(R.id.confirm_pass);
-        db = new editUserDetailsDB();
+        db = new editUserDetailsDB(this);
+        if (db.getFailed()){returnToLogin();}
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,75 +170,4 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         startActivity(new Intent(this, Login_Activity.class));
     }
 
-
-
-    // ------------------ Enclosed Database Class ------------------ //
-
-    public class editUserDetailsDB{
-        private FirebaseAuth mAuth;
-        private String email;
-        private String username;
-        private String location;
-        private String phone;
-        private FirebaseUser user;
-        private DatabaseReference mDatabase;
-        private List<User> userList;
-        private String key;
-
-
-        public editUserDetailsDB() {
-            mAuth = FirebaseAuth.getInstance();
-            user = mAuth.getCurrentUser();
-            userList = new ArrayList<>();
-            if (user != null) {
-                email = user.getEmail();
-                getUserDetails();
-
-            } else {
-                returnToLogin();
-            }
-        }
-
-
-        private void saveNewDetails(User user){
-            mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-            mDatabase.child(key).setValue(user);
-
-        }
-
-
-        private void getUserDetails(){
-            mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-            Query query = FirebaseDatabase.getInstance().getReference("Users")
-                    .orderByChild("email")
-                    .equalTo(email);
-
-            Log.d(TAG, "*********----->"+email);
-            query.addListenerForSingleValueEvent(valueEventListener);
-        }
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userList.clear();
-                Log.d(TAG, "*********----->onDataChange");
-                if (dataSnapshot.exists()) {
-                    Log.d(TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        //Log.d(TAG, "*********----->"+snapshot.getValue());
-                        key = snapshot.getKey();
-                        Log.d(TAG, "*********----->ID: "+key);
-                        User user = snapshot.getValue(User.class);
-
-                        setTexts(user.getEmail(), user.getPhoneNumber(), user.getLocation(), user.getUserName());
-                    }
-                }
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        };
-    }
 }
