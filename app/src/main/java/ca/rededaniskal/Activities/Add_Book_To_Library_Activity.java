@@ -243,7 +243,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && ISBN != null) {
-            new FetchBook(addTitle, addAuthor, ISBN).execute();
+            String url = createURL(ISBN);
+            new FetchBook(addTitle, addAuthor, ISBN).execute(url);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         /*else {
@@ -255,6 +256,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
                 mTitleText.setText(R.string.no_network);
             }
         }*/
+    }
+
+    private String createURL(String ISBN){
+        return "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN;
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
