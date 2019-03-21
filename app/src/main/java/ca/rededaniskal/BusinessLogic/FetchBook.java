@@ -90,7 +90,7 @@ public class FetchBook extends Activity {
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && ISBN != null) {
             String url = createURL(ISBN);
-            new FetchBook(addTitle, addAuthor, ISBN).execute(url);
+            new MyTask().execute(url);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         /*else {
@@ -103,15 +103,9 @@ public class FetchBook extends Activity {
             }
         }*/
     }
-
-
     private String createURL(String ISBN){
         return "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN;
     }
-
-
-    // Constructor providing a reference to the views in MainActivity
-
 
     private class MyTask extends AsyncTask<String,Void,String> {
 
@@ -127,7 +121,7 @@ public class FetchBook extends Activity {
         protected String doInBackground(String... params) {
 
             // Get the search string
-            //String queryString = params[0];
+            String queryString = params[0];
 
 
             // Set up variables for the try block that need to be closed in the finally block.
@@ -136,7 +130,7 @@ public class FetchBook extends Activity {
             String bookJSONString = null;
 
             // Attempt to query the Books API.
-            try {
+            try { /*
                 // Base URI for the Books API.
                 final String BOOK_BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
 
@@ -152,8 +146,9 @@ public class FetchBook extends Activity {
                         //.appendQueryParameter(PRINT_TYPE, "books")
                         .appendQueryParameter(givenISBN, queryString)
                         .build();
+                        */
 
-                URL requestURL = new URL(builtURI.toString());
+                URL requestURL = new URL(queryString);
 
                 // Open the network connection.
                 urlConnection = (HttpURLConnection) requestURL.openConnection();
