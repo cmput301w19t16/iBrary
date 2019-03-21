@@ -12,13 +12,9 @@ package ca.rededaniskal.Activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +22,6 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -92,14 +87,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
 
         cover = findViewById(R.id.BookCover);
 
-        /*openScanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
-                startActivity(intent);
-            }
-        });*/
-
         openScanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,8 +94,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
-
-
 
         openCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,54 +199,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         }
     }
 
-
-    public void getMoreBookDetails(String ISBN) {
-        // Get the search string from the input field.
-        //String queryString = mBookInput.getText().toString();
-
-        // Hide the keyboard when the button is pushed.
-        InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-        //https://www.programcreek.com/java-api-examples/?class=android.view.View&method=getWindowToken
-        View currentFocus = getCurrentFocus();
-        if (currentFocus != null){
-            // Base interface for a remotable object
-            IBinder windowToken = currentFocus.getWindowToken();
-
-            // Hide type
-            int hideType = InputMethodManager.HIDE_NOT_ALWAYS;
-
-            // Hide the KeyBoard
-            inputManager.hideSoftInputFromWindow(windowToken, hideType);
-        }
-
-
-        // Check the status of the network connection.
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-        // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
-        if (networkInfo != null && networkInfo.isConnected() && ISBN != null) {
-            String url = createURL(ISBN);
-            new FetchBook(addTitle, addAuthor, ISBN).execute(url);
-        }
-        // Otherwise update the TextView to tell the user there is no connection or no search term.
-        /*else {
-            if (queryString.length() == 0) {
-                mAuthorText.setText("");
-                mTitleText.setText(R.string.no_search_term);
-            } else {
-                mAuthorText.setText("");
-                mTitleText.setText(R.string.no_network);
-            }
-        }*/
-    }
-
-    private String createURL(String ISBN){
-        return "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN;
-    }
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -270,11 +207,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             String ISBN = data.getStringExtra("ISBN");
             addISBN.setText(ISBN);
-            getMoreBookDetails(ISBN);
+            new FetchBook(addTitle, addAuthor, ISBN);
         }
     }
-
-
 
 
 //-------------------EMBEDDED DATABASE CLASS----------------//

@@ -16,8 +16,14 @@
  */
 package ca.rededaniskal.BusinessLogic;
 
+        import android.content.Context;
+        import android.net.ConnectivityManager;
+        import android.net.NetworkInfo;
         import android.net.Uri;
         import android.os.AsyncTask;
+        import android.os.IBinder;
+        import android.view.View;
+        import android.view.inputmethod.InputMethodManager;
         import android.widget.EditText;
         import android.widget.TextView;
 
@@ -38,8 +44,7 @@ package ca.rededaniskal.BusinessLogic;
  */
 public class FetchBook extends AsyncTask<String,Void,String>{
 
-    // Variables for the search input field, and results TextViews
-    private EditText mBookInput;
+    // Variables for the results TextViews
     private TextView mTitleText;
     private TextView mAuthorText;
     private String ISBN;
@@ -47,12 +52,64 @@ public class FetchBook extends AsyncTask<String,Void,String>{
     // Class name for Log tag
     private static final String LOG_TAG = FetchBook.class.getSimpleName();
 
-    // Constructor providing a reference to the views in MainActivity
     public FetchBook(TextView titleText,TextView authorText, String ISBN) {
         this.ISBN = ISBN;
         this.mTitleText = titleText;
         this.mAuthorText = authorText;
+        getMoreBookDetails(ISBN);
     }
+
+    public void getMoreBookDetails(String ISBN) {
+        // Get the search string from the input field.
+        //String queryString = mBookInput.getText().toString();
+
+        // Hide the keyboard when the button is pushed.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        //https://www.programcreek.com/java-api-examples/?class=android.view.View&method=getWindowToken
+        View currentFocus = getCurrentFocus();
+        if (currentFocus != null){
+            // Base interface for a remotable object
+            IBinder windowToken = currentFocus.getWindowToken();
+
+            // Hide type
+            int hideType = InputMethodManager.HIDE_NOT_ALWAYS;
+
+            // Hide the KeyBoard
+            inputManager.hideSoftInputFromWindow(windowToken, hideType);
+        }
+
+
+        // Check the status of the network connection.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
+        if (networkInfo != null && networkInfo.isConnected() && ISBN != null) {
+            String url = createURL(ISBN);
+            new FetchBook(addTitle, addAuthor, ISBN).execute(url);
+        }
+        // Otherwise update the TextView to tell the user there is no connection or no search term.
+        /*else {
+            if (queryString.length() == 0) {
+                mAuthorText.setText("");
+                mTitleText.setText(R.string.no_search_term);
+            } else {
+                mAuthorText.setText("");
+                mTitleText.setText(R.string.no_network);
+            }
+        }*/
+    }
+
+
+    private String createURL(String ISBN){
+        return "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN;
+    }
+
+
+    // Constructor providing a reference to the views in MainActivity
+
 
 
     /**
@@ -66,7 +123,7 @@ public class FetchBook extends AsyncTask<String,Void,String>{
     protected String doInBackground(String... params) {
 
         // Get the search string
-        String queryString = params[0];
+        //String queryString = params[0];
 
 
         // Set up variables for the try block that need to be closed in the finally block.
