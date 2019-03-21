@@ -36,6 +36,7 @@ import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.R;
+import ca.rededaniskal.Database.ReadBookDB;
 
 //Author: Revan, Skye
 public class View_Borrowed_Requested_Activity extends AppCompatActivity {
@@ -60,7 +61,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
 
-        readBookDB db = new readBookDB();
+        ReadBookDB db = new ReadBookDB(this);
         db.update();
     }
 
@@ -72,44 +73,4 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
     }
 
     //***Enclosed Database helper class***
-    private class readBookDB{
-        private DatabaseReference mdatabase;
-        String TAG;
-
-
-        public readBookDB(){
-            update();
-        }
-
-
-        private void update(){
-            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user);
-            mdatabase.addListenerForSingleValueEvent(valueEventListener);
-        }
-
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(TAG, "**************---> In OnDataChange");
-                if (dataSnapshot.exists()){
-                    Book_List book_list = new Book_List();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                        Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
-                        Log.d(TAG, "**************--->"+book_instance.getOwner());
-                        book_list.addBook(book_instance);
-
-                    }
-                    updateBookView(book_list);
-                }
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        };
     }
-}

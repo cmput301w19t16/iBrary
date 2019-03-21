@@ -36,6 +36,7 @@ import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.R;
+import ca.rededaniskal.Database.ReadMyBookDB;
 
 
 
@@ -68,7 +69,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
         bookAdapter = new BookAdapter(this, BL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
-        readmyBookDB db = new readmyBookDB();
+        ReadMyBookDB db = new ReadMyBookDB(this);
 
         filter = findViewById(R.id.filter);
         fab = findViewById(R.id.addBookToLibrary);
@@ -83,6 +84,8 @@ public class View_My_Library_Activity extends AppCompatActivity {
                 finish();
             }
         });
+
+        final View_My_Library_Activity thisactivity = this;
 
         //For filtering options
         filter.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +108,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                       new readmyBookDB().update();
+                       new ReadMyBookDB(thisactivity).update();
 
                     }
                 });
@@ -153,45 +156,5 @@ public class View_My_Library_Activity extends AppCompatActivity {
 
 
     //Class responsible for reading DB
-    private class readmyBookDB{
 
-        private DatabaseReference mdatabase;
-        String TAG;
-
-
-        public readmyBookDB(){
-            update();
-
-        }
-
-
-        private void update(){
-            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user);
-            mdatabase.addListenerForSingleValueEvent(valueEventListener);
-        }
-
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(TAG, "**************---> In OnDataChange");
-                if (dataSnapshot.exists()){
-                    Book_List book_list = new Book_List();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                        Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
-                        Log.d(TAG, "**************--->"+book_instance.getOwner());
-                        book_list.addBook(book_instance);
-                    }
-                    updateBookView(book_list);
-                }
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        };
-    }
 }
