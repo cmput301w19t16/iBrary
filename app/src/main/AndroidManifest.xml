@@ -49,7 +49,6 @@
             android:name=".Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.Launcher_Activity" />
         <activity
             android:name=".Activities.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"

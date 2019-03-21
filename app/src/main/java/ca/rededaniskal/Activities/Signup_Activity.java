@@ -34,11 +34,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
+import ca.rededaniskal.BusinessLogic.Login_Manager_BL;
+import ca.rededaniskal.BusinessLogic.Login_Manager_Helper_BL;
 import ca.rededaniskal.Database.SignUpDB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -64,6 +69,8 @@ public class Signup_Activity extends AppCompatActivity {
     private EditText phoneText;
     private SignUpLogic businessLogic;
     private User user;
+    private Login_Manager_BL lmbl;
+    private Login_Manager_Helper_BL lmblHelper;
 
     private FusedLocationProviderClient client;
     TextView location;
@@ -181,6 +188,11 @@ public class Signup_Activity extends AppCompatActivity {
             SignUpDB db = new SignUpDB(this);
             String email = emailText.getText().toString();
             String password = passwordText.getText().toString();
+            lmbl = Login_Manager_BL.getLoginManager();
+            lmblHelper = new Login_Manager_Helper_BL(this.getBaseContext());
+            lmbl.setUsername(email);
+            lmbl.setPassword(password);
+            lmblHelper.saveInFile(lmbl);
 
             db.createUser(email, password);
             }
@@ -189,6 +201,7 @@ public class Signup_Activity extends AppCompatActivity {
 
     public void nextActivity(){
         startActivity(new Intent(Signup_Activity.this,Main_Activity.class));
+        this.finish();
     }
 
     public String getUserEmail(){return user.getEmail();}

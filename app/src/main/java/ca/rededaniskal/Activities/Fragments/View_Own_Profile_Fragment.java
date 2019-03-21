@@ -9,8 +9,11 @@
  *
  */
 package ca.rededaniskal.Activities.Fragments;
+import ca.rededaniskal.BusinessLogic.Login_Manager_BL;
+import ca.rededaniskal.BusinessLogic.Login_Manager_Helper_BL;
 import ca.rededaniskal.Database.currentUserDetailsDB;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -128,7 +131,8 @@ public class View_Own_Profile_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d(TAG, "*********----->onCreateView");
-
+        final Activity parent = getActivity();
+         final Context context = parent.getApplicationContext();
 
         v = inflater.inflate(R.layout.fragment_personal_profile, container, false);
         db = new currentUserDetailsDB(this);
@@ -188,9 +192,15 @@ public class View_Own_Profile_Fragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Login_Manager_BL lmbl = Login_Manager_BL.getLoginManager();
+                Login_Manager_Helper_BL lmblHelper = new Login_Manager_Helper_BL(parent.getApplicationContext());
+                lmblHelper.clearInfo(lmbl);
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), Login_Activity.class);
                 startActivity(intent);
+                parent.finish();
+
+
             }
         });
 
