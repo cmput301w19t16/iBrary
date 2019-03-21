@@ -63,7 +63,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     private Button openScanner, addBook;
     private FloatingActionButton openCamera;
     private ImageView cover;
-
+    private String isbn;
 
     private AddBookLogic businessLogic;
 
@@ -92,6 +92,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
                 startActivityForResult(intent, 1);
+                new FetchBook(addTitle, addAuthor, isbn);
+                addISBN.setText(isbn);
             }
         });
 
@@ -205,9 +207,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             cover.setImageBitmap(photo);
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
-            String ISBN = data.getStringExtra("ISBN");
-            addISBN.setText(ISBN);
-            new FetchBook(addTitle, addAuthor, ISBN);
+            isbn = data.getStringExtra("ISBN");
         }
     }
 
