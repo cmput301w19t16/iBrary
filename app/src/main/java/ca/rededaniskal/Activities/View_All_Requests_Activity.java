@@ -140,7 +140,7 @@ public class View_All_Requests_Activity extends AppCompatActivity {
         private void getRequests() {
 
             Query query2 = FirebaseDatabase.getInstance().getReference("BorrowRequests")
-                    .orderByChild("recipientUserName").equalTo(username);
+                    .orderByChild("recipientUID").equalTo(username);
 
             query2.addListenerForSingleValueEvent(valueEventListener3);
         }

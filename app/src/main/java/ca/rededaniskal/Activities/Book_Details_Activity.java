@@ -247,11 +247,9 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     public int getLSize(){return l.size();}
 
-    public void notifyRequest(){requestAdapter.notifyDataSetChanged();return;}
+    public void notifyRequest(){requestAdapter.notifyDataSetChanged();}
 
 
-
-    //---------ENCLOSED DATABASE CLASS-----------------------//
 
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));

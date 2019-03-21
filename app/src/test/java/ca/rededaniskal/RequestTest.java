@@ -14,8 +14,8 @@ public class RequestTest {
         String user1 = "Nick";
         String user2 = "Daniela";
         Request request = new Friend_Request(user1, user2);
-        assertEquals(user1, request.getSenderUserName());
-        assertEquals(user2, request.getRecipientUserName());
+        assertEquals(user1, request.getsenderUID());
+        assertEquals(user2, request.getrecipientUID());
     }
 
     @Test
@@ -23,10 +23,10 @@ public class RequestTest {
         String user1 = "Nick";
         String user2 = "Daniela";
         Request request = new Friend_Request("mark", "Joe");
-        request.setRecipientUserName(user2);
-        request.setSenderUserName(user1);
-        assertEquals(user1, request.getSenderUserName());
-        assertEquals(user2, request.getRecipientUserName());
+        request.setrecipientUID(user2);
+        request.setsenderUID(user1);
+        assertEquals(user1, request.getsenderUID());
+        assertEquals(user2, request.getrecipientUID());
     }
 
     @Test

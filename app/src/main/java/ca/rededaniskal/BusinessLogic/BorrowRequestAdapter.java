@@ -72,7 +72,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         final BorrowRequest request = list.get(i);
 
         //Set Fields
-        borrowRequestViewHolder.requestInfo.setText( request.getSenderUserName());
+        borrowRequestViewHolder.requestInfo.setText( request.getsenderUID());
         borrowRequestViewHolder.bookInfo.setText( request.getBookId() );
 
         //Set onClick listeners
@@ -83,7 +83,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
 
                 Log.d(TAG, "*********------> I JUST DONT KNOW");
-                Log.d(TAG, "*********------> I JUST DONT KNOW: "+request.getSenderUserName());
+                Log.d(TAG, "*********------> I JUST DONT KNOW: "+request.getsenderUID());
 //                list.remove(borrowRequestViewHolder.getAdapterPosition());
 //                notifyItemRemoved(borrowRequestViewHolder.getAdapterPosition());
 //                notifyItemRangeChanged(borrowRequestViewHolder.getAdapterPosition(), list.size());
@@ -152,7 +152,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
         private updateRequestDB(BorrowRequest request) {
             this.request = request;
-            Log.d(TAG, "*********------> I JUST DONT KNOW: "+request.getSenderUserName());
+            Log.d(TAG, "*********------> I JUST DONT KNOW: "+request.getsenderUID());
             Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
                     .orderByChild("isbn")
                     .equalTo(request.getIsbn());
@@ -185,7 +185,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         BorrowRequest req = snapshot.getValue(BorrowRequest.class);
-                        if(req.getSenderUserName().equals(request.getSenderUserName())) {
+                        if(req.getsenderUID().equals(request.getsenderUID())) {
                             key = snapshot.getKey();
                         }
                     }

@@ -1,6 +1,20 @@
 package ca.rededaniskal.Database;
 
+/**
+ * Author: Delaney
+ * Purpose: Get's relevant requests for user to display in notification.
+ * Builds a list of request objects where current user is either the sender or recipient
+ * on construction.
+ *
+ * TODO: In the logic that handles the created lists, it should remove the requests where the user
+ * was the sender, where the status is not accepted.
+ */
+
+
+
 import android.util.Log;
+
+import ca.rededaniskal.Activities.Fragments.Notifications_Fragment;
 import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,19 +42,20 @@ public class getUserRequestsDB{
     private DatabaseReference mDatabase;
     private List<Request> requestList;
     private Boolean failed;
+    private Notifications_Fragment parent;
+    private String UID;
 
 
     //This function retrieves the users requests from the database.
 
-    public getUserRequestsDB() {
+    public getUserRequestsDB(Notifications_Fragment parent) {
+        this.parent = parent;
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         requestList = new ArrayList<Request>();
         if (user != null) {
-            email = user.getEmail();
-            getUserDetails();
-            getUserRequestSender();
-            getUserRequestRecipent();
+            UID = user.getUid();
+            getUserFriendRequestSender();
             failed = false;
 
 
@@ -54,67 +69,28 @@ public class getUserRequestsDB{
         return requestList;
     }
 
-    //This function gets the user's details
 
-    private void getUserDetails(){
-        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-        Query query = FirebaseDatabase.getInstance().getReference("Users")
-                .orderByChild("email")
-                .equalTo(email);
-
-        Log.d(TAG, "*********----->"+email);
-        query.addListenerForSingleValueEvent(valueEventListener);
-
-    }
-
-    //This function updates the notifications if the database changes.
-
-    ValueEventListener valueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d(TAG, "*********----->onDataChange");
-            if (dataSnapshot.exists()) {
-                Log.d(TAG, "*********----->exists");
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    //Log.d(TAG, "*********----->"+snapshot.getValue());
-                    User user = snapshot.getValue(User.class);
-                    username = user.getUserName();
-                }
-            }
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    };
-
-    //Returns who sent the request
-
-    private void getUserRequestSender(){
-        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-        Query query = FirebaseDatabase.getInstance().getReference("Requests")
-                .orderByChild("senderUserName")
-                .equalTo(username);
-
-        Log.d(TAG, "*********----->"+username);
+    // Collects friend requests sent by current user
+    private void getUserFriendRequestSender(){
+        Query query = FirebaseDatabase.getInstance().getReference("FriendRequests")
+                .orderByChild("senderUID")
+                .equalTo(UID);
         query.addListenerForSingleValueEvent(valueEventListener1);
 
     }
 
-    //Keeps track of when users get updated in database.
-
     ValueEventListener valueEventListener1 = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d(TAG, "*********----->onDataChange1");
+            Log.d(TAG, "*********----->onDataChange: Friend Requests Sender");
             if (dataSnapshot.exists()) {
-                Log.d(TAG, "*********----->exists");
+                Log.d(TAG, "*********----->Does Exist");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Request request = snapshot.getValue(Request.class);
                     requestList.add(request);
                 }
             }
+            getUserFriendRequestRecipient();
         }
 
         @Override
@@ -125,11 +101,10 @@ public class getUserRequestsDB{
 
     //Gets the recipient of the request
 
-    private void getUserRequestRecipent(){
-        mDatabase = FirebaseDatabase.getInstance().getReference("Requests");
+    private void getUserFriendRequestRecipient(){
         Query query = FirebaseDatabase.getInstance().getReference("Requests")
-                .orderByChild("recipientUserName")
-                .equalTo(username);
+                .orderByChild("recipientUID")
+                .equalTo(UID);
 
         Log.d(TAG, "*********----->"+username);
         query.addListenerForSingleValueEvent(valueEventListener2);
@@ -139,9 +114,9 @@ public class getUserRequestsDB{
     ValueEventListener valueEventListener2 = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d(TAG, "*********----->onDataChange2");
+            Log.d(TAG, "*********----->onDataChange: Friend Requests Recipient");
             if (dataSnapshot.exists()) {
-                Log.d(TAG, "*********----->exists");
+                Log.d(TAG, "*********----->Snapshot exists");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Request request = snapshot.getValue(Request.class);
                     requestList.add(request);

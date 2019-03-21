@@ -60,8 +60,8 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
         //Bind an an element of the list to the cardview
         final Request request = list.get(i);
 
-        allRequestsViewHolder.bookInfo.setText(request.getSenderUserName());
-        allRequestsViewHolder.requestInfo.setText(request.getSenderUserName());
+        allRequestsViewHolder.bookInfo.setText(request.getsenderUID());
+        allRequestsViewHolder.requestInfo.setText(request.getsenderUID());
 
         //Set onClick listeners
         allRequestsViewHolder.accept.setOnClickListener(new View.OnClickListener() {
