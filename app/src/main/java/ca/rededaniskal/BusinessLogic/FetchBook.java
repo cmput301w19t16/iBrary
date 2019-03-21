@@ -24,6 +24,7 @@ package ca.rededaniskal.BusinessLogic;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.os.IBinder;
+        import android.util.Log;
         import android.view.View;
         import android.view.inputmethod.InputMethodManager;
         import android.widget.EditText;
@@ -39,6 +40,8 @@ package ca.rededaniskal.BusinessLogic;
         import java.net.HttpURLConnection;
         import java.net.URL;
         import ca.rededaniskal.R;
+
+        import static android.util.Log.e;
 
 /**
  * AsyncTask implementation that opens a network connection and
@@ -181,6 +184,7 @@ public class FetchBook extends Activity {
 
                 // Catch errors.
             } catch (IOException e) {
+                e("fetchBookByISBN", e.toString());
                 e.printStackTrace();
 
                 // Close the connections.
@@ -258,6 +262,7 @@ public class FetchBook extends Activity {
                 // update the UI to show failed results.
            /* mTitleText.setText(R.string.no_results);
             mAuthorText.setText("");*/
+
                 e.printStackTrace();
             }
         }
