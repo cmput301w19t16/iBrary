@@ -71,7 +71,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
         readmyBookDB db = new readmyBookDB();
 
         filter = findViewById(R.id.filter);
-        fab = (FloatingActionButton) findViewById(R.id.addBookToLibrary);
+        fab = findViewById(R.id.addBookToLibrary);
 
         //Set the on Click listeners
         fab.setOnClickListener(new View.OnClickListener() {
