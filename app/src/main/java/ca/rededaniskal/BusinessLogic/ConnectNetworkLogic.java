@@ -20,6 +20,7 @@ import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
+import ca.rededaniskal.R;
 
 public class ConnectNetworkLogic extends AsyncTask<String, Object, JSONObject> {
 
@@ -95,13 +96,13 @@ public class ConnectNetworkLogic extends AsyncTask<String, Object, JSONObject> {
     }
     @Override
     protected void onPostExecute(JSONObject responseJson) {
-        if(isCancelled()){
+        /*if(isCancelled()){
             // Request was cancelled due to no network connection.
             showNetworkDialog();
         } else if(responseJson == null){
             showSimpleDialog(getResources().getString(R.string.dialog_null_response));
         }
-        else{
+        else{*/
 
             try {
 
@@ -144,18 +145,18 @@ public class ConnectNetworkLogic extends AsyncTask<String, Object, JSONObject> {
                     mAuthorText.setText("");
                 }*/
 
-            } /*catch (Exception e){
+            } catch (Exception e){
                 // If onPostExecute does not receive a proper JSON string, update the UI to show failed results.
                 mTitleText.setText(R.string.no_results);
                 mAuthorText.setText("");
                 e.printStackTrace();
-            }*/
+            }
 
 
 
         }
     }
-}
+//}
 /*
     protected boolean isNetworkConnected(){
 
