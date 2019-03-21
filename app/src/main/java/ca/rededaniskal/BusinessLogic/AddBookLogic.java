@@ -13,10 +13,7 @@ package ca.rededaniskal.BusinessLogic;
 //TODO: validate book id, validate against master, validate 10-digit and 13-digit isbn
 
 //import ca.rededaniskal.Database.AddBookDb;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.lang.String;
-import java.util.*;
 
 
 import ca.rededaniskal.Database.AddBookDb;
@@ -130,9 +127,9 @@ public class AddBookLogic {
 
 
 
-    public String saveInformation(Book_Instance book){
-        AddBookDb db  = new AddBookDb();
-        return db.addBookToDatabase(book);
+    public void saveInformation(Book_Instance book){
+         new AddBookDb(book);
+
 
     }
 

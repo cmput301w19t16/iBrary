@@ -143,9 +143,9 @@ public class Book_Details_Activity extends AppCompatActivity {
 
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
-        BookDetailsdb db = new BookDetailsdb();
+       //BookDetailsdb db = new BookDetailsdb();
 
-        db.bookInUserRequests(book.getBookID());
+       //
 
         //Set appropriate text for the button at the bottom
         if (book.getStatus() == "Requested" && isRequested) {
@@ -251,7 +251,7 @@ public class Book_Details_Activity extends AppCompatActivity {
 
 
 
-    //---------ENCLOSED DATABASE CLASS-----------------------//
+
 
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));

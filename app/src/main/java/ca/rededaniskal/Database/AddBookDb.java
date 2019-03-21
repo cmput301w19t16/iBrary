@@ -1,95 +1,77 @@
 package ca.rededaniskal.Database;
-import ca.rededaniskal.Activities.Add_Book_To_Library_Activity;
 /*author Skye*/
 //Interacts with the Firebase when a user adds a book to ther library
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+        import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-
-import ca.rededaniskal.EntityClasses.Book_Instance;
+        import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
-public class AddBookDb {
+public class AddBookDb extends iBrary_Database {
     public final String TAG = "AddBookDb";
-
-    FirebaseDatabase db;
     DatabaseReference bookRef;
     DatabaseReference masterRef;
+
     String success;
     Book_Instance book_instance;
 
-    public AddBookDb() {
+    public AddBookDb(Book_Instance book_instance) {
+        super();
         //Creates a new reference to the correct path in the Firebase
         //Book instances are stored under there unique id, under my-books,
         //under unique user Uid, under book-instances.
 
-        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        this.db = FirebaseDatabase.getInstance();
-        this.bookRef = db.getReference().child("book-instances")
+        String user = getUID();
+        this.bookRef = getReference(References.BOOKINSTANCE)
                 .child(user);
+        this.book_instance = book_instance;
+        this.masterRef = getReference(References.MASTERBOOK).child(book_instance.getISBN());
+        update();
 
     }
 
-    public String addBookToDatabase(Book_Instance bookInstance) throws NullPointerException{
-        this.book_instance = bookInstance;
 
+
+
+    @Override
+    public void update(){
+        boolean YES = addBookToDatabase();
+        if (YES&&checkExists(masterRef)){
+            updateMaster();
+        }
+        else {
+            addMaster();
+        }
+
+        updateFeed();
+
+
+    }
+
+
+    public boolean addBookToDatabase() throws NullPointerException{
 
         success =bookRef.push().getKey();
-        bookInstance.setBookID(success);
-        Log.d(TAG, "***********---->" +bookInstance.getBookID());
+        book_instance.setBookID(success);
+        Log.d(TAG, "***********---->" +book_instance.getBookID());
 
-
-        //Stores value
-        //TODO: update master-book
-        masterRef= FirebaseDatabase.getInstance().getReference().child("master-books").child(bookInstance.getISBN());
-
-        masterRef.addListenerForSingleValueEvent(masterListener);
-
-
-
-
-        if (bookRef.child(success).setValue(bookInstance).isSuccessful()){
-            return success;
+        if (bookRef.child(success).setValue(book_instance).isSuccessful()){
+            return true;
 
         }
-        else return null;
-
-
-
-
+        else return false;
 
     }
 
-    ValueEventListener masterListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists()){
-                updateMaster();
-            }
-            else{
-                addMaster();
-            }
 
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    };
 
     public void updateMaster(){
         masterRef.child("instances").child(book_instance.getOwner()).child(book_instance.getBookID()).setValue(true);
-
 
     }
 
@@ -100,5 +82,7 @@ public class AddBookDb {
 
 
     }
+
+    public void updateFeed(){}
 
 }

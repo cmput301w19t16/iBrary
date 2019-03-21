@@ -7,29 +7,35 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
 
-public class BookDetailsdb{
+public class BookDetailsdb extends iBrary_Database{
     Book_Details_Activity parent;
+    DatabaseReference requestBookRef;
     private boolean failed;
+    String bookId;
 
-    public void BookDetailsdb(Book_Details_Activity bda){
+    public void BookDetailsdb(Book_Details_Activity bda, String bookid){
         parent = bda;
+        this.bookId = bookid;
     }
 
+    @Override
+    public void update() {
+
+    }
+
+    public void bookInUserRequests(){
+
+        String user = getUID();
+       requestBookRef= getReference(References.BOOKREQUEST);
+       Query requested = requestBookRef.orderByChild("bookId").equalTo(this.bookId);
 
 
-    public void bookInUserRequests(String bookid){
 
-        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference requestBook = FirebaseDatabase.getInstance().getReference("book-instances")
-                .child(user)
-                .child("my-requests")
-                .child(bookid);
-        requestBook.addListenerForSingleValueEvent(requestedListener);
-        failed = false;
 
 
     }
