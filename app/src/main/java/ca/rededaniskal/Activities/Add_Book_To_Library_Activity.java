@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -221,8 +222,19 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         // Hide the keyboard when the button is pushed.
         InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
+        //https://www.programcreek.com/java-api-examples/?class=android.view.View&method=getWindowToken
+        View currentFocus = getCurrentFocus();
+        if (currentFocus != null){
+            // Base interface for a remotable object
+            IBinder windowToken = currentFocus.getWindowToken();
+
+            // Hide type
+            int hideType = InputMethodManager.HIDE_NOT_ALWAYS;
+
+            // Hide the KeyBoard
+            inputManager.hideSoftInputFromWindow(windowToken, hideType);
+        }
+
 
         // Check the status of the network connection.
         ConnectivityManager connMgr = (ConnectivityManager)
