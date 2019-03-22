@@ -62,6 +62,10 @@ public class FetchBook extends Activity {
         this.mTitleText = titleText;
         this.mAuthorText = authorText;
     }
+    /*@Override
+    protected void onStartLoading() {
+        forceLoad(); // Starts the loadInBackground method
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -109,11 +113,16 @@ public class FetchBook extends Activity {
     }
 
     private String createURL(String ISBN){
-        return "https://www.googleapis.com/auth/books/v1/volumes?q=isbn:" + ISBN + "&key=" + io.fabric.ApiKey;
+        return "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN + "&key=AIzaSyDnb2g1cRtlMB-h-yi3_XwrYFqcvwBmBLA";
     }
 
     private class MyTask extends AsyncTask<String,Void,String> {
 
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            //Log.e("AsyncTask", "onPreExecute");
+        }
 
         /**
          * Makes the Books API call off of the UI thread.
@@ -252,11 +261,11 @@ public class FetchBook extends Activity {
                 if (title != null && authors != null) {
                     mTitleText.setText(title);
                     mAuthorText.setText(authors);
-                } /*else {
+                } else {
                 // If none are found, update the UI to show failed results.
-                mTitleText.setText(R.string.no_results);
-                mAuthorText.setText("");
-            }*/
+                mTitleText.setText("No results");
+                mAuthorText.setText("No results");
+            }
 
             } catch (Exception e) {
                 // If onPostExecute does not receive a proper JSON string,

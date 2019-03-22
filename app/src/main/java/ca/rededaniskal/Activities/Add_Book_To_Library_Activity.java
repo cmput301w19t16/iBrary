@@ -36,6 +36,7 @@ import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
 import ca.rededaniskal.BusinessLogic.FetchBook;
+import ca.rededaniskal.BusinessLogic.SearchBookDetails;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -206,7 +207,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             isbn = data.getStringExtra("ISBN");
-            new FetchBook(addTitle, addAuthor, isbn);
+            new SearchBookDetails(addTitle, addAuthor, isbn);
             addISBN.setText(isbn);
         }
     }
