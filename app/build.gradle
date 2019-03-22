@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [fabric_io_id:"AIzaSyDnb2g1cRtlMB-h-yi3_XwrYFqcvwBmBLA"]
+        //manifestPlaceholders = [fabric_io_id:"AIzaSyDnb2g1cRtlMB-h-yi3_XwrYFqcvwBmBLA"]
     }
     buildTypes {
         release {
