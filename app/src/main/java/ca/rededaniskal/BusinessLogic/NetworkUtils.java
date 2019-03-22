@@ -2,6 +2,7 @@ package ca.rededaniskal.BusinessLogic;
 //Used https://github.com/google-developer-training/android-fundamentals/tree/master/WhoWroteItLoader
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static android.util.Log.e;
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class NetworkUtils {
     private static final String BOOK_BASE_URL =  "https://www.googleapis.com/books/v1/volumes?";
@@ -26,7 +28,7 @@ public class NetworkUtils {
      * @param queryString The search term for the Books API query
      * @return The raw response from the API as a JSON String
      */
-    static String getBookInfo(String queryString){
+    public static String getBookInfo(String queryString){
 
         // Set up variables for the try block that need to be closed in the finally block.
         HttpURLConnection urlConnection = null;
@@ -48,6 +50,7 @@ public class NetworkUtils {
             URL requestURL = new URL(builtURI.toString());*/
            // "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN + "&key=AIzaSyDnb2g1cRtlMB-h-yi3_XwrYFqcvwBmBLA";
             URL requestURL = new URL(BOOK_BASE_URL+ "q=isbn:" + queryString);
+            //Log.v("URL value", requestURL.toString());
 
             // Open the network connection.
             urlConnection = (HttpURLConnection) requestURL.openConnection();

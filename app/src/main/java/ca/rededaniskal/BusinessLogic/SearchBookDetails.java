@@ -2,6 +2,7 @@ package ca.rededaniskal.BusinessLogic;
 //Used https://github.com/google-developer-training/android-fundamentals/tree/master/WhoWroteItLoader
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -15,19 +16,11 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class SearchBookDetails  extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+import java.util.ArrayList;
+
+public class SearchBookDetails  extends AppCompatActivity {
     // Variables for the search input field, and results TextViews
-    //private EditText mBookInput;
-    private TextView mTitleText;
-    private TextView mAuthorText;
-    String isbn;
-
-    public SearchBookDetails(TextView titleText, TextView authorText, String isbn) {
-        this.mTitleText = titleText;
-        this.mAuthorText = authorText;
-        this.isbn = isbn;
-
-    }
+    private String returnString;
 
 
     /**
@@ -46,12 +39,10 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
         //mAuthorText = (TextView)findViewById(R.id.authorText);
 
         //Check if a Loader is running, if it is, reconnect to it
-        if(LoaderManager.getInstance(this).getLoader(0)!=null){
+        /*if(LoaderManager.getInstance(this).getLoader(0)!=null){
             LoaderManager.getInstance(this).initLoader(0,null,this);
             //getLoaderManager().initLoader(0,null,searchBooksDetails.class);
-        }
-        View currentFocus = getCurrentFocus();
-        searchBooks(currentFocus, isbn);
+        }*/
     }
 
     /**
@@ -59,15 +50,15 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
      *
      * @param view The view (Button) that was clicked.
      */
-    public void searchBooks(View view, String isbn) {
+    public ArrayList<String> searchBooks(String isbn) {
         // Get the search string from the input field.
        // String queryString = mBookInput.getText().toString();
-
+        ArrayList strings = new ArrayList<String>();
         // Hide the keyboard when the button is pushed.
-        InputMethodManager inputManager = (InputMethodManager)
+        /*InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
+                InputMethodManager.HIDE_NOT_ALWAYS);*/
 
         // Check the status of the network connection.
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -76,24 +67,21 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
 
         // If the network is active and the search field is not empty,
         // add the search term to the arguments Bundle and start the loader.
-        if (networkInfo != null && networkInfo.isConnected() && isbn!= null) {
-            mAuthorText.setText("");
-            mTitleText.setText("");
-            Bundle queryBundle = new Bundle();
+        if (networkInfo != null && networkInfo.isConnected() && isbn!= null && false) {
+            /*Bundle queryBundle = new Bundle();
             queryBundle.putString("isbn", isbn);
-            LoaderManager.getInstance(this).restartLoader(0, queryBundle, this);
+            LoaderManager.getInstance(this).restartLoader(0, queryBundle, this);*/
+            returnString = NetworkUtils.getBookInfo(isbn);
+            return onLoadFinished(returnString);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
-        /*else {
-            if (queryString.length() == 0) {
-                mAuthorText.setText("");
-                mTitleText.setText(R.string.no_search_term);
-            } else {
-                mAuthorText.setText("");
-                mTitleText.setText(R.string.no_network);
+        else {
+                strings.add("Here is title text");
+                strings.add("Here is author text");
             }
-        }*/
-    }
+            return strings;
+        }
+
 
     /**
      * Loader Callbacks
@@ -106,20 +94,22 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
      * @param args The bundle that contains the search parameter.
      * @return Returns a new BookLoader containing the search term.
      */
+    /*
     @Override
-    public Loader<String> onCreateLoader(int id, Bundle args) {
-        return new BookLoader(this, args.getString("queryString"));
-    }
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new BookLoader(parent, isbn);
+    }*/
 
     /**
      * Called when the data has been loaded. Gets the desired information from
      * the JSON and updates the Views.
      *
-     * @param loader The loader that has finished.
+     The loader that has finished.
      * @param data The JSON response from the Books API.
      */
-    @Override
-    public void onLoadFinished(Loader<String> loader, String data) {
+
+    public ArrayList<String> onLoadFinished(String data) {
+        ArrayList<String> strings = new ArrayList<String>();
         try {
             // Convert the response into a JSON object.
             JSONObject jsonObject = new JSONObject(data);
@@ -141,8 +131,8 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
                 // Try to get the author and title from the current item,
                 // catch if either field is empty and move on.
                 try {
-                    title = volumeInfo.getString("title");
-                    authors = volumeInfo.getString("authors");
+                    strings.add(volumeInfo.getString("title"));
+                    strings.add(volumeInfo.getString("authors"));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -152,21 +142,21 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
             }
 
             // If both are found, display the result.
-            if (title != null && authors != null){
-                mTitleText.setText(title);
+            /*if (title != null && authors != null){
                 mAuthorText.setText(authors);
             } else {
                 // If none are found, update the UI to show failed results.
                 mTitleText.setText("NoResult");
                 mAuthorText.setText("");
-            }
+            }*/
 
         } catch (Exception e){
             // If onPostExecute does not receive a proper JSON string, update the UI to show failed results.
-            mTitleText.setText("noresult");
-            mAuthorText.setText("");
+            strings.add("Error with try");
+            strings.add("Error with attempt");
             e.printStackTrace();
         }
+        return strings;
 
 
     }
@@ -176,8 +166,7 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
      *
      * @param loader The loader that was reset.
      */
-    @Override
-    public void onLoaderReset(Loader<String> loader) {}
+
 }
 
 
