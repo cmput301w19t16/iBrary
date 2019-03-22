@@ -45,7 +45,7 @@ public class NetworkUtils {
 
             URL requestURL = new URL(builtURI.toString());*/
            // "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN + "&key=AIzaSyDnb2g1cRtlMB-h-yi3_XwrYFqcvwBmBLA";
-            URL requestURL = new URL(BOOK_BASE_URL+ "q=isbn:" + queryString + "&key=AIzaSyDnb2g1cRtlMB-h-yi3_XwrYFqcvwBmBLA");
+            URL requestURL = new URL(BOOK_BASE_URL+ "q=isbn:" + queryString);
 
             // Open the network connection.
             urlConnection = (HttpURLConnection) requestURL.openConnection();

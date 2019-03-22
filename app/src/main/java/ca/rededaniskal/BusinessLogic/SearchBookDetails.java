@@ -10,7 +10,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -27,8 +26,7 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
         this.mTitleText = titleText;
         this.mAuthorText = authorText;
         this.isbn = isbn;
-        View currentFocus = getCurrentFocus();
-        searchBooks(currentFocus, isbn);
+
     }
 
 
@@ -52,6 +50,8 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
             LoaderManager.getInstance(this).initLoader(0,null,this);
             //getLoaderManager().initLoader(0,null,searchBooksDetails.class);
         }
+        View currentFocus = getCurrentFocus();
+        searchBooks(currentFocus, isbn);
     }
 
     /**
@@ -81,7 +81,7 @@ public class SearchBookDetails  extends AppCompatActivity implements LoaderManag
             mTitleText.setText("");
             Bundle queryBundle = new Bundle();
             queryBundle.putString("isbn", isbn);
-            getSupportLoaderManager().restartLoader(0, queryBundle, this);
+            LoaderManager.getInstance(this).restartLoader(0, queryBundle, this);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         /*else {
