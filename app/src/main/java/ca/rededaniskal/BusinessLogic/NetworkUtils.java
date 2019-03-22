@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static android.util.Log.e;
+
 public class NetworkUtils {
     private static final String BOOK_BASE_URL =  "https://www.googleapis.com/books/v1/volumes?";
     private static final String QUERY_PARAM = "q"; // Parameter for the search string.
@@ -76,6 +78,7 @@ public class NetworkUtils {
 
             // Catch errors.
         } catch (IOException e) {
+            e("IOException", e.toString());
             e.printStackTrace();
 
             // Close the connections.
