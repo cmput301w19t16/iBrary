@@ -109,7 +109,7 @@ public class FetchBook extends Activity {
     }
 
     private String createURL(String ISBN){
-        return "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN;
+        return "https://www.googleapis.com/auth/books/v1/volumes?q=isbn:" + ISBN + "&key=" + io.fabric.ApiKey;
     }
 
     private class MyTask extends AsyncTask<String,Void,String> {
@@ -240,6 +240,7 @@ public class FetchBook extends Activity {
                         title = volumeInfo.getString("title");
                         authors = volumeInfo.getString("authors");
                     } catch (Exception e) {
+                        Log.v("postExecuteMsg", "didn't get author/title");
                         e.printStackTrace();
                     }
 
