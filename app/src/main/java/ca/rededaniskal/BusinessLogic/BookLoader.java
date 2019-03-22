@@ -1,4 +1,5 @@
 package ca.rededaniskal.BusinessLogic;
+//Used https://github.com/google-developer-training/android-fundamentals/tree/master/WhoWroteItLoader
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
