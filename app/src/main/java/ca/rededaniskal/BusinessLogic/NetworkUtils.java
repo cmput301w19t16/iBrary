@@ -2,7 +2,10 @@ package ca.rededaniskal.BusinessLogic;
 //Used https://github.com/google-developer-training/android-fundamentals/tree/master/WhoWroteItLoader
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Log;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -102,5 +105,8 @@ public class NetworkUtils {
         // Return the raw response.
         return bookJSONString;
     }
+
+
+
 }
 

@@ -46,6 +46,7 @@ import ca.rededaniskal.BusinessLogic.AddBookLogic;
 import ca.rededaniskal.BusinessLogic.FetchBook;
 import ca.rededaniskal.BusinessLogic.NetworkUtils;
 import ca.rededaniskal.BusinessLogic.SearchBookDetails;
+import ca.rededaniskal.BusinessLogic.UseGoogleBooksAPI;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -218,14 +219,15 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             isbn = data.getStringExtra("ISBN");
             ArrayList<String> strings;
-            strings = searchBooks(isbn);
-            addTitle.setText(strings.get(0));
-            addAuthor.setText(strings.get(1));
+            searchBooks(isbn);
+            /*addTitle.setText(strings.get(0));
+            addAuthor.setText(strings.get(1));*/
             addISBN.setText(isbn);
         }
     }
 
-    public ArrayList<String> searchBooks(String isbn) {
+
+    public void searchBooks(String isbn) {
         // Get the search string from the input field.
         // String queryString = mBookInput.getText().toString();
         ArrayList strings = new ArrayList<String>();
@@ -246,6 +248,42 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             /*Bundle queryBundle = new Bundle();
             queryBundle.putString("isbn", isbn);
             LoaderManager.getInstance(this).restartLoader(0, queryBundle, this);*/
+            new UseGoogleBooksAPI(this, addTitle, addAuthor).execute("9780316015844");
+            //return stringGetter(returnString);
+        }
+        // Otherwise update the TextView to tell the user there is no connection or no search term.
+        /*else {
+            strings.add("Here is title text");
+            strings.add("Here is author text");
+        }*/
+        //return strings;
+    }
+
+
+
+
+
+    /*public ArrayList<String> searchBooks(String isbn) {
+        // Get the search string from the input field.
+        // String queryString = mBookInput.getText().toString();
+        ArrayList strings = new ArrayList<String>();
+        // Hide the keyboard when the button is pushed.
+        /*InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
+        // Check the status of the network connection.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        // If the network is active and the search field is not empty,
+        // add the search term to the arguments Bundle and start the loader.
+        if (networkInfo != null && networkInfo.isConnected() && isbn!= null) {
+            /*Bundle queryBundle = new Bundle();
+            queryBundle.putString("isbn", isbn);
+            LoaderManager.getInstance(this).restartLoader(0, queryBundle, this);
             returnString = NetworkUtils.getBookInfo("9780316015844");
             return stringGetter(returnString);
         }
@@ -255,7 +293,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             strings.add("Here is author text");
         }
         return strings;
-    }
+    }*/
 
 
     /**
