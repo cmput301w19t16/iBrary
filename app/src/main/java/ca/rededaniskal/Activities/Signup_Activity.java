@@ -95,7 +95,7 @@ public class Signup_Activity extends AppCompatActivity {
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Get the user location and set the relevent fields
+                //Get the user location and set the relevant fields
 
                 if (ActivityCompat.checkSelfPermission(Signup_Activity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
@@ -116,7 +116,7 @@ public class Signup_Activity extends AppCompatActivity {
 
     private String getAddressName(double lat, double lon) {
         String address = "";
-        Geocoder geocoder = new Geocoder(Signup_Activity.this, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(lat, lon, 1);
             address = addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea();
@@ -131,7 +131,7 @@ public class Signup_Activity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[] {ACCESS_FINE_LOCATION}, 1);
     }
 
-    //Make sure the fields are valid before signup
+    //Make sure the fields are valid before sign up
     public void validateFields(){
         String error = businessLogic.validdatePhone();
         if(!error.equals("")){
