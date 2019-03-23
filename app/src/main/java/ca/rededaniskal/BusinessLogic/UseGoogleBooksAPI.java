@@ -19,7 +19,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import ca.rededaniskal.R;
 
@@ -66,7 +65,6 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                 connection.setReadTimeout(5000); // 5 seconds
                 connection.setConnectTimeout(5000); // 5 seconds
             } catch (MalformedURLException e) {
-                // Impossible: The only two URLs used in the app are taken from string resources.
                 e.printStackTrace();
             } catch (ProtocolException e) {
                 // Impossible: "GET" is a perfectly valid request method.
@@ -111,7 +109,6 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
     protected void onPostExecute(JSONObject responseJson) {
         if (!isCancelled() && responseJson != null) {
             try {
-
                 JSONArray itemsArray = responseJson.getJSONArray("items");
 
                 // Initialize iterator and results fields.
@@ -155,6 +152,9 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                 myAuthor.setText("Exception PostExecute");
                 e.printStackTrace();
             }
+        }
+        else{
+            return;
         }
     }
 
