@@ -1,5 +1,6 @@
 package ca.rededaniskal.BusinessLogic;
 //Used https://stackoverflow.com/questions/14571478/using-google-books-api-in-android. Accessed on March 22, 2019
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -108,55 +109,40 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject responseJson) {
         if (!isCancelled() && responseJson != null) {
+            String title= null;
+            String authors = null;
             try {
+
+                // Get the JSONArray of book items.
                 JSONArray itemsArray = responseJson.getJSONArray("items");
+                JSONObject book = itemsArray.getJSONObject(0);
+                JSONObject volumeInfo = book.getJSONObject("volumeInfo");
 
-                // Initialize iterator and results fields.
-                int i = 0;
-                String title = null;
-                String authors = null;
+                title = volumeInfo.getString("title");
+                authors = volumeInfo.getString("authors");
 
-                // Look for results in the items array, exiting when both the title and author
-                // are found or when all items have been checked.
-                while (i < itemsArray.length() || (authors == null && title == null)) {
-                    // Get the current item information.
-                    JSONObject book = itemsArray.getJSONObject(i);
-                    JSONObject volumeInfo = book.getJSONObject("volumeInfo");
-
-                    // Try to get the author and title from the current item,
-                    // catch if either field is empty and move on.
-                    try {
-                        title = volumeInfo.getString("title");
-                        authors = volumeInfo.getString("authors");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    // Move to the next item.
-                    i++;
-                }
-
-                // If both are found, display the result.
-                if (title != null && authors != null) {
-                    myAuthor.setText(authors);
-                    myTitle.setText(title);
-                } else {
-                    // If none are found, update the UI to show failed results.
-                    myTitle.setText("NoResult");
-                    myAuthor.setText("NoResult");
-                }
-
-            } catch (Exception e) {
-                // If onPostExecute does not receive a proper JSON string, update the UI to show failed results.
-                myTitle.setText("Exception PostExecute");
-                myAuthor.setText("Exception PostExecute");
-                e.printStackTrace();
+            // If both are found, display the result.
+            if (title != null && authors != null) {
+                myAuthor.setText(authors);
+                myTitle.setText(title);
+            } else {
+                // If none are found, update the UI to show failed results.
+                myTitle.setText("NoResult");
+                myAuthor.setText("NoResult");
             }
-        }
-        else{
-            return;
+
+        } catch(Exception e){
+            // If onPostExecute does not receive a proper JSON string, update the UI to show failed results.
+            myTitle.setText("Exception PostExecute");
+            myAuthor.setText("Exception PostExecute");
+            e.printStackTrace();
         }
     }
+    else {
+        return;
+    }
+
+}
 
     protected boolean isNetworkConnected() {
 
