@@ -20,6 +20,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import ca.rededaniskal.R;
 
@@ -110,7 +112,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
     protected void onPostExecute(JSONObject responseJson) {
         if (!isCancelled() && responseJson != null) {
             String title= null;
-            String authors = null;
+            JSONArray authors = null;
             try {
 
                 // Get the JSONArray of book items.
@@ -119,11 +121,13 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
 
                 title = volumeInfo.getString("title");
-                authors = volumeInfo.getString("authors");
+                authors = volumeInfo.getJSONArray("authors");
 
             // If both are found, display the result.
             if (title != null && authors != null) {
-                myAuthor.setText(authors);
+                for(int i = 0; i < authors.length(); i++){
+                    myAuthor.append(authors.get(i).toString());
+                }
                 myTitle.setText(title);
             } else {
                 // If none are found, update the UI to show failed results.
@@ -141,7 +145,6 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
     else {
         return;
     }
-
 }
 
     protected boolean isNetworkConnected() {
