@@ -1,5 +1,5 @@
 package ca.rededaniskal.BusinessLogic;
-
+//Used https://stackoverflow.com/questions/14571478/using-google-books-api-in-android. Accessed on March 22, 2019
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
