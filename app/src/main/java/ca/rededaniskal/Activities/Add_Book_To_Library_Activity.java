@@ -12,12 +12,9 @@ package ca.rededaniskal.Activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -35,17 +32,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
-import ca.rededaniskal.BusinessLogic.FetchBook;
-import ca.rededaniskal.BusinessLogic.NetworkUtils;
-import ca.rededaniskal.BusinessLogic.SearchBookDetails;
 import ca.rededaniskal.BusinessLogic.UseGoogleBooksAPI;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
@@ -218,7 +207,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             isbn = data.getStringExtra("ISBN");
-            new UseGoogleBooksAPI(this, addTitle, addAuthor).execute("9780316015844");
+            new UseGoogleBooksAPI(this, addTitle, addAuthor).execute(isbn);
             addISBN.setText(isbn);
         }
     }

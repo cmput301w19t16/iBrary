@@ -1,5 +1,4 @@
 package ca.rededaniskal.BusinessLogic;
-//Used https://stackoverflow.com/questions/14571478/using-google-books-api-in-android. Accessed on March 22, 2019
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -20,12 +19,11 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-import ca.rededaniskal.R;
-
-// Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.
+/**
+ * Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.
+ * @author Daniela, modified https://stackoverflow.com/questions/14571478/using-google-books-api-in-android
+ */
 public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
 
     private Context context;
@@ -129,16 +127,14 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                     myAuthor.append(authors.get(i).toString());
                 }
                 myTitle.setText(title);
-            } else {
+            } /*else {
                 // If none are found, update the UI to show failed results.
                 myTitle.setText("NoResult");
                 myAuthor.setText("NoResult");
-            }
+            }*/
 
         } catch(Exception e){
-            // If onPostExecute does not receive a proper JSON string, update the UI to show failed results.
-            myTitle.setText("Exception PostExecute");
-            myAuthor.setText("Exception PostExecute");
+            // If onPostExecute does not receive a proper JSON string
             e.printStackTrace();
         }
     }
