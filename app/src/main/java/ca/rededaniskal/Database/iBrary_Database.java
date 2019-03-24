@@ -23,6 +23,10 @@ abstract class iBrary_Database {
         this.mauth = FirebaseAuth.getInstance();
     }
 
+    public boolean isExists() {
+        return exists;
+    }
+
     public DatabaseReference getReference(References reference) {
         if (reference == References.MASTERBOOK) {
             return db.getReference("master-books");

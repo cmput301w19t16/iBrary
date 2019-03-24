@@ -143,12 +143,12 @@ public class Book_Details_Activity extends AppCompatActivity {
 
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
-       //BookDetailsdb db = new BookDetailsdb();
+       BookDetailsdb db = new BookDetailsdb();
 
-       //
+       isRequested = db.bookInUserRequests();
 
         //Set appropriate text for the button at the bottom
-        if (book.getStatus() == "Requested" && isRequested) {
+        if (book.getStatus().equals("Requested") && isRequested) {
             Request_Cancel.setText(R.string.cancel_request);
 
         } else {

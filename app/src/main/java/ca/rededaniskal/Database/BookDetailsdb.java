@@ -28,17 +28,35 @@ public class BookDetailsdb extends iBrary_Database{
 
     }
 
-    public void bookInUserRequests(){
+    public boolean bookInUserRequests(){
+        exists = false;
 
         String user = getUID();
        requestBookRef= getReference(References.BOOKREQUEST);
        Query requested = requestBookRef.orderByChild("bookId").equalTo(this.bookId);
+       requested.addListenerForSingleValueEvent(queryRequestListener);
 
+       return exists;
 
 
 
 
     }
+
+    ValueEventListener queryRequestListener =new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            for (DataSnapshot d:dataSnapshot.getChildren()){
+                exists =true;
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+
 
     public boolean getFailed(){return failed;}
 
