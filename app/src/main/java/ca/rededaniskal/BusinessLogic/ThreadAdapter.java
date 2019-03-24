@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ca.rededaniskal.Activities.User_Details_Activity;
 import ca.rededaniskal.Activities.View_Thread_Activity;
 import ca.rededaniskal.EntityClasses.Thread;
 import ca.rededaniskal.R;
@@ -59,29 +58,9 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
 
         //TODO: Set profile pictures
         //profilePicture = itemView.findViewById(R.id.profilePicture);
-
-
         ThreadViewHolder.text.setText(child_thread.getText());
         ThreadViewHolder.name.setText(child_thread.getCreator());
 
-        //If this post has children,
-        if (child_thread.getThreads().size() > 0){
-            Thread reply = child_thread.getThreads().get(0);
-            //TODO: set profile picture
-            //profilePicture2 = itemView.findViewById(R.id.profilePicture2);
-            ThreadViewHolder.name2.setText(reply.getCreator());
-            ThreadViewHolder.replied.setText(REPLIED);
-        }
-
-        //Set the onClickListeners
-        ThreadViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mctx, View_Thread_Activity.class); // TODO: change the name of this for the
-                intent.putExtra("threads", child_thread.getThreads());
-                mctx.startActivity(intent);
-            }
-        });
     }
 
 
@@ -92,18 +71,15 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
 
 
     class ThreadViewHolder extends RecyclerView.ViewHolder {
-        ImageView profilePicture,  profilePicture2;
-        TextView text, name, name2, replied;
+        ImageView profilePicture;
+        TextView text, name;
 
         public ThreadViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePicture = itemView.findViewById(R.id.profilePicture);
-            profilePicture2 = itemView.findViewById(R.id.profilePicture2);
-
-            text = itemView.findViewById(R.id.text);
+            text = itemView.findViewById(R.id.topic);
             name = itemView.findViewById(R.id.name);
-            name2 = itemView.findViewById(R.id.name2);
-            replied = itemView.findViewById(R.id.replied);
+
         }
     }
 }

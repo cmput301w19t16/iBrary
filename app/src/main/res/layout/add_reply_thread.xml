@@ -7,22 +7,6 @@
     android:background="@color/lightGrey"
     android:elevation="24dp">
 
-    <EditText
-        android:id="@+id/topic"
-        android:layout_width="350dp"
-        android:layout_height="66dp"
-        android:layout_below="@+id/title"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorPrimaryLight"
-        android:ems="10"
-        android:hint="Forum Topic"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -30,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/new_forum_topic"
+        android:text="@string/new_post"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +26,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorPrimaryLight"
         android:ems="10"
@@ -50,10 +34,10 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topic" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <Button
-        android:id="@+id/add"
+        android:id="@+id/post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -64,7 +48,7 @@
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
         android:shadowDx="1"
         android:shadowDy="1"
-        android:text="@string/add_topic"
+        android:text="@string/post"
         android:textColor="@color/colorPrimaryLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

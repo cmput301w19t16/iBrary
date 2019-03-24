@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.BusinessLogic.ThreadAdapter;
 import ca.rededaniskal.EntityClasses.Thread;
 
@@ -31,7 +31,7 @@ import static java.lang.Boolean.TRUE;
 public class Forum_Activity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ThreadAdapter threadAdapter;
+    private ForumAdapter forumAdapter;
     private Forum forum;
     private TextView title;
     private FloatingActionButton addTopic;
@@ -57,10 +57,10 @@ public class Forum_Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        threadAdapter = new ThreadAdapter(this, forum.getThreads());
+        forumAdapter = new ForumAdapter(this, forum.getThreads(), forum.getTitles());
 
-        recyclerView.setAdapter(threadAdapter);
-        threadAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(forumAdapter);
+        forumAdapter.notifyDataSetChanged();
         //GetAllUsersDB db = new GetAllUsersDB(this); TODO something with this
 
         title.setText(forum.getBookName());
@@ -111,12 +111,14 @@ public class Forum_Activity extends AppCompatActivity {
                             FirebaseUser currentUser = mAuth.getCurrentUser();
                             String uid = currentUser.getUid();
                             String textStr  = text.getText().toString();
+                            String topicStr  = topic.getText().toString();
 
-                            Thread newThread = new Thread(uid, textStr );
+                            Thread newThread = new Thread(uid, textStr);
 
                             forum.addPost(newThread);
+                            forum.addTitle(topicStr);
 
-                            threadAdapter.notifyDataSetChanged();
+                            forumAdapter.notifyDataSetChanged();
                             popupWindow.dismiss();
                         }
                     }
