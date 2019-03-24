@@ -39,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
 import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
@@ -63,6 +64,7 @@ public class Book_Details_Activity extends AppCompatActivity {
     TextView DisplayOwner;
     TextView DisplayStatus;
     TextView DisplayDescription;
+    private Book_Details_Logic logic;
 
     ImageView BookCover;
 
@@ -182,7 +184,6 @@ public class Book_Details_Activity extends AppCompatActivity {
 
         final Book_Details_Activity thisone = this;
 
-        //TODO: DB
         Request_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,15 +191,14 @@ public class Book_Details_Activity extends AppCompatActivity {
                 if (isRequested){
                     Request_Cancel.setText(R.string.request_book);
                     isRequested = false;
-                    //TODO: remove from database
+
                 }else{
                     //Case Request book
                     Request_Cancel.setText(R.string.cancel_request);
-//                    BorrowRequest request = new Request(globalUser.getUserName(), ,"borrow" );
                     isRequested = true;
-                    requestsOnBookDB db = new requestsOnBookDB(book, thisone);
-                    //TODO: add request to database
+
                 }
+                logic = new Book_Details_Logic(book, isRequested);
             }
         });
 
