@@ -2,9 +2,8 @@ package ca.rededaniskal.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,12 +14,14 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
+import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
 
-public class EstablishLocation extends AppCompatActivity {
+public class Establish_PickUp_Details_Activity extends AppCompatActivity {
 
     Button btnDatePicker;
     Button btnTimePicker;
+    Button confirmDetails;
     EditText txtDate;
     EditText txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -40,6 +41,8 @@ public class EstablishLocation extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+        final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
+
 
         btnDatePicker = (Button) findViewById(R.id.PickUpDateButton);
         btnTimePicker = (Button) findViewById(R.id.PickUpTimeButton);
@@ -90,6 +93,15 @@ public class EstablishLocation extends AppCompatActivity {
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
+            }
+        });
+
+        confirmDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+                Intent intent = new Intent(getApplicationContext(), View_PickUp_Details_Activity.class);
+                intent.putExtra("BorrowRequestObj", request);
+                startActivity(intent);
             }
         });
     }

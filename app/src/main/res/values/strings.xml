@@ -107,6 +107,10 @@
     <string name="select_pick_up_location">Pick-up Location</string>
     <string name="select_pick_up_time">Pick-up Time</string>
     <string name="select_pick_up_date">Pick-up Date</string>
+    <string name="confirm">Confirm</string>
+    <string name="title_activity_view__pick_up__details">View_PickUp_Details</string>
+    <string name="view_pick_up_details">Pick-up Details</string>
+
 
 
 </resources>

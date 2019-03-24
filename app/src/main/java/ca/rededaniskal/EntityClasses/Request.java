@@ -1,6 +1,8 @@
 package ca.rededaniskal.EntityClasses;
 
-public class Request {
+import java.io.Serializable;
+
+public class Request implements Serializable {
     private String senderUserName;
     private String recipientUserName;
     private String requestType;

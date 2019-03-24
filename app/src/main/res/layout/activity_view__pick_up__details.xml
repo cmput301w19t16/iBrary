@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Establish_PickUp_Details_Activity">
+    tools:context=".Activities.View_PickUp_Details_Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,6 +20,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_establish_location" />
+    <include layout="@layout/content_view__pick_up__details" />
 
 </android.support.design.widget.CoordinatorLayout>
