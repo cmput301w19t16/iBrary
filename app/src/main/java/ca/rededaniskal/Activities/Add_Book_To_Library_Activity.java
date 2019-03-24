@@ -188,7 +188,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             cover.setImageBitmap(photo);
         } else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             String ISBN = data.getStringExtra("ISBN");
-            addISBN.setText(ISBN);
         }
     }
 
