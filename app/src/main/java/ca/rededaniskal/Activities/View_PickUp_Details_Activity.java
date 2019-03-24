@@ -76,7 +76,7 @@ public class View_PickUp_Details_Activity extends AppCompatActivity {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode == 1 && resultCode == Activity.RESULT_OK)
         {
-
+            //do something with ISBN to make the status of the book borrowed
         }
     }
 
