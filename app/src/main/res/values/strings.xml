@@ -103,6 +103,10 @@
     <string name="view_all_users">View All Users</string>
     <string name="view_all_books">View All Books</string>
     <string name="requests2">requests</string>
+    <string name="title_activity_establish_location">EstablishLocation</string>
+    <string name="select_pick_up_location">Pick-up Location</string>
+    <string name="select_pick_up_time">Pick-up Time</string>
+    <string name="select_pick_up_date">Pick-up Date</string>
 
 
 </resources>
