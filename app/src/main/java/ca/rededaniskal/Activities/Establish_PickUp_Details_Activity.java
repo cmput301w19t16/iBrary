@@ -25,6 +25,7 @@ public class Establish_PickUp_Details_Activity extends AppCompatActivity {
     EditText txtDate;
     EditText txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    String dateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,8 @@ public class Establish_PickUp_Details_Activity extends AppCompatActivity {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
 
-                                txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                dateTime = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                                txtDate.setText(dateTime);
 
                             }
                         }, mYear, mMonth, mDay);
@@ -101,6 +103,9 @@ public class Establish_PickUp_Details_Activity extends AppCompatActivity {
             public void onClick (View v){
                 Intent intent = new Intent(getApplicationContext(), View_PickUp_Details_Activity.class);
                 intent.putExtra("BorrowRequestObj", request);
+                intent.putExtra("Hour",mHour);
+                intent.putExtra("Minute", mMinute);
+                intent.putExtra("dateTime", dateTime);
                 startActivity(intent);
             }
         });
