@@ -110,6 +110,9 @@
     <string name="confirm">Confirm</string>
     <string name="title_activity_view__pick_up__details">View_PickUp_Details</string>
     <string name="view_pick_up_details">Pick-up Details</string>
+    <string name="check_out_book">Check Out Book</string>
+    <string name="meet_username">You can meet </string>
+    <string name="title">Title</string>
 
 
 
