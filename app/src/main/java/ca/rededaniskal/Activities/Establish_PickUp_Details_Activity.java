@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -74,6 +76,7 @@ public class Establish_PickUp_Details_Activity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
 
         btnTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override

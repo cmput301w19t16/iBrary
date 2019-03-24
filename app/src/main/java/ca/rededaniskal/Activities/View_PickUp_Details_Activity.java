@@ -20,7 +20,6 @@ import ca.rededaniskal.R;
 public class View_PickUp_Details_Activity extends AppCompatActivity {
     TextView location;
     TextView dateTime;
-    String dateTimeStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +38,19 @@ public class View_PickUp_Details_Activity extends AppCompatActivity {
         });*/
 
         final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
-        dateTimeStr = getIntent().getStringExtra("dateTime");
-
-        int hour = getIntent().getIntExtra("Hour", -1);
-        int minute = getIntent().getIntExtra("Minute", -1);
+        String dateTimeStr = getIntent().getStringExtra("dateTime");
 
         dateTime = findViewById(R.id.DateTimePickUpTextView);
         location = findViewById(R.id.LocationPickUpTextView);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE,MMMM, dd ");
-        System.out.println(sdf.format(new SimpleDateFormat("yyyy-M-dd").parse(s)));df
-        dateTime.setText();
+        int hour = getIntent().getIntExtra("Hour", -1);
+        int minute = getIntent().getIntExtra("Minute", -1);
 
+        String dateTimeFormatted = new SimpleDateFormat("E, MMM d, yyyy").format(dateTimeStr);
+
+        dateTime.setText(dateTimeFormatted);
+        location.setText("at");
+        
 
 
     }
