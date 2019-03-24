@@ -8,7 +8,8 @@ public class Forum {
     private Master_Book Book;
     private String forumID;
 
-    public Forum(Book book) {
+    public Forum(Master_Book book) {
+        Book = book;
         this.forumID = book.getISBN();
 
     }

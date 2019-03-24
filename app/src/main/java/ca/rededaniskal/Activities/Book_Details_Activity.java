@@ -169,16 +169,15 @@ public class Book_Details_Activity extends AppCompatActivity {
         });
 
         //TODO: Make this go to forum
-        /*
+
         GoToForum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ForumActivity.class);
-                intent.putExtra("activity","Edit");
+                Intent intent = new Intent(v.getContext(), Forum_Activity.class);
                 startActivity(intent);
             }
         });
-        */
+
 
         final Book_Details_Activity thisone = this;
 

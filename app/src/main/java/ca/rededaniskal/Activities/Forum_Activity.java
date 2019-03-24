@@ -32,11 +32,12 @@ public class Forum_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_forum_);
 
         //TODO: get Forum from DB or something
+        Master_Book b = new Master_Book("Happy Potter","JK Rowling","1234567890");
 
-        forum = new Forum(new Master_Book("Happy Potter","JK Rowling","1234567890")); //For testing
+        forum = new Forum(b); //For testing
 
         title = findViewById(R.id.Title);
-        addTopic = findViewById(R.id.add);
+        addTopic = findViewById(R.id.addTopic);
 
         //Set the recycler view
         recyclerView = findViewById(R.id.ViewThreads);
