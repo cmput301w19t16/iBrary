@@ -9,6 +9,7 @@
  *
  */
 package ca.rededaniskal.Activities.Fragments;
+import ca.rededaniskal.Database.currentUserDetailsDB;
 
 import android.content.Context;
 import android.content.Intent;
@@ -130,7 +131,10 @@ public class View_Own_Profile_Fragment extends Fragment {
 
 
         v = inflater.inflate(R.layout.fragment_personal_profile, container, false);
-        db = new currentUserDetailsDB();
+        db = new currentUserDetailsDB(this);
+        if (db.getFailed()){
+            returnToLogin();
+        }
 
         Button editButton = v.findViewById(R.id.edit_user);
         Button viewLibrary = (Button) v.findViewById(R.id.my_library);
@@ -226,64 +230,6 @@ public class View_Own_Profile_Fragment extends Fragment {
 
     private void returnToLogin() {
         startActivity(new Intent(getActivity(), Login_Activity.class));
-    }
-
-    public class currentUserDetailsDB{
-        private FirebaseAuth mAuth;
-        private String email;
-        private String username;
-        private String location;
-        private String phone;
-        private FirebaseUser user;
-        private DatabaseReference mDatabase;
-        private List<User> userList;
-
-        public currentUserDetailsDB() {
-            mAuth = FirebaseAuth.getInstance();
-            user = mAuth.getCurrentUser();
-            userList = new ArrayList<>();
-            if (user != null) {
-                email = user.getEmail();
-                getUserDetails();
-
-            } else {
-                returnToLogin();
-
-            }
-        }
-
-        private void getUserDetails(){
-            mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-            Query query = FirebaseDatabase.getInstance().getReference("Users")
-                    .orderByChild("email")
-                    .equalTo(email);
-
-            Log.d(TAG, "*********----->"+email);
-            query.addListenerForSingleValueEvent(valueEventListener);
-
-        }
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userList.clear();
-                Log.d(TAG, "*********----->onDataChange");
-                if (dataSnapshot.exists()) {
-                    Log.d(TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        //Log.d(TAG, "*********----->"+snapshot.getValue());
-                        User user = snapshot.getValue(User.class);
-                        setTexts(user.getEmail(), user.getPhoneNumber(), user.getLocation(), user.getUserName());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
     }
 
 }

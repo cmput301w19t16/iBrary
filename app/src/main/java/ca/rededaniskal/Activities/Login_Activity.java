@@ -9,6 +9,8 @@
  */
 package ca.rededaniskal.Activities;
 
+import ca.rededaniskal.Database.signInDB;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -45,7 +47,7 @@ public class Login_Activity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Log_In_Logic logic;
-    private Login_Activity.SignInDB db;
+    private signInDB db;
     ImageView logo;
 
     @Override
@@ -104,7 +106,7 @@ public class Login_Activity extends AppCompatActivity {
 
     public void finalPass() {
         if (logic.isValid()) {
-            db = new Login_Activity.SignInDB();
+            db = new signInDB(this);
             String em = email.getText().toString();
             String pass = password.getText().toString();
             Log.d(TAG, "*********----->"+pass);
@@ -120,64 +122,5 @@ public class Login_Activity extends AppCompatActivity {
 
 
 //    Enclosed database class
-    public class SignInDB {
 
-        // To read or write from the database, a database reference is needed
-        private DatabaseReference mDatabase;
-        private FirebaseAuth mAuth;
-        private boolean success;
-        private FirebaseUser newUser;
-
-        public SignInDB(){
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-
-            // Initialize FirebaseAuth
-            mAuth = FirebaseAuth.getInstance();
-            success = false;
-        }
-
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
-
-        public void signInUser(String email, String password){
-
-            Log.d(TAG, "*********-----> IN signInUser");
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Toast.makeText(getApplicationContext(), "Sign In Success", Toast.LENGTH_SHORT).show();
-                                nextActivity();
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                                updateUI(null);
-                                success = false;
-                                Toast.makeText(getApplicationContext(), "Sign In Failed", Toast.LENGTH_SHORT).show();
-                            }
-                            Log.d(TAG, "*********----->COMPLETED");
-                        }
-                    });
-
-        }
-
-        public FirebaseUser getNewUser() {
-            return newUser;
-        }
-
-
-        private void setNewUser(FirebaseUser newUser) {
-            this.newUser = newUser;
-        }
-    }
 }
