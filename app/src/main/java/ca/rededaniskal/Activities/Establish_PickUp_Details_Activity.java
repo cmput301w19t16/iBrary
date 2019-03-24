@@ -21,13 +21,17 @@ import ca.rededaniskal.R;
 
 public class Establish_PickUp_Details_Activity extends AppCompatActivity {
 
-    Button btnDatePicker;
-    Button btnTimePicker;
-    Button confirmDetails;
-    EditText txtDate;
-    EditText txtTime;
-    private int mYear, mMonth, mDay, mHour, mMinute;
-    String dateTime;
+    private Button btnDatePicker;
+    private Button btnTimePicker;
+    private Button confirmDetails;
+    private EditText txtDate;
+    private EditText txtTime;
+    private String dayMonthYear;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private int mHour;
+    private int mMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +71,8 @@ public class Establish_PickUp_Details_Activity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-
-                                dateTime = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                                txtDate.setText(dateTime);
+                                dayMonthYear = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                                txtDate.setText(dayMonthYear);
 
                             }
                         }, mYear, mMonth, mDay);
@@ -108,7 +111,7 @@ public class Establish_PickUp_Details_Activity extends AppCompatActivity {
                 intent.putExtra("BorrowRequestObj", request);
                 intent.putExtra("Hour",mHour);
                 intent.putExtra("Minute", mMinute);
-                intent.putExtra("dateTime", dateTime);
+                intent.putExtra("D/M/Y", dayMonthYear);
                 startActivity(intent);
             }
         });
