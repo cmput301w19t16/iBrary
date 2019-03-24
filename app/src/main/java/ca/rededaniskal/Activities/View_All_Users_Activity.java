@@ -63,5 +63,4 @@ public class View_All_Users_Activity extends AppCompatActivity {
 }
 
 
-    //*** Enclosed Database class***
 

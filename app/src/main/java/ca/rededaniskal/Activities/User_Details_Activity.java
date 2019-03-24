@@ -74,14 +74,9 @@ public class User_Details_Activity extends AppCompatActivity {
         String location = user.getLocation();
         String email = user.getEmail();
         String phone_num = user.getPhoneNumber();
-        Integer mutual_friends = user.numberMutualFriends(user);
+//        Integer mutual_friends = user.numberMutualFriends(user);
+        Integer mutual_friends = 0;
 
-        //Master_Book fav_book = user.getFavBook();
-        //String fav_title = fav_book.getTitle();
-        //String fav_author = fav_book.getAuthor();
-        //String fav_ISBN = fav_book.getISBN();
-        //  fav_image = fav_book.get
-        // user_image = ...
 
         DisplayUsername.setText(username);
         DisplayLocation.setText(location);
@@ -89,9 +84,6 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayPhoneNum.setText(phone_num);
         DisplayMutualFriends.setText(mutual_friends.toString().concat(" Mutual Friends"));
 
-        //DisplayFavTitle.setText(fav_title);
-        //DisplayFavAuthor.setText(fav_author);
-        //DisplayFavISBN.setText(fav_ISBN);
     }
 
 
