@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
+import ca.rededaniskal.Activities.EstablishLocation;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -96,6 +97,8 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
                     }
                     list.remove(j);
                     notifyDataSetChanged();
+                    Intent intent = new Intent(mctx, EstablishLocation.class);
+                    mctx.startActivity(intent);
                 }
             }
         });
