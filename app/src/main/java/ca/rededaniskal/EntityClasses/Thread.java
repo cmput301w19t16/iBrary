@@ -8,8 +8,10 @@ public class Thread {
     private String creator;
     private String text;
 
-    public Thread( Master_Book Book, String forumID ){
+    public Thread( String creator, String text ){
         //TODO Authenticate that is forum doesnt already exist
+        this.creator = creator;
+        this.text = text;
     }
 
     public ArrayList<Thread> getThreads() {

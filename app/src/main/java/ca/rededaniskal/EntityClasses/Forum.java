@@ -1,5 +1,7 @@
 package ca.rededaniskal.EntityClasses;
 
+import android.accessibilityservice.GestureDescription;
+
 import java.util.ArrayList;
 
 public class Forum {
@@ -7,11 +9,11 @@ public class Forum {
     private ArrayList<Thread> threads = new ArrayList<>();
     private Master_Book Book;
     private String forumID;
+    private ArrayList<String> titles = new ArrayList<>();
 
     public Forum(Master_Book book) {
         Book = book;
         this.forumID = book.getISBN();
-
     }
 
     public void addPost(Thread newThread) {
@@ -32,5 +34,17 @@ public class Forum {
 
     public String getBookName(){
         return Book.getTitle();
+    }
+
+    public ArrayList<String> getTitles() {
+        return titles;
+    }
+
+    public void setTitles(ArrayList<String> titles) {
+        this.titles = titles;
+    }
+
+    public void addTitle(String string){
+        this.titles.add(string);
     }
 }
