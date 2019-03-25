@@ -20,8 +20,8 @@
 
             <ImageView
                 android:id="@+id/profilePicture"
-                android:layout_width="68dp"
-                android:layout_height="61dp"
+                android:layout_width="57dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -47,7 +47,6 @@
                 android:layout_width="271dp"
                 android:layout_height="23dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/rounded_corner"
                 android:text="TextView"

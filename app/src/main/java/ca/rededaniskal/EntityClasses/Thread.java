@@ -1,9 +1,10 @@
 package ca.rededaniskal.EntityClasses;
 //Created by Revan on 2019-03-22
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Thread {
+public class Thread implements Serializable {
     private ArrayList<Thread> child_threads = new ArrayList<>();
     private String creator;
     private String text;

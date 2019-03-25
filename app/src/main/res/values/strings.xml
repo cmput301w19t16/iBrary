@@ -107,6 +107,7 @@
     <string name="add_topic">Add forum topic</string>
     <string name="post">Post</string>
     <string name="new_post">New Post</string>
+    <string name="add_post">Add New Post</string>
 
 
 </resources>

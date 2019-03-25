@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.BusinessLogic.ThreadAdapter;
+import ca.rededaniskal.EntityClasses.Parent_Thread;
 import ca.rededaniskal.EntityClasses.Thread;
 
 import ca.rededaniskal.EntityClasses.Forum;
@@ -57,7 +58,7 @@ public class Forum_Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        forumAdapter = new ForumAdapter(this, forum.getThreads(), forum.getTitles());
+        forumAdapter = new ForumAdapter(this, forum.getThreads());
 
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
@@ -106,29 +107,22 @@ public class Forum_Activity extends AppCompatActivity {
 
                         if (valid.equals(TRUE)){
                             //add to Forum
-                            forum.addTitle(topic.getText().toString());
 
                             FirebaseUser currentUser = mAuth.getCurrentUser();
                             String uid = currentUser.getUid();
                             String textStr  = text.getText().toString();
                             String topicStr  = topic.getText().toString();
 
-                            Thread newThread = new Thread(uid, textStr);
+
+                            Parent_Thread newThread = new Parent_Thread(uid, textStr, topicStr);
 
                             forum.addPost(newThread);
-                            forum.addTitle(topicStr);
 
                             forumAdapter.notifyDataSetChanged();
                             popupWindow.dismiss();
                         }
                     }
                 });
-
-
-
-
-
-
             }
         });
     }
