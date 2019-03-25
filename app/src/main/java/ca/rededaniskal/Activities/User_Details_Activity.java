@@ -67,7 +67,7 @@ public class User_Details_Activity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
         fdb = new Add_Remove_Friend_DB(user_received.getUID());
-        isFollowing = fdb.isFollowing(currentUser.getUid(), user_received.getUserName());
+        isFollowing = fdb.isFollowing(currentUser.getUid(), user_received.getUID());
         setFriendText();
 
         Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
@@ -117,13 +117,7 @@ public class User_Details_Activity extends AppCompatActivity {
     public void friendButtonPressed(){
         isFollowing = !isFollowing;
         setFriendText();
-        if (isFollowing){
-
-        }
-        else{
-
-        }
-
+        fdb.setFollowing(currentUser.getUid(), user_received.getUID(), isFollowing);
     }
 
     public void setFriendText(){

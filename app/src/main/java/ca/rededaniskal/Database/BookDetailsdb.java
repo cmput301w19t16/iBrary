@@ -46,7 +46,7 @@ public class BookDetailsdb{
             String user = requestDb.getUID();
             for (DataSnapshot d:dataSnapshot.getChildren()){
                BorrowRequest b = d.getValue(BorrowRequest.class);
-               if (b.getSenderUserName().equals(user)){
+               if (b.getsenderUID().equals(user)){
                    bookinuserrequests =true;
                }
 

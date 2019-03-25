@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.rededaniskal.EntityClasses.Friend_Request;
@@ -29,18 +30,20 @@ public class Add_Remove_Friend_DB {
     private FirebaseUser user;
     private DatabaseReference mDatabase;
     private String UID;
-    private List<String> keys;
+    private ArrayList<String> keys;
     private boolean isFollowed;
 
     public Add_Remove_Friend_DB(Friend_Request friend_request){
         this.friend_request = friend_request;
         delete = false;
+        keys = new ArrayList<String>();
         getCurrentUID();
     }
 
     public Add_Remove_Friend_DB(String friend_uid){
         this.friend_uid = friend_uid;
         delete = true;
+        keys = new ArrayList<String>();
         getCurrentUID();
     }
 
@@ -88,6 +91,15 @@ public class Add_Remove_Friend_DB {
             }
         });
         return isFollowed;
+    }
+
+    public void setFollowing(String follower, String leader, boolean newValue){
+        /*
+        if (newValue and follower isn't following leader)
+            create follower - leader relationship
+        if ((!newValue) and follower is following leader)
+            delete follower - leader relationship
+         */
     }
 
     private void getFriendship1(){
