@@ -22,7 +22,7 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import static com.google.android.gms.common.util.ArrayUtils.contains;
 
-public class AddBookLogic {
+public class ValidateBookLogic {
 
     private String title;
     private String author;
@@ -33,7 +33,7 @@ public class AddBookLogic {
     private String ISBNError;
 
     //Constructor
-    public AddBookLogic(String title, String author, String ISBN) {
+    public ValidateBookLogic(String title, String author, String ISBN) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;

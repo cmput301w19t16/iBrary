@@ -1,5 +1,6 @@
 package ca.rededaniskal.Database;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -9,49 +10,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import ca.rededaniskal.EntityClasses.Book_Instance;
+abstract class Entity_Database {
 
-abstract class iBrary_Database {
-    boolean exists;
-    String FINISHED;
     FirebaseDatabase db;
     FirebaseAuth mauth;
+    boolean exists;
+    String FINISHED;
 
 
-    iBrary_Database() {
+    Entity_Database() {
+
         this.db = FirebaseDatabase.getInstance();
         this.mauth = FirebaseAuth.getInstance();
     }
 
-    public boolean isExists() {
-        return exists;
-    }
 
-    public DatabaseReference getReference(References reference) {
-        if (reference == References.MASTERBOOK) {
-            return db.getReference("master-books");
 
-        } else if (reference == References.BOOKINSTANCE) {
-            return db.getReference("book-instances");
-        } else if (reference == References.FEED) {
-            return db.getReference("home-feed");
-        } else if (reference == References.BOOKREQUEST) {
 
-            return db.getReference("BorrowRequests");
-        } else if (reference == References.USER) {
-            return db.getReference("Users");
-        } else if (reference == References.FRIENDREQUEST) {
-
-            return db.getReference("FriendRequests");
-        }else return db.getReference();
-
-    }
 
 
     public String getUID() {
         return mauth.getUid();
 
     }
+
+    abstract public DatabaseReference getReference() ;
+
+
 
     public boolean checkExists(DatabaseReference reference) {
 
@@ -91,7 +76,7 @@ abstract class iBrary_Database {
     }
 
 
-    public abstract void update();
+
 
 
 }

@@ -143,7 +143,7 @@ public class Book_Details_Activity extends AppCompatActivity {
 
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
-       BookDetailsdb db = new BookDetailsdb();
+       BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
 
        isRequested = db.bookInUserRequests();
 

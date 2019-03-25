@@ -2,41 +2,38 @@ package ca.rededaniskal.Database;
 
 import android.support.annotation.NonNull;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
 
-public class BookDetailsdb extends iBrary_Database{
+public class BookDetailsdb{
     Book_Details_Activity parent;
-    DatabaseReference requestBookRef;
+    BorrowRequestDb requestDb;
     private boolean failed;
     String bookId;
+    private boolean bookinuserrequests;
 
-    public void BookDetailsdb(Book_Details_Activity bda, String bookid){
+    public BookDetailsdb(Book_Details_Activity bda, String bookid){
         parent = bda;
+        bookinuserrequests =false;
+        requestDb = new BorrowRequestDb();
         this.bookId = bookid;
     }
 
-    @Override
-    public void update() {
 
-    }
 
     public boolean bookInUserRequests(){
-        exists = false;
 
-        String user = getUID();
-       requestBookRef= getReference(References.BOOKREQUEST);
-       Query requested = requestBookRef.orderByChild("bookId").equalTo(this.bookId);
+
+
+       Query requested = requestDb.getReference().orderByChild("bookId").equalTo(this.bookId);
        requested.addListenerForSingleValueEvent(queryRequestListener);
-
-       return exists;
+       return bookinuserrequests;
 
 
 
@@ -46,8 +43,13 @@ public class BookDetailsdb extends iBrary_Database{
     ValueEventListener queryRequestListener =new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            String user = requestDb.getUID();
             for (DataSnapshot d:dataSnapshot.getChildren()){
-                exists =true;
+               BorrowRequest b = d.getValue(BorrowRequest.class);
+               if (b.getSenderUserName().equals(user)){
+                   bookinuserrequests =true;
+               }
+
             }
         }
 

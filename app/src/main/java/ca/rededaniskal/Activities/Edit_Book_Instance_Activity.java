@@ -29,10 +29,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import ca.rededaniskal.BusinessLogic.AddBookLogic;
+import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
@@ -53,7 +51,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
     private FloatingActionButton openCamera;
     private ImageView cover;
 
-    private AddBookLogic businessLogic;
+    private ValidateBookLogic businessLogic;
 
     //For Camera
     private static final int CAMERA_REQUEST = 1888;
@@ -139,7 +137,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         String ISBN = editISBN.getText().toString();
 
 
-        businessLogic = new AddBookLogic(Title,Author,ISBN);
+        businessLogic = new ValidateBookLogic(Title,Author,ISBN);
 
     }
 
