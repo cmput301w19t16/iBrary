@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import ca.rededaniskal.Database.Add_Remove_Friend_DB;
+import ca.rededaniskal.BusinessLogic.Add_Remove_Friend_Logic;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -46,6 +48,7 @@ public class User_Details_Activity extends AppCompatActivity {
     ImageView BookCover;
     ImageView UserPic;
 
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private Add_Remove_Friend_DB fdb;
@@ -53,11 +56,14 @@ public class User_Details_Activity extends AppCompatActivity {
 
     private Button Follow_or_unfollow;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user__details_);
+
         Follow_or_unfollow = findViewById(R.id.Add_delete);
+
         Intent intent = getIntent();
 
         user_received = (User) intent.getSerializableExtra("user");
@@ -74,6 +80,7 @@ public class User_Details_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 friendButtonPressed();
+
             }
         }
 
@@ -102,8 +109,9 @@ public class User_Details_Activity extends AppCompatActivity {
         String location = user.getLocation();
         String email = user.getEmail();
         String phone_num = user.getPhoneNumber();
-//        Integer mutual_friends = user.numberMutualFriends(user);
+
         Integer followers = 0;
+
 
 
         DisplayUsername.setText(username);

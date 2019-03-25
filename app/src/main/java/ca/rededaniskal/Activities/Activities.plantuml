@@ -1,0 +1,567 @@
+@startuml
+
+title __ACTIVITIES's Class Diagram__\n
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class Add_Book_To_Library_Activity {
+          {static} - TAG : String
+          - mAuth : FirebaseAuth
+          - bookRef : DatabaseReference
+          - addTitle : EditText
+          - addAuthor : EditText
+          - addISBN : EditText
+          - addDescription : EditText
+          - openScanner : Button
+          - addBook : Button
+          - openCamera : FloatingActionButton
+          - cover : ImageView
+          {static} - CAMERA_REQUEST : int
+          {static} - MY_CAMERA_PERMISSION_CODE : int
+          # onCreate()
+          + getInfo()
+          + validateFields()
+          + addBookInstance()
+          + onRequestPermissionsResult()
+          # onActivityResult()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class AddBookDb {
+          ~ db : FirebaseDatabase
+          ~ bookRef : DatabaseReference
+          ~ success : String
+          + AddBookDb()
+          + addBookToDatabase()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class Book_Details_Activity {
+          ~ DisplayTitle : TextView
+          ~ DisplayAuthor : TextView
+          ~ DisplayISBN : TextView
+          ~ DisplayOwner : TextView
+          ~ DisplayStatus : TextView
+          ~ DisplayDescription : TextView
+          ~ BookCover : ImageView
+          ~ GoToForum : Button
+          ~ Request_Cancel : Button
+          ~ Edit : Button
+          ~ viewRequests : RecyclerView
+          ~ l : ArrayList<BorrowRequest>
+          ~ isRequested : boolean
+          ~ valueEventListener2 : ValueEventListener
+          # onCreate()
+          + setTrue()
+          - returnToLogin()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class BookDetailsdb {
+          ~ requestedListener : ValueEventListener
+          + BookDetailsdb()
+          + bookInUserRequests()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class requestsOnBookDB {
+          - email : String
+          - mAuth : FirebaseAuth
+          - user : FirebaseUser
+          - username : String
+          - mDatabase : DatabaseReference
+          - submit : boolean
+          ~ valueEventListener1 : ValueEventListener
+          ~ valueEventListener3 : ValueEventListener
+          + requestsOnBookDB()
+          + requestsOnBookDB()
+          - createRequest()
+          - submitRequest()
+          - getUsername()
+          - getOwnerUserName()
+          - getRequests()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class Edit_Book_Instance_Activity {
+          {static} - TAG : String
+          - editTitle : EditText
+          - editAuthor : EditText
+          - editISBN : EditText
+          - editDescription : EditText
+          - openScanner : Button
+          - save : Button
+          - delete : Button
+          - openCamera : FloatingActionButton
+          - cover : ImageView
+          {static} - CAMERA_REQUEST : int
+          {static} - MY_CAMERA_PERMISSION_CODE : int
+          # onCreate()
+          + getInfo()
+          + validateFields()
+          + editBookInstance()
+          + onRequestPermissionsResult()
+          # onActivityResult()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class EditBookDb {
+          + EditBookDb()
+          + EditBookData()
+          + DeleteBook()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class Edit_Profile_Activity {
+          ~ saveButton : Button
+          ~ editProfilePic : FloatingActionButton
+          ~ profilePicture : ImageView
+          ~ newUsername : EditText
+          ~ newPhone : EditText
+          ~ newEmail : EditText
+          ~ newLocation : EditText
+          ~ oldPassword : EditText
+          ~ newPassword : EditText
+          ~ confirmNewPassword : EditText
+          {static} - CAMERA_REQUEST : int
+          {static} - MY_CAMERA_PERMISSION_CODE : int
+          # onCreate()
+          + getTexts()
+          + setTexts()
+          + onRequestPermissionsResult()
+          # onActivityResult()
+          - returnToLogin()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class editUserDetailsDB {
+          - mAuth : FirebaseAuth
+          - email : String
+          - username : String
+          - location : String
+          - phone : String
+          - user : FirebaseUser
+          - mDatabase : DatabaseReference
+          - userList : List<User>
+          - key : String
+          ~ valueEventListener : ValueEventListener
+          + editUserDetailsDB()
+          - saveNewDetails()
+          - getUserDetails()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class Filter_My_Books_Logic {
+          ~ filter : ArrayList<Integer>
+          + Filter_My_Books_Logic()
+          - parseFilter()
+          + newBooks()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class Launcher_Activity {
+          - buttonScanner : Button
+          # onCreate()
+          - goToHome()
+          - goToScanner()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class Login_Activity {
+          - loginButton : Button
+          - RegisterButton : Button
+          - email : EditText
+          - password : EditText
+          ~ logo : ImageView
+          # onCreate()
+          - validateFields()
+          + finalPass()
+          + nextActivity()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class SignInDB {
+          - mDatabase : DatabaseReference
+          - mAuth : FirebaseAuth
+          - success : boolean
+          - newUser : FirebaseUser
+          + SignInDB()
+          + isSuccess()
+          + setSuccess()
+          + signInUser()
+          + getNewUser()
+          - setNewUser()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class Main_Activity {
+          - mViewPager : ViewPager
+          # onCreate()
+          - setUpViewPager()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class Signup_Activity {
+          - usernameText : EditText
+          - passwordText : EditText
+          - confirmText : EditText
+          - emailText : EditText
+          - phoneText : EditText
+          - client : FusedLocationProviderClient
+          ~ location : TextView
+          # onCreate()
+          - getAddressName()
+          - requestPermission()
+          + validateFields()
+          + getInfo()
+          + finalPass()
+          + nextActivity()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class SignUpDB {
+          - mDatabase : DatabaseReference
+          - mAuth : FirebaseAuth
+          - success : boolean
+          - newUser : FirebaseUser
+          + SignUpDB()
+          + isSuccess()
+          + setSuccess()
+          + createUser()
+          + setUser()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class User_Details_Activity {
+          ~ DisplayUsername : TextView
+          ~ DisplayLocation : TextView
+          ~ DisplayEmail : TextView
+          ~ DisplayPhoneNum : TextView
+          ~ DisplayMutualFriends : TextView
+          ~ DisplayFavTitle : TextView
+          ~ DisplayFavAuthor : TextView
+          ~ DisplayFavISBN : TextView
+          ~ BookCover : ImageView
+          ~ UserPic : ImageView
+          # onCreate()
+          + fillData()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class userDetailsDB {
+          - mAuth : FirebaseAuth
+          - email : String
+          - username : String
+          - location : String
+          - phone : String
+          + userDetailsDB()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class View_All_Books_Activity {
+          - recyclerView : RecyclerView
+          # onCreate()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class getAllBooks {
+          ~ mDatabase : DatabaseReference
+          ~ valueEventListener : ValueEventListener
+          + getAllBooks()
+          - getUserQuery()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class View_All_Requests_Activity {
+          - recyclerView : RecyclerView
+          - requestList : ArrayList<BorrowRequest>
+          # onCreate()
+          - returnToLogin()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class getAllUserRequests {
+          - email : String
+          - mAuth : FirebaseAuth
+          - user : FirebaseUser
+          - username : String
+          ~ valueEventListener1 : ValueEventListener
+          ~ valueEventListener3 : ValueEventListener
+          + getAllUserRequests()
+          - getUsername()
+          - getRequests()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class View_All_Users_Activity {
+          - recyclerView : RecyclerView
+          - Users : ArrayList<User>
+          # onCreate()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class getAllUsers {
+          ~ mDatabase : DatabaseReference
+          ~ valueEventListener : ValueEventListener
+          + getAllUsers()
+          - getUserQuery()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class View_Borrowed_Requested_Activity {
+          - recyclerView : RecyclerView
+          - toggleRequested : Switch
+          - toggleBorrowed : Switch
+          # onCreate()
+          + updateBookView()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class readBookDB {
+          - mdatabase : DatabaseReference
+          ~ TAG : String
+          ~ valueEventListener : ValueEventListener
+          + readBookDB()
+          - update()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class View_Friends_Activity {
+          - recyclerView : RecyclerView
+          # onCreate()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class View_My_Library_Activity {
+          - recyclerView : RecyclerView
+          - fab : FloatingActionButton
+          - filter : Button
+          ~ filterOptions : String[]
+          ~ selectedOptions : boolean[]
+          ~ chosenOptions : ArrayList<Integer>
+          # onCreate()
+          + updateBookView()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class readmyBookDB {
+          - mdatabase : DatabaseReference
+          ~ TAG : String
+          ~ valueEventListener : ValueEventListener
+          + readmyBookDB()
+          - update()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class View_Rating_Post_Activity {
+          # onCreate()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.Activities {
+      class View_Text_Post_Activity {
+          # onCreate()
+      }
+    }
+  }
+  
+
+  Add_Book_To_Library_Activity -up-|> AppCompatActivity
+  Add_Book_To_Library_Activity o-- AddBookLogic : businessLogic
+  Add_Book_To_Library_Activity +-down- AddBookDb
+  HostCallbacks -up-|> FragmentHostCallback
+  Book_Details_Activity -up-|> AppCompatActivity
+  Book_Details_Activity o-- Book_Instance : book
+  Book_Details_Activity o-- BorrowRequestAdapter : requestAdapter
+  Book_Details_Activity +-down- BookDetailsdb
+  Book_Details_Activity +-down- requestsOnBookDB
+  requestsOnBookDB o-- Book_Instance : boook
+  HostCallbacks -up-|> FragmentHostCallback
+  Edit_Book_Instance_Activity -up-|> AppCompatActivity
+  Edit_Book_Instance_Activity o-- AddBookLogic : businessLogic
+  Edit_Book_Instance_Activity +-down- EditBookDb
+  HostCallbacks -up-|> FragmentHostCallback
+  Edit_Profile_Activity -up-|> AppCompatActivity
+  Edit_Profile_Activity o-- editUserDetailsDB : db
+  Edit_Profile_Activity +-down- editUserDetailsDB
+  HostCallbacks -up-|> FragmentHostCallback
+  Filter_My_Books_Logic o-- Book_List : book_list
+  Launcher_Activity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  Login_Activity -up-|> AppCompatActivity
+  Login_Activity o-- Log_In_Logic : logic
+  Login_Activity o-- SignInDB : db
+  Login_Activity +-down- SignInDB
+  HostCallbacks -up-|> FragmentHostCallback
+  Main_Activity -up-|> AppCompatActivity
+  Main_Activity o-- SectionsPageAdapter : mSectionsPageAdapter
+  HostCallbacks -up-|> FragmentHostCallback
+  Signup_Activity -up-|> AppCompatActivity
+  Signup_Activity o-- SignUpLogic : businessLogic
+  Signup_Activity o-- User : user
+  Signup_Activity +-down- SignUpDB
+  HostCallbacks -up-|> FragmentHostCallback
+  User_Details_Activity -up-|> AppCompatActivity
+  User_Details_Activity o-- User : user_received
+  User_Details_Activity +-down- userDetailsDB
+  HostCallbacks -up-|> FragmentHostCallback
+  View_All_Books_Activity -up-|> AppCompatActivity
+  View_All_Books_Activity o-- BookAdapter : bookAdapter
+  View_All_Books_Activity o-- Book_List : BL
+  View_All_Books_Activity +-down- getAllBooks
+  HostCallbacks -up-|> FragmentHostCallback
+  View_All_Requests_Activity -up-|> AppCompatActivity
+  View_All_Requests_Activity o-- BorrowRequestAdapter : adapter
+  View_All_Requests_Activity o-- getAllUserRequests : db
+  View_All_Requests_Activity +-down- getAllUserRequests
+  HostCallbacks -up-|> FragmentHostCallback
+  View_All_Users_Activity -up-|> AppCompatActivity
+  View_All_Users_Activity o-- UserAdapter : userAdapter
+  View_All_Users_Activity +-down- getAllUsers
+  HostCallbacks -up-|> FragmentHostCallback
+  View_Borrowed_Requested_Activity -up-|> AppCompatActivity
+  View_Borrowed_Requested_Activity o-- Book_List : BL
+  View_Borrowed_Requested_Activity o-- BookAdapter : bookAdapter
+  View_Borrowed_Requested_Activity +-down- readBookDB
+  HostCallbacks -up-|> FragmentHostCallback
+  View_Friends_Activity -up-|> AppCompatActivity
+  View_Friends_Activity o-- UserAdapter : userAdapter
+  HostCallbacks -up-|> FragmentHostCallback
+  View_My_Library_Activity -up-|> AppCompatActivity
+  View_My_Library_Activity o-- BookAdapter : bookAdapter
+  View_My_Library_Activity o-- Book_List : BL
+  View_My_Library_Activity +-down- readmyBookDB
+  HostCallbacks -up-|> FragmentHostCallback
+  View_Rating_Post_Activity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  View_Text_Post_Activity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

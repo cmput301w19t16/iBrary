@@ -1,7 +1,9 @@
 package ca.rededaniskal.Database;
 
 import android.content.ContentValues;
+
 import android.support.annotation.NonNull;
+
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +20,8 @@ import java.util.List;
 import ca.rededaniskal.EntityClasses.Friend_Request;
 import ca.rededaniskal.EntityClasses.Friendship;
 
+import ca.rededaniskal.EntityClasses.User;
+
 import static android.support.constraint.Constraints.TAG;
 
 public class Add_Remove_Friend_DB {
@@ -30,7 +34,9 @@ public class Add_Remove_Friend_DB {
     private DatabaseReference mDatabase;
     private String UID;
     private List<String> keys;
+
     private boolean isFollowed;
+
 
     public Add_Remove_Friend_DB(Friend_Request friend_request){
         this.friend_request = friend_request;
@@ -61,6 +67,7 @@ public class Add_Remove_Friend_DB {
         }
     }
 
+
     public boolean isFollowing(String follower, final String leader){
         isFollowed = false;
 
@@ -89,6 +96,7 @@ public class Add_Remove_Friend_DB {
         });
         return isFollowed;
     }
+
 
     private void getFriendship1(){
         Log.d(ContentValues.TAG, "*********----->getFriendship");
