@@ -12,6 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //manifestPlaceholders = [fabric_io_id:"AIzaSyDnb2g1cRtlMB-h-yi3_XwrYFqcvwBmBLA"]
     }
     buildTypes {
         release {
@@ -60,6 +61,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.1.0'
 
     implementation 'com.google.android.gms:play-services-location:15.0.1'
-
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    //implementation 'com.squareup.picasso:picasso:2.5.2'
 }
 apply plugin: 'com.google.gms.google-services'
