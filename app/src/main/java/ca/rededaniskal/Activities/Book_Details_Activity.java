@@ -13,6 +13,7 @@
  */
 package ca.rededaniskal.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -39,12 +40,14 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
+import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
+import ca.rededaniskal.Database.BookDetailsdb;
 
 /**
  * This activity lets the user view a book's details.
@@ -129,20 +132,23 @@ public class Book_Details_Activity extends AppCompatActivity {
 //            l.add(br2);
 //            l.add(br3);
 
+
             requestAdapter = new BorrowRequestAdapter(this, l);
             viewRequests.setAdapter(requestAdapter);
             requestAdapter.notifyDataSetChanged();
-            requestsOnBookDB db = new requestsOnBookDB();
+            requestsOnBookDB db = new requestsOnBookDB(this);
+            if (db.getFailed()){returnToLogin();}
 
         }else{
 
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
-        BookDetailsdb db = new BookDetailsdb();
-        db.bookInUserRequests(book.getBookID());
+       BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
+
+       isRequested = db.bookInUserRequests();
 
         //Set appropriate text for the button at the bottom
-        if (book.getStatus() == "Requested" && isRequested) {
+        if (book.getStatus().equals("Requested") && isRequested) {
             Request_Cancel.setText(R.string.cancel_request);
 
         } else {
@@ -174,6 +180,8 @@ public class Book_Details_Activity extends AppCompatActivity {
         });
         */
 
+        final Book_Details_Activity thisone = this;
+
         //TODO: DB
         Request_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,7 +196,7 @@ public class Book_Details_Activity extends AppCompatActivity {
                     Request_Cancel.setText(R.string.cancel_request);
 //                    BorrowRequest request = new Request(globalUser.getUserName(), ,"borrow" );
                     isRequested = true;
-                    requestsOnBookDB db = new requestsOnBookDB(book);
+                    requestsOnBookDB db = new requestsOnBookDB(book, thisone);
                     //TODO: add request to database
                 }
             }
@@ -231,187 +239,22 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     }
 
+    public String getBookISBN(){return book.getISBN();}
+
+    public void listClear(){l.clear(); return;}
+
+    public void append(BorrowRequest r){l.add(r);return;}
+
+    public int getLSize(){return l.size();}
+
+    public void notifyRequest(){requestAdapter.notifyDataSetChanged();return;}
 
 
 
-    //---------ENCLOSED DATABASE CLASS-----------------------//
-private class BookDetailsdb{
 
-
-    public void BookDetailsdb(){
-
-    }
-
-
-
-    public void bookInUserRequests(String bookid){
-
-        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference requestBook = FirebaseDatabase.getInstance().getReference("book-instances")
-                .child(user)
-                .child("my-requests")
-                .child(bookid);
-        requestBook.addListenerForSingleValueEvent(requestedListener);
-
-
-    }
-
-
-    ValueEventListener requestedListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists()) {
-                setTrue();
-
-            }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-            databaseError.toException();
-
-        }
-    };
-
-
-
-}
 
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));
-    }
-
-
-
-    // ------------------ Enclosed Database Class ----------------- //
-
-
-    private class requestsOnBookDB {
-        private String email;
-        private FirebaseAuth mAuth;
-        private FirebaseUser user;
-        private String username;
-        private DatabaseReference mDatabase;
-        private boolean submit;
-        private Book_Instance boook;
-
-
-
-        public requestsOnBookDB() {
-            submit = false;
-            mAuth = FirebaseAuth.getInstance();
-            user = mAuth.getCurrentUser();
-            if (user != null) {
-                email = user.getEmail();
-                getUsername();
-
-            } else {
-                returnToLogin();
-            }
-        }
-
-
-        public requestsOnBookDB(Book_Instance book){
-            submit = true;
-            this.boook = book;
-            mAuth = FirebaseAuth.getInstance();
-            user = mAuth.getCurrentUser();
-            if (user != null) {
-                email = user.getEmail();
-                getUsername();
-
-            } else {
-                returnToLogin();
-            }
-
-        }
-
-        private void createRequest(){
-//            BorrowRequest requ = new BorrowRequest(username, book., book.getISBN(), book.getBookID());
-        }
-
-        private void submitRequest(BorrowRequest request){
-            mDatabase = FirebaseDatabase.getInstance().getReference("BorrowRequests");
-            String key = mDatabase.push().getKey();
-            mDatabase.child(key).setValue(request);
-        }
-
-        private void getUsername() {
-            Log.d(TAG, "*********----->/Email: "+email);
-            Query query = FirebaseDatabase.getInstance().getReference("Users")
-                    .orderByChild("email").equalTo(email);
-
-            query.addListenerForSingleValueEvent(valueEventListener1);
-        }
-
-
-        ValueEventListener valueEventListener1 = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "*********----->onDataChange1");
-                if (dataSnapshot.exists()) {
-                    Log.d(TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        User u = snapshot.getValue(User.class);
-                        Log.d(TAG, "*********----->username: "+u.getUserName());
-                        username = u.getUserName();
-                    }
-                    if (submit){
-                        createRequest();
-                    }else {
-                        getRequests();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        private void getOwnerUserName(String uid){
-        }
-
-
-        private void getRequests() {
-
-            Query query2 = FirebaseDatabase.getInstance().getReference("BorrowRequests")
-                    .orderByChild("recipientUserName").equalTo(username);
-
-            query2.addListenerForSingleValueEvent(valueEventListener3);
-        }
-
-        ValueEventListener valueEventListener3 = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "*********----->onDataChange3");
-                l.clear();
-                if (dataSnapshot.exists()) {
-                    Log.d(TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        BorrowRequest request = snapshot.getValue(BorrowRequest.class);
-                        if (request.getIsbn().equals(book.getISBN())) {
-                            Log.d(TAG, "*********----->Books " + request.getIsbn());
-                            l.add(request);
-                        }
-                    }
-                    l.add(new BorrowRequest());
-                    requestAdapter.notifyDataSetChanged();
-
-                    Log.d(TAG, "*********----->length" + l.size());
-//                    requestAdapter.notifyDataSetChanged();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
     }
 
 }

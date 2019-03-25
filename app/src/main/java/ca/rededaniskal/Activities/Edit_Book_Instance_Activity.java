@@ -29,10 +29,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import ca.rededaniskal.BusinessLogic.AddBookLogic;
+import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
@@ -53,7 +51,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
     private FloatingActionButton openCamera;
     private ImageView cover;
 
-    private AddBookLogic businessLogic;
+    private ValidateBookLogic businessLogic;
 
     //For Camera
     private static final int CAMERA_REQUEST = 1888;
@@ -111,7 +109,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 getInfo();
-                validateFields();
+
                 editBookInstance(book);
 
             }
@@ -120,8 +118,9 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditBookDb db = new EditBookDb();
-                db.DeleteBook(book.getBookID());
+                getInfo();
+
+                businessLogic.delete(book.getBookID(), book.getISBN());
 
                 Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                 startActivity(intent);
@@ -138,28 +137,14 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         String ISBN = editISBN.getText().toString();
 
 
-        businessLogic = new AddBookLogic(Title,Author,ISBN);
+        businessLogic = new ValidateBookLogic(Title,Author,ISBN);
+
     }
 
-    public void validateFields() {
-        String error = businessLogic.validateTitle();
-        if (!error.equals("")){
-            editTitle.setError(error);
 
-        }
-        String error1 = businessLogic.validateAuthor();
-        if (!error1.equals("")){
-            editAuthor.setError(error1);
-
-        }
-        String error2 = businessLogic.validateISBN();
-        if (!error2.equals("")){
-            editISBN.setError(error2);
-        }
-    }
 
     public void editBookInstance(Book_Instance book) {
-        if (businessLogic.isValid()) {
+        if (businessLogic.isValid().equals("")) {
             String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
@@ -171,8 +156,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
                     new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus());
             bookInstance.setBookID(book.getBookID());
 
-            EditBookDb db = new EditBookDb();
-            db.EditBookData(bookInstance);
+            businessLogic.updateInformation(bookInstance);
             //getParent().finish();
             finish();
             }
@@ -205,36 +189,5 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
 
 
 
-    private class EditBookDb {
-
-
-        public EditBookDb() {
-
-
-        }
-
-        public boolean EditBookData(Book_Instance bookInstance) throws NullPointerException{
-            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("book-instances")
-                    .child(user)
-                    .child("my-books")
-                    .child(bookInstance.getBookID());
-            return  bookRef.setValue(bookInstance).isSuccessful();
-
-
-        }
-
-
-        public void DeleteBook(String node){
-            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("book-instances").child(user)
-                    .child("my-books")
-                    .child(node);
-            bookRef.removeValue();
-
-
-
-        }
-    }
 
 }
