@@ -94,10 +94,12 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
                     }
                     list.remove(j);
                     notifyDataSetChanged();
-                    Intent intent = new Intent(mctx, Establish_Exchange_Details_Activity.class);
-                    intent.putExtra("BorrowRequestObject", request);
-                    mctx.startActivity(intent);
                 }
+
+                Intent intent = new Intent(mctx, Establish_Exchange_Details_Activity.class);
+                intent.putExtra("BorrowRequestObject", request);
+                mctx.startActivity(intent);
+
             }
         });
 
@@ -123,7 +125,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     }
 
     /**
-     * The type Entry view holder, the obbject to actually hold an entry
+     * The type Entry view holder, the object to actually hold an entry
      */
     class BorrowRequestViewHolder extends RecyclerView.ViewHolder {
 

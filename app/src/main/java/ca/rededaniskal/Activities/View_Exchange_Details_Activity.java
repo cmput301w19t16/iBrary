@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -29,6 +30,17 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
+
+        int month = getIntent().getIntExtra("Month", -1);
+        int day = getIntent().getIntExtra("Day", -1);
+        int year = getIntent().getIntExtra("Year", -1);
+
+        int hour = getIntent().getIntExtra("Hour", -1);
+        int minute = getIntent().getIntExtra("Minute", -1);
+
+        //String dateTimeStr = getIntent().getStringExtra("D/M/Y");
+
         setContentView(R.layout.activity_view__pick_up__details);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,7 +55,7 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
         });*/
 
         viewExchangeDetails = findViewById(R.id.ViewExchangeDetailsTextView);
-        final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
+
         mode = request.getStatus();
         if (mode == "Accepted"){
             viewExchangeDetails.setText(R.string.view_pick_up_details);
@@ -51,20 +63,15 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
             viewExchangeDetails.setText(R.string.view_drop_off_details);
         }
 
-
-        String dateTimeStr = getIntent().getStringExtra("D/M/Y");
-
         dateTime = findViewById(R.id.DateTimePickUpTextView);
         location = findViewById(R.id.LocationPickUpTextView);
         goToScanner = findViewById(R.id.ScanBookPickUpButton);
 
-        int hour = getIntent().getIntExtra("Hour", -1);
-        int minute = getIntent().getIntExtra("Minute", -1);
+        //SimpleDateFormat dateTimeFormatted = new SimpleDateFormat("E, MMM d, yyyy").format(dateTimeStr);
 
-        String dateTimeFormatted = new SimpleDateFormat("E, MMM d, yyyy").format(dateTimeStr);
-
-
-        dateTime.setText(dateTimeFormatted + ", " + Integer.toString(hour) + Integer.toString(minute));
+        //dateTime.setText(dateTimeFormatted + ", " + Integer.toString(hour) + Integer.toString(minute));
+        String monthWord = getMonthFromInt(month);
+        dateTime.setText(monthWord + " "+ String.valueOf(day) + "," + hour + ":" + minute);
         location.setText("at");
 
        goToScanner.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +84,16 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
        });
 
 
+    }
+    //http://bluebones.net/2002/10/converting-month-number-to-month-name-in-java/
+    private String getMonthFromInt(int m) {
+        String month = "invalid";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (m >= 0 && m <= 11 ) {
+            month = months[m];
+        }
+        return month;
     }
 
     @Override

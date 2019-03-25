@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -65,19 +66,21 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
 
         btnDatePicker = (Button) findViewById(R.id.ExchangeDateButton);
         btnTimePicker = (Button) findViewById(R.id.ExchangeTimeButton);
+        confirmDetails = (Button) findViewById(R.id.ConfirmExchangeButton);
         txtDate = (EditText) findViewById(R.id.PickUpDateEditText);
         txtTime = (EditText) findViewById(R.id.PickUpTimeEditText);
 
+        final Calendar c = Calendar.getInstance();
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Get Current Date
-                final Calendar c = Calendar.getInstance();
+                //final Calendar c = Calendar.getInstance();
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(),
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Establish_Exchange_Details_Activity.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -97,12 +100,12 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
             @Override
             public void onClick (View v){
                 // Get Current Time
-                final Calendar c = Calendar.getInstance();
+                //final Calendar c = Calendar.getInstance();
                 mHour = c.get(Calendar.HOUR_OF_DAY);
                 mMinute = c.get(Calendar.MINUTE);
 
                 // Launch Time Picker Dialog
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getApplicationContext(),
+                TimePickerDialog timePickerDialog = new TimePickerDialog(Establish_Exchange_Details_Activity.this,
                         new TimePickerDialog.OnTimeSetListener() {
 
                             @Override
@@ -113,6 +116,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
+                //timePickerDialog.showAtLocation(setLayout(R.layout.activity_establish_location), Gravity.CENTER, 0, 0);
             }
         });
 
@@ -120,10 +124,13 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
             @Override
             public void onClick (View v){
                 Intent intent = new Intent(getApplicationContext(), View_Exchange_Details_Activity.class);
-                intent.putExtra("BorrowRequestObj", request);
+                intent.putExtra("BorrowRequestObject", request);
                 intent.putExtra("Hour",mHour);
                 intent.putExtra("Minute", mMinute);
-                intent.putExtra("D/M/Y", dayMonthYear);
+                intent.putExtra("Day", mDay);
+                intent.putExtra("Month",mMonth);
+                intent.putExtra("Year", mYear);
+                //intent.putExtra("D/M/Y", dayMonthYear);
                 startActivity(intent);
             }
         });
