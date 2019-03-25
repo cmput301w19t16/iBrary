@@ -16,6 +16,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,13 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.Activities.Filter_My_Books_Logic;
+import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.BusinessLogic.PostAdapter;
+import ca.rededaniskal.BusinessLogic.Search_Logic;
+import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.Master_Book;
+import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 /**
@@ -100,6 +109,10 @@ public class Search_Fragment extends Fragment {
         searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
+        final RecyclerView recyclerView = view.findViewById(R.id.display);
+        recyclerView.setHasFixedSize(true);
+        final ArrayList<Master_Book> master_books = new ArrayList<Master_Book>();
+
 
 
         searchBy.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +170,32 @@ public class Search_Fragment extends Fragment {
         });
 
 
+
+
         // Inflate the layout for this fragment
         return view;
 }
+
+    public void updateBookView(ArrayList<Master_Book> master_list, RecyclerView recyclerView){
+        //uses filter book logic to allow users to filter books by filter options
+        if (chosenOptions.size()!=0){
+            Search_Logic sl = new Search_Logic(this, chosenOptions,"");
+
+
+
+        }
+        else {
+
+
+        }
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        //final BookAdapter bookAdapter = new BookAdapter(master_list, Search_Fragment.this);
+        //recyclerView.setAdapter(bookAdapter);
+
+
+    }
+
+
+
 }
