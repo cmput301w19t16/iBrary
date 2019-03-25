@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import ca.rededaniskal.Activities.Establish_PickUp_Details_Activity;
+import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
 
@@ -94,7 +94,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
                     }
                     list.remove(j);
                     notifyDataSetChanged();
-                    Intent intent = new Intent(mctx, Establish_PickUp_Details_Activity.class);
+                    Intent intent = new Intent(mctx, Establish_Exchange_Details_Activity.class);
                     intent.putExtra("BorrowRequestObject", request);
                     mctx.startActivity(intent);
                 }

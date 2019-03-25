@@ -3,8 +3,6 @@ package ca.rededaniskal.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,10 +19,11 @@ import ca.rededaniskal.R;
  * @author Daniela
  * Display details about a book pick up.
  */
-public class View_PickUp_Details_Activity extends AppCompatActivity {
+public class View_Exchange_Details_Activity extends AppCompatActivity {
     TextView location;
     TextView dateTime;
     Button goToScanner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,7 @@ public class View_PickUp_Details_Activity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                Intent intent = new Intent(getApplicationContext(), Barcode_Scanner_Activity.class);
-               intent.putExtra("ReturnClass", View_PickUp_Details_Activity.class);
+               intent.putExtra("ReturnClass", View_Exchange_Details_Activity.class);
                startActivityForResult(intent, 1);
            }
        });
@@ -77,7 +76,7 @@ public class View_PickUp_Details_Activity extends AppCompatActivity {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode == 1 && resultCode == Activity.RESULT_OK)
         {
-            //do something with ISBN to make the status of the book borrowed
+            //do something with ISBN to change the status of the book
         }
     }
 

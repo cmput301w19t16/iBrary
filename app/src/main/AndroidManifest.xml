@@ -23,11 +23,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.View_PickUp_Details_Activity"
+            android:name=".Activities.View_Exchange_Details_Activity"
             android:label="@string/title_activity_view__pick_up__details"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".Activities.Establish_PickUp_Details_Activity"
+            android:name=".Activities.Establish_Exchange_Details_Activity"
             android:label="@string/title_activity_establish_location"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.View_All_Books_Activity" />

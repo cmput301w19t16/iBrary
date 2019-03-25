@@ -85,14 +85,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
         cover = findViewById(R.id.BookCover);
 
-        /*openScanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
-                startActivity(intent);
-            }
-        });*/
-
         openScanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
