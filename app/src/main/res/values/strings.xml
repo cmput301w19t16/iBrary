@@ -116,7 +116,8 @@
     <string name="select_pick_up_dets">Select Pick-up Details </string>
     <string name="select_drop_off_dets">Select Drop-off Details </string>
     <string name="title">Title</string>
-
+    <string name="date">Date</string>
+    <string name="time">Time</string>
 
 
 </resources>

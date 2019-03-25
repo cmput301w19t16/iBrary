@@ -63,8 +63,8 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
 
 
 
-        btnDatePicker = (Button) findViewById(R.id.PickUpDateButton);
-        btnTimePicker = (Button) findViewById(R.id.PickUpTimeButton);
+        btnDatePicker = (Button) findViewById(R.id.ExchangeDateButton);
+        btnTimePicker = (Button) findViewById(R.id.ExchangeTimeButton);
         txtDate = (EditText) findViewById(R.id.PickUpDateEditText);
         txtTime = (EditText) findViewById(R.id.PickUpTimeEditText);
 
