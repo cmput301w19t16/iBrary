@@ -62,7 +62,7 @@ public class Add_Remove_Friend_DB {
 
     private void getFriendship1(){
         Log.d(ContentValues.TAG, "*********----->getFriendship");
-        Query query = FirebaseDatabase.getInstance().getReference("FriendRequests")
+        Query query = FirebaseDatabase.getInstance().getReference("Friendships")
                 .orderByChild("friend1")
                 .equalTo(friend_uid);
 
@@ -85,6 +85,7 @@ public class Add_Remove_Friend_DB {
 
                 }
             }
+            getFriendship2();
         }
 
 
@@ -93,6 +94,51 @@ public class Add_Remove_Friend_DB {
 
         }
     };
+
+    private void getFriendship2(){
+        Log.d(ContentValues.TAG, "*********----->getFriendship2");
+        Query query = FirebaseDatabase.getInstance().getReference("Friendships")
+                .orderByChild("friend2")
+                .equalTo(friend_uid);
+
+        query.addListenerForSingleValueEvent(valueEventListener2);
+    }
+
+    ValueEventListener valueEventListener2 = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            keys.clear();
+            Log.d(ContentValues.TAG, "*********----->onDataChange");
+            if (dataSnapshot.exists()) {
+                Log.d(ContentValues.TAG, "*********----->exists");
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Friendship fre = snapshot.getValue(Friendship.class);
+                    if(fre.getFriend1().equals(UID)) {
+                        keys.add(snapshot.getKey());
+                    }
+
+                }
+            }
+
+            deleteFriendship();
+        }
+
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+
+
+    private void deleteFriendship(){
+        mDatabase = mDatabase = FirebaseDatabase.getInstance().getReference("Friendships");
+        for(int i = 0; i < keys.size(); i++){
+            String k = keys.get(i);
+            mDatabase.child(k).removeValue();
+        }
+    }
+
 
     private void createFriendRequest(){
         mDatabase = FirebaseDatabase.getInstance().getReference("FriendRequests");

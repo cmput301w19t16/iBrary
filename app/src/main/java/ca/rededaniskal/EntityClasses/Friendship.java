@@ -3,7 +3,7 @@
 *
 * Instances in in Add_Remove_Friend_DB,
 *
-* Friendship is assumed to be commutative, it does not matter who is friend1 or friend2. 
+* Friendship is assumed to be commutative, it does not matter who is friend1 or friend2.
 *
 * */
 
