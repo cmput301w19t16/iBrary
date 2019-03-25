@@ -23,10 +23,10 @@ public class NotificationTest {
 
     @Test
     public void Username() {
-        String username = "dlothian";
+        String username = "432947239814324";
         Notification notification = new Notification(username, "accepted", false);
-        notification.setUsername(username);
-        String username1 = notification.getUsername();
+        notification.setUserID(username);
+        String username1 = notification.getUserID();
         assertEquals(username, username1);
     }
 
