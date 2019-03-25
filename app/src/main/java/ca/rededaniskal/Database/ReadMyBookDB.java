@@ -16,21 +16,21 @@ import ca.rededaniskal.Activities.View_My_Library_Activity;
 
 public class ReadMyBookDB {
 
-    private DatabaseReference mdatabase;
+    private BookInstanceDb bookInstanceDb;
     String TAG;
     View_My_Library_Activity parent;
 
     public ReadMyBookDB(View_My_Library_Activity p){
-        update();
         parent = p;
+        bookInstanceDb =new BookInstanceDb();
+        update();
+
 
     }
 
 
     public void update(){
-        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user);
-        mdatabase.addListenerForSingleValueEvent(valueEventListener);
+        bookInstanceDb.currentUserBooklist().addListenerForSingleValueEvent(valueEventListener);
     }
 
 

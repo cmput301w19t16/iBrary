@@ -14,22 +14,22 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
 
-public class ReadBookDB {
-    private DatabaseReference mdatabase;
-    private String TAG;
+import static android.support.constraint.Constraints.TAG;
+
+public class ReadBookDB{
     private View_Borrowed_Requested_Activity parent;
+    private BookInstanceDb instanceDb;
 
 
     public ReadBookDB(View_Borrowed_Requested_Activity p){
         parent = p;
+        instanceDb = new BookInstanceDb();
         update();
     }
 
 
     public void update(){
-        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mdatabase = FirebaseDatabase.getInstance().getReference("book-instances").child(user);
-        mdatabase.addListenerForSingleValueEvent(valueEventListener);
+       instanceDb.currentUserBooklist().addListenerForSingleValueEvent(valueEventListener);
     }
 
 

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import ca.rededaniskal.Activities.User_Details_Activity;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
+
+import static android.support.constraint.Constraints.TAG;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
@@ -78,7 +81,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         userViewHolder.statusIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!globalUser.isFriendsWith(user)){ // if they are not friends
+                if (true){ // if they are not friends
+                    Log.d(TAG, "*!*!*! Listened: Add Friend Button");
                     //TODO: DB add request to db
                 }
             }

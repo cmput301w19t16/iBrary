@@ -23,11 +23,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="${fabric_io_id}"/>-->
         <activity android:name=".Activities.View_All_Books_Activity"></activity>
         <activity android:name=".Activities.View_All_Users_Activity" />
         <activity android:name=".Activities.View_Friends_Activity" />
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
         <activity android:name=".Activities.View_My_Library_Activity" />
+        <activity android:name=".Activities.Forum_Activity" />
+        <activity android:name=".Activities.View_Thread_Activity" />
         <activity android:name=".Activities.Edit_Book_Instance_Activity" />
         <activity
             android:name=".Activities.Add_Book_To_Library_Activity"
@@ -49,7 +54,6 @@
             android:name=".Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.Launcher_Activity" />
         <activity
             android:name=".Activities.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"

@@ -1,0 +1,304 @@
+@startuml
+
+title __BUSINESSLOGIC's Class Diagram__\n
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class AddBookLogic {
+          - title : String
+          - author : String
+          - ISBN : String
+          + AddBookLogic()
+          + validateTitle()
+          + validateAuthor()
+          + validateISBN()
+          + isValid()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class AllRequestsAdapter {
+          + mctx : Context
+          - list : ArrayList<Request>
+          + AllRequestsAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class AllRequestsViewHolder {
+          ~ bookCover : ImageView
+          ~ requestInfo : TextView
+          ~ bookInfo : TextView
+          ~ accept : ImageButton
+          ~ cancel : ImageButton
+          + AllRequestsViewHolder()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class BookAdapter {
+          + mctx : Activity
+          + BookAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class BookViewHolder {
+          ~ imageView : ImageView
+          ~ bookTitle : TextView
+          ~ bookAuthor : TextView
+          ~ bookISBN : TextView
+          ~ bookStatus : TextView
+          ~ bookOwner : TextView
+          + BookViewHolder()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class BorrowRequestAdapter {
+          + mctx : Context
+          - list : ArrayList<BorrowRequest>
+          + BorrowRequestAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class BorrowRequestViewHolder {
+          ~ profilePic : ImageView
+          ~ requestInfo : TextView
+          ~ bookInfo : TextView
+          ~ accept : ImageButton
+          ~ cancel : ImageButton
+          + BorrowRequestViewHolder()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class updateRequestDB {
+          - mDatabase : DatabaseReference
+          - key : String
+          - delete : boolean
+          ~ valueEventListener : ValueEventListener
+          - updateRequestDB()
+          - updateRequest()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class Load_ALL_Books_Business {
+          + Load_ALL_Books_Business()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class Log_In_Logic {
+          - email : String
+          - password : String
+          - valid : boolean
+          + Log_In_Logic()
+          + isValid()
+          + setValid()
+          + validatePassword()
+          + validateEmail()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class Notification_Adapter {
+          - mDataset : ArrayList<Notification>
+          + Notification_Adapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+          + clear()
+          + addAll()
+          + checkEmpty()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class Notification_View_Holder {
+          + postTitle : TextView
+          + newAlertStar : RatingBar
+          + view : View
+          + requestType : String
+          + Notification_View_Holder()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class PostAdapter {
+          - mDataset : ArrayList<Post>
+          + PostAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+          + clear()
+          + addAll()
+          + checkEmpty()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class PostViewHolder {
+          + postTitle : TextView
+          + postBodyText : TextView
+          + postType : String
+          + postID : String
+          + view : View
+          + PostViewHolder()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class SectionsPageAdapter {
+          - mFragmentList : List<Fragment>
+          - mFragmentTitleList : List<String>
+          + SectionsPageAdapter()
+          + addFragment()
+          + getPageTitle()
+          + getItem()
+          + getCount()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class SignUpLogic {
+          - valid : boolean
+          - username : String
+          - password : String
+          - confirm : String
+          - email : String
+          - phone : String
+          + SignUpLogic()
+          + isValid()
+          + setValid()
+          + validdatePhone()
+          + validateUsername()
+          + validatePassword()
+          + validateConfirm()
+          + validateEmail()
+          + isEmailValid()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class UserAdapter {
+          + mctx : Context
+          - users : ArrayList<User>
+          + UserAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package ca.rededaniskal {
+    package ca.rededaniskal.BusinessLogic {
+      class UserViewHolder {
+          ~ profilePic : ImageView
+          ~ statusIcon : ImageView
+          ~ UserName : TextView
+          ~ UserLocation : TextView
+          ~ UserMutualFriends : TextView
+          + UserViewHolder()
+      }
+    }
+  }
+  
+
+  AllRequestsAdapter -up-|> Adapter
+  AllRequestsAdapter +-down- AllRequestsViewHolder
+  AllRequestsViewHolder -up-|> ViewHolder
+  BookAdapter -up-|> Adapter
+  BookAdapter o-- Book_List : bookList
+  BookAdapter +-down- BookViewHolder
+  BookViewHolder -up-|> ViewHolder
+  BorrowRequestAdapter -up-|> Adapter
+  BorrowRequestAdapter +-down- BorrowRequestViewHolder
+  BorrowRequestAdapter +-down- updateRequestDB
+  BorrowRequestViewHolder -up-|> ViewHolder
+  updateRequestDB o-- BorrowRequest : request
+  Load_ALL_Books_Business o-- Get_All_Books_Data : All
+  Notification_Adapter -up-|> Adapter
+  Notification_Adapter o-- Notifications_Fragment : fragment
+  Notification_Adapter +-down- Notification_View_Holder
+  Notification_View_Holder -up-|> ViewHolder
+  PostAdapter -up-|> Adapter
+  PostAdapter o-- Post_Feed_Fragment : fragment
+  PostAdapter +-down- PostViewHolder
+  PostViewHolder -up-|> ViewHolder
+  SectionsPageAdapter -up-|> FragmentPagerAdapter
+  UserAdapter -up-|> Adapter
+  UserAdapter o-- User : globalUser
+  UserAdapter +-down- UserViewHolder
+  UserViewHolder -up-|> ViewHolder
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

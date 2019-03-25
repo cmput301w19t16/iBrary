@@ -8,7 +8,7 @@
  *
  */
 package ca.rededaniskal.Activities;
-//author : Skye, Revan
+//author : Skye, Revan, Daniela
 
 import android.Manifest;
 import android.app.Activity;
@@ -20,7 +20,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,10 +29,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import ca.rededaniskal.BusinessLogic.AddBookLogic;
+import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
 
-import ca.rededaniskal.Database.AddBookDb;
+import ca.rededaniskal.BusinessLogic.UseGoogleBooksAPI;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -59,9 +58,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     private Button openScanner, addBook;
     private FloatingActionButton openCamera;
     private ImageView cover;
+    private String isbn;
+    private String returnString;
 
-
-    private AddBookLogic businessLogic;
+    private ValidateBookLogic businessLogic;
 
     //For Camera
     private static final int CAMERA_REQUEST = 1888;
@@ -82,14 +82,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         addBook = findViewById(R.id.addBook);
 
         cover = findViewById(R.id.BookCover);
-
-        /*openScanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
-                startActivity(intent);
-            }
-        });*/
 
         openScanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +109,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //on click, gets info from the edittext field, validates them in AddBookLogic
+                //on click, gets info from the edittext field, validates them in ValidateBookLogic
                 // calls addBookInstance() which creates the database object to add the book
                 //Once the book is added, its details are passed to View_My_Library, and the
                 // view is refreshed
@@ -126,7 +118,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
                 String Title = addTitle.getText().toString();
                 String Author = addAuthor.getText().toString();
                 String ISBN = addISBN.getText().toString();
-                businessLogic = new AddBookLogic(Title, Author, ISBN);
+                businessLogic = new ValidateBookLogic(Title, Author, ISBN);
 
 
 
@@ -186,6 +178,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             cover.setImageBitmap(photo);
+
         } else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             String ISBN = data.getStringExtra("ISBN");
             addISBN.setText(ISBN);

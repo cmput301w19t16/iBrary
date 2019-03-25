@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ca.rededaniskal.Activities.Signup_Activity;
+import ca.rededaniskal.EntityClasses.User;
 
 import static android.content.ContentValues.TAG;
 
@@ -23,6 +24,7 @@ public class SignUpDB {
     private boolean success;
     private FirebaseUser newUser;
     private Signup_Activity parent;
+    private String UID;
 
 
     public SignUpDB(Signup_Activity par){
@@ -53,6 +55,7 @@ public class SignUpDB {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            getNewUID();
                             setUser();
                             parent.nextActivity();
                             //updateUI(user);
@@ -67,12 +70,26 @@ public class SignUpDB {
     }
 
 
+    private void getNewUID(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            UID = user.getUid();
+        }else{
+            UID = "NULL";
+        }
+    }
+
     public void setUser() {
         Log.d(TAG, "IN setUser");
         Log.d(TAG, parent.getUserEmail());
+
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         String key = mDatabase.push().getKey();
-        mDatabase.child(key).setValue(parent.getUser());
+
+        User newUser = parent.getUser();
+        newUser.setUID(UID);
+
+        mDatabase.child(key).setValue(newUser);
 
     }
 }
