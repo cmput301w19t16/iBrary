@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -24,17 +25,30 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
     private Button confirmDetails;
     private EditText txtDate;
     private EditText txtTime;
+    private TextView exchangeType;
     private String dayMonthYear;
     private int mYear;
     private int mMonth;
     private int mDay;
     private int mHour;
     private int mMinute;
+    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_establish_location);
+        exchangeType = findViewById(R.id.ExchangeTypeTextView);
+
+        final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
+        mode = request.getStatus();
+
+        if (mode == "Accepted"){
+            exchangeType.setText(R.string.select_pick_up_dets);
+        } else{
+            exchangeType.setText(R.string.select_drop_off_dets);
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 /*
@@ -46,7 +60,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
-        final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
+
 
 
         btnDatePicker = (Button) findViewById(R.id.PickUpDateButton);

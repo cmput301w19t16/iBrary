@@ -23,7 +23,7 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
     TextView location;
     TextView dateTime;
     Button goToScanner;
-
+    String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,8 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
         });*/
 
         final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
+        mode = request.getStatus();
+
         String dateTimeStr = getIntent().getStringExtra("D/M/Y");
 
         dateTime = findViewById(R.id.DateTimePickUpTextView);
