@@ -1,35 +1,47 @@
 package ca.rededaniskal.EntityClasses;
 
+import java.util.Date;
+
 public class Request {
-    private String senderUserName;
-    private String recipientUserName;
+    private String senderUID;
+    private String recipientUID;
     private String requestType;
     private String status;
     private String requestId;
-
+    private Date timestamp;
     public Request(){}
 
-    public Request(String senderUserName, String recipientUserName, String type){
-        this.senderUserName = senderUserName;
-        this.recipientUserName = recipientUserName;
+    public Request(String senderUID, String recipientUID, String type){
+        this.senderUID = senderUID;
+        this.recipientUID = recipientUID;
         this.requestType = type;
         this.status = "Pending";
+        timestamp = new Date();
     }
 
-    public String getSenderUserName() {
-        return senderUserName;
+
+    public Date getTimestamp() {
+        return timestamp;
     }
 
-    public void setSenderUserName(String senderUserName) {
-        this.senderUserName = senderUserName;
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public String getRecipientUserName() {
-        return recipientUserName;
+    public String getsenderUID() {
+        return senderUID;
     }
 
-    public void setRecipientUserName(String recipientUserName) {
-        this.recipientUserName = recipientUserName;
+    public void setsenderUID(String senderUID) {
+        this.senderUID = senderUID;
+    }
+
+    public String getrecipientUID() {
+        return recipientUID;
+    }
+
+    public void setrecipientUID(String recipientUID) {
+        this.recipientUID = recipientUID;
     }
 
     public String getRequestType() {

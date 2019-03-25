@@ -135,14 +135,6 @@ public class Notifications_Fragment extends Fragment {
 
         final ArrayList<Notification> notiList = new ArrayList<>();
 
-//        db = new getUserRequestsDB();
-//        List<Request> reqList = db.getRequestList();
-//
-//
-//        for(int i = 0; i < reqList.size(); i++){
-//
-//        }
-
 
         Notification n = new Notification("You", "Alex", true);
         n.setRequestType("Friend_Request");

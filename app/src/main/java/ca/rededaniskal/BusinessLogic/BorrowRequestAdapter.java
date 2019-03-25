@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
+import ca.rededaniskal.Database.updateRequestDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -43,6 +44,7 @@ import static android.support.constraint.Constraints.TAG;
 public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdapter.BorrowRequestViewHolder>{
     public Context mctx;
     private ArrayList<BorrowRequest> list; //List of Requests
+    private updateRequestDB db;
 
     /**
      * Instantiates a new Entry adapter.
@@ -72,7 +74,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         final BorrowRequest request = list.get(i);
 
         //Set Fields
-        borrowRequestViewHolder.requestInfo.setText( request.getSenderUserName());
+        borrowRequestViewHolder.requestInfo.setText( request.getsenderUID());
         borrowRequestViewHolder.bookInfo.setText( request.getBookId() );
 
         //Set onClick listeners
@@ -83,16 +85,17 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
 
                 Log.d(TAG, "*********------> I JUST DONT KNOW");
-                Log.d(TAG, "*********------> I JUST DONT KNOW: "+request.getSenderUserName());
+
+
 //                list.remove(borrowRequestViewHolder.getAdapterPosition());
 //                notifyItemRemoved(borrowRequestViewHolder.getAdapterPosition());
 //                notifyItemRangeChanged(borrowRequestViewHolder.getAdapterPosition(), list.size());
                 for (int j = 0; j < getItemCount(); j++){
                     if(j == i){
                         request.setStatus("Accepted");
-                        updateRequestDB db = new updateRequestDB(request);
+                        db = new updateRequestDB(request);
                     }else{
-                        updateRequestDB db = new updateRequestDB(list.get(j));
+                        db = new updateRequestDB(list.get(j));
                     }
                     list.remove(j);
                     notifyDataSetChanged();
@@ -140,70 +143,5 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             bookInfo = itemView.findViewById(R.id.bookInfo);
         }
     }
-
-
-    // ---------------- Enclosed DB Class ---------------- //
-
-    private class updateRequestDB{
-        private BorrowRequest request;
-        private DatabaseReference mDatabase;
-        private String key;
-        private boolean delete;
-
-        private updateRequestDB(BorrowRequest request) {
-            this.request = request;
-            Log.d(TAG, "*********------> I JUST DONT KNOW: "+request.getSenderUserName());
-            Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
-                    .orderByChild("isbn")
-                    .equalTo(request.getIsbn());
-
-            query.addListenerForSingleValueEvent(valueEventListener);
-        }
-
-        private void updateRequest(){
-            if(request.getStatus().equals("Accepted")){
-                delete = false;
-            }else{
-                delete = true;
-            }
-            Log.d(TAG, "*********------> I JUST DONT KEY: "+key);
-            mDatabase = FirebaseDatabase.getInstance().getReference("BorrowRequests");
-            if(delete){
-                mDatabase.child(key).removeValue();
-            }else{
-                mDatabase.child(key).setValue(request);
-            }
-        }
-
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(ContentValues.TAG, "*********----->onDataChangeAdapter");
-                if (dataSnapshot.exists()) {
-                    Log.d(ContentValues.TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                        BorrowRequest req = snapshot.getValue(BorrowRequest.class);
-                        if(req.getSenderUserName().equals(request.getSenderUserName())) {
-                            key = snapshot.getKey();
-                        }
-                    }
-
-                    updateRequest();
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-
-    }
-
 
 }
