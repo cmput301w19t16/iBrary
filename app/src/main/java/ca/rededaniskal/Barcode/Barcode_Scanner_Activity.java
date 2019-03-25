@@ -23,15 +23,15 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
     private TextView mTvResult;
     private Class returnTo;
 
-    public Barcode_Scanner_Activity(Class returnTo){
+    /*public Barcode_Scanner_Activity(Class returnTo){
         this.returnTo = returnTo;
-    }
-
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode__scanner_);
+        returnTo = getIntent().getSerializableExtra("ReturnClass").getClass();
         findViewById(R.id.btn_fragment).setOnClickListener(this);
         mTvResult = findViewById(R.id.tv_result);
 

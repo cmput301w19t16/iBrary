@@ -30,6 +30,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.Serializable;
+
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
@@ -49,7 +51,7 @@ import ca.rededaniskal.R;
  * Make the user's photo saved in the database
  */
 
-public class Add_Book_To_Library_Activity extends AppCompatActivity {
+public class Add_Book_To_Library_Activity extends AppCompatActivity implements Serializable {
 
     private static final String TAG = "Add_Book_To_Library_Activity";
 
@@ -95,6 +97,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
+                intent.putExtra("ReturnClass", Add_Book_To_Library_Activity.class);
                 startActivityForResult(intent, 1);
             }
         });
@@ -188,6 +191,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             cover.setImageBitmap(photo);
         } else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             String ISBN = data.getStringExtra("ISBN");
+            addISBN.setText(ISBN);
         }
     }
 

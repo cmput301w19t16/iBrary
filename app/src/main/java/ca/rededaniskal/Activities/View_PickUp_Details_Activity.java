@@ -62,7 +62,7 @@ public class View_PickUp_Details_Activity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                Intent intent = new Intent(getApplicationContext(), Barcode_Scanner_Activity.class);
-               startActivity(intent);
+               startActivityForResult(intent, 1);
            }
        });
 
