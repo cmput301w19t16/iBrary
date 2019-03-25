@@ -1,6 +1,9 @@
 package ca.rededaniskal.Database;
 
 import android.content.ContentValues;
+
+import android.support.annotation.NonNull;
+
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +19,7 @@ import java.util.List;
 
 import ca.rededaniskal.EntityClasses.Friend_Request;
 import ca.rededaniskal.EntityClasses.Friendship;
+
 import ca.rededaniskal.EntityClasses.User;
 
 import static android.support.constraint.Constraints.TAG;
@@ -30,6 +34,9 @@ public class Add_Remove_Friend_DB {
     private DatabaseReference mDatabase;
     private String UID;
     private List<String> keys;
+
+    private boolean isFollowed;
+
 
     public Add_Remove_Friend_DB(Friend_Request friend_request){
         this.friend_request = friend_request;
@@ -59,6 +66,37 @@ public class Add_Remove_Friend_DB {
 
         }
     }
+
+
+    public boolean isFollowing(String follower, final String leader){
+        isFollowed = false;
+
+        Query query = FirebaseDatabase.getInstance().getReference("Friendships")
+                .orderByChild("friend1")
+                .equalTo(follower);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.d(ContentValues.TAG, "*********----->exists");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Friendship fre = snapshot.getValue(Friendship.class);
+                        if(fre.getFriend2().equals(leader)) {
+                            isFollowed = true;
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return isFollowed;
+    }
+
 
     private void getFriendship1(){
         Log.d(ContentValues.TAG, "*********----->getFriendship");

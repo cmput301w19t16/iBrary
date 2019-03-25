@@ -10,6 +10,7 @@
  */package ca.rededaniskal.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import ca.rededaniskal.Database.Add_Remove_Friend_DB;
 import ca.rededaniskal.BusinessLogic.Add_Remove_Friend_Logic;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
@@ -37,7 +39,7 @@ public class User_Details_Activity extends AppCompatActivity {
     TextView DisplayLocation;
     TextView DisplayEmail;
     TextView DisplayPhoneNum;
-    TextView DisplayMutualFriends;
+    TextView DisplayTotalFollowers;
 
     TextView DisplayFavTitle;
     TextView DisplayFavAuthor;
@@ -46,23 +48,39 @@ public class User_Details_Activity extends AppCompatActivity {
     ImageView BookCover;
     ImageView UserPic;
 
-    private Button Add_or_Delete;
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private Add_Remove_Friend_DB fdb;
+    private boolean isFollowing;
+
+    private Button Follow_or_unfollow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user__details_);
-        Add_or_Delete  = findViewById(R.id.Add_delete);
+
+        Follow_or_unfollow = findViewById(R.id.Add_delete);
+
         Intent intent = getIntent();
 
         user_received = (User) intent.getSerializableExtra("user");
         fillData(user_received);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
-        Add_or_Delete.setOnClickListener(new View.OnClickListener() {
+        fdb = new Add_Remove_Friend_DB(user_received.getUID());
+        isFollowing = fdb.isFollowing(currentUser.getUid(), user_received.getUserName());
+        setFriendText();
+
+        Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Add_Remove_Friend_Logic logic = new Add_Remove_Friend_Logic(user_received, false);
+                friendButtonPressed();
+
             }
         }
 
@@ -76,7 +94,7 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayLocation = (TextView) findViewById(R.id.DisplayLocation);
         DisplayEmail = (TextView) findViewById(R.id.DisplayEmail);
         DisplayPhoneNum = (TextView) findViewById(R.id.DisplayPhoneNumber);
-        DisplayMutualFriends = (TextView) findViewById(R.id.UserMutualFriends);
+        DisplayTotalFollowers = (TextView) findViewById(R.id.UserMutualFriends);
 
         DisplayFavTitle = (TextView) findViewById(R.id.DisplayBookTitle);
         DisplayFavAuthor = (TextView) findViewById(R.id.DisplayBookAuthor);
@@ -91,28 +109,39 @@ public class User_Details_Activity extends AppCompatActivity {
         String location = user.getLocation();
         String email = user.getEmail();
         String phone_num = user.getPhoneNumber();
-//        Integer mutual_friends = user.numberMutualFriends(user);
-        Integer mutual_friends = 0;
+
+        Integer followers = 0;
+
 
 
         DisplayUsername.setText(username);
         DisplayLocation.setText(location);
         DisplayEmail.setText(email);
         DisplayPhoneNum.setText(phone_num);
-        DisplayMutualFriends.setText(mutual_friends.toString().concat(" Mutual Friends"));
+        DisplayTotalFollowers.setText(followers.toString().concat(" followers"));
 
     }
 
+    public void friendButtonPressed(){
+        isFollowing = !isFollowing;
+        setFriendText();
+        if (isFollowing){
 
-    //Enclosed BD helper class
-    public class userDetailsDB{
-        private FirebaseAuth mAuth;
-        private String email;
-        private String username;
-        private String location;
-        private String phone;
+        }
+        else{
 
-        public userDetailsDB() {
+        }
+
+    }
+
+    public void setFriendText(){
+        if (isFollowing){
+            Follow_or_unfollow.setText("Unfollow");
+            Follow_or_unfollow.setBackgroundColor(Color.RED);
+        }
+        else{
+            Follow_or_unfollow.setText("Follow");
+            Follow_or_unfollow.setBackgroundColor(Color.GREEN);
         }
     }
 }
