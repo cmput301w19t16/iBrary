@@ -1,6 +1,9 @@
 package ca.rededaniskal.Database;
 
 import android.content.ContentValues;
+
+import android.support.annotation.NonNull;
+
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,10 +15,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.rededaniskal.EntityClasses.Friend_Request;
 import ca.rededaniskal.EntityClasses.Friendship;
+
 import ca.rededaniskal.EntityClasses.User;
 
 import static android.support.constraint.Constraints.TAG;
@@ -29,17 +34,26 @@ public class Add_Remove_Friend_DB {
     private FirebaseUser user;
     private DatabaseReference mDatabase;
     private String UID;
+<<<<<<< HEAD
+    private ArrayList<String> keys;
+=======
     private List<String> keys;
+
+>>>>>>> 93b0c0a240139fae334b7594809e70b0ed3dee88
+    private boolean isFollowed;
+
 
     public Add_Remove_Friend_DB(Friend_Request friend_request){
         this.friend_request = friend_request;
         delete = false;
+        keys = new ArrayList<String>();
         getCurrentUID();
     }
 
     public Add_Remove_Friend_DB(String friend_uid){
         this.friend_uid = friend_uid;
         delete = true;
+        keys = new ArrayList<String>();
         getCurrentUID();
     }
 
@@ -59,6 +73,48 @@ public class Add_Remove_Friend_DB {
 
         }
     }
+
+
+    public boolean isFollowing(String follower, final String leader){
+        isFollowed = false;
+
+        Query query = FirebaseDatabase.getInstance().getReference("Friendships")
+                .orderByChild("friend1")
+                .equalTo(follower);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.d(ContentValues.TAG, "*********----->exists");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Friendship fre = snapshot.getValue(Friendship.class);
+                        if(fre.getFriend2().equals(leader)) {
+                            isFollowed = true;
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return isFollowed;
+    }
+
+<<<<<<< HEAD
+    public void setFollowing(String follower, String leader, boolean newValue){
+        /*
+        if (newValue and follower isn't following leader)
+            create follower - leader relationship
+        if ((!newValue) and follower is following leader)
+            delete follower - leader relationship
+         */
+    }
+=======
+>>>>>>> 93b0c0a240139fae334b7594809e70b0ed3dee88
 
     private void getFriendship1(){
         Log.d(ContentValues.TAG, "*********----->getFriendship");
