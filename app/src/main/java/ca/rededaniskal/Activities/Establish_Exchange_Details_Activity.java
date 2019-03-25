@@ -38,7 +38,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_establish_location);
-        exchangeType = findViewById(R.id.ExchangeTypeTextView);
+        exchangeType = findViewById(R.id.EstablishExchangeTypeTextView);
 
         final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
         mode = request.getStatus();

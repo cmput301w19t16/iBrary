@@ -24,6 +24,7 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
     TextView dateTime;
     Button goToScanner;
     String mode;
+    TextView viewExchangeDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,15 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
             }
         });*/
 
+        viewExchangeDetails = findViewById(R.id.ViewExchangeDetailsTextView);
         final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
         mode = request.getStatus();
+        if (mode == "Accepted"){
+            viewExchangeDetails.setText(R.string.view_pick_up_details);
+        } else{
+            viewExchangeDetails.setText(R.string.view_drop_off_details);
+        }
+
 
         String dateTimeStr = getIntent().getStringExtra("D/M/Y");
 

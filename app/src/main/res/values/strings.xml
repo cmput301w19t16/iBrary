@@ -118,6 +118,7 @@
     <string name="title">Title</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="establish_exchange_pick_up">Establish Pick</string>
 
 
 </resources>
