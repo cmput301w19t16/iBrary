@@ -103,6 +103,11 @@
     <string name="view_all_users">View All Users</string>
     <string name="view_all_books">View All Books</string>
     <string name="requests2">requests</string>
+    <string name="new_forum_topic">New Forum Topic</string>
+    <string name="add_topic">Add forum topic</string>
+    <string name="post">Post</string>
+    <string name="new_post">New Post</string>
+    <string name="add_post">Add New Post</string>
 
 
 </resources>

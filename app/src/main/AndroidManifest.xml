@@ -31,6 +31,8 @@
         <activity android:name=".Activities.View_Friends_Activity" />
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
         <activity android:name=".Activities.View_My_Library_Activity" />
+        <activity android:name=".Activities.Forum_Activity" />
+        <activity android:name=".Activities.View_Thread_Activity" />
         <activity android:name=".Activities.Edit_Book_Instance_Activity" />
         <activity
             android:name=".Activities.Add_Book_To_Library_Activity"
