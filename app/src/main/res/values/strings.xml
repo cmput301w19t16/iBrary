@@ -110,11 +110,11 @@
     <string name="post">Post</string>
     <string name="new_post">New Post</string>
     <string name="add_post">Add New Post</string>
+    <string name="title_activity_set__pickup__location_">Map</string>
     <string name="avg_rating">avg. rating</string>
     <string name="rating">my rating</string>
     <string name="confirm">Confirm</string>
     <string name="deny">Deny</string>
-
 
 
 </resources>

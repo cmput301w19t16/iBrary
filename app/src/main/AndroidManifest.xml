@@ -26,11 +26,7 @@
             android:name=".Activities.View_Book_Request_Activity"
             android:label="@string/title_activity_view__book__request_"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <!--
-         <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="${fabric_io_id}"/>
-        -->
+
         <activity android:name=".Activities.View_All_Books_Activity" />
         <activity android:name=".Activities.View_All_Users_Activity" />
         <activity android:name=".Activities.View_Friends_Activity" />
@@ -78,6 +74,25 @@
             android:name=".Activities.View_All_Requests_Activity"
             android:label="@string/title_activity_view__all__requests_"
             android:theme="@style/AppTheme.NoActionBar" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".Activities.Set_Pickup_Location_Activity"
+            android:label="@string/title_activity_set__pickup__location_"></activity>
     </application>
 
 </manifest>
