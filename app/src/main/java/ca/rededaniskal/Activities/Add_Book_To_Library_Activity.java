@@ -257,10 +257,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             myProgress.setMessage("Uploading Image ...");
             myProgress.show();
-            Uri uri = picUri;
-            final StorageReference filepath = myStorage.child("Photos").child(uri.getLastPathSegment());
+            //Uri uri = picUri;
+            final StorageReference filepath = myStorage.child("Photos").child(picUri.getLastPathSegment());
 
-            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            filepath.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
