@@ -130,7 +130,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                             MY_CAMERA_PERMISSION_CODE);
                 } else {
                     Intent intent = new Intent(Add_Book_To_Library_Activity.this, Take_Photo_Activity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, CAMERA_REQUEST);
                     //uploadImage();
 
                     //Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
