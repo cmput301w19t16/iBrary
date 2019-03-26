@@ -8,7 +8,6 @@ public class Book implements Serializable {
     private String title;
     private String author;
     private String isbn;
-    private String id;
 
     public Book(){
 
@@ -18,14 +17,6 @@ public class Book implements Serializable {
         title = newTitle;
         author = newAuthor;
         isbn = newIsbn;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getTitle() {

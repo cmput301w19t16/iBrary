@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_view__book__request_" />
+    <include layout="@layout/content_user_card_book_request" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

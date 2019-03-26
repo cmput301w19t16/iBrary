@@ -112,6 +112,8 @@
     <string name="add_post">Add New Post</string>
     <string name="avg_rating">avg. rating</string>
     <string name="rating">my rating</string>
+    <string name="confirm">Confirm</string>
+    <string name="deny">Deny</string>
 
 
 
