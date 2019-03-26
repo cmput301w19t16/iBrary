@@ -151,7 +151,8 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
 
     private boolean validDate(Calendar givenCal){
         Calendar cal = Calendar.getInstance();
-        return givenCal.compareTo(cal)  < 0;
+        //return (givenCal.compareTo(cal) < 0);
+        return givenCal.after(cal);
     }
 }
 
