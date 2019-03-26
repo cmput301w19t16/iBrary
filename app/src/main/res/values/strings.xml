@@ -108,6 +108,7 @@
     <string name="post">Post</string>
     <string name="new_post">New Post</string>
     <string name="add_post">Add New Post</string>
+    <string name="title_activity_set__pickup__location_">Map</string>
 
 
 </resources>

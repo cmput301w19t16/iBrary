@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -23,10 +22,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!-- <meta-data
+
+        <!--
+             <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="${fabric_io_id}"/>-->
-        <activity android:name=".Activities.View_All_Books_Activity"></activity>
+            android:value="${fabric_io_id}"/>
+        -->
+        <activity android:name=".Activities.View_All_Books_Activity" />
         <activity android:name=".Activities.View_All_Users_Activity" />
         <activity android:name=".Activities.View_Friends_Activity" />
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
@@ -75,6 +77,25 @@
             android:name=".Activities.View_All_Requests_Activity"
             android:label="@string/title_activity_view__all__requests_"
             android:theme="@style/AppTheme.NoActionBar" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".Activities.Set_Pickup_Location_Activity"
+            android:label="@string/title_activity_set__pickup__location_"></activity>
     </application>
 
 </manifest>
