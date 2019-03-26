@@ -11,6 +11,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
+import ca.rededaniskal.BusinessLogic.Write_Notification_Logic;
 import ca.rededaniskal.EntityClasses.Book;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -28,7 +29,8 @@ public class Add_Remove_Request_DB {
     private String sender_UID;
 
 
-    public Add_Remove_Request_DB(BorrowRequest request) {
+    public Add_Remove_Request_DB(BorrowRequest request, Book_Instance book) {
+        this.book = book;
         Log.d(TAG, "*********------> Add_Remove_Request_DB");
         this.request = request;
         Log.d(TAG, "*********------> Request sender UID: " + request.getsenderUID());
@@ -39,7 +41,7 @@ public class Add_Remove_Request_DB {
     public Add_Remove_Request_DB(Book_Instance book, String sender_UID){
         this.sender_UID = sender_UID;
         this.book = book;
-
+        Log.d(TAG, "*********------> Add_Remove_Request_DB");
         Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
                 .orderByChild("isbn")
                 .equalTo(book.getISBN());
@@ -76,12 +78,18 @@ public class Add_Remove_Request_DB {
         mDatabase = FirebaseDatabase.getInstance().getReference("BorrowRequests");
         String k = mDatabase.push().getKey();
         mDatabase.child(k).setValue(request);
+        String owner = book.getOwner();
+        String requestType = "Book Requested";
+
+        Write_Notification_Logic new_notif = new Write_Notification_Logic(owner, k, requestType);
     }
 
     private void deleteRequest(){
         Log.d(TAG, "*********------> deleteRequest");
         mDatabase = FirebaseDatabase.getInstance().getReference("BorrowRequests");
         mDatabase.child(key).removeValue();
+
+        Write_Notification_Logic delete_notif = new Write_Notification_Logic(key);
     }
 
 

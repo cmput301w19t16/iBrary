@@ -2,6 +2,7 @@ package ca.rededaniskal.Database;
 
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
@@ -26,6 +27,9 @@ public class BookInstanceDb extends Entity_Database {
     }
 
     public boolean addBookInstance(Book_Instance book_instance){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
+        String key = mDatabase.push().getKey();
+        mDatabase.child(key).setValue(book_instance);
         return mainRef.child(getUID())
                 .child(book_instance.getBookID())
                 .setValue(book_instance)
