@@ -34,12 +34,8 @@ public class Add_Remove_Friend_DB {
     private FirebaseUser user;
     private DatabaseReference mDatabase;
     private String UID;
-<<<<<<< HEAD
     private ArrayList<String> keys;
-=======
-    private List<String> keys;
 
->>>>>>> 93b0c0a240139fae334b7594809e70b0ed3dee88
     private boolean isFollowed;
 
 
@@ -104,7 +100,6 @@ public class Add_Remove_Friend_DB {
         return isFollowed;
     }
 
-<<<<<<< HEAD
     public void setFollowing(String follower, String leader, boolean newValue){
         /*
         if (newValue and follower isn't following leader)
@@ -113,8 +108,7 @@ public class Add_Remove_Friend_DB {
             delete follower - leader relationship
          */
     }
-=======
->>>>>>> 93b0c0a240139fae334b7594809e70b0ed3dee88
+
 
     private void getFriendship1(){
         Log.d(ContentValues.TAG, "*********----->getFriendship");

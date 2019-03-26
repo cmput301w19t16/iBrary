@@ -188,6 +188,4 @@ public class Notifications_Fragment extends Fragment {
         startActivity(new Intent(getActivity(), Login_Activity.class));
     }
 
-
-
 }

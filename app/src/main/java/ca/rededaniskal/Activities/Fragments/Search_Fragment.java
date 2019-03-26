@@ -27,6 +27,8 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Filter_My_Books_Logic;
 import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.BusinessLogic.ForumAdapter;
+import ca.rededaniskal.BusinessLogic.Master_BookAdapter;
 import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.BusinessLogic.Search_Logic;
 import ca.rededaniskal.EntityClasses.Book_List;
@@ -62,12 +64,15 @@ public class Search_Fragment extends Fragment {
     private String mParam2;
 
     //private OnFragmentInteractionListener mListener;
-
-
     Button searchBy;
     String[] filterOptions;
     boolean[] selectedOptions;
     ArrayList<Integer> chosenOptions = new ArrayList<>();
+
+    RecyclerView display;
+    Master_BookAdapter MB_adapter;
+
+
 
     public Search_Fragment() {
         // Required empty public constructor
@@ -104,15 +109,25 @@ public class Search_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        final ArrayList<Master_Book> master_books = new ArrayList<Master_Book>();
+
+        master_books.add(new Master_Book("sdf", "sdf", "sdfds"));
+
         final View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
-        final RecyclerView recyclerView = view.findViewById(R.id.display);
-        recyclerView.setHasFixedSize(true);
-        final ArrayList<Master_Book> master_books = new ArrayList<Master_Book>();
 
+        //Adapter stuff
+        display = view.findViewById(R.id.display);
+        display.setHasFixedSize(true);
+        display.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        MB_adapter = new Master_BookAdapter( Search_Fragment.this, master_books);
+        display.setAdapter( MB_adapter );
+        MB_adapter.notifyDataSetChanged();
 
 
         searchBy.setOnClickListener(new View.OnClickListener() {

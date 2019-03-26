@@ -66,7 +66,6 @@ public class Forum_Activity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         forumAdapter = new ForumAdapter(this, forum.getThreads());
-
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
         //GetAllUsersDB db = new GetAllUsersDB(this); TODO something with this
