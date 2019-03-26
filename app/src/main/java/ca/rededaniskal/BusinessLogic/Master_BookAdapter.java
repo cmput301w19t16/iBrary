@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import ca.rededaniskal.Activities.Book_Details_Activity;
 import ca.rededaniskal.Activities.Fragments.Notifications_Fragment;
 import ca.rededaniskal.Activities.Fragments.Search_Fragment;
+import ca.rededaniskal.Activities.User_Details_Activity;
+import ca.rededaniskal.Activities.View_All_Books_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.Master_Book;
@@ -77,7 +79,9 @@ public class Master_BookAdapter extends RecyclerView.Adapter<Master_BookAdapter.
         master_BookViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: make this take us places
+                Intent intent = new Intent(fragment.getContext(), View_All_Books_Activity.class); // TODO: change the name of this for the
+                intent.putExtra("master_book", book);
+                fragment.startActivity(intent);
             }
         });
     }
