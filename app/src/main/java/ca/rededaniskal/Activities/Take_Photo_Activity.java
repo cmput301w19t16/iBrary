@@ -110,6 +110,9 @@ public class Take_Photo_Activity extends AppCompatActivity {
             File imgFile = new  File(pictureFilePath);
             if(imgFile.exists())            {
                 image.setImageURI(Uri.fromFile(imgFile));
+                Intent returnIntent = new Intent(Take_Photo_Activity.this, Add_Book_To_Library_Activity.class );
+                returnIntent.putExtra("Uri",Uri.fromFile(imgFile).toString());
+                startActivity(returnIntent);
             }
         }
     }

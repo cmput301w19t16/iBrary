@@ -296,11 +296,15 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Uri uri = picUri;
+            String strUri = getIntent().getStringExtra("Uri");
+            uri = Uri.parse(strUri);
+            cover.setImageURI(uri);
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            myProgress.setMessage("Uploading Image ...");
-            myProgress.show();
-            //Uri uri = picUri;
-            final StorageReference filepath = myStorage.child("Photos").child(picUri.getLastPathSegment());
+            //myProgress.setMessage("Uploading Image ...");
+            //myProgress.show();
+
+            /*final StorageReference filepath = myStorage.child("Photos").child(picUri.getLastPathSegment());
 
             filepath.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -314,8 +318,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                         }
                     });
                 }
-            });
-            cover.setImageBitmap(photo);
+            });*/
+            //cover.setImageBitmap(photo);
             /*
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
