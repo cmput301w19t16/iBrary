@@ -59,7 +59,10 @@ public class BookInstanceDb extends Entity_Database {
         return mDatabase.child(getUID())
                 .child(book_instance.getBookID())
                 .setValue(book_instance)
-                .isSuccessful();
+                .isSuccessful()&&db.getReference(References.ALLBOOKS.reference())
+                .child(book_instance.getBookID())
+                .setValue(book_instance)
+                .isSuccessful());
     }
 
     public void viewBookList(){}

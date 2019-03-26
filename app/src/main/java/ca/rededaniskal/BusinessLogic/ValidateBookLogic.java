@@ -141,7 +141,7 @@ public class ValidateBookLogic {
     public void delete(String bookId, String isbn){
 
         EditBookDb db = new EditBookDb();
-        db.DeleteBook(bookId, isbn);
+        db.DeleteBook(bookId);
 
 
     }
