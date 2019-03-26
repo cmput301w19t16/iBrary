@@ -11,7 +11,6 @@ package ca.rededaniskal.BusinessLogic;
 // Created by Revan on 2019-03-03
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -111,8 +110,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             super(itemView);
             //imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
 
-            bookTitle = itemView.findViewById(R.id.requestInfo);
-            bookAuthor = itemView.findViewById(R.id.BookAuthor);
+            bookTitle = itemView.findViewById(R.id.username);
+            bookAuthor = itemView.findViewById(R.id.Location);
             bookISBN = itemView.findViewById(R.id.BookISBN);
             bookStatus = itemView.findViewById(R.id.bookStatus);
             bookOwner = itemView.findViewById(R.id.bookOwner);

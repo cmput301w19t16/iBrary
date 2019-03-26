@@ -14,8 +14,8 @@ abstract class Entity_Database {
 
     FirebaseDatabase db;
     FirebaseAuth mauth;
-    boolean exists;
-    String FINISHED;
+    private boolean exists;
+    private String FINISHED;
 
 
     Entity_Database() {
@@ -39,12 +39,27 @@ abstract class Entity_Database {
 
 
     public boolean checkExists(DatabaseReference reference) {
+        exists = false;
 
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
 
-        reference.addListenerForSingleValueEvent(existence);
-        while (FINISHED == null) {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    returnTrue();
+                }
+                FINISHED =" ";
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         }
-        FINISHED = null;
+);
+       // while(FINISHED==null);
+        //FINISHED =null;
+
 
         return exists;
 
@@ -52,11 +67,13 @@ abstract class Entity_Database {
     }
 
     ValueEventListener existence = new ValueEventListener() {
+
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()) {
                 returnTrue();
-            } else returnFalse();
+            }
+            FINISHED =" ";
         }
 
         @Override
@@ -66,14 +83,11 @@ abstract class Entity_Database {
     };
 
     private void returnTrue() {
-        this.exists = true;
-        this.FINISHED = "";
+        exists = true;
+
+
     }
 
-    private void returnFalse() {
-        this.exists = false;
-        this.FINISHED = "";
-    }
 
 
 

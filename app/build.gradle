@@ -25,6 +25,7 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/proguard/androidx-annotations.pro'
+        exclude 'META-INF/androidx.cardview_cardview.version'
     }
 }
 
@@ -67,6 +68,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'androidx.cardview:cardview:1.0.0'
     //implementation 'com.squareup.picasso:picasso:2.5.2'
 }
 apply plugin: 'com.google.gms.google-services'

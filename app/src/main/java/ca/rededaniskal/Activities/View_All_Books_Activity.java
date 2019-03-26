@@ -10,6 +10,7 @@
  */
 package ca.rededaniskal.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -44,6 +46,13 @@ public class View_All_Books_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__all__books_);
+
+        Intent intent = getIntent();
+
+        if (intent.getExtras() != null ){
+            Master_Book mb = (Master_Book) intent.getSerializableExtra("master_book"); //Get the book
+            //TODO: get related books for the database
+        }
 
         BL = new Book_List(); //Initiatize books to be displayed
 

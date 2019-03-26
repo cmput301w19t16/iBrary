@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Notification {
     private Date timestamp;
-    private String username;
+    private String userID;
     private String requestID;
     private boolean seen;
     private String requestType;
@@ -13,7 +13,7 @@ public class Notification {
     public Notification(String user, String req, boolean s){
         timestamp = new Date();
         requestID = req;
-        username = user;
+        userID = user;
         seen = s;
         requestType = "";
     }
@@ -34,12 +34,12 @@ public class Notification {
         this.requestType = requestType;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getRequest() {
