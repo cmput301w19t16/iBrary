@@ -13,8 +13,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
@@ -28,12 +30,14 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
     private EditText txtTime;
     private TextView exchangeType;
     private String dayMonthYear;
+    private String timePicked;
     private int mYear;
     private int mMonth;
     private int mDay;
     private int mHour;
     private int mMinute;
     private String mode;
+    private Calendar c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +74,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
         txtDate = (EditText) findViewById(R.id.PickUpDateEditText);
         txtTime = (EditText) findViewById(R.id.PickUpTimeEditText);
 
-        final Calendar c = Calendar.getInstance();
+        c = Calendar.getInstance();
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +90,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                dayMonthYear = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                                dayMonthYear = String.format("%2d-%02d-%4d", dayOfMonth,(monthOfYear + 1), year);
                                 txtDate.setText(dayMonthYear);
 
                             }
@@ -112,7 +116,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
-                                String timePicked = String.format("%2d:%02d", hourOfDay,minute);
+                                timePicked = String.format("%2d:%02d", hourOfDay,minute);
                                 txtTime.setText(timePicked);
                             }
                         }, mHour, mMinute, false);
@@ -124,17 +128,30 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
         confirmDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
-                Intent intent = new Intent(getApplicationContext(), View_Exchange_Details_Activity.class);
-                intent.putExtra("BorrowRequestObject", request);
-                intent.putExtra("Hour",mHour);
-                intent.putExtra("Minute", mMinute);
-                intent.putExtra("Day", mDay);
-                intent.putExtra("Month",mMonth);
-                intent.putExtra("Year", mYear);
-                //intent.putExtra("D/M/Y", dayMonthYear);
-                startActivity(intent);
+                Calendar chose = Calendar.getInstance();
+                chose.set(mYear + 1900, mMonth, mDay, mHour, mMinute);
+                if (validDate(chose) && txtTime.getText() != null && txtDate.getText() != null){
+                    Intent intent = new Intent(getApplicationContext(), View_Exchange_Details_Activity.class);
+                    intent.putExtra("TimePicked", timePicked);
+                    intent.putExtra("BorrowRequestObject", request);
+                    intent.putExtra("Hour",mHour);
+                    intent.putExtra("Minute", mMinute);
+                    intent.putExtra("Day", mDay);
+                    intent.putExtra("Month",mMonth);
+                    intent.putExtra("Year", mYear);
+                    intent.putExtra("D/M/Y", dayMonthYear);
+                    startActivity(intent);
+                }
+               else{
+                    Toast.makeText(getApplicationContext(),"Please make sure you have entered a valid date and time.",Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+    private boolean validDate(Calendar givenCal){
+        Calendar cal = Calendar.getInstance();
+        return givenCal.compareTo(cal)  < 0;
     }
 }
 

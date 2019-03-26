@@ -32,14 +32,14 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
 
+        String timePicked = getIntent().getStringExtra("TimePicked");
+        String dateMonthYear = getIntent().getStringExtra("D/M/Y");
         int month = getIntent().getIntExtra("Month", -1);
         int day = getIntent().getIntExtra("Day", -1);
         int year = getIntent().getIntExtra("Year", -1);
 
         int hour = getIntent().getIntExtra("Hour", -1);
         int minute = getIntent().getIntExtra("Minute", -1);
-
-        //String dateTimeStr = getIntent().getStringExtra("D/M/Y");
 
         setContentView(R.layout.activity_view__pick_up__details);
         Toolbar toolbar = findViewById(R.id.toolbar);
