@@ -127,13 +127,20 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                             MY_CAMERA_PERMISSION_CODE);
                 } else {
 
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    //Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
+
+                    //cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,picUri); // set the image file
+
+                    //startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
+
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, CAMERA_REQUEST);
                     File photoFile = getOutputMediaFile(1);
                     picUri = Uri.fromFile(photoFile); // create
-                    cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,picUri); // set the image file
-
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
                     /*Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     if (cameraIntent.resolveActivity(getPackageManager()) != null) {
 
