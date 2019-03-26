@@ -110,6 +110,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
 
                 // Launch Time Picker Dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(Establish_Exchange_Details_Activity.this,
+                        R.style.DialogTheme,
                         new TimePickerDialog.OnTimeSetListener() {
 
                             @Override
