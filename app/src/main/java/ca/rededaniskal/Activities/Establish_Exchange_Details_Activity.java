@@ -112,7 +112,8 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
-                                txtTime.setText(hourOfDay + ":" + minute);
+                                String timePicked = String.format("%2d:%02d", hourOfDay,minute);
+                                txtTime.setText(timePicked);
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();

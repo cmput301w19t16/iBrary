@@ -71,7 +71,8 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
 
         //dateTime.setText(dateTimeFormatted + ", " + Integer.toString(hour) + Integer.toString(minute));
         String monthWord = getMonthFromInt(month);
-        dateTime.setText(monthWord + " "+ String.valueOf(day) + "," + hour + ":" + minute);
+        String time = String.format("%2d:%02d", hour,minute);
+        dateTime.setText(monthWord + " "+ String.valueOf(day) + "," + time);
         location.setText("at");
 
        goToScanner.setOnClickListener(new View.OnClickListener() {
