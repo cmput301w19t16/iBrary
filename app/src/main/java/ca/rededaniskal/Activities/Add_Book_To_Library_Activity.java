@@ -89,7 +89,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Barcode_Scanner_Activity.class);
-                intent.putExtra("ReturnClass", Add_Book_To_Library_Activity.class);
+                String returnClass = "ReturnClass";
+                intent.putExtra(returnClass, Add_Book_To_Library_Activity.class);
                 startActivityForResult(intent, 1);
             }
         });
