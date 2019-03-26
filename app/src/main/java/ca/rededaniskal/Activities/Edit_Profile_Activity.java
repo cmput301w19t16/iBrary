@@ -53,6 +53,7 @@ import ca.rededaniskal.Database.editUserDetailsDB;
 
 //Author: RevaN
 public class Edit_Profile_Activity extends AppCompatActivity {
+    public static final String GET_TEXTS = "*********----->getTexts";
     Button saveButton;
     FloatingActionButton editProfilePic;
     ImageView profilePicture;

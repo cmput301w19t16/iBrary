@@ -44,6 +44,7 @@ import ca.rededaniskal.R;
 
 
 public class Edit_Book_Instance_Activity extends AppCompatActivity {
+    public static final String CAMERA_PERMISSION_GRANTED = "camera permission granted";
     private static final String TAG = "Add_Book_To_Library_Activity";
 
 

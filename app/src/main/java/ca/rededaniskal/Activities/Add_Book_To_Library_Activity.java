@@ -12,9 +12,11 @@ package ca.rededaniskal.Activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +30,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.Serializable;
 
@@ -65,6 +71,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
     private AddBookLogic businessLogic;
 
+    private StorageReference myStorage;
+    private ProgressDialog myProgress;
     //For Camera
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
@@ -73,6 +81,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book_instance);
+
+        myStorage = FirebaseStorage.getInstance().getReference();
 
         //Set buttons and EditTexts
         addTitle = findViewById(R.id.addTitle);
@@ -84,6 +94,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         addBook = findViewById(R.id.addBook);
 
         cover = findViewById(R.id.BookCover);
+
+        myProgress = new ProgressDialog(this);
 
         openScanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +192,17 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
+            myProgress.setMessage("Uploading Image ...");
+            myProgress.show();
+            Uri uri = data.getData();
+            StorageReference filepath = myStorage.child("Photos").child(uri.getLastPathSegment());
+            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    myProgress.dismiss();
+                    Toast.makeText(Add_Book_To_Library_Activity.this, "Uploading Finished ...", Toast.LENGTH_LONG).show();
+                }
+            });
             cover.setImageBitmap(photo);
         } else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             String ISBN = data.getStringExtra("ISBN");
