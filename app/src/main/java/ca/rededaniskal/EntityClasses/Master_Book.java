@@ -7,26 +7,26 @@ import ca.rededaniskal.EntityClasses.Book;
 
 public class Master_Book extends Book implements Serializable {
 
-    private Double avgRating;
+    private Float avgRating;
     private Integer totalNumRating;
-    private Double sumRatings;
-    private HashMap<String, Double>mapUsersRating;
+    private Float sumRatings;
+    private HashMap<String, Float>mapUsersRating;
 
     public Master_Book(String newTitle, String newAuthor, String newIsbn){
         super(newTitle, newAuthor, newIsbn);
-        avgRating = -1.00;
+        avgRating = -1.00f;
         totalNumRating = -1;
-        mapUsersRating = new HashMap<String, Double>();
+        mapUsersRating = new HashMap<String, Float>();
     }
 
-    public void addRating(String username, Double rating){
+    public void addRating(String username, Float rating){
         mapUsersRating.put(username, rating);
     }
 
-    public Double getAvgRating() {
+    public Float getAvgRating() {
         totalNumRating = mapUsersRating.size();
-        sumRatings = 0.00;
-        for (Double d : mapUsersRating.values()) {
+        sumRatings = 0.0f;
+        for (Float d : mapUsersRating.values()) {
             sumRatings += d;
         }
 
@@ -39,7 +39,7 @@ public class Master_Book extends Book implements Serializable {
         }
     }
 
-    public Double getUserRating(String username){
+    public Float getUserRating(String username){
         return mapUsersRating.getOrDefault(username, null);
     }
     public void deleteUserRating(String username){
