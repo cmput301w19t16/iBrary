@@ -40,9 +40,7 @@ import ca.rededaniskal.EntityClasses.Master_Book;
         public void update() {
             addBookToDatabase();
 
-            if (bookAdded && masterdb.checkExists(masterdb.getReference().child(book_instance.getISBN()))) {
-                masterdb.addInstance(book_instance.getISBN(), book_instance.getBookID());
-            } else {
+            if (!masterdb.checkExists(masterdb.getReference().child(book_instance.getISBN()))) {
                 Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
                 masterdb.addMasterBook(mb);
             }

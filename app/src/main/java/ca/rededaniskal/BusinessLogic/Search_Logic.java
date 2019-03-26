@@ -61,12 +61,14 @@ public class Search_Logic {
 
         }
         db = new Search_Books_Db(this, orderby, equalto );
-        db.contruct_query();
+
 
     }
     public void addIntersection(ArrayList<Master_Book> m){
         if (Results==null) Results =m;
         else Results.addAll(m);
+
+
 
 
 

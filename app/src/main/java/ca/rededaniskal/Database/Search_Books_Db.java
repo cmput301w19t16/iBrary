@@ -21,17 +21,48 @@ public class Search_Books_Db {
     BookInstanceDb bookInstanceDb;
 
 
+
+
     public Search_Books_Db(Search_Logic p, String filter, String is) {
         parent = p;
         Order = filter;
         Equal = is;
 
+        queryData();
+
+    }
+
+    public void queryData(){
+        final ArrayList<Master_Book> searchlist = new ArrayList<>();
+        Query q = masterBookDb.getReference().orderByChild(Order).equalTo(Equal);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+
+                    for (DataSnapshot d: dataSnapshot.getChildren()){
+                        searchlist.add(d.getValue(Master_Book.class));
+
+                    }
+                    parent.addIntersection(searchlist);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
-    public void contruct_query(){
 
 
-    }
+
+
+
+
+
 }
 

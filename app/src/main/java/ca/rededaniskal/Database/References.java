@@ -3,12 +3,7 @@ package ca.rededaniskal.Database;
 
 
 public enum References {
- DATABASE{
-  @Override
-  public String reference(){
-   return null;
-  }
- },
+
  USER {
   @Override
 
