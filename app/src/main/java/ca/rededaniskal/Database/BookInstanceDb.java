@@ -26,10 +26,13 @@ public class BookInstanceDb extends Entity_Database {
     }
 
     public boolean addBookInstance(Book_Instance book_instance){
-        return mainRef.child(getUID())
+        return (mainRef.child(getUID())
                 .child(book_instance.getBookID())
                 .setValue(book_instance)
-                .isSuccessful();
+                .isSuccessful()&&db.getReference(References.ALLBOOKS.reference())
+                .child(book_instance.getBookID())
+                .setValue(book_instance)
+                .isSuccessful());
     }
 
     public void viewBookList(){}
