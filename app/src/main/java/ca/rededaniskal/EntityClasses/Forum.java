@@ -29,4 +29,11 @@ public class Forum {
         return Book.getTitle();
     }
 
+    public Master_Book getBook() {
+        return Book;
+    }
+
+    public void addRatingToBook(String uid, float rating){
+        Book.addRating(uid, rating);
+    }
 }
