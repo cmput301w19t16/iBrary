@@ -7,11 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +39,9 @@ public class Forum_Activity extends AppCompatActivity {
     private TextView title;
     private FloatingActionButton addTopic;
     private FirebaseAuth mAuth;
+    private RatingBar myRating, avgRating;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,8 @@ public class Forum_Activity extends AppCompatActivity {
 
         title = findViewById(R.id.Title);
         addTopic = findViewById(R.id.addTopic);
+        myRating = findViewById(R.id.rating2);
+        avgRating = findViewById(R.id.rating);
 
         //Set the recycler view
         recyclerView = findViewById(R.id.ViewThreads);
@@ -59,10 +66,22 @@ public class Forum_Activity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         forumAdapter = new ForumAdapter(this, forum.getThreads());
-
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
         //GetAllUsersDB db = new GetAllUsersDB(this); TODO something with this
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String uid = currentUser.getUid();
+
+        //Set the Rating bars
+
+        if (!(forum.getBook().getAvgRating() == null)){
+            avgRating.setRating(forum.getBook().getAvgRating());
+        }
+
+        if (! (forum.getBook().getUserRating(uid) == null)){
+            myRating.setRating(forum.getBook().getUserRating(uid));
+        }
 
         title.setText(forum.getBookName());
 
@@ -125,5 +144,26 @@ public class Forum_Activity extends AppCompatActivity {
                 });
             }
         });
+
+        //Add new rating if user clicks on the bar
+        myRating.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                float rating = myRating.getRating();
+
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                String uid = currentUser.getUid();
+                forum.addRatingToBook(uid, rating);
+
+                avgRating.setRating(forum.getBook().getAvgRating());
+
+                return myRating.onTouchEvent(event);
+            }
+        });
+
+
+
     }
 }

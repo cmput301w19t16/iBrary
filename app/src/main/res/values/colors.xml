@@ -7,5 +7,6 @@
     <color name="scanner_line">#00ceff</color>
     <color name="danger">#D52B2B</color>
     <color name="lightGrey">#D2D3D3</color>
+    <color name="golden">#FFC107</color>
 
 </resources>

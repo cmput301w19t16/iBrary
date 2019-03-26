@@ -99,7 +99,6 @@ public class Add_Remove_Friend_DB {
         return isFollowed;
     }
 
-
     public void setFollowing(String follower, String leader, boolean newValue){
         /*
         if (newValue and follower isn't following leader)
