@@ -34,7 +34,7 @@ public class Book_Details_Logic {
         String uid = user.getUid();
         String owner = book.getOwner();
         String isbn = book.getISBN();
-        String book_id = book.getId();
+        String book_id = book.getBookID();
         BorrowRequest request = new BorrowRequest(uid, owner, isbn, book_id);
 
         db = new Add_Remove_Request_DB(request);
