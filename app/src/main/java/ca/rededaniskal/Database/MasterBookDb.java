@@ -16,7 +16,7 @@ import ca.rededaniskal.EntityClasses.Master_Book;
 public class MasterBookDb extends Entity_Database {
     DatabaseReference mainRef = db.getReference(References.MASTERBOOK.reference());
 
-    String DONE;
+
 
 
     public MasterBookDb() {
@@ -39,28 +39,7 @@ public class MasterBookDb extends Entity_Database {
 
 
 
-    /*public ArrayList<String> get_all_ISBN(){
-        final ArrayList<String> isbns = new ArrayList<>();
-        ValueEventListener isbnListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot d: dataSnapshot.getChildren()){
-                    String isbn = d.getKey();
-                    isbns.add(isbn);
-                }
-                DONE="";
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        } ;
-        mainRef.addListenerForSingleValueEvent(isbnListener);
-        while (DONE==null){}
-        DONE=null;
-        return isbns;*/
 
 
 

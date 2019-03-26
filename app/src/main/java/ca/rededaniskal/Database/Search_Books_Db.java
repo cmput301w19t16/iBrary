@@ -18,25 +18,30 @@ public class Search_Books_Db {
     Search_Fragment parent;
     String Order;
     String Equal;
+    Query query;
     MasterBookDb masterBookDb;
+    ArrayList<Master_Book> searchlist;
 
 
 
 
 
-    public Search_Books_Db(Search_Fragment p, String filter, String is) {
+    public Search_Books_Db(Search_Fragment p, String filter, String e) {
         parent = p;
         Order = filter;
-        Equal = is;
-        masterBookDb = new MasterBookDb();
+        Equal = e;
 
-        queryData();
+        masterBookDb = new MasterBookDb();
+        searchlist = new ArrayList<>();
+
+        setParentView();
 
     }
 
-    public void queryData(){
-        final ArrayList<Master_Book> searchlist = new ArrayList<>();
-       masterBookDb.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+    public void setParentView(){
+        query = masterBookDb.getReference().limitToFirst(100);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
@@ -46,7 +51,33 @@ public class Search_Books_Db {
 
 
                     }
-                   parent.update_books(searchlist);
+                    parent.update_books(searchlist);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void queryData(){
+
+       query = masterBookDb.getReference().orderByChild(Order).equalTo(Equal);
+
+               query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+
+                    for (DataSnapshot d: dataSnapshot.getChildren()){
+                        searchlist.add(d.getValue(Master_Book.class));
+
+
+                    }
+                   //parent.update_books(searchlist);
                 }
             }
 
@@ -59,7 +90,9 @@ public class Search_Books_Db {
     }
 
 
-
+public ArrayList<Master_Book> getSearchlist(){
+        return searchlist;
+}
 
 
 

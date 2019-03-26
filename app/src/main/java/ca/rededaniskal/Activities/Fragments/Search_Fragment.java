@@ -170,6 +170,7 @@ public class Search_Fragment extends Fragment {
                                 item = item + ", ";
                             }
                         }
+                        new Search_Logic(search_fragment, chosenOptions,"Being and Nothingness");
 
                     }
                 });
