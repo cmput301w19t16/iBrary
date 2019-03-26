@@ -119,6 +119,7 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="establish_exchange_pick_up">Establish Pick</string>
+    <string name="title_activity_take__photo_">Take_Photo_Activity</string>
 
 
 </resources>
