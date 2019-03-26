@@ -35,7 +35,6 @@ public class Add_Remove_Friend_DB {
     private DatabaseReference mDatabase;
     private String UID;
     private ArrayList<String> keys;
-
     private boolean isFollowed;
 
 
@@ -108,7 +107,6 @@ public class Add_Remove_Friend_DB {
             delete follower - leader relationship
          */
     }
-
 
     private void getFriendship1(){
         Log.d(ContentValues.TAG, "*********----->getFriendship");

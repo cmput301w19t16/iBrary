@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -23,16 +22,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!-- <meta-data
+        <activity
+            android:name=".Activities.View_Book_Request_Activity"
+            android:label="@string/title_activity_view__book__request_"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <!--
+         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="${fabric_io_id}"/>-->
-        <activity android:name=".Activities.View_All_Books_Activity"></activity>
+            android:value="${fabric_io_id}"/>
+        -->
+        <activity android:name=".Activities.View_All_Books_Activity" />
         <activity android:name=".Activities.View_All_Users_Activity" />
         <activity android:name=".Activities.View_Friends_Activity" />
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
         <activity android:name=".Activities.View_My_Library_Activity" />
-        <activity android:name=".Activities.Forum_Activity" />
-        <activity android:name=".Activities.View_Thread_Activity" />
         <activity android:name=".Activities.Edit_Book_Instance_Activity" />
         <activity
             android:name=".Activities.Add_Book_To_Library_Activity"

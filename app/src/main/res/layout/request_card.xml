@@ -31,7 +31,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/requestInfo"
+                android:id="@+id/username"
                 android:layout_width="143dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="4dp"
@@ -49,7 +49,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
                 app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/requestInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/username" />
 
             <TextView
                 android:id="@+id/bookInfo"
@@ -60,7 +60,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
                 app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/requestInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/username" />
 
             <ImageButton
                 android:id="@+id/cancel"
