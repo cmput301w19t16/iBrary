@@ -15,7 +15,6 @@ public class Search_Logic {
     String equalto;
     Search_Filter filter;
     Search_Books_Db db;
-    ArrayList<Master_Book> Results;
 
 
 
@@ -44,7 +43,7 @@ public class Search_Logic {
     }
 
     public void get_results_for(Search_Filter filter, int i){
-        equalto = equalArray[i];
+        equalto = equalArray[0 ];
         switch (filter){
             case SEARCH_BY_AUTHOR:
                 orderby = "author";
@@ -60,22 +59,9 @@ public class Search_Logic {
                 break;
 
         }
-        db = new Search_Books_Db(this, orderby, equalto );
+        db = new Search_Books_Db(parent, orderby, equalto );
 
 
     }
-    public void addIntersection(ArrayList<Master_Book> m){
-        if (Results==null) Results =m;
-        else Results.addAll(m);
-
-
-
-
-
-    }
-
-
-
-
 
 }

@@ -1,15 +1,10 @@
 package ca.rededaniskal.Database;
     /*author Skye*/
 //Interacts with the Firebase when a user adds a book to ther library
-import android.support.annotation.NonNull;
-import android.util.Log;
 
-        import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.provider.FirebaseInitProvider;
 
-import ca.rededaniskal.Activities.View_My_Library_Activity;
+import ca.rededaniskal.Activities.Fragments.Search_Fragment;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
@@ -18,6 +13,7 @@ import ca.rededaniskal.EntityClasses.Master_Book;
         MasterBookDb masterdb;
         BookInstanceDb instancedb;
         boolean bookAdded;
+
 
         String success;
         Book_Instance book_instance;
@@ -32,6 +28,7 @@ import ca.rededaniskal.EntityClasses.Master_Book;
             this.book_instance = book_instance;
             this.masterdb = new MasterBookDb();
             this.instancedb = new BookInstanceDb();
+
             update();
 
         }
@@ -40,10 +37,11 @@ import ca.rededaniskal.EntityClasses.Master_Book;
         public void update() {
             addBookToDatabase();
 
-            if (!masterdb.checkExists(masterdb.getReference().child(book_instance.getISBN()))) {
+
                 Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
                 masterdb.addMasterBook(mb);
-            }
+
+
 
 
 

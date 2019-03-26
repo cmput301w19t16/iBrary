@@ -10,23 +10,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.Activities.Fragments.Search_Fragment;
 import ca.rededaniskal.BusinessLogic.Search_Logic;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
 public class Search_Books_Db {
-    Search_Logic parent;
+    Search_Fragment parent;
     String Order;
     String Equal;
     MasterBookDb masterBookDb;
-    BookInstanceDb bookInstanceDb;
 
 
 
 
-    public Search_Books_Db(Search_Logic p, String filter, String is) {
+
+    public Search_Books_Db(Search_Fragment p, String filter, String is) {
         parent = p;
         Order = filter;
         Equal = is;
+        masterBookDb = new MasterBookDb();
 
         queryData();
 
@@ -34,8 +36,7 @@ public class Search_Books_Db {
 
     public void queryData(){
         final ArrayList<Master_Book> searchlist = new ArrayList<>();
-        Query q = masterBookDb.getReference().orderByChild(Order).equalTo(Equal);
-        q.addListenerForSingleValueEvent(new ValueEventListener() {
+       masterBookDb.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
@@ -43,8 +44,9 @@ public class Search_Books_Db {
                     for (DataSnapshot d: dataSnapshot.getChildren()){
                         searchlist.add(d.getValue(Master_Book.class));
 
+
                     }
-                    parent.addIntersection(searchlist);
+                   parent.update_books(searchlist);
                 }
             }
 
