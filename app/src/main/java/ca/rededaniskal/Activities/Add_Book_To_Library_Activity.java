@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -30,13 +31,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
@@ -77,6 +86,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
+    Uri picUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,8 +126,30 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     requestPermissions(new String[]{Manifest.permission.CAMERA},
                             MY_CAMERA_PERMISSION_CODE);
                 } else {
+
                     Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+                    File photoFile = getOutputMediaFile(1);
+                    picUri = Uri.fromFile(photoFile); // create
+                    cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,picUri); // set the image file
+
                     startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    /*Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+
+                        try {
+                            photoFile = createImageFile();
+                        } catch (IOException ex) {
+                            // Error occurred while creating the File
+                            ex.printStackTrace();
+                        }
+                        // Continue only if the File was successfully created
+                        if (photoFile != null) {
+                            cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
+                                    Uri.fromFile(photoFile));
+                            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                            //startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                        }*/
                 }
             }
         });
@@ -188,26 +221,70 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
         }
     }
+    /** Create a File for saving an image */
+    private  File getOutputMediaFile(int type){
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "MyApplication");
 
+        /**Create the storage directory if it does not exist*/
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
+        /**Create a media file name*/
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        if (type == 1){
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                    "IMG_"+ timeStamp + ".png");
+        } else {
+            return null;
+        }
+
+        return mediaFile;
+    }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             myProgress.setMessage("Uploading Image ...");
             myProgress.show();
-            Uri uri = data.getData();
-            StorageReference filepath = myStorage.child("Photos").child(uri.getLastPathSegment());
+            Uri uri = picUri;
+            final StorageReference filepath = myStorage.child("Photos").child(uri.getLastPathSegment());
+
+            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            final Uri downloadUrl = uri;
+
+
+                        }
+                    });
+                }
+            });
+            cover.setImageBitmap(photo);
+            /*
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     myProgress.dismiss();
-                    Toast.makeText(Add_Book_To_Library_Activity.this, "Uploading Finished ...", Toast.LENGTH_LONG).show();
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+                    Picasso.with(Add_Book_To_Library_Activity.this).load(downloadUri).fit().centerCrop().into(cover);
+
+
+                    Toast.makeText(Add_Book_To_Library_Activity.this, "Uploading Successful!", Toast.LENGTH_SHORT).show();
+                    myProgress.dismiss();
                 }
-            });
-            cover.setImageBitmap(photo);
+            });*/
+
         } else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             String ISBN = data.getStringExtra("ISBN");
             addISBN.setText(ISBN);
         }
     }
-
 }
+
