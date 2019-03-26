@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ca.rededaniskal">
+    package="ca.refactored">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -26,22 +26,22 @@
         <!-- <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${fabric_io_id}"/>-->
-        <activity android:name=".Activities.View_All_Books_Activity"></activity>
-        <activity android:name=".Activities.View_All_Users_Activity" />
-        <activity android:name=".Activities.View_Friends_Activity" />
-        <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
-        <activity android:name=".Activities.View_My_Library_Activity" />
-        <activity android:name=".Activities.Forum_Activity" />
-        <activity android:name=".Activities.View_Thread_Activity" />
-        <activity android:name=".Activities.Edit_Book_Instance_Activity" />
+        <activity android:name="ca.refactored.Activities.View_All_Books_Activity"></activity>
+        <activity android:name="ca.refactored.Activities.View_All_Users_Activity" />
+        <activity android:name="ca.refactored.Activities.View_Friends_Activity" />
+        <activity android:name="ca.refactored.Activities.View_Borrowed_Requested_Activity" />
+        <activity android:name="ca.refactored.Activities.View_My_Library_Activity" />
+        <activity android:name="ca.refactored.Activities.Forum_Activity" />
+        <activity android:name="ca.refactored.Activities.View_Thread_Activity" />
+        <activity android:name="ca.refactored.Activities.Edit_Book_Instance_Activity" />
         <activity
-            android:name=".Activities.Add_Book_To_Library_Activity"
+            android:name="ca.refactored.Activities.Add_Book_To_Library_Activity"
             android:label="AddBookInstance"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.User_Details_Activity" />
-        <activity android:name=".Activities.Book_Details_Activity" />
+        <activity android:name="ca.refactored.Activities.User_Details_Activity" />
+        <activity android:name="ca.refactored.Activities.Book_Details_Activity" />
         <activity
-            android:name=".Activities.Login_Activity"
+            android:name="ca.refactored.Activities.Login_Activity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,30 +49,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Signup_Activity" />
+        <activity android:name="ca.refactored.Activities.Signup_Activity" />
         <activity
-            android:name=".Activities.Main_Activity"
+            android:name="ca.refactored.Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.Edit_Profile_Activity"
+            android:name="ca.refactored.Activities.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Barcode.Barcode_Reader_Activity" />
+        <activity android:name="ca.refactored.Barcode.Barcode_Reader_Activity" />
         <activity
-            android:name=".Barcode.Barcode_Scanner_Activity"
+            android:name="ca.refactored.Barcode.Barcode_Scanner_Activity"
             android:label="@string/title_activity_barcode__scanner_"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.View_Rating_Post_Activity"
+            android:name="ca.refactored.Activities.View_Rating_Post_Activity"
             android:label="@string/title_activity_view__rating__post_"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.View_Text_Post_Activity"
+            android:name="ca.refactored.Activities.View_Text_Post_Activity"
             android:label="@string/title_activity_view__text__post_"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.View_All_Requests_Activity"
+            android:name="ca.refactored.Activities.View_All_Requests_Activity"
             android:label="@string/title_activity_view__all__requests_"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
