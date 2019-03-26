@@ -9,7 +9,7 @@
  */
 package ca.rededaniskal.Activities;
 //author : Skye, Revan
-
+//Tutorial firebase image upload: https://www.youtube.com/watch?v=Zy2DKo0v-OY
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
