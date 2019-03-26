@@ -85,7 +85,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                 mDay = c.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(Establish_Exchange_Details_Activity.this,
-                        android.R.style.DialogTheme,
+                        R.style.DatePickerDialogTheme,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -111,7 +111,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
 
                 // Launch Time Picker Dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(Establish_Exchange_Details_Activity.this,
-                        R.style.DialogTheme,
+                        R.style.TimePickerDialogTheme,
                         new TimePickerDialog.OnTimeSetListener() {
 
                             @Override
@@ -132,7 +132,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
             public void onClick (View v){
                 Calendar chose = Calendar.getInstance();
                 chose.set(mYear + 1900, mMonth, mDay, mHour, mMinute);
-                if (validDate(chose) && txtTime.getText() != null && txtDate.getText() != null){
+                if (validDate(chose) && txtTime.getText().length() > 0 && txtDate.getText().length() >0){
                     Intent intent = new Intent(getApplicationContext(), View_Exchange_Details_Activity.class);
                     intent.putExtra("TimePicked", timePicked);
                     intent.putExtra("BorrowRequestObject", request);
