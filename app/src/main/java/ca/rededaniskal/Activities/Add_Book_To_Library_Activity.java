@@ -238,18 +238,15 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 businessLogic = new AddBookLogic(Title, Author, ISBN);
 
 
-
-
-                if (businessLogic.isValid().equals("")){
+                if (businessLogic.isValid().equals("")) {
                     businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available"));
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
 
 
-                startActivity(intent);
+                    startActivity(intent);
 
-                finish();}
-
-                else{
+                    finish();
+                } else {
 
 
                 }
@@ -271,13 +268,12 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     }
 
     private void uploadImage() {
-        if(picUri != null)
-        {
+        if (picUri != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = myStorage.child("images/"+ UUID.randomUUID().toString());
+            StorageReference ref = myStorage.child("images/" + UUID.randomUUID().toString());
             ref.putFile(picUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -290,21 +286,19 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(Add_Book_To_Library_Activity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Add_Book_To_Library_Activity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
                                     .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
                         }
                     });
         }
     }
-
-
 
 
     //Code From https://stackoverflow.com/a/5991757
@@ -323,14 +317,17 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
         }
     }
-    /** Create a File for saving an image */
-    private  File getOutputMediaFile(int type){
+
+    /**
+     * Create a File for saving an image
+     */
+    private File getOutputMediaFile(int type) {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "MyApplication");
 
         /**Create the storage directory if it does not exist*/
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
                 return null;
             }
         }
@@ -338,24 +335,45 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         /**Create a media file name*/
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
-        if (type == 1){
+        if (type == 1) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_"+ timeStamp + ".png");
+                    "IMG_" + timeStamp + ".png");
         } else {
             return null;
         }
 
         return mediaFile;
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-            if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
 
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
-                cover.setImageBitmap(photo);
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            cover.setImageBitmap(photo);
+            uploadImage(photo);
+            //Uri uri = data.getData();
+            //cover.setImageURI(uri);
+
+           /* StorageReference imageStorage = myStorage.child("BookCover").child(uri.getLastPathSegment());
+            imageStorage.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSucess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Add_Book_To_Library_Activity.this, "Uploaded...", Toast.LENGTH_SHORT);
+                }
+
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Add_Book_To_Library_Activity.this, "Not Uploaded...", Toast.LENGTH_LONG);
+                        }
+                    });
+        }
 
 
+    /*
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] dataByte = baos.toByteArray();
@@ -375,7 +393,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 });
 
             }
-
+*/
 
 
 
@@ -414,9 +432,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             Bitmap photo = (Bitmap) data.getExtras().get("data");*/
 
 
-
-
-
             //myProgress.setMessage("Uploading Image ...");
             //myProgress.show();
 
@@ -449,10 +464,12 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     myProgress.dismiss();
                 }
             });*/
-            else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            String ISBN = data.getStringExtra("ISBN");
-            addISBN.setText(ISBN);
         }
+            else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+                String ISBN = data.getStringExtra("ISBN");
+                addISBN.setText(ISBN);
+            }
+
     }
 
 /*
@@ -474,5 +491,49 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         mediaScanIntent.setData(picUri);
         this.sendBroadcast(mediaScanIntent);
     }*/
+
+
+    private void uploadImage(Bitmap bitmap) {
+        myProgress.show();
+        final StorageReference ref = myStorage.child("drivers/" + "132" + ".jpg");
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        byte[] data = baos.toByteArray();
+
+        final UploadTask uploadTask = ref.putBytes(data);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                myProgress.dismiss();
+                Toast.makeText(Add_Book_To_Library_Activity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+
+                uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        return ref.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downUri = task.getResult();
+                            Log.d("Final URL", "onComplete: Url: " + downUri.toString());
+                        }
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                myProgress.dismiss();
+                Toast.makeText(Add_Book_To_Library_Activity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
+
 
