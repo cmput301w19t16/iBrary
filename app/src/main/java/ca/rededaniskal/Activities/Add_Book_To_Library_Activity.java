@@ -8,7 +8,7 @@
  *
  */
 package ca.rededaniskal.Activities;
-//author : Skye, Revan
+//author : Skye, Revan, Daniela
 //Tutorial firebase image upload: https://www.youtube.com/watch?v=Zy2DKo0v-OY
 import android.Manifest;
 import android.app.Activity;
@@ -45,7 +45,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -191,40 +191,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
     }
 
-    private void uploadImage() {
-        if (picUri != null) {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-
-            StorageReference ref = myStorage.child("images/" + UUID.randomUUID().toString());
-            ref.putFile(picUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Add_Book_To_Library_Activity.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Add_Book_To_Library_Activity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                        }
-                    });
-        }
-    }
-
-
     //Code From https://stackoverflow.com/a/5991757
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -243,8 +209,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
 
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -259,6 +223,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     }
 
 
+    //https://stackoverflow.com/questions/40581930/how-to-upload-an-image-to-firebase-storage
+    //Given a bitmap, upload it to FireBase as jpg
     private void uploadImage(Bitmap bitmap) {
         Random random = new Random();
         int key =random.nextInt(1000);
