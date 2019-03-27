@@ -13,6 +13,7 @@ package ca.rededaniskal.Activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -35,6 +36,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,11 +56,14 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
+
 
 import ca.rededaniskal.BuildConfig;
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
@@ -96,7 +105,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
-    private Uri picUri;
+    private Uri picUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +113,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         setContentView(R.layout.activity_add_book_instance);
 
         myStorage = FirebaseStorage.getInstance().getReference();
+
 
         //Set buttons and EditTexts
         addTitle = findViewById(R.id.addTitle);
@@ -255,6 +265,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
                             Uri downUri = task.getResult();
+                            picUri = downUri;
                             Log.d("Final URL", "onComplete: Url: " + downUri.toString());
                         }
                     }
