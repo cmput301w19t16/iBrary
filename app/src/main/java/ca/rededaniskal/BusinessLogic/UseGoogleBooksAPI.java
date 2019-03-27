@@ -3,21 +3,29 @@ package ca.rededaniskal.BusinessLogic;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+
 import android.widget.ImageView;
+
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -25,6 +33,7 @@ import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
+
 
 /**
  * Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.
@@ -44,6 +53,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
         this.myTitle = title;
         this.myAuthor = author;
         this.cover = cover;
+
     }
 
     @Override
@@ -135,12 +145,15 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             JSONArray authors = null;
             try {
 
+
                 // Get appropriate fields out of JSON object.
                 JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
                 new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
+
                 JSONArray itemsArray = responseJson.getJSONArray("items");
                 JSONObject book = itemsArray.getJSONObject(0);
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+
 
                 String imgThmbnail = imageInfo.getString("smallThumbnail");
 
@@ -155,6 +168,18 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                     }
                     myTitle.setText(title);
                 } /*else {
+
+                title = volumeInfo.getString("title");
+                authors = volumeInfo.getJSONArray("authors");
+
+            // If both are found, display the result.
+            if (title != null && authors != null) {
+                for(int i = 0; i < authors.length(); i++){
+                    myAuthor.append(authors.get(i).toString());
+                }
+                myTitle.setText(title);
+            } /*else {
+
                 // If none are found, update the UI to show failed results.
                 myTitle.setText("NoResult");
                 myAuthor.setText("NoResult");
@@ -186,7 +211,6 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
         }
     }
 
-
     private class GetBookThumb extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... thumbURLs) {
@@ -215,3 +239,4 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
 
     }
 }
+

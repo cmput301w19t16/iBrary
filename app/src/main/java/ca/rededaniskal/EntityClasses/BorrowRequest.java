@@ -9,8 +9,8 @@ public class BorrowRequest extends Request implements Serializable {
     public BorrowRequest() {
     }
 
-    public BorrowRequest(String senderUserName, String recipientUserName, String isbn, String bookId) {
-        super(senderUserName, recipientUserName, "BorrowRequest");
+    public BorrowRequest(String senderUID, String recipientUID, String isbn, String bookId) {
+        super(senderUID, recipientUID, "BorrowRequest");
         this.bookId = bookId;
         this.isbn = isbn;
     }

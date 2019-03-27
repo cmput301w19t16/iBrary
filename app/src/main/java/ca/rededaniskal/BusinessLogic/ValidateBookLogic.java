@@ -18,7 +18,6 @@ import android.graphics.Bitmap;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.lang.String;
-import java.util.*;
 
 
 import ca.rededaniskal.Database.AddBookDb;
@@ -27,7 +26,7 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import static com.google.android.gms.common.util.ArrayUtils.contains;
 
-public class AddBookLogic {
+public class ValidateBookLogic {
 
     private String title;
     private String author;
@@ -40,7 +39,8 @@ public class AddBookLogic {
 
 
     //Constructor
-    public AddBookLogic(String title, String author, String ISBN, Bitmap cover) {
+
+    public ValidateBookLogic(String title, String author, String ISBN, Bitmap cover) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
@@ -135,9 +135,9 @@ public class AddBookLogic {
 
 
 
-    public String saveInformation(Book_Instance book){
-        AddBookDb db  = new AddBookDb();
-        return db.addBookToDatabase(book);
+    public void saveInformation(Book_Instance book){
+         new AddBookDb(book);
+
 
     }
 
@@ -149,7 +149,7 @@ public class AddBookLogic {
     public void delete(String bookId, String isbn){
 
         EditBookDb db = new EditBookDb();
-        db.DeleteBook(bookId, isbn);
+        db.DeleteBook(bookId);
 
 
     }

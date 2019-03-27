@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/requestInfo"
+                android:id="@+id/username"
                 android:layout_width="159dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="8dp"
@@ -58,7 +58,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/BookAuthor"
+                android:id="@+id/Location"
                 android:layout_width="159dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="8dp"
@@ -69,7 +69,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.058"
                 app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/requestInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/username" />
 
             <TextView
                 android:id="@+id/UserMutualFriends"
@@ -85,7 +85,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.058"
                 app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/BookAuthor" />
+                app:layout_constraintTop_toBottomOf="@+id/Location" />
 
 
         </android.support.constraint.ConstraintLayout>

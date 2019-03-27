@@ -31,6 +31,22 @@
           }
         },
         {
+          "client_id": "212907668448-u2vj1i8m22ajhip15vcejf1jiv9otl8u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.rededaniskal",
+            "certificate_hash": "ce88f0e4aecc6c1a3db9c40dd7087cd1a936e886"
+          }
+        },
+        {
+          "client_id": "212907668448-a4024gv8a6np2igng429o8q93qrkforf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.rededaniskal",
+            "certificate_hash": "6b0751adf954cc92cba4d269ddf8c69a290e8be1"
+          }
+        },
+        {
           "client_id": "212907668448-isvujnb18nipa77dc4jt75emo2ptki91.apps.googleusercontent.com",
           "client_type": 3
         }

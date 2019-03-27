@@ -43,6 +43,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
 import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
@@ -67,6 +68,7 @@ public class Book_Details_Activity extends AppCompatActivity {
     TextView DisplayOwner;
     TextView DisplayStatus;
     TextView DisplayDescription;
+    private Book_Details_Logic logic;
 
     ImageView BookCover;
 
@@ -147,12 +149,12 @@ public class Book_Details_Activity extends AppCompatActivity {
 
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
-        BookDetailsdb db = new BookDetailsdb();
+       BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
 
-        db.bookInUserRequests(book.getBookID());
+       isRequested = db.bookInUserRequests();
 
         //Set appropriate text for the button at the bottom
-        if (book.getStatus() == "Requested" && isRequested) {
+        if (book.getStatus().equals("Requested") && isRequested) {
             Request_Cancel.setText(R.string.cancel_request);
 
         } else {
@@ -173,20 +175,18 @@ public class Book_Details_Activity extends AppCompatActivity {
         });
 
         //TODO: Make this go to forum
-        /*
+
         GoToForum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ForumActivity.class);
-                intent.putExtra("activity","Edit");
+                Intent intent = new Intent(v.getContext(), Forum_Activity.class);
                 startActivity(intent);
             }
         });
-        */
+
 
         final Book_Details_Activity thisone = this;
 
-        //TODO: DB
         Request_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,15 +194,14 @@ public class Book_Details_Activity extends AppCompatActivity {
                 if (isRequested){
                     Request_Cancel.setText(R.string.request_book);
                     isRequested = false;
-                    //TODO: remove from database
+
                 }else{
                     //Case Request book
                     Request_Cancel.setText(R.string.cancel_request);
-//                    BorrowRequest request = new Request(globalUser.getUserName(), ,"borrow" );
                     isRequested = true;
-                    requestsOnBookDB db = new requestsOnBookDB(book, thisone);
-                    //TODO: add request to database
+
                 }
+                logic = new Book_Details_Logic(book, isRequested);
             }
         });
 
@@ -261,11 +260,8 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     public int getLSize(){return l.size();}
 
-    public void notifyRequest(){requestAdapter.notifyDataSetChanged();return;}
+    public void notifyRequest(){requestAdapter.notifyDataSetChanged();}
 
-
-
-    //---------ENCLOSED DATABASE CLASS-----------------------//
 
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));

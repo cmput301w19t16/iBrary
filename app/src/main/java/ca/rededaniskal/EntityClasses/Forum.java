@@ -4,36 +4,36 @@ import java.util.ArrayList;
 
 public class Forum {
 
-    private ArrayList<Post> posts = new ArrayList<>();
-    private Post newPost;
+    private ArrayList<Parent_Thread> threads = new ArrayList<>();
     private Master_Book Book;
     private String forumID;
-    private String userName;
 
-    public Forum(Book book, String userName) {
+    public Forum(Master_Book book) {
+        Book = book;
         this.forumID = book.getISBN();
-        this.userName = userName;
-
     }
 
-    public void addPost(Post post) {
-        posts.add(post);
+    public void addPost(Parent_Thread newThread) {
+        threads.add(newThread);
     }
 
-    public boolean hasPost(Post post) {
-        return posts.contains(post);
-    }
-
-    public void deletePost(Post post) {
-        posts.remove(post);
+    public ArrayList<Parent_Thread> getThreads(){
+        return this.threads;
     }
 
     public String getForumID() {
         return forumID;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getBookName(){
+        return Book.getTitle();
     }
 
+    public Master_Book getBook() {
+        return Book;
+    }
+
+    public void addRatingToBook(String uid, float rating){
+        Book.addRating(uid, rating);
+    }
 }

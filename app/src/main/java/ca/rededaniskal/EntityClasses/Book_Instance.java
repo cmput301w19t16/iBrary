@@ -15,13 +15,6 @@ public class Book_Instance extends Book implements Serializable {
 
     private String status;
 
-    public Book_Instance(){
-
-    }
-
-
-
-
     public Book_Instance(String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus){
         super(newTitle, newAuthor, newIsbn);
         this.bookID = null;
@@ -29,11 +22,9 @@ public class Book_Instance extends Book implements Serializable {
         this.possessor = newpossessor;
         this.condition = newCondition;
         this.status = newStatus;
-
-
-
-
     }
+
+    public Book_Instance(){}
 
     public void setBookID(String key) {
        this.bookID =key;

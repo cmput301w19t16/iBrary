@@ -10,6 +10,7 @@
 package ca.rededaniskal.Activities;
 //author : Skye, Revan, Daniela
 //Tutorial firebase image upload: https://www.youtube.com/watch?v=Zy2DKo0v-OY
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -67,11 +68,14 @@ import java.util.UUID;
 
 
 import ca.rededaniskal.BuildConfig;
-import ca.rededaniskal.BusinessLogic.AddBookLogic;
+//import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
 import ca.rededaniskal.BusinessLogic.UseGoogleBooksAPI;
 import ca.rededaniskal.Database.AddBookDb;
+
+import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
+
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -97,9 +101,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private Button openScanner, addBook;
     private FloatingActionButton openCamera;
     private ImageView cover;
+    private String isbn;
+    private String returnString;
 
-
-    private AddBookLogic businessLogic;
+    private ValidateBookLogic businessLogic;
 
     private StorageReference myStorage;
     private ProgressDialog myProgress;
@@ -162,7 +167,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //on click, gets info from the edittext field, validates them in AddBookLogic
+                //on click, gets info from the edittext field, validates them in ValidateBookLogic
                 // calls addBookInstance() which creates the database object to add the book
                 //Once the book is added, its details are passed to View_My_Library, and the
                 // view is refreshed
@@ -172,8 +177,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String Author = addAuthor.getText().toString();
                 String ISBN = addISBN.getText().toString();
                 Bitmap bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
-                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
-
+//                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
+                businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle);
 
                 if (businessLogic.isValid().equals("")) {
                     businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available"));

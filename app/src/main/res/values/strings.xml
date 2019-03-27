@@ -107,7 +107,6 @@
     <string name="select_pick_up_location">Pick-up Location</string>
     <string name="select_pick_up_time">Pick-up Time</string>
     <string name="select_pick_up_date">Pick-up Date</string>
-    <string name="confirm">Confirm</string>
     <string name="title_activity_view__pick_up__details">View_PickUp_Details</string>
     <string name="view_pick_up_details">Pick-up Details</string>
     <string name="view_drop_off_details">Book Return Details</string>
@@ -120,6 +119,18 @@
     <string name="time">Time</string>
     <string name="establish_exchange_pick_up">Establish Pick</string>
     <string name="title_activity_take__photo_">Take_Photo_Activity</string>
+    <string name="title_activity_view__book__request_">View_Book_Request_Activity</string>
+
+    <string name="new_forum_topic">New Forum Topic</string>
+    <string name="add_topic">Add forum topic</string>
+    <string name="post">Post</string>
+    <string name="new_post">New Post</string>
+    <string name="add_post">Add New Post</string>
+    <string name="avg_rating">avg. rating</string>
+    <string name="rating">my rating</string>
+    <string name="confirm">Confirm</string>
+    <string name="deny">Deny</string>
+
 
 
 </resources>

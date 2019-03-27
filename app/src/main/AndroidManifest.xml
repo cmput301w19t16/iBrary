@@ -24,7 +24,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.my.package.name.provider"
@@ -48,6 +47,17 @@
             android:name=".Activities.Establish_Exchange_Details_Activity"
             android:label="@string/title_activity_establish_location"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Activities.View_Book_Request_Activity"
+            android:label="@string/title_activity_view__book__request_"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <!--
+         <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="${fabric_io_id}"/>
+        -->
+
         <activity android:name=".Activities.View_All_Books_Activity" />
         <activity android:name=".Activities.View_All_Users_Activity" />
         <activity android:name=".Activities.View_Friends_Activity" />
@@ -74,7 +84,6 @@
             android:name=".Activities.Main_Activity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.Launcher_Activity" />
         <activity
             android:name=".Activities.Edit_Profile_Activity"
             android:label="@string/title_activity_edit__profile_"

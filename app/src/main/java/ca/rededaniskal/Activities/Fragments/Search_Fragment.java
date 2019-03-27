@@ -12,17 +12,34 @@
 //https://www.youtube.com/redirect?q=https%3A%2F%2Fgithub.com%2Fcodingdemos%2FMultichoiceTutorial&redir_token=zWJM5OoUtOrwMvfLlGWm1qv4-B98MTU1MjE5NTgxMEAxNTUyMTA5NDEw&event=video_description&v=wfADRuyul04
 package ca.rededaniskal.Activities.Fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
+import ca.rededaniskal.Activities.Filter_My_Books_Logic;
+import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.BusinessLogic.ForumAdapter;
+import ca.rededaniskal.BusinessLogic.Master_BookAdapter;
+import ca.rededaniskal.BusinessLogic.PostAdapter;
+import ca.rededaniskal.BusinessLogic.Search_Logic;
+import ca.rededaniskal.Database.Search_Books_Db;
+import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.Master_Book;
+import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 /**
@@ -53,12 +70,21 @@ public class Search_Fragment extends Fragment {
     private String mParam2;
 
     //private OnFragmentInteractionListener mListener;
-
-
     Button searchBy;
     String[] filterOptions;
     boolean[] selectedOptions;
     ArrayList<Integer> chosenOptions = new ArrayList<>();
+
+    RecyclerView display;
+    Master_BookAdapter MB_adapter;
+    LayoutInflater inflater;
+    ViewGroup container;
+    View dbView;
+    Search_Fragment search_fragment  = this;
+    SwipeRefreshLayout swipeContainer;
+    private View view;
+
+
 
     public Search_Fragment() {
         // Required empty public constructor
@@ -94,12 +120,27 @@ public class Search_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        new Search_Books_Db(this, "", "");
+        this.inflater = inflater;
+        this.container = container;
+        view = inflater.inflate(R.layout.fragment_search, container, false);
+        swipeContainer = view.findViewById(R.id.swipeContainersearch);
+        dbView = view;
 
-        final View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+
+
+
+        //master_books.add(new Master_Book("Invisible", "sdf", "sdfds"));
+
+
 
         searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
+
+        //Adapter stuff
+
 
 
         searchBy.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +170,8 @@ public class Search_Fragment extends Fragment {
                                 item = item + ", ";
                             }
                         }
-                        //mItemSelected.setText(item);
+                        new Search_Logic(search_fragment, chosenOptions,"Being and Nothingness");
+
                     }
                 });
 
@@ -157,7 +199,40 @@ public class Search_Fragment extends Fragment {
         });
 
 
+
+
         // Inflate the layout for this fragment
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Search_Books_Db(search_fragment, null, null);
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        // Stop animation (This will be after 3 seconds)
+                        swipeContainer.setRefreshing(false);
+                    }
+                }, 300); // Delay in millis
+
+            }
+        });
+
         return view;
-}
+    }
+
+public void update_books(ArrayList<Master_Book> master_books){
+
+
+        display = dbView.findViewById(R.id.display);
+        display.setHasFixedSize(true);
+        display.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        MB_adapter = new Master_BookAdapter( Search_Fragment.this, master_books);
+        display.setAdapter( MB_adapter );
+        //MB_adapter.notifyDataSetChanged();
+
+    }
+
+
+
 }
