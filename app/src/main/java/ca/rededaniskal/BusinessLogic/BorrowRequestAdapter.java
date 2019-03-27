@@ -22,7 +22,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ca.rededaniskal.Database.updateRequestDB;
+
+import ca.rededaniskal.Activities.Book_Details_Activity;
+import ca.rededaniskal.Database.Write_Request_DB;
+import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.Book_List;
+
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
 
@@ -32,7 +37,7 @@ import static android.support.constraint.Constraints.TAG;
 public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdapter.BorrowRequestViewHolder>{
     public Context mctx;
     private ArrayList<BorrowRequest> list; //List of Requests
-    private updateRequestDB db;
+    private Write_Request_DB db;
 
     /**
      * Instantiates a new Entry adapter.
@@ -69,37 +74,21 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         borrowRequestViewHolder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: DB add a book request to the database
 
-
-                Log.d(TAG, "*********------> I JUST DONT KNOW");
-
-
-//                list.remove(borrowRequestViewHolder.getAdapterPosition());
-//                notifyItemRemoved(borrowRequestViewHolder.getAdapterPosition());
-//                notifyItemRangeChanged(borrowRequestViewHolder.getAdapterPosition(), list.size());
-                for (int j = 0; j < getItemCount(); j++){
-                    if(j == i){
-                        request.setStatus("Accepted");
-                        db = new updateRequestDB(request);
-                    }else{
-                        db = new updateRequestDB(list.get(j));
-                    }
-                    list.remove(j);
-                    notifyDataSetChanged();
-                }
+                request.setStatus("Accepted");
+                db = new Write_Request_DB(request, false);
+                list.remove(borrowRequestViewHolder.getAdapterPosition());
+                deleteRemainingRequests();
+                list.clear();
+                notifyDataSetChanged();
             }
         });
 
         borrowRequestViewHolder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                list.remove(i);
-//                notifyDataSetChanged();
-//                Log.d(TAG, "************------> Req Object: "+ list.get(i));
-                //TODO: DB remove the book request to the database
                 request.setStatus("Denied");
-                updateRequestDB db = new updateRequestDB(request);
+                Write_Request_DB db = new Write_Request_DB(request, true);
                 list.remove(borrowRequestViewHolder.getAdapterPosition());
                 notifyItemRemoved(borrowRequestViewHolder.getAdapterPosition());
                 notifyItemRangeChanged(borrowRequestViewHolder.getAdapterPosition(), list.size());
@@ -110,6 +99,12 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void deleteRemainingRequests(){
+        for(int i = 0; i < list.size(); i++){
+            Write_Request_DB db = new Write_Request_DB(list.get(i), true);
+        }
     }
 
     /**

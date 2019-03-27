@@ -11,6 +11,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
+import ca.rededaniskal.BusinessLogic.Write_Notification_Logic;
 import ca.rededaniskal.EntityClasses.Book;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -18,7 +19,7 @@ import ca.rededaniskal.EntityClasses.User;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class Add_Remove_Request_DB {
+public class Write_Request_DB {
 
 
     private BorrowRequest request;
@@ -26,23 +27,36 @@ public class Add_Remove_Request_DB {
     private String key;
     private Book_Instance book;
     private String sender_UID;
+    private boolean delete;
 
 
-    public Add_Remove_Request_DB(BorrowRequest request) {
-        Log.d(TAG, "*********------> Add_Remove_Request_DB");
+    public Write_Request_DB(BorrowRequest request, Book_Instance book) {
+        this.book = book;
+        Log.d(TAG, "*********------> Write_Request_DB");
         this.request = request;
         Log.d(TAG, "*********------> Request sender UID: " + request.getsenderUID());
         createRequest();
 
     }
 
-    public Add_Remove_Request_DB(Book_Instance book, String sender_UID){
+    public Write_Request_DB(Book_Instance book, String sender_UID){
+        this.delete = true;
         this.sender_UID = sender_UID;
         this.book = book;
-
+        Log.d(TAG, "*********------> Write_Request_DB");
         Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
                 .orderByChild("isbn")
                 .equalTo(book.getISBN());
+        query.addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    public Write_Request_DB(BorrowRequest request, boolean delete){
+        this.request = request;
+        this.delete = delete;
+        Log.d(TAG, "*********------> Write_Request_DB");
+        Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
+                .orderByChild("isbn")
+                .equalTo(request.getIsbn());
         query.addListenerForSingleValueEvent(valueEventListener);
     }
 
@@ -50,18 +64,21 @@ public class Add_Remove_Request_DB {
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d(ContentValues.TAG, "*********----->onDataChange: Add_Remove_Request_DB");
+            Log.d(ContentValues.TAG, "*********----->onDataChange: Write_Request_DB");
             if (dataSnapshot.exists()) {
                 Log.d(ContentValues.TAG, "*********----->exists");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     BorrowRequest req = snapshot.getValue(BorrowRequest.class);
-                    if(req.getsenderUID().equals(sender_UID)) {
+                    if(req.getsenderUID().equals(request.getsenderUID())) {
                         key = snapshot.getKey();
                     }
                 }
-
-                deleteRequest();
+                if(delete) {
+                    deleteRequest();
+                }else{
+                    updateRequest();
+                }
             }
 
         }
@@ -76,12 +93,29 @@ public class Add_Remove_Request_DB {
         mDatabase = FirebaseDatabase.getInstance().getReference("BorrowRequests");
         String k = mDatabase.push().getKey();
         mDatabase.child(k).setValue(request);
+        String owner = book.getOwner();
+        String requestType = "Book Requested";
+
+        Write_Notification_Logic new_notif = new Write_Notification_Logic(owner, k, requestType);
     }
 
     private void deleteRequest(){
         Log.d(TAG, "*********------> deleteRequest");
         mDatabase = FirebaseDatabase.getInstance().getReference("BorrowRequests");
         mDatabase.child(key).removeValue();
+
+        Write_Notification_Logic delete_notif = new Write_Notification_Logic(key);
+    }
+
+    private void updateRequest(){
+        Log.d(TAG, "*********------> updateRequest");
+        mDatabase = FirebaseDatabase.getInstance().getReference("BorrowRequests");
+        mDatabase.child(key).setValue(request);
+
+        if(request.getStatus().equals("Accepted")){
+            String requestType = "Book Request Accepted";
+            Write_Notification_Logic delete_notif = new Write_Notification_Logic(request.getsenderUID(), key, requestType);
+        }
     }
 
 
