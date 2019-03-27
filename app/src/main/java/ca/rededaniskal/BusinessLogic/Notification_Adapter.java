@@ -24,6 +24,7 @@ import ca.rededaniskal.Activities.Fragments.Notifications_Fragment;
 import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
 import ca.rededaniskal.Activities.View_Rating_Post_Activity;
 import ca.rededaniskal.Activities.View_Text_Post_Activity;
+import ca.rededaniskal.Database.Write_Notification_DB;
 import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
@@ -102,6 +103,10 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
             public void onClick(View v) {
                 holder.newAlertStar.setRating(0);
                 mDataset.get(position).setSeen(true);
+                Write_Notification_DB db = new Write_Notification_DB();
+                db.setRequestID(mDataset.get(position).getRequest());
+                db.setNotification(mDataset.get(position));
+                db.getNotificationKey();
             }
         });
 

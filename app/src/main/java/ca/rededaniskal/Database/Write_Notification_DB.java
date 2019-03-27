@@ -26,7 +26,7 @@ public class Write_Notification_DB {
     private Notification notification;
     private String key;
     private String RequestID;
-
+    private boolean delete;
 
     public Write_Notification_DB(Notification notification) {
         this.notification = notification;
@@ -37,12 +37,14 @@ public class Write_Notification_DB {
         Log.d(TAG, "*!*!* In Write_Notification_DB");
         this.RequestID = RequestID;
         getNotificationKey();
+        this.delete = true;
     }
 
+    public Write_Notification_DB(){
+        this.delete = false;
+    }
 
     private void getCurrentUID() {
-
-
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         if (user != null) {
@@ -57,7 +59,7 @@ public class Write_Notification_DB {
         mDatabase.child(k).setValue(notification);
     }
 
-    private void getNotificationKey(){
+    public void getNotificationKey(){
         Log.d(ContentValues.TAG, "*********----->getNotificationKey");
         Query query = FirebaseDatabase.getInstance().getReference("Notifications")
                 .orderByChild("request")
@@ -78,14 +80,13 @@ public class Write_Notification_DB {
                     key = snapshot.getKey();
 
                 }
-
+                if (delete){
+                    removeNotification(key);
+                }else{
+                    updateNotification(key);
+                }
             }
-            removeNotification(key);
-
-
         }
-
-
         @Override
         public void onCancelled(DatabaseError databaseError) {
 
@@ -102,6 +103,22 @@ public class Write_Notification_DB {
         Log.d(ContentValues.TAG, "*********----->updateNotification");
         mDatabase = FirebaseDatabase.getInstance().getReference("Notifications");
         mDatabase.child(key).setValue(notification);
+    }
+
+    public String getRequestID() {
+        return RequestID;
+    }
+
+    public void setRequestID(String requestID) {
+        RequestID = requestID;
+    }
+
+    public Notification getNotification() {
+        return notification;
+    }
+
+    public void setNotification(Notification notification) {
+        this.notification = notification;
     }
 }
 
