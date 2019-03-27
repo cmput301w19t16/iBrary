@@ -16,6 +16,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -25,6 +26,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +47,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -139,7 +142,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                             MY_CAMERA_PERMISSION_CODE);
                 } else {
 
-
+                    /*
                     //private void operCamera() {
                         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -214,6 +217,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                             //startActivityForResult(cameraIntent, CAMERA_REQUEST);
                         }*/
 
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
             }
         });
 
@@ -344,23 +350,47 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-            if (requestCode == CAMERA_REQUEST && resultCode != 0) {
-                launchMediaScanIntent();
-                final Bitmap photo = (Bitmap) data.getExtras().get("data");
+            if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
 
-                StorageReference filepath = myStorage.child("photos").child(picUri.getLastPathSegment());
-                filepath.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                cover.setImageBitmap(photo);
+
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] dataByte = baos.toByteArray();
+
+                UploadTask uploadTask = mountainsRef.putBytes(data);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        cover.setImageBitmap(photo);
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                        // ...
                     }
                 });
+
             }
 
 
 
 
+
+        /*launchMediaScanIntent();
+        final Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+        StorageReference filepath = myStorage.child("photos").child(picUri.getLastPathSegment());
+        filepath.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                cover.setImageBitmap(photo);
+            }
+        });/*
 
                 /*
                 if (picUri != null) {
@@ -425,10 +455,24 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         }
     }
 
+/*
+    private void storeImageToFirebase() {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 8; // shrink it down otherwise we will use stupid amounts of memory
+        Bitmap bitmap = BitmapFactory.decodeFile(picUri.getPath(), options);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] bytes = baos.toByteArray();
+        String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
+
+        // we finally have our base64 string version of the image, save it.
+        myStorage.child("pic").setValue(base64Image);
+        System.out.println("Stored image with length: " + bytes.length);
+    }
     private void launchMediaScanIntent() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(picUri);
         this.sendBroadcast(mediaScanIntent);
-    }
+    }*/
 }
 
