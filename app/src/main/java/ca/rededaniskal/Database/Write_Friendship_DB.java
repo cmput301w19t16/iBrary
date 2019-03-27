@@ -58,11 +58,11 @@ public class Write_Friendship_DB {
         if (user != null) {
             UID = user.getUid();
 
-            if(delete){
-                deleteFriendship();
-            }else{
-                addFriendship();
-            }
+//            if(delete){
+//                deleteFriendship();
+//            }else{
+//                addFriendship();
+//            }
 
         }
     }
