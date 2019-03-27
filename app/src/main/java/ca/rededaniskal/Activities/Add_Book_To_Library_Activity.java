@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -170,7 +171,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String Title = addTitle.getText().toString();
                 String Author = addAuthor.getText().toString();
                 String ISBN = addISBN.getText().toString();
-                businessLogic = new AddBookLogic(Title, Author, ISBN);
+                Bitmap bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
+                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
 
 
                 if (businessLogic.isValid().equals("")) {
