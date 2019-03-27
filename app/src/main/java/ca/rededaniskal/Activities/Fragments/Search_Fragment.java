@@ -82,6 +82,7 @@ public class Search_Fragment extends Fragment {
     View dbView;
     Search_Fragment search_fragment  = this;
     SwipeRefreshLayout swipeContainer;
+    private View view;
 
 
 
@@ -110,7 +111,6 @@ public class Search_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Search_Books_Db(this, "", "");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -120,10 +120,10 @@ public class Search_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        new Search_Books_Db(this, "", "");
         this.inflater = inflater;
         this.container = container;
-        final View view = inflater.inflate(R.layout.fragment_search, container, false);
+        view = inflater.inflate(R.layout.fragment_search, container, false);
         swipeContainer = view.findViewById(R.id.swipeContainersearch);
         dbView = view;
 
@@ -216,7 +216,7 @@ public class Search_Fragment extends Fragment {
             }
         });
 
-        return swipeContainer;
+        return view;
     }
 
 public void update_books(ArrayList<Master_Book> master_books){
@@ -227,9 +227,9 @@ public void update_books(ArrayList<Master_Book> master_books){
         display.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-    MB_adapter = new Master_BookAdapter( Search_Fragment.this, master_books);
+        MB_adapter = new Master_BookAdapter( Search_Fragment.this, master_books);
         display.setAdapter( MB_adapter );
-        MB_adapter.notifyDataSetChanged();
+        //MB_adapter.notifyDataSetChanged();
 
     }
 
