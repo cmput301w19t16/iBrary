@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,28 +10,32 @@
     android:focusableInTouchMode="true"
     android:background="#ecf0f1">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/scrollView3" >
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/map"
+                android:name="com.google.android.gms.maps.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="405dp"
-                android:name="com.google.android.gms.maps.MapFragment"/>
+                android:layout_height="match_parent" />
 
-            <ImageButton
-                android:id="@+id/returnback"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/ic_check_circle_blue" />
-        </LinearLayout>
-    </ScrollView>
+    <Button
+        android:id="@+id/findme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Find Me"
+        app:layout_constraintBottom_toTopOf="@+id/confirm"
+        tools:layout_editor_absoluteX="35dp" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:text="Confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="48dp" />
+
+
+
+</android.support.constraint.ConstraintLayout>

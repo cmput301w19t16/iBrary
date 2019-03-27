@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -55,8 +56,40 @@ public class set_location extends Activity implements OnMapReadyCallback,
 
         mapFragment.getMapAsync(this);
 
-        ImageButton returnback = findViewById(R.id.returnback);
-        returnback.setOnClickListener(new View.OnClickListener() {
+        Button findme = findViewById(R.id.findme);
+        Button confirm = findViewById(R.id.confirm);
+
+        client = LocationServices.getFusedLocationProviderClient(this);
+
+        findme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(set_location.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            Location location = task.getResult();
+                            position =  new LatLng(location.getLatitude(), location.getLongitude());
+                            mMap.addMarker(new MarkerOptions()
+                                    .title("Shop")
+                                    .snippet("Is this the right location?")
+                                    .position(position))
+                                    .setDraggable(true);
+
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 13));
+                            CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+                            mMap.animateCamera(zoom);
+                        }
+                    }
+                });
+            }
+        });
+
+
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(set_location.this.getApplicationContext(), position.latitude + ":"  + position.longitude, Toast.LENGTH_LONG).show();
@@ -68,11 +101,7 @@ public class set_location extends Activity implements OnMapReadyCallback,
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
-
-
-
         requestPermission();
-        client = LocationServices.getFusedLocationProviderClient(this);
 
         requestPermission();
 
@@ -83,25 +112,10 @@ public class set_location extends Activity implements OnMapReadyCallback,
 
         map.setMyLocationEnabled(true);
 
-        client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                if (task.isSuccessful()) {
-                    Location location = task.getResult();
-                    position =  new LatLng(location.getLatitude(), location.getLongitude());
-                }
-            }
-        });
-
-
-
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 13));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-        map.animateCamera(zoom);
-
         map.setOnInfoWindowClickListener(this);
         map.setOnMarkerDragListener(this);
     }
+
 
     @Override
     public void onInfoWindowClick(Marker marker) {
