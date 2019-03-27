@@ -3,12 +3,13 @@ package ca.rededaniskal.Database;
 
 
 public enum References {
- DATABASE{
+ ALLBOOKS{
   @Override
   public String reference(){
-   return null;
+   return "all-books";
   }
  },
+
  USER {
   @Override
 

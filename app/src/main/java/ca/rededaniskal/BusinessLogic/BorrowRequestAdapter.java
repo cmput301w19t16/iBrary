@@ -9,9 +9,7 @@
 package ca.rededaniskal.BusinessLogic;
 //Created by Daniela, Revan
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,19 +20,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
+
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
 import ca.rededaniskal.Database.Write_Request_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
+
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
 
@@ -127,7 +120,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         public BorrowRequestViewHolder(@NonNull View itemView) {
             //TODO: profile pic
             super(itemView);
-            requestInfo = itemView.findViewById(R.id.requestInfo);
+            requestInfo = itemView.findViewById(R.id.username);
             accept = itemView.findViewById(R.id.accept);
             cancel = itemView.findViewById(R.id.cancel);
             bookInfo = itemView.findViewById(R.id.bookInfo);

@@ -1,6 +1,8 @@
 package ca.rededaniskal.BusinessLogic;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import ca.rededaniskal.Activities.Fragments.Search_Fragment;
 import ca.rededaniskal.Database.Search_Books_Db;
@@ -12,68 +14,49 @@ public class Search_Logic {
    Search_Fragment parent;
     String[] equalArray;
     String orderby;
-    String equalto;
-    Search_Filter filter;
+    Set<Master_Book> set;
+
     Search_Books_Db db;
-    ArrayList<Master_Book> Results;
+    ArrayList<Master_Book> bookList;
+
 
 
 
     public Search_Logic(Search_Fragment p, ArrayList<Integer> chosen, String search_string) {
         parent = p;
-        this.equalArray = search_string.split(",");
-        for (int i: chosen){
-            switch (i){
-                case 0:
-                    filter = Search_Filter.SEARCH_BY_AUTHOR;
-                    break;
+        bookList = new ArrayList<>();
+        set = new LinkedHashSet<>();
 
-                case 1:
-                    filter = Search_Filter.SEARCH_BY_TITLE;
-                    break;
-                case 2:
-                    filter = Search_Filter.SEARCH_BY_ISBN;
-                    break;
-                case 3:
-                    filter = Search_Filter.SEARCH_BY_FRIENDS;
-                    break;
+        equalArray = search_string.split("[\\p{Punct}\\s]+");
+        for (String s : equalArray) {
+            for (int i : chosen) {
+                setOrderby(i);
+                db = new Search_Books_Db(parent, orderby, s);
+                set.addAll(db.getSearchlist());
             }
-            get_results_for(filter, i);
-
         }
+        bookList.addAll(set);
+        parent.update_books(bookList);
     }
 
-    public void get_results_for(Search_Filter filter, int i){
-        equalto = equalArray[i];
-        switch (filter){
-            case SEARCH_BY_AUTHOR:
-                orderby = "author";
-                break;
-            case SEARCH_BY_TITLE:
-                orderby= "title";
-                break;
-            case SEARCH_BY_ISBN:
-                orderby = "isbn";
-                break;
-            case SEARCH_BY_FRIENDS:
-                orderby = "owner";
-                break;
+public void setOrderby(int i){
 
-        }
-        db = new Search_Books_Db(this, orderby, equalto );
-        db.contruct_query();
-
-    }
-    public void addIntersection(ArrayList<Master_Book> m){
-        if (Results==null) Results =m;
-        else Results.addAll(m);
-
+    switch (i) {
+        case 0:
+            orderby = "author";
+            break;
+        case 1:
+            orderby = "title";
+            break;
+        case 2:
+            orderby = "isbn";
+            break;
+        case 3:
+            orderby = "owner";
+            break;
 
 
     }
 
-
-
-
-
+}
 }

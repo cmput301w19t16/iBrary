@@ -123,8 +123,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             super(itemView);
             profilePic = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the Users image
             statusIcon = itemView.findViewById(R.id.StatusIcon);
-            UserName = itemView.findViewById(R.id.requestInfo);
-            UserLocation = itemView.findViewById(R.id.BookAuthor);
+            UserName = itemView.findViewById(R.id.username);
+            UserLocation = itemView.findViewById(R.id.Location);
             UserMutualFriends = itemView.findViewById(R.id.UserMutualFriends);
         }
     }
