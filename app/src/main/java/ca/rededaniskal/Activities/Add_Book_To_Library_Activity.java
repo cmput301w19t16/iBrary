@@ -242,33 +242,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         }
     }
 
-    /**
-     * Create a File for saving an image
-     */
-    private File getOutputMediaFile(int type) {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "MyApplication");
-
-        /**Create the storage directory if it does not exist*/
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
-        }
-
-        /**Create a media file name*/
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile;
-        if (type == 1) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_" + timeStamp + ".png");
-        } else {
-            return null;
-        }
-
-        return mediaFile;
-    }
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
@@ -277,144 +250,13 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             cover.setImageBitmap(photo);
             uploadImage(photo);
-            //Uri uri = data.getData();
-            //cover.setImageURI(uri);
-
-           /* StorageReference imageStorage = myStorage.child("BookCover").child(uri.getLastPathSegment());
-            imageStorage.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSucess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Add_Book_To_Library_Activity.this, "Uploaded...", Toast.LENGTH_SHORT);
-                }
-
-            })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Add_Book_To_Library_Activity.this, "Not Uploaded...", Toast.LENGTH_LONG);
-                        }
-                    });
         }
-
-
-    /*
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] dataByte = baos.toByteArray();
-
-                UploadTask uploadTask = mountainsRef.putBytes(data);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        // ...
-                    }
-                });
-
-            }
-*/
-
-
-
-
-        /*launchMediaScanIntent();
-        final Bitmap photo = (Bitmap) data.getExtras().get("data");
-
-        StorageReference filepath = myStorage.child("photos").child(picUri.getLastPathSegment());
-        filepath.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                cover.setImageBitmap(photo);
-            }
-        });/*
-
-                /*
-                if (picUri != null) {
-                    String path1 = picUri.getPath();
-                    if (path1 != null) {
-                        File file1 = new File(path1);
-                        Uri capturedUri = Uri.fromFile(file1);//here you get the URI
-                        //you can easily get the path from URI if you need
-                    }
-                }*/
-
-
-
-
-
-        /*if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Uri uri = picUri;
-            String strUri = getIntent().getStringExtra("Uri");
-            uri = Uri.parse(strUri);
-            cover.setImageURI(uri);
-            Bitmap photo = (Bitmap) data.getExtras().get("data");*/
-
-
-            //myProgress.setMessage("Uploading Image ...");
-            //myProgress.show();
-
-            /*final StorageReference filepath = myStorage.child("Photos").child(picUri.getLastPathSegment());
-
-            filepath.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            final Uri downloadUrl = uri;
-
-
-                        }
-                    });
-                }
-            });*/
-            //cover.setImageBitmap(photo);
-            /*
-            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    myProgress.dismiss();
-                    Uri downloadUri = taskSnapshot.getDownloadUrl();
-                    Picasso.with(Add_Book_To_Library_Activity.this).load(downloadUri).fit().centerCrop().into(cover);
-
-
-                    Toast.makeText(Add_Book_To_Library_Activity.this, "Uploading Successful!", Toast.LENGTH_SHORT).show();
-                    myProgress.dismiss();
-                }
-            });*/
-        }
-            else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+        else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
                 String ISBN = data.getStringExtra("ISBN");
                 addISBN.setText(ISBN);
-            }
+        }
 
     }
-
-/*
-    private void storeImageToFirebase() {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 8; // shrink it down otherwise we will use stupid amounts of memory
-        Bitmap bitmap = BitmapFactory.decodeFile(picUri.getPath(), options);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] bytes = baos.toByteArray();
-        String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-
-        // we finally have our base64 string version of the image, save it.
-        myStorage.child("pic").setValue(base64Image);
-        System.out.println("Stored image with length: " + bytes.length);
-    }
-    private void launchMediaScanIntent() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        mediaScanIntent.setData(picUri);
-        this.sendBroadcast(mediaScanIntent);
-    }*/
 
 
     private void uploadImage(Bitmap bitmap) {
