@@ -10,6 +10,7 @@
  */
 package ca.rededaniskal.Activities.Fragments;
 import ca.rededaniskal.Activities.Set_Pickup_Location_Activity;
+import ca.rededaniskal.Activities.set_location;
 import ca.rededaniskal.BusinessLogic.Login_Manager_BL;
 import ca.rededaniskal.BusinessLogic.Login_Manager_Helper_BL;
 import ca.rededaniskal.Database.currentUserDetailsDB;
@@ -186,7 +187,7 @@ public class View_Own_Profile_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Intent intent = new Intent(getActivity(), View_All_Requests_Activity.class);
-                Intent intent = new Intent(getActivity(), Set_Pickup_Location_Activity.class);
+                Intent intent = new Intent(getActivity(), set_location.class);
                 startActivity(intent);
             }
         });

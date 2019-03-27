@@ -115,6 +115,7 @@
     <string name="rating">my rating</string>
     <string name="confirm">Confirm</string>
     <string name="deny">Deny</string>
+    <string name="title_activity_set_location">Map</string>
 
 
 </resources>
