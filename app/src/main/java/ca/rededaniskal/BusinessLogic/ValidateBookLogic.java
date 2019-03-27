@@ -125,7 +125,7 @@ public class ValidateBookLogic {
             //add their personal cover to book instance
         }
         else{
-            // add cover from google books api to masterbook and their 
+            // add cover from google books api to masterbook and their
         }
 
     }
