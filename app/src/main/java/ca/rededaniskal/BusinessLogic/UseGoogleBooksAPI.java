@@ -24,6 +24,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.
@@ -95,6 +96,8 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                 InputStream thumbIn = connection.getInputStream();
                 BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
                 thumbImg = BitmapFactory.decodeStream(thumbBuff);
+                thumbBuff.close();
+                thumbIn.close();
             }
             catch(Exception e) {
                 e.printStackTrace();
@@ -132,10 +135,14 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             JSONArray authors = null;
             try {
 
-                // Get the JSONArray of book items.
+                // Get appropriate fields out of JSON object.
+                JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
                 JSONArray itemsArray = responseJson.getJSONArray("items");
                 JSONObject book = itemsArray.getJSONObject(0);
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+
+                String imgThmbnail = imageInfo.getString("smallThumbnail");
+
 
                 title = volumeInfo.getString("title");
                 authors = volumeInfo.getJSONArray("authors");
@@ -146,7 +153,6 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                         myAuthor.append(authors.get(i).toString());
                     }
                     myTitle.setText(title);
-                    cover.setImageBitmap(thumbImg);
                 } /*else {
                 // If none are found, update the UI to show failed results.
                 myTitle.setText("NoResult");
@@ -176,5 +182,34 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
         } else {
             return false;
         }
+    }
+
+
+    private class GetBookThumb extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... thumbURLs) {
+        //attempt to download image
+            try{
+                URL thumbURL = new URL(thumbURLs[0]);
+                URLConnection thumbConn = thumbURL.openConnection();
+                thumbConn.connect();
+
+                InputStream thumbIn = thumbConn.getInputStream();
+                BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
+
+                thumbImg = BitmapFactory.decodeStream(thumbBuff);
+
+                thumbBuff.close();
+                thumbIn.close();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+        protected void onPostExecute(String result) {
+            cover.setImageBitmap(thumbImg);
+        }
+
     }
 }

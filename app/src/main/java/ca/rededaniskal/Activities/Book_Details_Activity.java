@@ -207,7 +207,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         });
 
     }
-    private void displayImg(){
+    /*private void displayImg(){
 
         Uri uri = Uri.parse(photoUrl);
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(picUri.getPath());
@@ -216,7 +216,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         Glide.with(this.getApplicationContext())
                 .load(storageReference)
                 .into(BookCover);
-    }
+    }*/
 
     ValueEventListener valueEventListener2 = new ValueEventListener() {
         @Override
