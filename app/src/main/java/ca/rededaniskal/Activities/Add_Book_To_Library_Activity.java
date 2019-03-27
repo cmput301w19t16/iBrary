@@ -69,6 +69,7 @@ import ca.rededaniskal.BuildConfig;
 import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
+import ca.rededaniskal.BusinessLogic.UseGoogleBooksAPI;
 import ca.rededaniskal.Database.AddBookDb;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
@@ -227,6 +228,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
                 String ISBN = data.getStringExtra("ISBN");
+                new UseGoogleBooksAPI(this, addTitle, addAuthor, cover).execute(isbn);
                 addISBN.setText(ISBN);
         }
 
