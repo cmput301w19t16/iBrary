@@ -141,82 +141,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     requestPermissions(new String[]{Manifest.permission.CAMERA},
                             MY_CAMERA_PERMISSION_CODE);
                 } else {
-
-                    /*
-                    //private void operCamera() {
-                        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
-                        Random random = new Random();
-                        int key =random.nextInt(1000);
-                        String file = dir + key + ".jpg";
-                        File newfile = new File(file);
-
-                    try {
-                        newfile.createNewFile();
-                    }
-                    catch (IOException e)
-                    {
-                    }
-
-                    //     Uri outputFileUri = Uri.fromFile(newfile);
-                    Uri outputFileUri = FileProvider.getUriForFile(Add_Book_To_Library_Activity.this, BuildConfig.APPLICATION_ID, newfile);
-
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                }
-
-                        //picUri = FileProvider.getUriForFile(Add_Book_To_Library_Activity.this, BuildConfig.APPLICATION_ID, newfile);
-                        //picUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
-                                //"picture"+key+".jpg"));
-
-                        //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, picUri);
-                        //intent.putExtra("return-data", true);
-
-                        //startActivityForResult(intent, CAMERA_REQUEST);
-                    //}
-
-                    //Intent intent = new Intent(Add_Book_To_Library_Activity.this, Take_Photo_Activity.class);
-                    //startActivityForResult(intent, CAMERA_REQUEST);
-
-
-                    //uploadImage();
-
-                    //Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
-
-                    //cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,picUri); // set the image file
-
-                    //startActivityForResult(cameraIntent, CAMERA_REQUEST);
-
-
-                    /*Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    intent.setType("image/*");
-                    startActivityForResult(intent, CAMERA_REQUEST);
-                    File photoFile = getOutputMediaFile(1);
-                    picUri = Uri.fromFile(photoFile); // create*/
-
-
-
-                    /*Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-
-                        try {
-                            photoFile = createImageFile();
-                        } catch (IOException ex) {
-                            // Error occurred while creating the File
-                            ex.printStackTrace();
-                        }
-                        // Continue only if the File was successfully created
-                        if (photoFile != null) {
-                            cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
-                                    Uri.fromFile(photoFile));
-                            startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                            //startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                        }*/
-
                     Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, CAMERA_REQUEST);
                 }
@@ -494,8 +418,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
 
     private void uploadImage(Bitmap bitmap) {
+        Random random = new Random();
+        int key =random.nextInt(1000);
         myProgress.show();
-        final StorageReference ref = myStorage.child("drivers/" + "132" + ".jpg");
+        final StorageReference ref = myStorage.child("drivers/" + key + ".jpg");
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
