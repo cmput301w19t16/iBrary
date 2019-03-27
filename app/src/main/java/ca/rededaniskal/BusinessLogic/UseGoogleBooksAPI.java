@@ -1,18 +1,23 @@
 package ca.rededaniskal.BusinessLogic;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -29,12 +34,15 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
     private Context context;
     private TextView myTitle;
     private TextView myAuthor;
-    ConnectivityManager myConnectivityManager;
+    private Bitmap thumbImg;
+    private ImageView cover;
+    private ConnectivityManager myConnectivityManager;
 
-    public UseGoogleBooksAPI(Context context, TextView title, TextView author) {
+    public UseGoogleBooksAPI(Context context, TextView title, TextView author, ImageView cover) {
         this.context = context;
         this.myTitle = title;
         this.myAuthor = author;
+        this.cover = cover;
     }
 
     @Override
@@ -81,6 +89,17 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             // Read data from response.
             StringBuilder builder = new StringBuilder();
             BufferedReader responseReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            //get thumbnail image (book cover) from Google Books
+            try{
+                InputStream thumbIn = connection.getInputStream();
+                BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
+                thumbImg = BitmapFactory.decodeStream(thumbBuff);
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+
             String line = responseReader.readLine();
             while (line != null) {
                 builder.append(line);
@@ -127,6 +146,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                     myAuthor.append(authors.get(i).toString());
                 }
                 myTitle.setText(title);
+                cover.setImageBitmap(thumbImg);
             } /*else {
                 // If none are found, update the UI to show failed results.
                 myTitle.setText("NoResult");
