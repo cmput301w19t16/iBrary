@@ -1,9 +1,9 @@
 /*
 * Created by Delaney 03/24/2019
 *
-* Instances in in Add_Remove_Friend_DB,
+* Instances in in Write_Friendship_DB,
 *
-* Friendship is assumed to be commutative, it does not matter who is friend1 or friend2.
+* Friendship is assumed to be commutative, it does not matter who is leader or follower.
 *
 * */
 
@@ -11,27 +11,27 @@
 package ca.rededaniskal.EntityClasses;
 
 public class Friendship {
-    private String friend1;
-    private String friend2;
+    private String leader;
+    private String follower;
 
-    public Friendship(String friend1, String friend2){
-        this.friend1 = friend1;
-        this.friend2 = friend2;
+    public Friendship(String leader, String follower){
+        this.leader = leader;
+        this.follower = follower;
     }
 
-    public String getFriend1() {
-        return friend1;
+    public String getLeader() {
+        return leader;
     }
 
-    public void setFriend1(String friend1) {
-        this.friend1 = friend1;
+    public void setLeader(String leader) {
+        this.leader = leader;
     }
 
-    public String getFriend2() {
-        return friend2;
+    public String getFollower() {
+        return follower;
     }
 
-    public void setFriend2(String friend2) {
-        this.friend2 = friend2;
+    public void setFollower(String follower) {
+        this.follower = follower;
     }
 }

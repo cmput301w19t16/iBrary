@@ -77,10 +77,12 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
         //set the text of the notification based on the type
         switch (notification.getRequestType()){
-            case "Friend_Request":
-                titleText += " sent you a friend request!";
+            case "Book Request Accepted":
+                titleText += " accepted your book request.";
+            case "Friend Request":
+                titleText += " is now following you.";
                 break;
-            case "Borrow_Request":
+            case "Book Requested":
                 titleText += " asked to borrow your book.";
                 break;
             case "Return_Request":
