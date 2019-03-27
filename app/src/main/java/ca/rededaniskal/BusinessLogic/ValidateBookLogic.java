@@ -13,6 +13,8 @@ package ca.rededaniskal.BusinessLogic;
 //TODO: validate book id, validate against master, validate 10-digit and 13-digit isbn
 
 //import ca.rededaniskal.Database.AddBookDb;
+import android.graphics.Bitmap;
+
 import java.lang.String;
 
 
@@ -27,16 +29,19 @@ public class ValidateBookLogic {
     private String title;
     private String author;
     private String ISBN;
+    private Bitmap cover;
 
     private String titleError;
     private String authorError;
     private String ISBNError;
 
+
     //Constructor
-    public ValidateBookLogic(String title, String author, String ISBN) {
+    public ValidateBookLogic(String title, String author, String ISBN, Bitmap cover) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
+        this.cover = cover;
     }
 
     //Validate the title of the new book
@@ -114,6 +119,16 @@ public class ValidateBookLogic {
 
     }
 
+    //Validate Book Cover. If no image is provided, the
+    public void validateCover(){
+        if(cover != null){
+            //add their personal cover to book instance
+        }
+        else{
+            // add cover from google books api to masterbook and their 
+        }
+
+    }
     //Returns Whether the book is valid
     public String isValid() {
         //Currently raises no errors, businessLogic is always Valid
@@ -121,6 +136,7 @@ public class ValidateBookLogic {
         validateTitle();
         validateAuthor();
         validateISBN();
+        validateCover();
 
         return "";
     }

@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -118,7 +119,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
                 String Title = addTitle.getText().toString();
                 String Author = addAuthor.getText().toString();
                 String ISBN = addISBN.getText().toString();
-                businessLogic = new ValidateBookLogic(Title, Author, ISBN);
+                Bitmap bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
+
+                businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle);
 
 
 
