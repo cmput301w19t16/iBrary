@@ -27,12 +27,14 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.zoftino.android.fileprovider"
+            android:authorities="${applicationId}.my.package.name.provider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_list"></meta-data>
+                android:resource="@xml/file_list"
+                tools:replace="android:resource"/>
         </provider>
         <activity
             android:name=".Activities.Take_Photo_Activity"

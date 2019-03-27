@@ -1,5 +1,6 @@
 package ca.rededaniskal.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -107,7 +108,19 @@ public class Take_Photo_Activity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_PICTURE_CAPTURE && resultCode == RESULT_OK) {
+
+
+            addToCloudStorage();
+
+
             File imgFile = new  File(pictureFilePath);
+
+            Intent intent = new Intent(this, Add_Book_To_Library_Activity.class);
+            intent.putExtra("Uri", Uri.fromFile(imgFile).toString());
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+
+
             if(imgFile.exists())            {
                 image.setImageURI(Uri.fromFile(imgFile));
                 Intent returnIntent = new Intent(Take_Photo_Activity.this, Add_Book_To_Library_Activity.class );
