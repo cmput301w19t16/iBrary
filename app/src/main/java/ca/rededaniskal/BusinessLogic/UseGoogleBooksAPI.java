@@ -137,6 +137,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
 
                 // Get appropriate fields out of JSON object.
                 JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
+                new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
                 JSONArray itemsArray = responseJson.getJSONArray("items");
                 JSONObject book = itemsArray.getJSONObject(0);
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
@@ -160,6 +161,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             }*/
 
             } catch(Exception e){
+                cover.setImageBitmap(null);
                 // If onPostExecute does not receive a proper JSON string
                 e.printStackTrace();
             }
