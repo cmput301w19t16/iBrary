@@ -24,7 +24,10 @@ import java.net.URL;
 import java.util.Random;
 
 import ca.rededaniskal.Activities.Add_Book_To_Library_Activity;
-
+import ca.rededaniskal.BusinessLogic.myCallBackMasterBook;
+import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
+import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.Master_Book;
 
 
 public class Photos {
@@ -44,18 +47,34 @@ public class Photos {
     }
 
 
-    public URL getURLFromBitmap(Bitmap inImage, String bookId, String type) {
+    public void getURLFromBitmap(Bitmap inImage, myCallbackBookInstance mcbi, Book_Instance bi) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, bookId+type, null);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "http://" + bi.getTitle() +  bi.getBookID() + ".html", null);
         Uri uri = Uri.parse(path);
+
         try {
-            return new URL(uri.toString());
+            bi.setCover(new URL(uri.toString()));
+            mcbi.onCallback(bi);
         }
         catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return null;
+    }
+
+    public void getURLFromBitmapMasterBook(Bitmap inImage, myCallBackMasterBook mcmb, Master_Book mb) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "http://TitleOriginal", null);
+        Uri uri = Uri.parse(path);
+
+        try {
+            mb.setGoogleCover(new URL(uri.toString()));
+            mcmb.onCallback(mb);
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
 

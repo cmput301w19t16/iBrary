@@ -24,6 +24,7 @@ import java.util.Random;
 
 import ca.rededaniskal.BusinessLogic.Photo_GoogleBooksAPI;
 import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
+import ca.rededaniskal.BusinessLogic.myCallBackMasterBook;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
@@ -39,6 +40,8 @@ public class AddBookDb implements AsyncResponse {
         private Context context;
         private URL googleCoverURL;
         private URL myCoverURL;
+        private myCallBackMasterBook mcmb;
+        private Master_Book mb;
 
 
 
@@ -67,23 +70,29 @@ public class AddBookDb implements AsyncResponse {
             if (!masterdb.checkExists(masterdb.getReference().child(book_instance.getISBN()))) {
                 book_instance.setAuthor("Williams");
 
-
-
             }
-            asyncTask.delegate = this;
+
             String isbn = book_instance.getISBN();
             asyncTask = new Title_Author_GoogleBooksAPI(context,null, null, null, 1);
+            asyncTask.delegate = this;
             asyncTask.execute(isbn);
 
-            Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN(), googleCoverURL);
-            masterdb.addMasterBook(mb);
+
+            mcmb = new myCallBackMasterBook() {
+                @Override
+                public void onCallback(Master_Book master_book) {
+                    master_book.setGoogleCover(googleCoverURL);
+                    masterdb.addMasterBook(master_book);
+                }
+            };
 
         }
 
         @Override
         public void processFinish(Bitmap output){
             googleCover = output;
-            googleCoverURL = new Photos(context).getURLFromBitmap(googleCover);
+            mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
+           // new Photos(context).getURLFromBitmapMasterBook(googleCover, mcmb,mb);
         }
 
         public void addBookToDatabase() throws NullPointerException {

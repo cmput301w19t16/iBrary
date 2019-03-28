@@ -25,6 +25,12 @@ public class Master_Book extends Book implements Serializable {
         totalNumRating = -1;
         mapUsersRating = new HashMap<String, Float>();
     }
+    public Master_Book(String newTitle, String newAuthor, String newIsbn){
+        super(newTitle, newAuthor, newIsbn);
+        avgRating = -1.00f;
+        totalNumRating = -1;
+        mapUsersRating = new HashMap<String, Float>();
+    }
 
     public void addRating(String username, Float rating){
         mapUsersRating.put(username, rating);

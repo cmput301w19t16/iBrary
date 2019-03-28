@@ -47,6 +47,7 @@ import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
 
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
+import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
@@ -141,7 +142,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 //on click, gets info from the edittext field, validates them in ValidateBookLogic
                 // calls addBookInstance() which creates the database object to add the book
                 //Once the book is added, its details are passed to View_My_Library, and the
@@ -153,23 +154,26 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String ISBN = addISBN.getText().toString();
                 //bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
+                myCallbackBookInstance mcbi = new myCallbackBookInstance() {
+                    @Override
+                    public void onCallback(Book_Instance book_instance) {
+                        if (businessLogic.isValid().equals("")) {
+                            businessLogic.saveInformation(book_instance, getApplicationContext());
+                            Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
+
+
+                            startActivity(intent);
+
+                            finish();
+                        } else {
+
+
+                        }
+                    }
+                };
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
-                myUrl = new Photos(getApplicationContext()).getURLFromBitmap(myCover, );
-
-                if (businessLogic.isValid().equals("")) {
-                    businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available", myUrl), getApplicationContext());
-                    Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
-
-
-                    startActivity(intent);
-
-                    finish();
-                } else {
-
-
-                }
-
-
+                Book_Instance bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
+                new Photos(getApplicationContext()).getURLFromBitmap(myCover, mcbi, bi);
             }
         };
 
