@@ -79,6 +79,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
 
 
         title = findViewById(R.id.title);
+        followers = 0;
         author = findViewById(R.id.author);
 
         myCallbackBookInstance mcbbi = new myCallbackBookInstance() {

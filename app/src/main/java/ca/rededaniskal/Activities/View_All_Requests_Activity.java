@@ -46,6 +46,7 @@ public class View_All_Requests_Activity extends AppCompatActivity {
     private ArrayList<BorrowRequest> requestList = new ArrayList<BorrowRequest>();
     private getAllUserRequests db;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,6 +59,9 @@ public class View_All_Requests_Activity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.DisplayRequests);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //Testing purposes
+        requestList.add(new BorrowRequest("Daniela", "Nick", "9780590353427", "123456"));
 
         adapter = new BorrowRequestAdapter(this, requestList);
         recyclerView.setAdapter(adapter);

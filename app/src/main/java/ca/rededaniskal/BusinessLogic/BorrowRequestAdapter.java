@@ -10,6 +10,7 @@ package ca.rededaniskal.BusinessLogic;
 //Created by Daniela, Revan
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +23,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
+import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
 import ca.rededaniskal.Activities.Book_Details_Activity;
 import ca.rededaniskal.Database.Write_Request_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
@@ -81,6 +82,10 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
                 deleteRemainingRequests();
                 list.clear();
                 notifyDataSetChanged();
+
+                Intent intent = new Intent(mctx,Establish_Exchange_Details_Activity.class);
+                intent.putExtra("BorrowRequestObject", request);
+                mctx.startActivity(intent);
             }
         });
 
@@ -108,7 +113,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     }
 
     /**
-     * The type Entry view holder, the obbject to actually hold an entry
+     * The type Entry view holder, the object to actually hold an entry
      */
     class BorrowRequestViewHolder extends RecyclerView.ViewHolder {
 
