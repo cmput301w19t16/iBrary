@@ -37,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.Serializable;
+import java.net.URL;
 
 
 //import ca.rededaniskal.BusinessLogic.AddBookLogic;
@@ -46,6 +47,7 @@ import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
 
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
+import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -85,6 +87,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private Uri picUri = null;
     private Bitmap bookCoverGoogle = null;
     private Bitmap myCover = null;
+    private URL myUrl = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,9 +154,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 //bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
+                myUrl = new Photos(getApplicationContext()).getURL(myCover);
 
                 if (businessLogic.isValid().equals("")) {
-                    businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available", myCover), getApplicationContext());
+                    businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available", myUrl), getApplicationContext());
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
 
 

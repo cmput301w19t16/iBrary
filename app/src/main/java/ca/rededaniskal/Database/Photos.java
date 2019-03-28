@@ -30,20 +30,20 @@ public class Photos {
     static private StorageReference myStorage;
     static private ProgressDialog myProgress;
     static private Context context;
-    static private Class fromClass;
 
 
-    public Photos(Class fromClass, Context context){
+
+    public Photos(Context context){
         myStorage = FirebaseStorage.getInstance().getReference();
         myProgress = new ProgressDialog(context);
         this.context = context;
-        this.fromClass = fromClass;
+
     }
 
 
     //https://stackoverflow.com/questions/40581930/how-to-upload-an-image-to-firebase-storage
     //Given a bitmap, upload it to FireBase as jpg
-    static public void uploadImage(Bitmap bitmap) {
+    static public void getURLFromBitmap(Bitmap bitmap) {
         Random random = new Random();
         int key = random.nextInt(1000);
         myProgress.show();

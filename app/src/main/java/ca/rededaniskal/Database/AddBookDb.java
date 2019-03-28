@@ -4,7 +4,23 @@ package ca.rededaniskal.Database;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
+import java.util.Random;
 
 import ca.rededaniskal.BusinessLogic.Photo_GoogleBooksAPI;
 import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
@@ -21,6 +37,8 @@ public class AddBookDb implements AsyncResponse {
         private Bitmap googleCover;
         private Title_Author_GoogleBooksAPI asyncTask;
         private Context context;
+        private URL googleCoverURL;
+        private URL myCoverURL;
 
 
 
@@ -56,23 +74,22 @@ public class AddBookDb implements AsyncResponse {
             String isbn = book_instance.getISBN();
             asyncTask = new Title_Author_GoogleBooksAPI(context,null, null, null, 1);
             asyncTask.execute(isbn);
-            Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN(), googleCover);
+
+            Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN(), googleCoverURL);
             masterdb.addMasterBook(mb);
 
         }
 
         @Override
         public void processFinish(Bitmap output){
+
             googleCover = output;
+            googleCoverURL = new Photos(context).uploadImage(googleCover);
         }
 
         public void addBookToDatabase() throws NullPointerException {
             success = instancedb.getStorageId();
             book_instance.setBookID(success);
             bookAdded = instancedb.addBookInstance(book_instance);
-
-
         }
-
-
     }

@@ -5,6 +5,7 @@ package ca.rededaniskal.EntityClasses;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
+import java.net.URL;
 
 public class Book_Instance extends Book implements Serializable {
 
@@ -12,7 +13,7 @@ public class Book_Instance extends Book implements Serializable {
     private String possessor;
     private String condition;
     private String bookID;
-    private Bitmap cover;
+    private URL cover;
 
     //private BufferedImage bookImage;
 
@@ -25,7 +26,7 @@ public class Book_Instance extends Book implements Serializable {
         this.possessor = newpossessor;
         this.condition = newCondition;
         this.status = newStatus;
-        this.cover = cover;
+        this.cover = ;
     }
 
     public Book_Instance(){}
