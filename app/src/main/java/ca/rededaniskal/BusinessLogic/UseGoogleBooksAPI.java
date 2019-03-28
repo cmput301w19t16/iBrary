@@ -44,7 +44,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
     private Context context;
     private TextView myTitle;
     private TextView myAuthor;
-    private Bitmap thumbImg;
+    private Bitmap googleCover;
     private ImageView cover;
     private ConnectivityManager myConnectivityManager;
 
@@ -100,18 +100,18 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             // Read data from response.
             StringBuilder builder = new StringBuilder();
             BufferedReader responseReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
+            /*
             //get thumbnail image (book cover) from Google Books
             try{
                 InputStream thumbIn = connection.getInputStream();
                 BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
-                thumbImg = BitmapFactory.decodeStream(thumbBuff);
-                thumbBuff.close();
-                thumbIn.close();
+                //googleCover = BitmapFactory.decodeStream(thumbBuff);
+                //thumbBuff.close();
+                //thumbIn.close();
             }
             catch(Exception e) {
                 e.printStackTrace();
-            }
+            }*/
 
             String line = responseReader.readLine();
             while (line != null) {
@@ -223,7 +223,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                 InputStream thumbIn = thumbConn.getInputStream();
                 BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
 
-                thumbImg = BitmapFactory.decodeStream(thumbBuff);
+                googleCover = BitmapFactory.decodeStream(thumbBuff);
 
                 thumbBuff.close();
                 thumbIn.close();
@@ -234,7 +234,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             return "";
         }
         protected void onPostExecute(String result) {
-            cover.setImageBitmap(thumbImg);
+            cover.setImageBitmap(googleCover);
         }
 
     }

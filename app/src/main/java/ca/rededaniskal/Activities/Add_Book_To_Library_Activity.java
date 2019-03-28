@@ -76,6 +76,7 @@ import ca.rededaniskal.Database.AddBookDb;
 
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
+import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -113,13 +114,14 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     private Uri picUri = null;
+    private Bitmap bookCoverGoogle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book_instance);
 
-        myStorage = FirebaseStorage.getInstance().getReference();
+        //myStorage = FirebaseStorage.getInstance().getReference();
 
 
         //Set buttons and EditTexts
@@ -176,7 +178,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String Title = addTitle.getText().toString();
                 String Author = addAuthor.getText().toString();
                 String ISBN = addISBN.getText().toString();
-                Bitmap bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
+                bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle);
 
@@ -231,7 +233,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             cover.setImageBitmap(photo);
-            uploadImage(photo);
+            new Photos(this.getClass(), getApplicationContext()).uploadImage(photo, Add_Book_To_Library_Activity.class);
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
                 String ISBN = data.getStringExtra("ISBN");
@@ -239,54 +241,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 addISBN.setText(ISBN);
         }
 
-    }
-
-
-    //https://stackoverflow.com/questions/40581930/how-to-upload-an-image-to-firebase-storage
-    //Given a bitmap, upload it to FireBase as jpg
-    private void uploadImage(Bitmap bitmap) {
-        Random random = new Random();
-        int key =random.nextInt(1000);
-        myProgress.show();
-        final StorageReference ref = myStorage.child("drivers/" + key + ".jpg");
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-        byte[] data = baos.toByteArray();
-
-        final UploadTask uploadTask = ref.putBytes(data);
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                myProgress.dismiss();
-                Toast.makeText(Add_Book_To_Library_Activity.this, "Uploaded", Toast.LENGTH_SHORT).show();
-
-                uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
-                        return ref.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()) {
-                            Uri downUri = task.getResult();
-                            picUri = downUri;
-                            Log.d("Final URL", "onComplete: Url: " + downUri.toString());
-                        }
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                myProgress.dismiss();
-                Toast.makeText(Add_Book_To_Library_Activity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
 
