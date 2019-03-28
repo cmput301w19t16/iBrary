@@ -1,7 +1,7 @@
 /*
 * Created by Delaney 03/24/2019
 *
-* Instances in in Write_Friendship_DB,
+* Instances in in Follow_DB,
 *
 * Friendship is assumed to be commutative, it does not matter who is leader or follower.
 *
