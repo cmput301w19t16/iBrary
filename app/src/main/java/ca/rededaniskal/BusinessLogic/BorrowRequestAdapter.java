@@ -10,6 +10,7 @@ package ca.rededaniskal.BusinessLogic;
 //Created by Daniela, Revan
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -81,6 +82,10 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
                 deleteRemainingRequests();
                 list.clear();
                 notifyDataSetChanged();
+
+                Intent intent = new Intent(mctx,Establish_Exchange_Details_Activity.class);
+                intent.putExtra("BorrowRequestObject", request);
+                mctx.startActivity(intent);
             }
         });
 

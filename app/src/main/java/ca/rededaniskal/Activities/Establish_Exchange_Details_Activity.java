@@ -157,9 +157,3 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
         return givenCal.after(cal);
     }
 }
-
-
-
-
-
-
