@@ -17,24 +17,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/findme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Find Me"
-        app:layout_constraintBottom_toTopOf="@+id/confirm"
-        tools:layout_editor_absoluteX="35dp" />
-
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/confirm"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimary"
-        android:text="Confirm"
+
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/design_default_color_primary"
+        android:clickable="true"
+
+        app:backgroundTint="@color/design_default_color_primary"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="48dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_check_white_24dp" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/findme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/design_default_color_primary"
+
+        android:clickable="true"
+        app:backgroundTint="@color/design_default_color_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_pin_drop_white_24dp"/>
 
 
 

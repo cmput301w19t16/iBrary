@@ -54,7 +54,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Activities.set_location"
+            android:name=".Activities.Set_Location_Activity"
             android:label="@string/title_activity_set_location"></activity>
         <activity
             android:name=".Activities.View_Book_Request_Activity"
