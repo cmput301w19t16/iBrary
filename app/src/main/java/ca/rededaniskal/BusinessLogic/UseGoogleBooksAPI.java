@@ -48,13 +48,15 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
     private TextView myAuthor;
     private Bitmap googleCover;
     private ImageView cover;
+    private Class fromClass;
     private ConnectivityManager myConnectivityManager;
 
-    public UseGoogleBooksAPI(Context context, TextView title, TextView author, ImageView cover) {
+    public UseGoogleBooksAPI(Context context, TextView title, TextView author, ImageView cover, Class fromClass) {
         this.context = context;
         this.myTitle = title;
         this.myAuthor = author;
         this.cover = cover;
+        this.fromClass = fromClass;
 
     }
 
@@ -239,7 +241,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             if (cover == null){
                 cover.setImageBitmap(googleCover);
             }
-            //new Photos(context, )
+            new Photos(fromClass, context).uploadImage(googleCover);
         }
 
     }

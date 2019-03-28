@@ -114,7 +114,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     private Uri picUri = null;
-    private Bitmap bookCoverGoogle;
+    private Bitmap bookCoverGoogle = null;
+    private Bitmap myCover = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,9 +179,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String Title = addTitle.getText().toString();
                 String Author = addAuthor.getText().toString();
                 String ISBN = addISBN.getText().toString();
-                bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
+                //bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
-                businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle);
+                businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle, myCover);
 
                 if (businessLogic.isValid().equals("")) {
                     businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available"));
@@ -231,13 +232,13 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
 
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            cover.setImageBitmap(photo);
-            new Photos(this.getClass(), getApplicationContext()).uploadImage(photo, Add_Book_To_Library_Activity.class);
+            myCover = (Bitmap) data.getExtras().get("data");
+            cover.setImageBitmap(myCover);
+            new Photos(this.getClass(), getApplicationContext()).uploadImage(myCover);
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
                 String ISBN = data.getStringExtra("ISBN");
-                new UseGoogleBooksAPI(this, addTitle, addAuthor, cover).execute(ISBN);
+                new UseGoogleBooksAPI(this, addTitle, addAuthor, cover, this.getClass()).execute(ISBN);
                 addISBN.setText(ISBN);
         }
 

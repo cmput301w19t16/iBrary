@@ -43,7 +43,7 @@ public class Photos {
 
     //https://stackoverflow.com/questions/40581930/how-to-upload-an-image-to-firebase-storage
     //Given a bitmap, upload it to FireBase as jpg
-    static public void uploadImage(Bitmap bitmap, final Class fromClass) {
+    static public void uploadImage(Bitmap bitmap) {
         Random random = new Random();
         int key = random.nextInt(1000);
         myProgress.show();
