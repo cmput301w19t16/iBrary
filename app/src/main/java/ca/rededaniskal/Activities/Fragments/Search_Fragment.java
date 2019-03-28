@@ -120,12 +120,13 @@ public class Search_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        new Search_Books_Db(this, "", "");
+
         this.inflater = inflater;
         this.container = container;
         view = inflater.inflate(R.layout.fragment_search, container, false);
         swipeContainer = view.findViewById(R.id.swipeContainersearch);
         dbView = view;
+        new Search_Books_Db(search_fragment, null, null).setParentView();
 
 
 
@@ -170,7 +171,7 @@ public class Search_Fragment extends Fragment {
                                 item = item + ", ";
                             }
                         }
-                        new Search_Logic(search_fragment, chosenOptions,"Being and Nothingness");
+                        new Search_Logic(search_fragment, chosenOptions,"Bad Bad");
 
                     }
                 });
@@ -205,7 +206,7 @@ public class Search_Fragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Search_Books_Db(search_fragment, null, null);
+                new Search_Logic(search_fragment, chosenOptions, "Bad Bad " );
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         // Stop animation (This will be after 3 seconds)

@@ -34,7 +34,7 @@ public class Search_Books_Db {
         masterBookDb = new MasterBookDb();
         searchlist = new ArrayList<>();
 
-        setParentView();
+
 
     }
 
@@ -77,7 +77,7 @@ public class Search_Books_Db {
 
 
                     }
-                   //parent.update_books(searchlist);
+                   parent.update_books(searchlist);
                 }
             }
 

@@ -12,7 +12,7 @@ import ca.rededaniskal.EntityClasses.Master_Book;
 public class Search_Logic {
 
    Search_Fragment parent;
-    String[] equalArray;
+
     String orderby;
     Set<Master_Book> set;
 
@@ -27,16 +27,21 @@ public class Search_Logic {
         bookList = new ArrayList<>();
         set = new LinkedHashSet<>();
 
-        equalArray = search_string.split("[\\p{Punct}\\s]+");
-        for (String s : equalArray) {
-            for (int i : chosen) {
+            db = new Search_Books_Db(parent, null, null);
+            db.setParentView();
+
+
+
+        //equalArray = search_string.split("[\\p{Punct}\\s]+");
+        //for (String s : equalArray) {
+             for (int i : chosen) {
                 setOrderby(i);
-                db = new Search_Books_Db(parent, orderby, s);
-                set.addAll(db.getSearchlist());
+                db = new Search_Books_Db(parent,orderby, search_string );
+                db.queryData();
+
             }
-        }
-        bookList.addAll(set);
-        parent.update_books(bookList);
+
+
     }
 
 public void setOrderby(int i){
