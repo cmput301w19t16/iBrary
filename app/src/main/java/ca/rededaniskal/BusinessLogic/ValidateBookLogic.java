@@ -13,6 +13,7 @@ package ca.rededaniskal.BusinessLogic;
 //TODO: validate book id, validate against master, validate 10-digit and 13-digit isbn
 
 //import ca.rededaniskal.Database.AddBookDb;
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import java.lang.reflect.Array;
@@ -31,6 +32,7 @@ public class ValidateBookLogic {
     private String title;
     private String author;
     private String ISBN;
+    private Context context;
 
     private String titleError;
     private String authorError;
@@ -39,10 +41,11 @@ public class ValidateBookLogic {
 
     //Constructor
 
-    public ValidateBookLogic(String title, String author, String ISBN) {
+    public ValidateBookLogic(String title, String author, String ISBN, Context context) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
+        this.context = context;
     }
 
     //Validate the title of the new book
@@ -133,8 +136,8 @@ public class ValidateBookLogic {
 
 
 
-    public void saveInformation(Book_Instance book){
-         new AddBookDb(book);
+    public void saveInformation(Book_Instance book, Context context){
+         new AddBookDb(book, context);
 
 
     }

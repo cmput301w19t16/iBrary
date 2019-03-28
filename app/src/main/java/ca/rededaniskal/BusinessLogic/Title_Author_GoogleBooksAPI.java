@@ -36,6 +36,7 @@ import ca.rededaniskal.Database.AsyncResponse;
 
 /**
  * Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.
+ *
  * @author Daniela, modified https://stackoverflow.com/questions/14571478/using-google-books-api-in-android
  */
 public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
@@ -48,6 +49,7 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
     //private Class fromClass;
     private int mode;
     private ConnectivityManager myConnectivityManager;
+    public AsyncResponse delegate = null;
 
 
     public Title_Author_GoogleBooksAPI(Context context, TextView title, TextView author, ImageView cover, int mode) {
@@ -133,7 +135,7 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
     @Override
     protected void onPostExecute(JSONObject responseJson) {
         if (!isCancelled() && responseJson != null) {
-            String title= null;
+            String title = null;
             JSONArray authors = null;
             try {
 
@@ -141,33 +143,33 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
                 // Get appropriate fields out of JSON object.
                 JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
                 switch (mode) {
-                    (case :1){
-                    new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
-                    }
-                case:2
-                JSONArray itemsArray = responseJson.getJSONArray("items");
-                JSONObject book = itemsArray.getJSONObject(0);
-                JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+                    case 1:
+                        new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
+                        break;
 
-                title = volumeInfo.getString("title");
-                authors = volumeInfo.getJSONArray("authors");
+                    default:
+                        JSONArray itemsArray = responseJson.getJSONArray("items");
+                        JSONObject book = itemsArray.getJSONObject(0);
+                        JSONObject volumeInfo = book.getJSONObject("volumeInfo");
 
-                // If both are found, display the result.
-                if (title != null && authors != null) {
-                    for(int i = 0; i < authors.length(); i++){
-                        myAuthor.append(authors.get(i).toString());
-                    }
-                    myTitle.setText(title);
+                        title = volumeInfo.getString("title");
+                        authors = volumeInfo.getJSONArray("authors");
+
+                        // If both are found, display the result.
+                        if (title != null && authors != null) {
+                            for (int i = 0; i < authors.length(); i++) {
+                                myAuthor.append(authors.get(i).toString());
+                            }
+                            myTitle.setText(title);
+                        }
                 }
-                }
 
-            } catch(Exception e){
+            } catch (Exception e) {
                 //cover.setImageBitmap(null);
                 // If onPostExecute does not receive a proper JSON string
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             return;
         }
     }
@@ -187,12 +189,13 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
         }
     }
 
-   private class GetBookThumb extends AsyncTask<String, Void, String> {
-       public AsyncResponse delegate = null;
+    private class GetBookThumb extends AsyncTask<String, Void, String> {
+
+
         @Override
         protected String doInBackground(String... thumbURLs) {
-        //attempt to download image
-            try{
+            //attempt to download image
+            try {
                 URL thumbURL = new URL(thumbURLs[0]);
                 URLConnection thumbConn = thumbURL.openConnection();
                 thumbConn.connect();
@@ -204,14 +207,14 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
 
                 thumbBuff.close();
                 thumbIn.close();
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return "";
         }
+
         protected void onPostExecute(Bitmap result) {
-            if (cover == null){
+            if (cover == null) {
                 cover.setImageBitmap(googleCover);
             }
             delegate.processFinish(result);

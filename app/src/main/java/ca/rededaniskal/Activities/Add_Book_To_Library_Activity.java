@@ -150,10 +150,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String ISBN = addISBN.getText().toString();
                 //bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
-                businessLogic = new ValidateBookLogic(Title, Author, ISBN);
+                businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
 
                 if (businessLogic.isValid().equals("")) {
-                    businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available", myCover));
+                    businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available", myCover), getApplicationContext());
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
 
 

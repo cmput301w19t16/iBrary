@@ -2,10 +2,12 @@ package ca.rededaniskal.Database;
     /*author Skye*/
 //Interacts with the Firebase when a user adds a book to ther library
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 
 import ca.rededaniskal.BusinessLogic.Photo_GoogleBooksAPI;
+import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
@@ -17,14 +19,15 @@ public class AddBookDb implements AsyncResponse {
         BookInstanceDb instancedb;
         boolean bookAdded;
         private Bitmap googleCover;
-        private Photo_GoogleBooksAPI asyncTask;
+        private Title_Author_GoogleBooksAPI asyncTask;
+        private Context context;
 
 
 
         String success;
         Book_Instance book_instance;
 
-        public AddBookDb(Book_Instance book_instance) {
+        public AddBookDb(Book_Instance book_instance, Context context) {
 
             //Creates a new reference to the correct path in the Firebase
             //Book instances are stored under there unique id, under my-books,
@@ -34,7 +37,7 @@ public class AddBookDb implements AsyncResponse {
             this.book_instance = book_instance;
             this.masterdb = new MasterBookDb();
             this.instancedb = new BookInstanceDb();
-
+            this.context = context;
             update();
 
         }
@@ -50,7 +53,7 @@ public class AddBookDb implements AsyncResponse {
             }
             asyncTask.delegate = this;
             String isbn = book_instance.getISBN();
-            asyncTask = new Photo_GoogleBooksAPI(AddBookDb.getApplicationContext()).execute(isbn);
+            asyncTask = new Title_Author_GoogleBooksAPI(context,null, null, null, 1).execute(isbn);
             Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN(), googleCover);
             masterdb.addMasterBook(mb);
 
