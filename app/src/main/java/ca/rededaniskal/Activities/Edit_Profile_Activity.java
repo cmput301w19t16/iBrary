@@ -29,6 +29,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -65,6 +69,26 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
+    private final static int PLACE_PICKER_REQUEST = 999;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode){
+                case PLACE_PICKER_REQUEST:
+                    Place place = PlacePicker.getPlace(this, data);
+                    String placeName = String.format("Place: %s", place.getName());
+                    double latitude = place.getLatLng().latitude;
+                    double longitude = place.getLatLng().longitude;
+
+            }
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +112,19 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User use = getTexts();
-                db.saveNewDetails(use);
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    // for activty
+                    startActivityForResult(builder.build(Edit_Profile_Activity.this), PLACE_PICKER_REQUEST);
+
+
+                    // for fragment
+                    //startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -159,13 +194,14 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         }
     }
 
+    /*
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             profilePicture.setImageBitmap(photo);
         }
     }
-
+*/
 
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));
