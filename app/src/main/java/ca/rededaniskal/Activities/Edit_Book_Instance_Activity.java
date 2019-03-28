@@ -15,6 +15,7 @@ package ca.rededaniskal.Activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -138,7 +139,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         String Author = editAuthor.getText().toString();
         String ISBN = editISBN.getText().toString();
 
-        businessLogic = new ValidateBookLogic(Title,Author,ISBN);
+        businessLogic = new ValidateBookLogic(Title,Author,ISBN, getApplicationContext());
 
     }
 

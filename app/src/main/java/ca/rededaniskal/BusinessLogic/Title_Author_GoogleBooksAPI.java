@@ -164,6 +164,7 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
                         }
                 }
 
+                delegate.processFinish(googleCover);
             } catch (Exception e) {
                 //cover.setImageBitmap(null);
                 // If onPostExecute does not receive a proper JSON string
@@ -212,6 +213,7 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
             }
             return "";
         }
+
 
         protected void onPostExecute(Bitmap result) {
             if (cover == null) {

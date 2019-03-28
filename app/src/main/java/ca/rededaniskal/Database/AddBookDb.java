@@ -38,6 +38,7 @@ public class AddBookDb implements AsyncResponse {
             this.masterdb = new MasterBookDb();
             this.instancedb = new BookInstanceDb();
             this.context = context;
+
             update();
 
         }
@@ -53,7 +54,8 @@ public class AddBookDb implements AsyncResponse {
             }
             asyncTask.delegate = this;
             String isbn = book_instance.getISBN();
-            asyncTask = new Title_Author_GoogleBooksAPI(context,null, null, null, 1).execute(isbn);
+            asyncTask = new Title_Author_GoogleBooksAPI(context,null, null, null, 1);
+            asyncTask.execute(isbn);
             Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN(), googleCover);
             masterdb.addMasterBook(mb);
 
