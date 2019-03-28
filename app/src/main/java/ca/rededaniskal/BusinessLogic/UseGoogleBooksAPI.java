@@ -1,24 +1,41 @@
 package ca.rededaniskal.BusinessLogic;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import android.widget.ImageView;
+
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.URLConnection;
+
+import ca.rededaniskal.Database.Photos;
+
 
 /**
  * Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.
@@ -29,12 +46,16 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
     private Context context;
     private TextView myTitle;
     private TextView myAuthor;
-    ConnectivityManager myConnectivityManager;
+    private Bitmap googleCover;
+    private ImageView cover;
+    private ConnectivityManager myConnectivityManager;
 
-    public UseGoogleBooksAPI(Context context, TextView title, TextView author) {
+    public UseGoogleBooksAPI(Context context, TextView title, TextView author, ImageView cover) {
         this.context = context;
         this.myTitle = title;
         this.myAuthor = author;
+        this.cover = cover;
+
     }
 
     @Override
@@ -81,6 +102,19 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             // Read data from response.
             StringBuilder builder = new StringBuilder();
             BufferedReader responseReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            /*
+            //get thumbnail image (book cover) from Google Books
+            try{
+                InputStream thumbIn = connection.getInputStream();
+                BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
+                //googleCover = BitmapFactory.decodeStream(thumbBuff);
+                //thumbBuff.close();
+                //thumbIn.close();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }*/
+
             String line = responseReader.readLine();
             while (line != null) {
                 builder.append(line);
@@ -113,10 +147,29 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             JSONArray authors = null;
             try {
 
-                // Get the JSONArray of book items.
+
+                // Get appropriate fields out of JSON object.
+                JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
+                new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
+
                 JSONArray itemsArray = responseJson.getJSONArray("items");
                 JSONObject book = itemsArray.getJSONObject(0);
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+
+
+                String imgThmbnail = imageInfo.getString("smallThumbnail");
+
+
+                title = volumeInfo.getString("title");
+                authors = volumeInfo.getJSONArray("authors");
+
+                // If both are found, display the result.
+                if (title != null && authors != null) {
+                    for(int i = 0; i < authors.length(); i++){
+                        myAuthor.append(authors.get(i).toString());
+                    }
+                    myTitle.setText(title);
+                } /*else {
 
                 title = volumeInfo.getString("title");
                 authors = volumeInfo.getJSONArray("authors");
@@ -128,20 +181,22 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
                 }
                 myTitle.setText(title);
             } /*else {
+
                 // If none are found, update the UI to show failed results.
                 myTitle.setText("NoResult");
                 myAuthor.setText("NoResult");
             }*/
 
-        } catch(Exception e){
-            // If onPostExecute does not receive a proper JSON string
-            e.printStackTrace();
+            } catch(Exception e){
+                cover.setImageBitmap(null);
+                // If onPostExecute does not receive a proper JSON string
+                e.printStackTrace();
+            }
+        }
+        else {
+            return;
         }
     }
-    else {
-        return;
-    }
-}
 
     protected boolean isNetworkConnected() {
 
@@ -157,4 +212,36 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             return false;
         }
     }
+
+    private class GetBookThumb extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... thumbURLs) {
+        //attempt to download image
+            try{
+                URL thumbURL = new URL(thumbURLs[0]);
+                URLConnection thumbConn = thumbURL.openConnection();
+                thumbConn.connect();
+
+                InputStream thumbIn = thumbConn.getInputStream();
+                BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
+
+                googleCover = BitmapFactory.decodeStream(thumbBuff);
+
+                thumbBuff.close();
+                thumbIn.close();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+        protected void onPostExecute(String result) {
+            if (cover == null){
+                cover.setImageBitmap(googleCover);
+            }
+            //new Photos(context, )
+        }
+
+    }
 }
+

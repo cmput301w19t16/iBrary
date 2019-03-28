@@ -1,6 +1,8 @@
 package ca.rededaniskal.EntityClasses;
 
-public class BorrowRequest extends Request {
+import java.io.Serializable;
+
+public class BorrowRequest extends Request implements Serializable {
     private String isbn;
     private String bookId;
 
@@ -12,7 +14,6 @@ public class BorrowRequest extends Request {
         this.bookId = bookId;
         this.isbn = isbn;
     }
-
 
 
     public String getIsbn() {
