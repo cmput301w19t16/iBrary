@@ -82,9 +82,8 @@ public class AddBookDb implements AsyncResponse {
 
         @Override
         public void processFinish(Bitmap output){
-
             googleCover = output;
-            googleCoverURL = new Photos(context).uploadImage(googleCover);
+            googleCoverURL = new Photos(context).getURLFromBitmap(googleCover);
         }
 
         public void addBookToDatabase() throws NullPointerException {

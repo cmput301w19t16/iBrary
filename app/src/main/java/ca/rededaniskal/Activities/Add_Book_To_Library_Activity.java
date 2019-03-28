@@ -154,7 +154,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 //bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
-                myUrl = new Photos(getApplicationContext()).getURL(myCover);
+                myUrl = new Photos(getApplicationContext()).getURLFromBitmap(myCover, );
 
                 if (businessLogic.isValid().equals("")) {
                     businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available", myUrl), getApplicationContext());

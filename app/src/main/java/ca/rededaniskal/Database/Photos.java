@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,6 +19,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Random;
 
 import ca.rededaniskal.Activities.Add_Book_To_Library_Activity;
@@ -41,9 +44,25 @@ public class Photos {
     }
 
 
+    public URL getURLFromBitmap(Bitmap inImage, String bookId, String type) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, bookId+type, null);
+        Uri uri = Uri.parse(path);
+        try {
+            return new URL(uri.toString());
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /*
     //https://stackoverflow.com/questions/40581930/how-to-upload-an-image-to-firebase-storage
     //Given a bitmap, upload it to FireBase as jpg
-    static public void getURLFromBitmap(Bitmap bitmap) {
+     public URL getURLFromBitmap(Bitmap bitmap) {
         Random random = new Random();
         int key = random.nextInt(1000);
         myProgress.show();
@@ -86,5 +105,5 @@ public class Photos {
                 Toast.makeText(context, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 }

@@ -3,6 +3,7 @@ package ca.rededaniskal.EntityClasses;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.HashMap;
 
 import ca.rededaniskal.EntityClasses.Book;
@@ -13,11 +14,11 @@ public class Master_Book extends Book implements Serializable {
     private Integer totalNumRating;
     private Float sumRatings;
     private HashMap<String, Float>mapUsersRating;
-    private Bitmap googleCover;
+    private URL googleCover;
 
     public  Master_Book(){}
 
-    public Master_Book(String newTitle, String newAuthor, String newIsbn, Bitmap mcover){
+    public Master_Book(String newTitle, String newAuthor, String newIsbn, URL mcover){
         super(newTitle, newAuthor, newIsbn);
         this.googleCover = mcover;
         avgRating = -1.00f;
@@ -55,11 +56,11 @@ public class Master_Book extends Book implements Serializable {
         mapUsersRating.remove(username);
     }
 
-    public void setGoogleCover(Bitmap newCover){
+    public void setGoogleCover(URL newCover){
         this.googleCover = newCover;
     }
 
-    public Bitmap getGoogleCover(){
+    public URL getGoogleCover(){
         return this.googleCover;
     }
 

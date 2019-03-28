@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import java.io.Serializable;
 import java.net.URL;
 
+import ca.rededaniskal.Database.Photos;
+
 public class Book_Instance extends Book implements Serializable {
 
     private String owner;
@@ -19,14 +21,14 @@ public class Book_Instance extends Book implements Serializable {
 
     private String status;
 
-    public Book_Instance(String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus, Bitmap cover){
+    public Book_Instance(String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus, URL cover){
         super(newTitle, newAuthor, newIsbn);
         this.bookID = null;
         this.owner = newOwner;
         this.possessor = newpossessor;
         this.condition = newCondition;
         this.status = newStatus;
-        this.cover = ;
+        this.cover = cover;
     }
 
     public Book_Instance(){}
@@ -73,11 +75,11 @@ public class Book_Instance extends Book implements Serializable {
         return status;
     }
 
-    public Bitmap getCover(){
+    public URL getCover(){
         return cover;
     }
 
-    public void setCover(Bitmap cover) {
+    public void setCover(URL cover) {
         this.cover = cover;
     }
 }
