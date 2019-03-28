@@ -9,6 +9,7 @@
  *
  */
 package ca.rededaniskal.Activities.Fragments;
+import ca.rededaniskal.Activities.Set_Location_Activity;
 import ca.rededaniskal.BusinessLogic.Login_Manager_BL;
 import ca.rededaniskal.BusinessLogic.Login_Manager_Helper_BL;
 import ca.rededaniskal.Database.currentUserDetailsDB;
@@ -16,40 +17,24 @@ import ca.rededaniskal.Database.currentUserDetailsDB;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import ca.rededaniskal.Activities.Edit_Profile_Activity;
 import ca.rededaniskal.Activities.Login_Activity;
 import ca.rededaniskal.Activities.View_All_Books_Activity;
-import ca.rededaniskal.Activities.View_All_Requests_Activity;
-import ca.rededaniskal.Activities.Main_Activity;
 import ca.rededaniskal.Activities.View_All_Users_Activity;
 import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
 import ca.rededaniskal.Activities.View_Friends_Activity;
 import ca.rededaniskal.Activities.View_My_Library_Activity;
-import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
@@ -82,6 +67,7 @@ public class View_Own_Profile_Fragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private final static int PLACE_PICKER_REQUEST = 999;
 
     private currentUserDetailsDB db;
 
@@ -184,8 +170,10 @@ public class View_Own_Profile_Fragment extends Fragment {
         viewAllRequests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), View_All_Requests_Activity.class);
+                //Intent intent = new Intent(getActivity(), View_All_Requests_Activity.class);
+                Intent intent = new Intent(getActivity(), Set_Location_Activity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -241,5 +229,10 @@ public class View_Own_Profile_Fragment extends Fragment {
     private void returnToLogin() {
         startActivity(new Intent(getActivity(), Login_Activity.class));
     }
+
+
+
+
+
 
 }
