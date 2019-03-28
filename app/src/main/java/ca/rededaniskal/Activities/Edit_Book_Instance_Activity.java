@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -136,9 +137,9 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         String Title = editTitle.getText().toString();
         String Author = editAuthor.getText().toString();
         String ISBN = editISBN.getText().toString();
+        Bitmap bm=((BitmapDrawable)cover.getDrawable()).getBitmap();
 
-
-        businessLogic = new ValidateBookLogic(Title,Author,ISBN);
+        businessLogic = new ValidateBookLogic(Title,Author,ISBN,bm);
 
     }
 

@@ -34,6 +34,8 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import ca.rededaniskal.Database.Photos;
+
 
 /**
  * Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.
@@ -237,6 +239,7 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             if (cover == null){
                 cover.setImageBitmap(googleCover);
             }
+            //new Photos(context, )
         }
 
     }
