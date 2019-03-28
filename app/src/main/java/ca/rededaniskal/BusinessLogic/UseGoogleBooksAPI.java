@@ -234,7 +234,9 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             return "";
         }
         protected void onPostExecute(String result) {
-            cover.setImageBitmap(googleCover);
+            if (cover == null){
+                cover.setImageBitmap(googleCover);
+            }
         }
 
     }
