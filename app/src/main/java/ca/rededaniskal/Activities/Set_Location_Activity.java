@@ -29,8 +29,6 @@ import ca.rededaniskal.R;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 // Code adapted from https://stackoverflow.com/a/28389578
 
-
-
 public class Set_Location_Activity extends Activity implements OnMapReadyCallback,
         GoogleMap.OnInfoWindowClickListener,
         GoogleMap.OnMarkerDragListener {
@@ -84,6 +82,8 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
                                 marker.setPosition(position);
                             }
 
+
+
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 13));
                             CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
                             mMap.animateCamera(zoom);
@@ -101,12 +101,13 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
 
                     Intent returnIntent = new Intent();
                     Bundle b = new Bundle();
-                    b.putDouble("lat",position.latitude);
-                    b.putDouble("lng", position.longitude);
 
+                    b.putDouble("lat", position.latitude);
+                    b.putDouble("lng", position.longitude);
                     returnIntent.putExtras(b);
-                    setResult(Activity.RESULT_OK,returnIntent);
+                    setResult(Activity.RESULT_OK, returnIntent);
                     finish();
+
                 }else{
                     Toast.makeText(Set_Location_Activity.this.getApplicationContext(), "Please place a marker", Toast.LENGTH_LONG).show();
                 }
@@ -147,6 +148,8 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
     @Override
     public void onMarkerDragEnd(Marker marker) {
         position = marker.getPosition();
+
+
     }
 
     private void requestPermission() {

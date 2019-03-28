@@ -1,7 +1,6 @@
 package ca.rededaniskal.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -70,7 +69,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
 
 
         title = findViewById(R.id.title);
-        author = findViewById(R.id.author);
+        author = findViewById(R.id.title);
         followers = 0;
 
         fillBookField();

@@ -33,7 +33,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
         setContentView(R.layout.activity_barcode__scanner_);
         returnTo = getIntent().getSerializableExtra("ReturnClass").getClass();
         findViewById(R.id.btn_fragment).setOnClickListener(this);
-        mTvResult = findViewById(R.id.tv_result);
+        //mTvResult = findViewById(R.id.tv_result);
 
     }
 

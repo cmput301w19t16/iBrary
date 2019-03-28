@@ -148,6 +148,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                         request.setTimestamp(timeStamp);
                         Intent intent = new Intent(getApplicationContext(), View_Exchange_Details_Activity.class);
                         intent.putExtra("BorrowRequestObject", request);
+                        Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_SHORT).show();
                         startActivity(intent);
 
                     } catch (Exception e){
@@ -183,7 +184,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
 
                 //Set the latitude and longitude of the request
-                Bundle b = getIntent().getExtras();
+                Bundle b = data.getExtras();
                 double lat = b.getDouble("lat");
                 double lng = b.getDouble("lng");
                 request.setLat(lat);
@@ -193,7 +194,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(getApplicationContext(),"Error encountered, please try again",Toast.LENGTH_SHORT).show();
+
             }
         }
     }
