@@ -62,8 +62,10 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
         request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
         mode = request.getStatus();
 
+        //Set toolbar stuff
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Book Exchange Details");
 
         btnDatePicker = (Button) findViewById(R.id.ExchangeDateButton);
         btnTimePicker = (Button) findViewById(R.id.ExchangeTimeButton);
@@ -148,7 +150,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                         request.setTimestamp(timeStamp);
                         Intent intent = new Intent(getApplicationContext(), View_Exchange_Details_Activity.class);
                         intent.putExtra("BorrowRequestObject", request);
-                        Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_SHORT).show();
+
                         startActivity(intent);
 
                     } catch (Exception e){
