@@ -1,8 +1,6 @@
 package ca.rededaniskal.Database;
 
-import android.content.ContentValues;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,11 +11,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
+import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.EntityClasses.Book_List;
-import ca.rededaniskal.EntityClasses.Friendship;
 import ca.rededaniskal.EntityClasses.User;
-
-import static android.content.ContentValues.TAG;
 
 public class Users_DB {
     private DatabaseReference mDatabase;
@@ -41,7 +38,7 @@ public class Users_DB {
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
     }
 
-    public User getUser(String uid){
+    public void getUser(String uid, final myCallbackUser mcb){
         Query query = mDatabase.orderByChild("UID").equalTo(uid);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -52,6 +49,8 @@ public class Users_DB {
                     phoneNumber = dataSnapshot.child("phoneNumber").toString();
                     location = dataSnapshot.child("location").toString();
 
+                    mcb.onCallback(new User(userName, email, phoneNumber, location));
+
                 }
             }
 
@@ -60,10 +59,6 @@ public class Users_DB {
 
             }
         });
-
-        user = new User(userName, email, phoneNumber, location);
-
-        return user;
     }
 
 }
