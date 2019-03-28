@@ -2,6 +2,8 @@ package ca.rededaniskal.Database;
     /*author Skye*/
 //Interacts with the Firebase when a user adds a book to ther library
 
+import android.graphics.Bitmap;
+
 import com.google.firebase.provider.FirebaseInitProvider;
 
 import ca.rededaniskal.Activities.Fragments.Search_Fragment;
@@ -13,6 +15,7 @@ import ca.rededaniskal.EntityClasses.Master_Book;
         MasterBookDb masterdb;
         BookInstanceDb instancedb;
         boolean bookAdded;
+        private Bitmap cover;
 
 
         String success;

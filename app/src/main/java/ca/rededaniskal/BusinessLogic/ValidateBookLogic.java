@@ -124,13 +124,14 @@ public class ValidateBookLogic {
 
     }
 
+    /*
     public void validateGoogleCover(){
 
     }
 
     public void  validateMyCover(){
 
-    }
+    }*/
 
 
     //Returns Whether the book is valid
@@ -140,8 +141,8 @@ public class ValidateBookLogic {
         validateTitle();
         validateAuthor();
         validateISBN();
-        validateGoogleCover();
-        validateMyCover();
+        //validateGoogleCover();
+        //validateMyCover();
 
 
         return "";

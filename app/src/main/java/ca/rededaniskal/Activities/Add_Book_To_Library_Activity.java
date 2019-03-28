@@ -184,7 +184,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle, myCover);
 
                 if (businessLogic.isValid().equals("")) {
-                    businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available"));
+                    businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available", myCover));
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
 
 
@@ -234,7 +234,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
             myCover = (Bitmap) data.getExtras().get("data");
             cover.setImageBitmap(myCover);
-            new Photos(this.getClass(), getApplicationContext()).uploadImage(myCover);
+            //new Photos(this.getClass(), getApplicationContext()).uploadImage(myCover);
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
                 String ISBN = data.getStringExtra("ISBN");

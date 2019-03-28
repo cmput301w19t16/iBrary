@@ -155,7 +155,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             String ISBN = editISBN.getText().toString();
 
             Book_Instance bookInstance =
-                    new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus());
+                    new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus(), null);
             bookInstance.setBookID(book.getBookID());
 
             businessLogic.updateInformation(bookInstance);
