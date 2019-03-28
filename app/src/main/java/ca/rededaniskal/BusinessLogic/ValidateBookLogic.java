@@ -31,8 +31,6 @@ public class ValidateBookLogic {
     private String title;
     private String author;
     private String ISBN;
-    private Bitmap googleCover;
-    private Bitmap myCover;
 
     private String titleError;
     private String authorError;
@@ -41,12 +39,10 @@ public class ValidateBookLogic {
 
     //Constructor
 
-    public ValidateBookLogic(String title, String author, String ISBN, Bitmap googleCover, Bitmap myCover) {
+    public ValidateBookLogic(String title, String author, String ISBN) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
-        this.googleCover = googleCover;
-        this.myCover = myCover;
     }
 
     //Validate the title of the new book
@@ -124,16 +120,6 @@ public class ValidateBookLogic {
 
     }
 
-    /*
-    public void validateGoogleCover(){
-
-    }
-
-    public void  validateMyCover(){
-
-    }*/
-
-
     //Returns Whether the book is valid
     public String isValid() {
         //Currently raises no errors, businessLogic is always Valid
@@ -141,9 +127,6 @@ public class ValidateBookLogic {
         validateTitle();
         validateAuthor();
         validateISBN();
-        //validateGoogleCover();
-        //validateMyCover();
-
 
         return "";
     }

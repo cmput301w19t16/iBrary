@@ -51,7 +51,7 @@ public class Forum_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_forum_);
 
         //TODO: get Forum from DB or something
-        Master_Book b = new Master_Book("Happy Potter","JK Rowling","1234567890");
+        Master_Book b = new Master_Book("Happy Potter","JK Rowling","1234567890", null);
 
         forum = new Forum(b); //For testing
 

@@ -137,9 +137,8 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         String Title = editTitle.getText().toString();
         String Author = editAuthor.getText().toString();
         String ISBN = editISBN.getText().toString();
-        Bitmap bm=((BitmapDrawable)cover.getDrawable()).getBitmap();
 
-        businessLogic = new ValidateBookLogic(Title,Author,ISBN,null, bm);
+        businessLogic = new ValidateBookLogic(Title,Author,ISBN);
 
     }
 

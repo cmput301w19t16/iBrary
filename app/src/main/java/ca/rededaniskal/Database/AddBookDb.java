@@ -3,19 +3,22 @@ package ca.rededaniskal.Database;
 //Interacts with the Firebase when a user adds a book to ther library
 
 import android.graphics.Bitmap;
+import android.view.View;
 
-import com.google.firebase.provider.FirebaseInitProvider;
-
-import ca.rededaniskal.Activities.Fragments.Search_Fragment;
+import ca.rededaniskal.BusinessLogic.Photo_GoogleBooksAPI;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
-    public class AddBookDb {
+import static java.security.AccessController.getContext;
+
+public class AddBookDb implements AsyncResponse {
         public final String TAG = "AddBookDb";
         MasterBookDb masterdb;
         BookInstanceDb instancedb;
         boolean bookAdded;
-        private Bitmap cover;
+        private Bitmap googleCover;
+        private Photo_GoogleBooksAPI asyncTask;
+
 
 
         String success;
@@ -45,17 +48,18 @@ import ca.rededaniskal.EntityClasses.Master_Book;
 
 
             }
-            Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
+            asyncTask.delegate = this;
+            String isbn = book_instance.getISBN();
+            asyncTask = new Photo_GoogleBooksAPI(AddBookDb.getApplicationContext()).execute(isbn);
+            Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN(), googleCover);
             masterdb.addMasterBook(mb);
-
-
-
-
-
-
 
         }
 
+        @Override
+        void processFinish(Bitmap output){
+            googleCover = output;
+        }
 
         public void addBookToDatabase() throws NullPointerException {
             success = instancedb.getStorageId();

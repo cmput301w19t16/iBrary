@@ -14,23 +14,16 @@ package ca.rededaniskal.Activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,45 +31,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 //import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
 
 
-import ca.rededaniskal.BuildConfig;
 //import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
-import ca.rededaniskal.BusinessLogic.UseGoogleBooksAPI;
-import ca.rededaniskal.Database.AddBookDb;
+import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
 
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
-import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -181,7 +150,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String ISBN = addISBN.getText().toString();
                 //bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
-                businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle, myCover);
+                businessLogic = new ValidateBookLogic(Title, Author, ISBN);
 
                 if (businessLogic.isValid().equals("")) {
                     businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available", myCover));
@@ -238,7 +207,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
                 String ISBN = data.getStringExtra("ISBN");
-                new UseGoogleBooksAPI(this, addTitle, addAuthor, cover, this.getClass()).execute(ISBN);
+                new Title_Author_GoogleBooksAPI(this, addTitle, addAuthor, cover).execute(ISBN);
                 addISBN.setText(ISBN);
         }
 
