@@ -1,14 +1,16 @@
 package ca.rededaniskal.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
+import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.Database.BookInstanceDb;
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -47,20 +49,27 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         br = (BorrowRequest) getIntent().getSerializableExtra("request");
         uid = br.getsenderUID();
         bookID = br.getBookId();
+        followers = 0;
 
         udb = new Users_DB();
-        user = udb.getUser(uid);
+        myCallbackUser mcb = new myCallbackUser() {
+            @Override
+            public void onCallback(User u) {
+                user = u;
+                fillUserField();
+            }
+        };
+        udb.getUser(uid, mcb);
 
         bidb = new BookInstanceDb();
         currentUID = bidb.getUID();
-        book = bidb.getBookInstance(currentUID, bookID);
 
         nameField = findViewById(R.id.username);
         locationField = findViewById(R.id.location);
         followersField = findViewById(R.id.followers);
         userField = findViewById(R.id.userField);
 
-        fillUserField();
+
         userField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,18 +79,24 @@ public class View_Book_Request_Activity extends AppCompatActivity {
 
 
         title = findViewById(R.id.title);
-        author = findViewById(R.id.author);
         followers = 0;
+        //author = findViewById(R.id.author);
 
-        fillBookField();
+        myCallbackBookInstance mcbbi = new myCallbackBookInstance() {
+            @Override
+            public void onCallback(Book_Instance book_instance) {
+                book = book_instance;
+                fillBookField();
+            }
+        };
+        bidb.getBookInstance(currentUID, bookID, mcbbi);
+
         bookField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewBook();
             }
         });
-
-
 
         askField = findViewById(R.id.askedField);
         askField.setText("Asked to borrow your copy of ");

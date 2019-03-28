@@ -3,77 +3,82 @@ package ca.rededaniskal.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.R;
 
 /**
  * @author Daniela
  * Display details about a book pick up.
  */
-public class View_Exchange_Details_Activity extends AppCompatActivity {
-    TextView location;
-    TextView dateTime;
+public class View_Exchange_Details_Activity extends  AppCompatActivity  implements OnMapReadyCallback {
+    TextView title, owner, dateTime;
+
     Button goToScanner;
     String mode;
-    TextView viewExchangeDetails;
+
+    private GoogleMap mMap;
+
+    private BorrowRequest  request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
-
-        String timePicked = getIntent().getStringExtra("TimePicked");
-        String dateMonthYear = getIntent().getStringExtra("D/M/Y");
-        int month = getIntent().getIntExtra("Month", -1);
-        int day = getIntent().getIntExtra("Day", -1);
-        int year = getIntent().getIntExtra("Year", -1);
-
-        int hour = getIntent().getIntExtra("Hour", -1);
-        int minute = getIntent().getIntExtra("Minute", -1);
-
         setContentView(R.layout.activity_view__pick_up__details);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        //Set up the map
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.
+                        map);
+        mapFragment.getMapAsync(this);
 
-        viewExchangeDetails = findViewById(R.id.ViewExchangeDetailsTextView);
+        //init the views
+        title = findViewById(R.id.viewtitle);
+        owner = findViewById(R.id.viewOwner);
+        dateTime = findViewById(R.id.viewDateTime);
 
-        mode = request.getStatus();
-        if (mode == "Accepted"){
-            viewExchangeDetails.setText(R.string.view_pick_up_details);
-        } else{
-            viewExchangeDetails.setText(R.string.view_drop_off_details);
-        }
 
-        dateTime = findViewById(R.id.DateTimePickUpTextView);
-        location = findViewById(R.id.LocationPickUpTextView);
         goToScanner = findViewById(R.id.ScanBookPickUpButton);
 
-        //SimpleDateFormat dateTimeFormatted = new SimpleDateFormat("E, MMM d, yyyy").format(dateTimeStr);
+        //get the Request object
+        request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
 
-        //dateTime.setText(dateTimeFormatted + ", " + Integer.toString(hour) + Integer.toString(minute));
-        String monthWord = getMonthFromInt(month);
-        String time = String.format("%2d:%02d", hour,minute);
-        dateTime.setText(monthWord + " "+ String.valueOf(day) + "," + time);
-        location.setText("at");
+        //Set the views
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Book Exchange Details"); //TODO: change this if we want
+
+        title.setText(request.getBookId()); //TODO: get title from dp
+        owner.setText(request.getrecipientUID());
+
+        //Get date in the right format
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy HH:mm");
+        String date =formatter.format(request.getTimestamp());
+        dateTime.setText(date);
+
 
        goToScanner.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -85,16 +90,6 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
        });
 
 
-    }
-    //http://bluebones.net/2002/10/converting-month-number-to-month-name-in-java/
-    private String getMonthFromInt(int m) {
-        String month = "invalid";
-        DateFormatSymbols dfs = new DateFormatSymbols();
-        String[] months = dfs.getMonths();
-        if (m >= 0 && m <= 11 ) {
-            month = months[m];
-        }
-        return month;
     }
 
     @Override
@@ -108,4 +103,17 @@ public class View_Exchange_Details_Activity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // TODO: put marker in the right spot
+
+        LatLng loc = new LatLng(request.getLat(), request.getLng());
+        mMap.addMarker(new MarkerOptions().position(loc).title("Meeting place"));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 13));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+        mMap.animateCamera(zoom);
+    }
 }

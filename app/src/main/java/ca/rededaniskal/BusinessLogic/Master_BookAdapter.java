@@ -1,27 +1,19 @@
 package ca.rededaniskal.BusinessLogic;
 //Created by Revan on 2019-03-25
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ca.rededaniskal.Activities.Book_Details_Activity;
-import ca.rededaniskal.Activities.Fragments.Notifications_Fragment;
 import ca.rededaniskal.Activities.Fragments.Search_Fragment;
-import ca.rededaniskal.Activities.User_Details_Activity;
 import ca.rededaniskal.Activities.View_All_Books_Activity;
-import ca.rededaniskal.EntityClasses.Book_Instance;
-import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.R;
 
@@ -115,7 +107,7 @@ public class Master_BookAdapter extends RecyclerView.Adapter<Master_BookAdapter.
             super(itemView);
 
             title = itemView.findViewById(R.id.title);
-            author = itemView.findViewById(R.id.author);
+            author = itemView.findViewById(R.id.title);
             isbn = itemView.findViewById(R.id.showisbn);
             rating = itemView.findViewById(R.id.rating);
         }

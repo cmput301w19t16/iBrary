@@ -16,7 +16,6 @@ public class BorrowRequest extends Request implements Serializable {
     }
 
 
-
     public String getIsbn() {
         return isbn;
     }

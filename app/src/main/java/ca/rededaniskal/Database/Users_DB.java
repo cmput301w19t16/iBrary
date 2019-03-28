@@ -1,8 +1,6 @@
 package ca.rededaniskal.Database;
 
-import android.content.ContentValues;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,11 +11,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
+import ca.rededaniskal.BusinessLogic.myCallbackInt;
+import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.EntityClasses.Book_List;
-import ca.rededaniskal.EntityClasses.Friendship;
 import ca.rededaniskal.EntityClasses.User;
-
-import static android.content.ContentValues.TAG;
 
 public class Users_DB {
     private DatabaseReference mDatabase;
@@ -27,6 +25,7 @@ public class Users_DB {
     private String email;
     private String phoneNumber;
     private String location;
+    private int followCount;
     private String profilePic;
     private ArrayList<User> friends;
     private Book_List ownedBooks;
@@ -41,16 +40,25 @@ public class Users_DB {
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
     }
 
-    public User getUser(String uid){
-        Query query = mDatabase.orderByChild("UID").equalTo(uid);
+    public void getUser(String uid, final myCallbackUser mcb){
+        //Query query = mDatabase.orderByChild("uid").equalTo(uid);
+        Query query =mDatabase.child(uid);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    userName = dataSnapshot.child("userName").toString();
-                    email = dataSnapshot.child("email").toString();
-                    phoneNumber = dataSnapshot.child("phoneNumber").toString();
-                    location = dataSnapshot.child("location").toString();
+/*
+                    userName = dataSnapshot.child("userName").getValue().toString();
+                    String userid = dataSnapshot.child("uid").getValue().toString();
+                    email = dataSnapshot.child("email").getValue().toString();
+                    phoneNumber = dataSnapshot.child("phoneNumber").getValue().toString();
+                    location = dataSnapshot.child("location").getValue().toString();
+                    followCount = dataSnapshot.child("followerCount").getValue(int.class);
+                    user = new User(userName, email, phoneNumber, location);
+                    user.setFollowerCount(followCount);
+                    user.setUID(userid);*/
+                    user = dataSnapshot.getValue(User.class);
+                    mcb.onCallback(user);
 
                 }
             }
@@ -60,10 +68,6 @@ public class Users_DB {
 
             }
         });
-
-        user = new User(userName, email, phoneNumber, location);
-
-        return user;
     }
 
 }
