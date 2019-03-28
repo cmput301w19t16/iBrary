@@ -1,5 +1,7 @@
 package ca.rededaniskal.EntityClasses;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -11,11 +13,13 @@ public class Master_Book extends Book implements Serializable {
     private Integer totalNumRating;
     private Float sumRatings;
     private HashMap<String, Float>mapUsersRating;
+    private Bitmap googleCover;
 
     public  Master_Book(){}
 
-    public Master_Book(String newTitle, String newAuthor, String newIsbn){
+    public Master_Book(String newTitle, String newAuthor, String newIsbn, Bitmap mcover){
         super(newTitle, newAuthor, newIsbn);
+        this.googleCover = mcover;
         avgRating = -1.00f;
         totalNumRating = -1;
         mapUsersRating = new HashMap<String, Float>();
@@ -49,6 +53,14 @@ public class Master_Book extends Book implements Serializable {
     }
     public void deleteUserRating(String username){
         mapUsersRating.remove(username);
+    }
+
+    public void setGoogleCover(Bitmap newCover){
+        this.googleCover = newCover;
+    }
+
+    public Bitmap getGoogleCover(){
+        return this.googleCover;
     }
 
 }
