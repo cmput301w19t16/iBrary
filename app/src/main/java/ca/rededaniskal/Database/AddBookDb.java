@@ -57,7 +57,7 @@ public class AddBookDb implements AsyncResponse {
         }
 
         @Override
-        void processFinish(Bitmap output){
+        public void processFinish(Bitmap output){
             googleCover = output;
         }
 

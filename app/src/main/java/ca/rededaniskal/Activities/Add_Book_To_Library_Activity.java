@@ -207,7 +207,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
                 String ISBN = data.getStringExtra("ISBN");
-                new Title_Author_GoogleBooksAPI(this, addTitle, addAuthor, cover).execute(ISBN);
+                new Title_Author_GoogleBooksAPI(this, addTitle, addAuthor, cover, 2).execute(ISBN);
                 addISBN.setText(ISBN);
         }
 

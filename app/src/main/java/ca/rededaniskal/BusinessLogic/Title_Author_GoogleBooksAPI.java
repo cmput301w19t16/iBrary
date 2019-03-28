@@ -140,10 +140,11 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
 
                 // Get appropriate fields out of JSON object.
                 JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
-                if (mode == 1){
+                switch (mode) {
+                    (case :1){
                     new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
-                }
-                else {
+                    }
+                case:2
                 JSONArray itemsArray = responseJson.getJSONArray("items");
                 JSONObject book = itemsArray.getJSONObject(0);
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
