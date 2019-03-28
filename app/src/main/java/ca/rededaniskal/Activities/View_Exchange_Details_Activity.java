@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,8 +34,8 @@ import ca.rededaniskal.R;
  * @author Daniela
  * Display details about a book pick up.
  */
-public class View_Exchange_Details_Activity extends Activity implements OnMapReadyCallback {
-    TextView title, owner, dateTime, viewExchangeDetails;
+public class View_Exchange_Details_Activity extends  AppCompatActivity  implements OnMapReadyCallback {
+    TextView title, owner, dateTime;
 
     Button goToScanner;
     String mode;
@@ -58,7 +59,7 @@ public class View_Exchange_Details_Activity extends Activity implements OnMapRea
         title = findViewById(R.id.viewtitle);
         owner = findViewById(R.id.viewOwner);
         dateTime = findViewById(R.id.viewDateTime);
-        viewExchangeDetails = findViewById(R.id.ViewExchangeDetailsTextView);
+
 
         goToScanner = findViewById(R.id.ScanBookPickUpButton);
 
@@ -66,13 +67,9 @@ public class View_Exchange_Details_Activity extends Activity implements OnMapRea
         request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
 
         //Set the views
-        //TODO: I think this has to be chnaged
-        mode = request.getStatus();
-        if (mode == "Accepted"){
-            viewExchangeDetails.setText(R.string.view_pick_up_details);
-        } else{
-            viewExchangeDetails.setText(R.string.view_drop_off_details);
-        }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Book Exchange Details"); //TODO: change this if we want
 
         title.setText(request.getBookId()); //TODO: get title from dp
         owner.setText(request.getrecipientUID());
@@ -118,7 +115,5 @@ public class View_Exchange_Details_Activity extends Activity implements OnMapRea
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 13));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
         mMap.animateCamera(zoom);
-
-        Toast.makeText(getApplicationContext(),loc.toString(), Toast.LENGTH_SHORT).show();
     }
 }
