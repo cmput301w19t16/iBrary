@@ -19,19 +19,16 @@
 
     <permission
         android:name="ca.rededaniskal.iBrary.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="ca.rededaniskal.iBrary.permission.MAPS_RECEIVE"/>
+        android:protectionLevel="signature" />
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="ca.rededaniskal.iBrary.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
 
     <application
         android:allowBackup="true"
@@ -40,39 +37,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.my.package.name.provider"
-            android:exported="false"
-            android:grantUriPermissions="true"
-            tools:replace="android:authorities">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_list"
-                tools:replace="android:resource"/>
-        </provider>
-        <activity
-            android:name=".Activities.Take_Photo_Activity"
-            android:label="@string/title_activity_take__photo_"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".Activities.View_Exchange_Details_Activity"
-            android:label="@string/title_activity_view__pick_up__details"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activities.Establish_Exchange_Details_Activity"
-            android:label="@string/title_activity_establish_location"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".Activities.View_Book_Request_Activity"
-            android:label="@string/title_activity_view__book__request_"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <!--
-         <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="${fabric_io_id}"/>
-        -->
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -82,15 +46,41 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.my.package.name.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_list"
+                tools:replace="android:resource" />
+        </provider>
+
+        <activity
+            android:name=".Activities.Take_Photo_Activity"
+            android:label="@string/title_activity_take__photo_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.View_Exchange_Details_Activity"
+            android:label="@string/title_activity_view__pick_up__details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.Establish_Exchange_Details_Activity"
+            android:label="@string/title_activity_establish_location"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.View_Book_Request_Activity"
+            android:label="@string/title_activity_view__book__request_"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.Set_Location_Activity"
-            android:label="@string/title_activity_set_location"></activity>
+            android:label="@string/title_activity_set_location" />
         <activity
             android:name=".Activities.View_Book_Request_Activity"
             android:label="@string/title_activity_view__book__request_"
@@ -146,7 +136,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
     </application>
 
 </manifest>

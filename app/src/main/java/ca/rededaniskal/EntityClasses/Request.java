@@ -13,6 +13,10 @@ public class Request implements Serializable {
     private Date timestamp;
     private String recipientUID;
     private String senderUID;
+
+    private Double lat;
+    private Double lng;
+
     public Request(){}
 
     public Request(String senderUID, String recipientUID, String type){
@@ -82,5 +86,21 @@ public class Request implements Serializable {
 
     public void setRequestId(String requestId) {
         this.requestId = requestId;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 }

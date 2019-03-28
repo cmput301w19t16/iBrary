@@ -1,6 +1,7 @@
 package ca.rededaniskal.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -96,7 +97,19 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Set_Location_Activity.this.getApplicationContext(), position.latitude + ":"  + position.longitude, Toast.LENGTH_LONG).show();
+                if (marker != null){
+
+                    Intent returnIntent = new Intent();
+                    Bundle b = new Bundle();
+                    b.putDouble("lat",position.latitude);
+                    b.putDouble("lng", position.longitude);
+
+                    returnIntent.putExtras(b);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
+                }else{
+                    Toast.makeText(Set_Location_Activity.this.getApplicationContext(), "Please place a marker", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -104,18 +117,13 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
-
         requestPermission();
-
-        requestPermission();
-
 
         if (ActivityCompat.checkSelfPermission(Set_Location_Activity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
 
         map.setMyLocationEnabled(true);
-
         map.setOnInfoWindowClickListener(this);
         map.setOnMarkerDragListener(this);
     }
@@ -129,13 +137,11 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
     @Override
     public void onMarkerDragStart(Marker marker) {
         LatLng position0 = marker.getPosition();
-
     }
 
     @Override
     public void onMarkerDrag(Marker marker) {
         LatLng position0 = marker.getPosition();
-
     }
 
     @Override
