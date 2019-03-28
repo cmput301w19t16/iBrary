@@ -9,6 +9,7 @@ public class Notification {
     private boolean seen;
     private String requestType;
 
+    public Notification(){}
 
     public Notification(String user, String req, boolean s){
         timestamp = new Date();
@@ -16,6 +17,14 @@ public class Notification {
         userID = user;
         seen = s;
         requestType = "";
+    }
+
+    public Notification(String user, String req, String rT){
+        timestamp = new Date();
+        requestID = req;
+        userID = user;
+        seen = false;
+        requestType = rT;
     }
 
     public Date getTimestamp() {

@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import ca.rededaniskal.Database.Add_Remove_Friend_DB;
+import ca.rededaniskal.Database.Write_Friendship_DB;
 import ca.rededaniskal.BusinessLogic.Add_Remove_Friend_Logic;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
@@ -51,7 +51,7 @@ public class User_Details_Activity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private Add_Remove_Friend_DB fdb;
+    private Write_Friendship_DB fdb;
     private boolean isFollowing;
 
     private Button Follow_or_unfollow;
@@ -72,8 +72,8 @@ public class User_Details_Activity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        fdb = new Add_Remove_Friend_DB(user_received.getUID());
-        isFollowing = fdb.isFollowing(currentUser.getUid(), user_received.getUID());
+        fdb = new Write_Friendship_DB(user_received.getUID());
+        isFollowing = fdb.isFollowing(currentUser.getUid(), user_received.getUserName());
         setFriendText();
 
         Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +125,7 @@ public class User_Details_Activity extends AppCompatActivity {
     public void friendButtonPressed(){
         isFollowing = !isFollowing;
         setFriendText();
-        fdb.setFollowing(currentUser.getUid(), user_received.getUID(), isFollowing);
+//        fdb.setFollowing(currentUser.getUid(), user_received.getUID(), isFollowing);
     }
 
     public void setFriendText(){

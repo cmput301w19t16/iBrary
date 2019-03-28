@@ -6,8 +6,10 @@ import android.support.annotation.NonNull;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
 
 import ca.rededaniskal.EntityClasses.Book;
 import ca.rededaniskal.EntityClasses.Book_Instance;
@@ -56,6 +58,11 @@ public class BookInstanceDb extends Entity_Database {
     }
 
     public boolean addBookInstance(Book_Instance book_instance){
+
+//         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
+//         String key = mDatabase.push().getKey();
+//         mDatabase.child(key).setValue(book_instance);
+//         return mainRef.child(getUID())
         return mDatabase.child(getUID())
                 .child(book_instance.getBookID())
                 .setValue(book_instance)

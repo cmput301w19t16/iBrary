@@ -14,7 +14,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import ca.rededaniskal.EntityClasses.Friend_Request;
 import ca.rededaniskal.EntityClasses.Notification;
 
 import static android.support.constraint.Constraints.TAG;
@@ -25,22 +24,27 @@ public class Write_Notification_DB {
     private DatabaseReference mDatabase;
     private String UID;
     private Notification notification;
+    private String key;
+    private String RequestID;
     private boolean delete;
-
 
     public Write_Notification_DB(Notification notification) {
         this.notification = notification;
+        addNotification();
     }
 
-    public Write_Notification_DB(Notification notification, boolean delete) {
-        this.notification = notification;
-        this.delete = delete;
+    public Write_Notification_DB(String RequestID) {
+        Log.d(TAG, "*!*!* In Write_Notification_DB");
+        this.RequestID = RequestID;
+        getNotificationKey();
+        this.delete = true;
     }
 
+    public Write_Notification_DB(){
+        this.delete = false;
+    }
 
     private void getCurrentUID() {
-        Log.d(TAG, "*!*!* In Write_Notification_DB");
-
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         if (user != null) {
@@ -51,18 +55,17 @@ public class Write_Notification_DB {
 
     private void addNotification(){
         mDatabase = FirebaseDatabase.getInstance().getReference("Notifications");
-        String key = mDatabase.push().getKey();
-        mDatabase.child(key).setValue(notification);
+        String k = mDatabase.push().getKey();
+        mDatabase.child(k).setValue(notification);
     }
 
-    private void getNotificationKey(){
-        String reqID = notification.getRequest();
+    public void getNotificationKey(){
         Log.d(ContentValues.TAG, "*********----->getNotificationKey");
         Query query = FirebaseDatabase.getInstance().getReference("Notifications")
-                .orderByChild("requestID")
-                .equalTo(reqID);
+                .orderByChild("request")
+                .equalTo(RequestID);
 
-        Log.d(ContentValues.TAG, "*********----->requestID: "+reqID);
+        Log.d(ContentValues.TAG, "*********----->requestID: "+RequestID);
         query.addListenerForSingleValueEvent(valueEventListener);
     }
 
@@ -74,31 +77,48 @@ public class Write_Notification_DB {
                 Log.d(ContentValues.TAG, "*********----->exists");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Notification notif = snapshot.getValue(Notification.class);
-                    String key = snapshot.getKey();
+                    key = snapshot.getKey();
 
                 }
+                if (delete){
+                    removeNotification(key);
+                }else{
+                    updateNotification(key);
+                }
             }
-            if(delete){
-                removeNotification();
-            }else{
-                updateNotification();
-            }
-
         }
-
-
         @Override
         public void onCancelled(DatabaseError databaseError) {
 
         }
     };
 
-    private void removeNotification(){
+    private void removeNotification(String key){
         Log.d(ContentValues.TAG, "*********----->removeNotification");
+        mDatabase = FirebaseDatabase.getInstance().getReference("Notifications");
+        mDatabase.child(key).removeValue();
     }
 
-    private void updateNotification(){
+    private void updateNotification(String key){
         Log.d(ContentValues.TAG, "*********----->updateNotification");
+        mDatabase = FirebaseDatabase.getInstance().getReference("Notifications");
+        mDatabase.child(key).setValue(notification);
+    }
+
+    public String getRequestID() {
+        return RequestID;
+    }
+
+    public void setRequestID(String requestID) {
+        RequestID = requestID;
+    }
+
+    public Notification getNotification() {
+        return notification;
+    }
+
+    public void setNotification(Notification notification) {
+        this.notification = notification;
     }
 }
 

@@ -35,6 +35,7 @@ import ca.rededaniskal.BusinessLogic.BookAdapter;
 
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
 import ca.rededaniskal.Database.ReadBookDB;
 

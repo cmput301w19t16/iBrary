@@ -22,8 +22,9 @@ public class Book_Instance extends Book implements Serializable {
         this.possessor = newpossessor;
         this.condition = newCondition;
         this.status = newStatus;
-
     }
+
+    public Book_Instance(){}
 
     public void setBookID(String key) {
        this.bookID =key;

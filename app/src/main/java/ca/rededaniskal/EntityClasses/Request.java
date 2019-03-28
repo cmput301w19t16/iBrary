@@ -1,14 +1,18 @@
 package ca.rededaniskal.EntityClasses;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Request {
-    private String senderUID;
-    private String recipientUID;
+public class Request implements Serializable {
+    private String senderUserName;
+    private String recipientUserName;
+
     private String requestType;
     private String status;
     private String requestId;
     private Date timestamp;
+    private String recipientUID;
+    private String senderUID;
     public Request(){}
 
     public Request(String senderUID, String recipientUID, String type){

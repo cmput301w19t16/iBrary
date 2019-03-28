@@ -38,6 +38,7 @@ import java.util.List;
 
 import ca.rededaniskal.Activities.Login_Activity;
 import ca.rededaniskal.BusinessLogic.Notification_Adapter;
+import ca.rededaniskal.Database.Read_Notification_DB;
 import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.EntityClasses.User;
@@ -77,6 +78,8 @@ public class Notifications_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<Notification> notiList;
+    private Notification_Adapter notiAdapter;
 
     private getUserRequestsDB db;
 
@@ -133,39 +136,20 @@ public class Notifications_Fragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
 
-        final ArrayList<Notification> notiList = new ArrayList<>();
+//        final ArrayList<Notification> notiList = new ArrayList<>();
+        notiList = new ArrayList<>();
 
-
-        Notification n = new Notification("You", "Alex", true);
-        n.setRequestType("Friend_Request");
-        notiList.add(n);
-
-        Notification i = new Notification("You", "Nick", true);
-        i.setRequestType("Borrow_Request");
-        notiList.add(i);
-
-        Notification j = new Notification("You", "Skye", true);
-        j.setRequestType("Return_Request");
-        notiList.add(j);
-
-        Notification k = new Notification("You", "Delaney", true);
-        k.setRequestType("Friend_Request");
-        notiList.add(k);
-
-        final Notification p = new Notification("You", "False", true);
-        p.setRequestType("Friend_Request");
-        notiList.add(p);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        final Notification_Adapter notiAdapter = new Notification_Adapter(notiList, Notifications_Fragment.this);
+        notiAdapter = new Notification_Adapter(notiList, Notifications_Fragment.this);
         recyclerView.setAdapter(notiAdapter);
-
+        Read_Notification_DB db = new Read_Notification_DB(this);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                notiList.remove(0);
+//                notiList.remove(0);
                 recyclerView.setAdapter(new Notification_Adapter(notiList, Notifications_Fragment.this));
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -186,6 +170,11 @@ public class Notifications_Fragment extends Fragment {
 
     private void returnToLogin() {
         startActivity(new Intent(getActivity(), Login_Activity.class));
+    }
+
+    public void addAndUpdate(Notification notification){
+        notiList.add(notification);
+        notiAdapter.notifyDataSetChanged();
     }
 
 }
