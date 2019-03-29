@@ -26,6 +26,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -70,19 +72,21 @@ public class Search_Fragment extends Fragment {
     private String mParam2;
 
     //private OnFragmentInteractionListener mListener;
-    Button searchBy;
-    String[] filterOptions;
-    boolean[] selectedOptions;
-    ArrayList<Integer> chosenOptions = new ArrayList<>();
+    private Button searchBy;
+    private String[] filterOptions;
+    private boolean[] selectedOptions;
+    private ArrayList<Integer> chosenOptions = new ArrayList<>();
+    private SearchView searchString;
 
-    RecyclerView display;
-    Master_BookAdapter MB_adapter;
-    LayoutInflater inflater;
-    ViewGroup container;
-    View dbView;
-    Search_Fragment search_fragment  = this;
-    SwipeRefreshLayout swipeContainer;
+    private RecyclerView display;
+    private Master_BookAdapter MB_adapter;
+    private LayoutInflater inflater;
+    private ViewGroup container;
+    private View dbView;
+    private Search_Fragment search_fragment  = this;
+    private SwipeRefreshLayout swipeContainer;
     private View view;
+    private String queryString;
 
 
 
@@ -125,8 +129,10 @@ public class Search_Fragment extends Fragment {
         this.container = container;
         view = inflater.inflate(R.layout.fragment_search, container, false);
         swipeContainer = view.findViewById(R.id.swipeContainersearch);
+
         dbView = view;
-        new Search_Books_Db(search_fragment, null, null).setParentView();
+
+
 
 
 
@@ -134,13 +140,32 @@ public class Search_Fragment extends Fragment {
 
         //master_books.add(new Master_Book("Invisible", "sdf", "sdfds"));
 
+        searchString = view.findViewById(R.id.fragmentSearchView);
+        searchString.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                new Search_Logic(search_fragment, chosenOptions,query);
+                queryString = query;
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                queryString = newText;
+
+                return false;
+            }
+        });
 
         searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
 
         //Adapter stuff
+
+
+
+
 
 
 
@@ -171,7 +196,8 @@ public class Search_Fragment extends Fragment {
                                 item = item + ", ";
                             }
                         }
-                        new Search_Logic(search_fragment, chosenOptions,"Bad Bad");
+
+
 
                     }
                 });
@@ -206,7 +232,8 @@ public class Search_Fragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Search_Logic(search_fragment, chosenOptions, "Bad Bad " );
+
+                new Search_Logic(search_fragment, chosenOptions, queryString );
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         // Stop animation (This will be after 3 seconds)

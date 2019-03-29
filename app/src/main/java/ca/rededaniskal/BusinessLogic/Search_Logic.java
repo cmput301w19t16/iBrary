@@ -27,8 +27,7 @@ public class Search_Logic {
         bookList = new ArrayList<>();
         set = new LinkedHashSet<>();
 
-            db = new Search_Books_Db(parent, null, null);
-            db.setParentView();
+
 
 
 
