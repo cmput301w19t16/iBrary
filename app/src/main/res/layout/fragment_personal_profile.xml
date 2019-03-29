@@ -6,13 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".Activities.User_Details_Activity">
 
-
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="607dp">
+        android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -21,29 +17,58 @@
 
             <TableLayout
                 android:id="@+id/change_pass"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_user">
+                app:layout_constraintTop_toBottomOf="@+id/change_info">
+
 
                 <TableRow
-                    android:id="@+id/friend_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/friends_listbutton"
+                        android:id="@+id/edit_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/edit_profile" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/myFollowers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/my_followers" />
+
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/ImFollowing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/friend_list"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_user" />
+                        android:layout_weight="1"
+                        android:text="@string/usersImFollowing" />
                 </TableRow>
 
                 <TableRow
@@ -57,6 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/borrow_requests"
+                        android:layout_weight="1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/borrowed_requested_books" />
@@ -71,6 +97,8 @@
                         android:id="@+id/view_all_requests"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
                         android:text="@string/view_all_request" />
                 </TableRow>
 
@@ -84,6 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:layout_weight="1"
                         android:text="@string/library"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -100,6 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:layout_weight="1"
                         android:text="@string/view_all_users"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -116,10 +146,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:layout_weight="1"
                         android:text="@string/view_all_books"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/borrowed_requested_books" />
+ />
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimary"
+                        android:text="@string/logout"
+                        android:textColor="@color/colorPrimaryLight" />
+
                 </TableRow>
 
             </TableLayout>
@@ -151,7 +196,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/profile_image">
 
                 <TableRow
-                    android:id="@+id/row1"
+
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
 
@@ -179,7 +224,7 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/row2"
+
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
 
@@ -205,7 +250,7 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/row3"
+
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
 
@@ -233,7 +278,7 @@
 
 
                 <TableRow
-                    android:id="@+id/row4"
+
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
 
@@ -260,29 +305,12 @@
                 </TableRow>
 
 
+
+
+
             </TableLayout>
 
-            <Button
-                android:id="@+id/edit_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/edit_profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/change_info" />
 
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/logout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.666"
-                app:layout_constraintStart_toEndOf="@+id/profile_image"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
