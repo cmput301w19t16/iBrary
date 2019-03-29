@@ -138,6 +138,7 @@
     <string name="my_followers">My Followers</string>
     <string name="im_following">Im Following</string>
     <string name="usersImFollowing">Users I\'M Following</string>
+    <string name="pending_exchanges">Pending Exchanges</string>
 
 
 </resources>

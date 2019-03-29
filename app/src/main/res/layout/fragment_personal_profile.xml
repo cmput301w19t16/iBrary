@@ -72,6 +72,42 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/library"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/my_library"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/library"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/borrowed_requested_books" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/pendingExchanges"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/pending_exchanges"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/borrowed_requested_books" />
+                </TableRow>
+
+
+
+
+                <TableRow
                     android:id="@+id/borrow_request_books"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -102,22 +138,7 @@
                         android:text="@string/view_all_request" />
                 </TableRow>
 
-                <TableRow
-                    android:id="@+id/library"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                    <Button
-                        android:id="@+id/my_library"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-                        android:text="@string/library"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/borrowed_requested_books" />
-                </TableRow>
 
                 <TableRow
                     android:id="@+id/row5"
@@ -161,6 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginTop="8dp"
                         android:background="@color/colorPrimary"
                         android:text="@string/logout"
                         android:textColor="@color/colorPrimaryLight" />

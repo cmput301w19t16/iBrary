@@ -1,11 +1,15 @@
 package ca.rededaniskal.EntityClasses;
 
-public class Check_In extends Book_Exchange {
+import java.io.Serializable;
+import java.util.Date;
 
-    public Check_In(String owner, String borrower, String isbn, int bookid) {
-        super(owner, borrower, isbn, bookid);
+public class Check_In extends Book_Exchange implements Serializable {
+
+    public Check_In(String owner, String borrower, String isbn, String bookid, Double lat,
+                    Double lng, Date time) {
+
+        super(owner, borrower, isbn, bookid, lat, lng, time);
     }
-
     public void updateBookStatus(){}
 
     public void addBookToBorrowed(){}

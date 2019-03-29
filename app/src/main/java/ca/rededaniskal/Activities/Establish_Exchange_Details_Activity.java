@@ -23,7 +23,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ca.rededaniskal.BusinessLogic.Establish_Exchange_Logic;
+import ca.rededaniskal.Database.Write_Request_DB;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Check_In;
 import ca.rededaniskal.R;
 
 public class Establish_Exchange_Details_Activity extends AppCompatActivity {
@@ -146,10 +148,17 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                     //Set the format and pase
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm");
                     try{
+
                         timeStamp = simpleDateFormat.parse(timeStr);
                         request.setTimestamp(timeStamp);
+
+                        Check_In checkIn = new Check_In(request.getrecipientUID(),
+                                request.getsenderUID(), request.getIsbn(), request.getBookId(), request.getLat(), request.getLng(), request.getTimestamp() ) ;
+
+                        Write_Request_DB db = new Write_Request_DB(request, true);
+
                         Intent intent = new Intent(getApplicationContext(), View_Exchange_Details_Activity.class);
-                        intent.putExtra("BorrowRequestObject", request);
+                        intent.putExtra("exchange", checkIn);
 
                         startActivity(intent);
 

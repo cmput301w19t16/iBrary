@@ -71,11 +71,6 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             public void onClick(View v) {
 
                 request.setStatus("Accepted");
-                db = new Write_Request_DB(request, false);
-                list.remove(borrowRequestViewHolder.getAdapterPosition());
-                deleteRemainingRequests();
-                list.clear();
-                notifyDataSetChanged();
 
                 Intent intent = new Intent(mctx,Establish_Exchange_Details_Activity.class);
                 intent.putExtra("BorrowRequestObject", request);
