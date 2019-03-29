@@ -110,7 +110,7 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayFavAuthor = (TextView) findViewById(R.id.DisplayBookAuthor);
         DisplayFavISBN = (TextView) findViewById(R.id.DisplayBookISBN);
 
-        UserPic = (ImageView) findViewById(R.id.ProfilePicture);
+        UserPic = (ImageView) findViewById(R.id.Cover);
         BookCover = (ImageView) findViewById(R.id.DisplayFavBookCover);
 
 

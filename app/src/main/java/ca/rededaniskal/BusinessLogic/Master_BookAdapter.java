@@ -107,7 +107,7 @@ public class Master_BookAdapter extends RecyclerView.Adapter<Master_BookAdapter.
             super(itemView);
 
             title = itemView.findViewById(R.id.title);
-            author = itemView.findViewById(R.id.title);
+            author = itemView.findViewById(R.id.showauthor);
             isbn = itemView.findViewById(R.id.showisbn);
             rating = itemView.findViewById(R.id.rating);
         }

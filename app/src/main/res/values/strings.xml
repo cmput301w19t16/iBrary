@@ -134,7 +134,7 @@
     <string name="title_activity_set_location">Map</string>
     <string name="set__location">Set Location</string>
     <string name="title_activity_view__pickup_">Map</string>
-
+    <string name="author_space">author</string>
 
 
 </resources>

@@ -19,7 +19,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/ProfilePicture"
+                android:id="@+id/Cover"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="8dp"
@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/title"
                 android:layout_width="159dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="8dp"
@@ -54,11 +54,11 @@
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.066"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
+                app:layout_constraintStart_toEndOf="@+id/Cover"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/Location"
+                android:id="@+id/author"
                 android:layout_width="159dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="8dp"
@@ -68,8 +68,8 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.058"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/username" />
+                app:layout_constraintStart_toEndOf="@+id/Cover"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <TextView
                 android:id="@+id/UserMutualFriends"
@@ -84,8 +84,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.058"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/Location" />
+                app:layout_constraintStart_toEndOf="@+id/Cover"
+                app:layout_constraintTop_toBottomOf="@+id/author" />
 
 
         </android.support.constraint.ConstraintLayout>

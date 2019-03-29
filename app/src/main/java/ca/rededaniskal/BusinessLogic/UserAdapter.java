@@ -121,10 +121,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
          */
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
-            profilePic = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the Users image
+            profilePic = itemView.findViewById(R.id.Cover); //TODO: Make this display the Users image
             statusIcon = itemView.findViewById(R.id.StatusIcon);
-            UserName = itemView.findViewById(R.id.username);
-            UserLocation = itemView.findViewById(R.id.Location);
+            UserName = itemView.findViewById(R.id.title);
+            UserLocation = itemView.findViewById(R.id.author);
             UserMutualFriends = itemView.findViewById(R.id.UserMutualFriends);
         }
     }

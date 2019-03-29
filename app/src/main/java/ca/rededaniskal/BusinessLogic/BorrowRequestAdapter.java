@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +23,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
-import ca.rededaniskal.Activities.Book_Details_Activity;
 import ca.rededaniskal.Database.Write_Request_DB;
-import ca.rededaniskal.EntityClasses.Book_Instance;
-import ca.rededaniskal.EntityClasses.Book_List;
 
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.R;
-
-import static android.support.constraint.Constraints.TAG;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdapter.BorrowRequestViewHolder>{
@@ -125,7 +119,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         public BorrowRequestViewHolder(@NonNull View itemView) {
             //TODO: profile pic
             super(itemView);
-            requestInfo = itemView.findViewById(R.id.username);
+            requestInfo = itemView.findViewById(R.id.title);
             accept = itemView.findViewById(R.id.accept);
             cancel = itemView.findViewById(R.id.cancel);
             bookInfo = itemView.findViewById(R.id.bookInfo);
