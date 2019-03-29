@@ -15,6 +15,7 @@ public class User implements Serializable {
     private Book_List borrowedBooks; // Includes accepted
     private Book_List requestedBooks;
     private ArrayList<User> blockedUsers;
+    private int followerCount;
 
     private Master_Book favBook;
 
@@ -144,6 +145,14 @@ public class User implements Serializable {
         this.blockedUsers = blockedUsers;
     }
 
+    public int getFollowerCount() {
+        return followerCount;
+    }
+
+    public void setFollowerCount(int followerCount) {
+        this.followerCount = followerCount;
+    }
+
     //Functionality methods
     public void addRequestedBook(Book_Instance newBook){
         requestedBooks.addBook(newBook);
@@ -152,6 +161,8 @@ public class User implements Serializable {
     public void deleteRequestedBook(Book_Instance deleteBook){
         requestedBooks.removeBook(deleteBook);
     }
+
+
 
     public void addOwnedBook(Book_Instance newBook){
 

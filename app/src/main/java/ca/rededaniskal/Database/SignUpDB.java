@@ -84,10 +84,11 @@ public class SignUpDB {
         Log.d(TAG, parent.getUserEmail());
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-        String key = mDatabase.push().getKey();
+        //String key = mDatabase.push().getKey();
 
         User newUser = parent.getUser();
         newUser.setUID(UID);
+        String key = UID;
 
         mDatabase.child(key).setValue(newUser);
 
