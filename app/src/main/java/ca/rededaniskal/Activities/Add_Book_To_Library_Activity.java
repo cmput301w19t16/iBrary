@@ -178,7 +178,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String Title = addTitle.getText().toString();
                 String Author = addAuthor.getText().toString();
                 String ISBN = addISBN.getText().toString();
-                bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
+//                bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle);
 

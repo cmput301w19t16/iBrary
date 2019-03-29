@@ -10,7 +10,6 @@ import android.widget.TextView;
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.Database.BookInstanceDb;
-import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -64,7 +63,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         bidb = new BookInstanceDb();
         currentUID = bidb.getUID();
 
-        nameField = findViewById(R.id.username);
+        nameField = findViewById(R.id.title);
         locationField = findViewById(R.id.location);
         followersField = findViewById(R.id.followers);
         userField = findViewById(R.id.userField);
