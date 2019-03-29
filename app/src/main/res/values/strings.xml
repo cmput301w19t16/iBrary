@@ -135,6 +135,10 @@
     <string name="set__location">Set Location</string>
     <string name="title_activity_view__pickup_">Map</string>
     <string name="author_space">author</string>
+    <string name="my_followers">My Followers</string>
+    <string name="im_following">Im Following</string>
+    <string name="usersImFollowing">Users I\'M Following</string>
+    <string name="pending_exchanges">Pending Exchanges</string>
 
 
 </resources>

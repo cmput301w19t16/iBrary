@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Check_In;
 import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.R;
 
@@ -42,7 +43,7 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
 
     private GoogleMap mMap;
 
-    private BorrowRequest  request;
+    private Check_In exchange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +65,19 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
         goToScanner = findViewById(R.id.ScanBookPickUpButton);
 
         //get the Request object
-        request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
+        exchange = (Check_In) getIntent().getSerializableExtra("exchange");
 
         //Set the views
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Book Exchange Details"); //TODO: change this if we want
 
-        title.setText(request.getBookId()); //TODO: get title from dp
-        owner.setText(request.getrecipientUID());
+        title.setText( exchange.getBookid()); //TODO: get title from dp
+        owner.setText( exchange.getOwner());
 
         //Get date in the right format
         SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy HH:mm");
-        String date =formatter.format(request.getTimestamp());
+        String date =formatter.format(exchange.getTime());
         dateTime.setText(date);
 
 
@@ -107,9 +108,7 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // TODO: put marker in the right spot
-
-        LatLng loc = new LatLng(request.getLat(), request.getLng());
+        LatLng loc = new LatLng(exchange.getLat(), exchange.getLng());
         mMap.addMarker(new MarkerOptions().position(loc).title("Meeting place"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 13));

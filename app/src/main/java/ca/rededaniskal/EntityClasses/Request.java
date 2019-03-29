@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Request implements Serializable {
-    private String senderUserName;
-    private String recipientUserName;
 
     private String requestType;
     private String status;

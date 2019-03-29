@@ -60,6 +60,8 @@ public class View_All_Requests_Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+
         //Testing purposes
         requestList.add(new BorrowRequest("Daniela", "Nick", "9780590353427", "123456"));
 
@@ -69,6 +71,7 @@ public class View_All_Requests_Activity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Requests on My Books");
 
         db = new getAllUserRequests();
     }

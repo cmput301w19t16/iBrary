@@ -81,13 +81,13 @@
         <activity
             android:name=".Activities.Set_Location_Activity"
             android:label="@string/title_activity_set_location" />
-        <activity
-            android:name=".Activities.View_Book_Request_Activity"
-            android:label="@string/title_activity_view__book__request_"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".Activities.View_All_Books_Activity" />
         <activity android:name=".Activities.View_All_Users_Activity" />
-        <activity android:name=".Activities.View_Friends_Activity" />
+        <activity android:name=".Activities.View_Users_Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
         <activity android:name=".Activities.View_My_Library_Activity" />
         <activity android:name=".Activities.Edit_Book_Instance_Activity" />

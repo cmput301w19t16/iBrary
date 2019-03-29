@@ -192,10 +192,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     finish();
                 } else {
 
-
                 }
-
-
             }
         };
 
