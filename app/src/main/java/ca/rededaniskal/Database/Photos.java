@@ -50,7 +50,7 @@ public class Photos {
     public void getURLFromBitmap(Bitmap inImage, myCallbackBookInstance mcbi, Book_Instance bi) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "http://" + bi.getTitle() +  bi.getBookID() + ".html", null);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "https://" + bi.getTitle() +  bi.getBookID() + ".html", null);
         Uri uri = Uri.parse(path);
 
         try {
