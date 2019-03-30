@@ -52,7 +52,7 @@ import ca.rededaniskal.EntityClasses.Master_Book;
             book_instance.setBookID(success);
             bookAdded = instancedb.addBookInstance(book_instance);
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
-            String key = mDatabase.push().getKey();
+            String key = book_instance.getBookID();
             mDatabase.child(key).setValue(book_instance);
 
         }
