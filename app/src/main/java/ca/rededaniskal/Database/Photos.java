@@ -50,24 +50,37 @@ public class Photos {
     }
 
 
-    public URL returnURLFromBitmap(Bitmap inImage, String title, String id) {
+    public String returnURLStrFromBitmapBi(Bitmap inImage, Book_Instance bi) {
         if (inImage != null) {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "http://" + title + id + ".html", null);
+            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
             Uri uri = Uri.parse(path);
 
-            try {
-                return new URL(uri.toString());
-                //mcbi.onCallback(bi);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            String url = "http://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
+            return url;
         }
-        return null;
+        else{
+            return "";
+        }
     }
 
+    public String returnURLStrFromBitmapMb(Bitmap inImage,String title, String isbn) {
+        if (inImage != null) {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+            Uri uri = Uri.parse(path);
 
+            String url = "http://" + title + uri.toString() + isbn + "mb.html";
+            return url;
+        }
+        else{
+            return "";
+        }
+    }
+
+/*
     public void getURLFromBitmap(Bitmap inImage, myCallbackBookInstance mcbi, Book_Instance bi) {
         if (inImage != null) {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -102,7 +115,7 @@ public class Photos {
 
         }
     }
-
+*/
 
     public static Bitmap getBitmapFromURL(String src) {
         try {

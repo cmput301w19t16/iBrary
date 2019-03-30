@@ -16,8 +16,9 @@ public class AddBookDb {
         private Master_Book mb;
         private String success;
         private Book_Instance book_instance;
+        private String mb_url;
 
-        public AddBookDb(Book_Instance book_instance) {
+        public AddBookDb(Book_Instance book_instance, String URL) {
 
             //Creates a new reference to the correct path in the Firebase
             //Book instances are stored under there unique id, under my-books,
@@ -27,13 +28,14 @@ public class AddBookDb {
             this.book_instance = book_instance;
             this.masterdb = new MasterBookDb();
             this.instancedb = new BookInstanceDb();
+            this.mb_url = URL;
 
-            update();
+            update(mb_url);
 
         }
 
 
-        public void update() {
+        public void update(String url) {
             addBookToDatabase();
             if (!masterdb.checkExists(masterdb.getReference().child(book_instance.getISBN()))) {
                 book_instance.setAuthor("Williams");
@@ -41,6 +43,7 @@ public class AddBookDb {
             }
 
             mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
+            mb.setGoogleCover(url);
             masterdb.addMasterBook(mb);
         }
 

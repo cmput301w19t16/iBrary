@@ -43,17 +43,15 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
     private TextView myTitle;
     private TextView myAuthor;
 
-    private ImageView cover;
     private Bitmap googleCover;
     public AsyncResponse delegate;
     //private Class fromClass;
     private ConnectivityManager myConnectivityManager;
 
-    public Title_Author_GoogleBooksAPI(Context context, TextView title, TextView author, ImageView cover) {
+    public Title_Author_GoogleBooksAPI(Context context, TextView title, TextView author) {
         this.context = context;
         this.myTitle = title;
         this.myAuthor = author;
-        this.cover = cover;
     }
 
     @Override
@@ -177,11 +175,9 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
                 e.printStackTrace();
                 //delegate.processFinish(null);
             }
-            delegate.processFinish(googleCover);
 
-        } else {
-            return;
         }
+        delegate.processFinish(googleCover);
     }
 
     protected boolean isNetworkConnected() {

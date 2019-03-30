@@ -37,7 +37,6 @@ import com.google.firebase.storage.StorageReference;
 import java.io.Serializable;
 
 
-
 //import ca.rededaniskal.BusinessLogic.AddBookLogic;
 
 
@@ -58,7 +57,7 @@ import ca.rededaniskal.R;
 /**
  * This activity lets a user input information about a book, and then adds it to their library
  * in the database.
- *
+ * <p>
  * Todo for part 5:
  * Make the user's photo saved in the database
  */
@@ -74,7 +73,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private FloatingActionButton openCamera;
     private ImageView cover;
     private String ISBN;
-    private String returnString;
 
     private ValidateBookLogic businessLogic;
 
@@ -84,13 +82,12 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
-    private Uri picUri = null;
-    private Bitmap bookCoverGoogle = null;
     private Bitmap myCover = null;
     private myCallbackBookInstance mcbi;
-    private Add_Book_To_Library_Activity mcabtla;
     private Title_Author_GoogleBooksAPI asyncTask;
     private Bitmap googleCover;
+    private boolean alreadyGotBookInfoAPI = false;
+    private boolean personalCover = false;
 //    private View view;
 
     @Override
@@ -98,13 +95,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book_instance);
 
-        //myStorage = FirebaseStorage.getInstance().getReference();
-        //mcbi = new myCallbackBookInstance();
-        //view = v;
-        mcabtla = this;
         //Set buttons and EditTexts
-        asyncTask = new Title_Author_GoogleBooksAPI(getApplicationContext(),addTitle, addAuthor, cover);
+        asyncTask = new Title_Author_GoogleBooksAPI(getApplicationContext(), addTitle, addAuthor);
         asyncTask.delegate = this;
+
         addTitle = findViewById(R.id.addTitle);
         addAuthor = findViewById(R.id.addAuthor);
         addISBN = findViewById(R.id.addISBN);
@@ -126,12 +120,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             }
         });
 
-/*
-        final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/picFolder/";
-        File newdir = new File(dir);
-        if (!newdir.exists()) {
-            newdir.mkdir();
-        }*/
         openCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,15 +146,35 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String Title = addTitle.getText().toString();
                 String Author = addAuthor.getText().toString();
                 String ISBN = addISBN.getText().toString();
-                //bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
-//                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
+                if (alreadyGotBookInfoAPI == false){
+                    asyncTask.execute(ISBN);
+                }
+
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
                 Book_Instance bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
+                String book_instance_url;
+                if (personalCover){
+                     book_instance_url = new Photos(getApplicationContext()).returnURLStrFromBitmapBi(myCover, bi);
+                }
+                else {
+                     book_instance_url = new Photos(getApplicationContext()).returnURLStrFromBitmapBi(googleCover, bi);
+                }
+
+                bi.setCover(book_instance_url);
+                String master_book_url = new Photos(getApplicationContext()).returnURLStrFromBitmapMb(googleCover, Title, ISBN);
+
+                if (businessLogic.isValid().equals("")) {
+                    businessLogic.saveInformation(bi, getApplicationContext(), master_book_url);
+                    Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
 
 
-                asyncTask.execute(ISBN);
+                }
 
-               mcbi = new myCallbackBookInstance() {
+/*
+                mcbi = new myCallbackBookInstance() {
                     @Override
                     public void onCallback(Book_Instance book_instance) {
                         if (businessLogic.isValid().equals("")) {
@@ -184,20 +192,13 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     }
                 };
                 new Photos(getApplicationContext()).getURLFromBitmap(myCover, mcbi, bi);
-                //URL url = new Photos(getApplicationContext()).returnURLFromBitmap(myCover,bi.getTitle(), bi.getBookID());
-                //Log.d("URLphoto", "The url for book istance is"+ url.toString() );
-                //bi.setCover(url);
-                //businessLogic.saveInformation(bi, getApplicationContext());
+
                 Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
 
 
                 startActivity(intent);
 
-                finish();
-               // new Photos(getApplicationContext()).getURLFromBitmap(myCover, mcabtla, bi);
-
-
-
+                finish();*/
             }
         };
 
@@ -205,9 +206,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
     }
 
-    public void processFinish(Bitmap output){
+    public void processFinish(Bitmap output) {
         googleCover = output;
-        new Photos(context).getURLFromBitmapMasterBook(googleCover, mcmb,mb);
     }
 
     public void getInfo() {
@@ -217,21 +217,22 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
 
     }
-/*
-    public void onCallback(Book_Instance book_instance) {
-        if (businessLogic.isValid().equals("")) {
-            businessLogic.saveInformation(book_instance, getApplicationContext());
-            Intent intent = new Intent(getWindow().getDecorView().getRootView().getContext(), View_My_Library_Activity.class);
+
+    /*
+        public void onCallback(Book_Instance book_instance) {
+            if (businessLogic.isValid().equals("")) {
+                businessLogic.saveInformation(book_instance, getApplicationContext());
+                Intent intent = new Intent(getWindow().getDecorView().getRootView().getContext(), View_My_Library_Activity.class);
 
 
-            startActivity(intent);
+                startActivity(intent);
 
-            finish();
-        } else {
+                finish();
+            } else {
 
 
-        }
-    }*/
+            }
+        }*/
     //Code From https://stackoverflow.com/a/5991757
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -251,15 +252,16 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-
             myCover = (Bitmap) data.getExtras().get("data");
+            personalCover = true;
             cover.setImageBitmap(myCover);
-            //new Photos(this.getClass(), getApplicationContext()).uploadImage(myCover);
         }
+
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-                String ISBN = data.getStringExtra("ISBN");
-                //new Title_Author_GoogleBooksAPI(this, addTitle, addAuthor, cover, 2)
-                addISBN.setText(ISBN);
+            String ISBN = data.getStringExtra("ISBN");
+            asyncTask.execute(ISBN);
+            alreadyGotBookInfoAPI = true;
+            addISBN.setText(ISBN);
         }
 
     }
