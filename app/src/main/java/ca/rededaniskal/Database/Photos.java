@@ -57,7 +57,8 @@ public class Photos {
             String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
             Uri uri = Uri.parse(path);
 
-            String url = "http://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
+            String url = "https://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
+            url = url.replace(" ", "");
             return url;
         }
         else{
@@ -72,7 +73,8 @@ public class Photos {
             String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
             Uri uri = Uri.parse(path);
 
-            String url = "http://" + title + uri.toString() + isbn + "mb.html";
+            String url = "https://" + title + uri.toString() + isbn + "mb.html";
+            url = url.replace(" ", "");
             return url;
         }
         else{
@@ -116,13 +118,12 @@ public class Photos {
         }
     }
 */
-
+    //https://stackoverflow.com/questions/8992964/android-load-from-url-to-bitmap
     public static Bitmap getBitmapFromURL(String src) {
         try {
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
-            connection.setRequestProperty("User-agent", "Mozilla/4.0");
             connection.connect();
             InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
