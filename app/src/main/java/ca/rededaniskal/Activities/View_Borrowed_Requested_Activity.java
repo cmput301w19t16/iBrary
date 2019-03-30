@@ -36,13 +36,14 @@ import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
 import ca.rededaniskal.Database.ReadBookDB;
 
 //Author: Revan, Skye
 public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
-    private Book_List BL;
+    private ArrayList<Display_Username> BL;
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
     private Switch toggleRequested;
@@ -67,9 +68,10 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
     }
 
 
-    public void updateBookView(Book_List book_list){
-        bookAdapter = new BookAdapter(this, book_list);
-        recyclerView.setAdapter(bookAdapter);
+    public void updateBookView(Display_Username book_list){
+//        bookAdapter = new BookAdapter(this, book_list);
+//        recyclerView.setAdapter(bookAdapter);
+        BL.add(book_list);
         bookAdapter.notifyDataSetChanged();
     }
 

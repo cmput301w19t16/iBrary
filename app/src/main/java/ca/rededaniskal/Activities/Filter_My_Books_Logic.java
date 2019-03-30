@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.Display_Username;
 
 /**
  * This class takes care of filtering books based on different qualifiers.
@@ -21,9 +22,9 @@ import ca.rededaniskal.EntityClasses.Book_List;
 
 public class Filter_My_Books_Logic {
     ArrayList<Integer> filter;
-    Book_List book_list;
+    ArrayList<Display_Username> book_list;
 
-    public Filter_My_Books_Logic(ArrayList<Integer>f, Book_List b) {
+    public Filter_My_Books_Logic(ArrayList<Integer>f, ArrayList<Display_Username> b) {
 
         this.filter =f;
         this.book_list =b;
@@ -53,14 +54,16 @@ public class Filter_My_Books_Logic {
 
 
 
-    public Book_List newBooks(){
+    public ArrayList<Display_Username> newBooks(){
 
 
-        Book_List b_l = new Book_List();
-        for (Book_Instance b: book_list.getBooks()){
+        ArrayList<Display_Username> b_l = new ArrayList<Display_Username>();
+        for(int i = 0; i < book_list.size(); i++){
+            Display_Username du = book_list.get(i);
+            Book_Instance b = du.getBook();
             String status = b.getStatus();
             if (parseFilter().contains(status)){
-                b_l.addBook(b);
+                b_l.add(du);
             }
 
 

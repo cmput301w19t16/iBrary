@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
-import ca.rededaniskal.EntityClasses.Check_In;
+import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.R;
 
@@ -43,7 +43,7 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
 
     private GoogleMap mMap;
 
-    private Check_In exchange;
+    private Exchange exchange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
         goToScanner = findViewById(R.id.ScanBookPickUpButton);
 
         //get the Request object
-        exchange = (Check_In) getIntent().getSerializableExtra("exchange");
+        exchange = (Exchange) getIntent().getSerializableExtra("exchange");
 
         //Set the views
         Toolbar toolbar = findViewById(R.id.toolbar);
