@@ -97,6 +97,7 @@ public class Write_Request_DB {
         String requestType = "Book Requested";
 
         Write_Notification_Logic new_notif = new Write_Notification_Logic(owner, k, requestType);
+        Update_Book_DB book_status = new Update_Book_DB(book);
     }
 
     private void deleteRequest(){
@@ -105,6 +106,7 @@ public class Write_Request_DB {
         mDatabase.child(key).removeValue();
 
         Write_Notification_Logic delete_notif = new Write_Notification_Logic(key);
+        Update_Book_DB book_status = new Update_Book_DB(request.getrecipientUID(), request.getIsbn());
     }
 
     private void updateRequest(){
@@ -116,6 +118,7 @@ public class Write_Request_DB {
             String requestType = "Book Request Accepted";
             Write_Notification_Logic delete_notif = new Write_Notification_Logic(request.getsenderUID(), key, requestType);
         }
+        Update_Book_DB book_status = new Update_Book_DB(request.getrecipientUID(), request.getIsbn());
     }
 
 
