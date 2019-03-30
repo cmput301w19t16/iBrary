@@ -96,7 +96,7 @@ public class User_Details_Activity extends AppCompatActivity {
         };
 
         fdb = new Follow_DB();
-        fdb.isFollowing(currentUser.getUid(), user_received.getUserName(), mcb);
+        fdb.isFollowing(currentUser.getUid(), user_received.getUID(), mcb);
 
         Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +119,7 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayFavAuthor = (TextView) findViewById(R.id.DisplayBookAuthor);
         DisplayFavISBN = (TextView) findViewById(R.id.DisplayBookISBN);
 
-        UserPic = (ImageView) findViewById(R.id.Cover);
+        UserPic = (ImageView) findViewById(R.id.profilepic);
         BookCover = (ImageView) findViewById(R.id.DisplayFavBookCover);
 
 

@@ -114,7 +114,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         public BorrowRequestViewHolder(@NonNull View itemView) {
             //TODO: profile pic
             super(itemView);
-            requestInfo = itemView.findViewById(R.id.title);
+            requestInfo = itemView.findViewById(R.id.Title);
             accept = itemView.findViewById(R.id.accept);
             cancel = itemView.findViewById(R.id.cancel);
             bookInfo = itemView.findViewById(R.id.bookInfo);

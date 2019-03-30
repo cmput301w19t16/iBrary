@@ -89,12 +89,6 @@ public class View_Users_Activity extends AppCompatActivity {
             getSupportActionBar().setTitle("Your Followers");
             fdb.getFollowers(user.getUid(), mcbuid);
         }
-
-
-
-
-
-
     }
 
     private void updateRecyclerView(){

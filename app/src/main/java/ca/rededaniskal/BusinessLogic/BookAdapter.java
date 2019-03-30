@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
-import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
 
@@ -114,8 +113,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             super(itemView);
             //imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
 
-            bookTitle = itemView.findViewById(R.id.title);
-            bookAuthor = itemView.findViewById(R.id.author);
+            bookTitle = itemView.findViewById(R.id.Title);
+            bookAuthor = itemView.findViewById(R.id.location);
             bookISBN = itemView.findViewById(R.id.isbn);
             bookStatus = itemView.findViewById(R.id.viewStatus);
             bookOwner = itemView.findViewById(R.id.viewOwner);
