@@ -143,6 +143,7 @@ public class Search_Fragment extends Fragment {
 
 
 
+
         //master_books.add(new Master_Book("Invisible", "sdf", "sdfds"));
 
         searchString = view.findViewById(R.id.fragmentSearchView);
@@ -167,18 +168,12 @@ public class Search_Fragment extends Fragment {
             }
         });
 
+
         searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
 
         //Adapter stuff
-
-
-
-
-
-
-
         searchBy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -257,38 +252,29 @@ public class Search_Fragment extends Fragment {
         return view;
     }
 
+
 public void update_books(ArrayList<Master_Book> master_books){
-        viewBookList = master_books;
+    viewBookList = master_books;
 
+    display = dbView.findViewById(R.id.display);
+    display.setHasFixedSize(true);
+    display.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        display = dbView.findViewById(R.id.display);
-        display.setHasFixedSize(true);
-        display.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        MB_adapter = new Master_BookAdapter( Search_Fragment.this, master_books);
-        display.setAdapter( MB_adapter );
-        //MB_adapter.notifyDataSetChanged();
+    MB_adapter = new Master_BookAdapter(Search_Fragment.this, master_books);
+    display.setAdapter(MB_adapter);
+    //MB_adapter.notifyDataSetChanged();
 
     }
+
     public  void addBookToAdapter(Master_Book m){
         viewBookList.add(m);
         LinkedHashSet<Master_Book> remove = new LinkedHashSet<>(viewBookList);
         viewBookList = new ArrayList<>(remove);
         update_books(viewBookList);
-
-
-
-
     }
+  
     public  void addBookToAdapter(ArrayList<Master_Book> m){
         viewBookList.addAll(m);
         update_books(viewBookList);
-
-
-
     }
-
-
-
 }
