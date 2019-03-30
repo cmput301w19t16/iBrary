@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
+import ca.rededaniskal.Database.Username_For_Book_Details_DB;
 import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -109,6 +110,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         //Get what was passed in and display it
         Intent intent = getIntent();
         book = (Book_Instance) intent.getSerializableExtra("book"); //Get the book
+        Username_For_Book_Details_DB dbu = new Username_For_Book_Details_DB(this, book);
 
         DisplayTitle.setText(book.getTitle());
         DisplayAuthor.setText(book.getAuthor());
@@ -127,16 +129,9 @@ public class Book_Details_Activity extends AppCompatActivity {
             viewRequests.setHasFixedSize(true);
             viewRequests.setLayoutManager(new LinearLayoutManager(this));
 
-            //for Testing
-//            BorrowRequest br = new BorrowRequest("revan", "revan", "123", "123");
-//            BorrowRequest br2 = new BorrowRequest("revan", "revan", "123", "123");
-//            BorrowRequest br3 = new BorrowRequest("revan", "revan", "123", "123");
 
 
             l = new ArrayList<>();
-//            l.add(br);
-//            l.add(br2);
-//            l.add(br3);
 
 
             requestAdapter = new BorrowRequestAdapter(this, l);
@@ -250,6 +245,10 @@ public class Book_Details_Activity extends AppCompatActivity {
     public void setTrue() {
         this.isRequested = true;
 
+    }
+
+    public void setUsername(String username){
+        DisplayOwner.setText(username);
     }
 
     public String getBookISBN(){return book.getISBN();}
