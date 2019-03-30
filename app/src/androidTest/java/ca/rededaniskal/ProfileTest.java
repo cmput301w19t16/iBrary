@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ca.rededaniskal.Activities.Edit_Profile_Activity;
+import ca.rededaniskal.Activities.Login_Activity;
 import ca.rededaniskal.Activities.Main_Activity;
 import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
 import ca.rededaniskal.Activities.View_Users_Activity;
@@ -87,11 +88,11 @@ public class ProfileTest extends ActivityTestRule<Main_Activity>{
         solo.assertCurrentActivity("Wrong activity", View_My_Library_Activity.class);
     }
 
-//    @Test
-//    public void TestLogout() {
-//        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
-//        solo.clickOnText("Profile");
-//        solo.clickOnButton("Logout");
-//        solo.assertCurrentActivity("Wrong activity", Login_Activity.class);
-//    }
+    @Test
+    public void TestLogout() {
+        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
+        solo.clickOnText("Profile");
+        solo.clickOnButton("Logout");
+        solo.assertCurrentActivity("Wrong activity", Login_Activity.class);
+    }
 }

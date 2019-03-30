@@ -53,8 +53,8 @@ public class LoginTest extends ActivityTestRule<Login_Activity>{
     @Test
     public void testLogin() {
         solo.assertCurrentActivity("Wrong activity", Login_Activity.class);
-        solo.enterText((EditText) solo.getView(R.id.editText5), "bob@123.ca");
-        solo.enterText((EditText) solo.getView(R.id.editText6), "password");
+        solo.enterText((EditText) solo.getView(R.id.editText5), "alex.chan@gmail.com");
+        solo.enterText((EditText) solo.getView(R.id.editText6), "pass");
 
         solo.clickOnButton("Login");
 
