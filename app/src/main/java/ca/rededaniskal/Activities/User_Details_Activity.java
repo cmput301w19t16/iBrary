@@ -77,12 +77,21 @@ public class User_Details_Activity extends AppCompatActivity {
             @Override
             public void onCallback(Boolean value) {
                 isFollowing = value;
+                int followcountchange;
+                if (isFollowing){
+                    followcountchange = -1;
+                }
+                else{
+                    followcountchange = 1;
+                }
                 if (swapping){
                     fdb.swapFollow(currentUser.getUid(), user_received.getUID(), isFollowing);
                     swapping = false;
                     isFollowing = !isFollowing;
+                    user_received.setFollowerCount(user_received.getFollowerCount() + followcountchange);
                 }
                 setFriendText();
+                fillData(user_received);
             }
         };
 
@@ -120,7 +129,6 @@ public class User_Details_Activity extends AppCompatActivity {
         String email = user.getEmail();
         String phone_num = user.getPhoneNumber();
 
-        Integer followers = 0;
 
 
 
@@ -128,7 +136,7 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayLocation.setText(location);
         DisplayEmail.setText(email);
         DisplayPhoneNum.setText(phone_num);
-        DisplayTotalFollowers.setText(followers.toString().concat(" followers"));
+        DisplayTotalFollowers.setText("Followers:    " + Integer.toString(user_received.getFollowerCount()));
 
     }
 
