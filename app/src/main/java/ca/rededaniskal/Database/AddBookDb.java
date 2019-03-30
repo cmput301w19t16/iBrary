@@ -75,14 +75,13 @@ public class AddBookDb implements AsyncResponse {
             asyncTask.delegate = this;
             asyncTask.execute(isbn);
 
-/*
+
             mcmb = new myCallBackMasterBook() {
                 @Override
                 public void onCallback(Master_Book master_book) {
-                    master_book.setGoogleCover(googleCoverURL);
                     masterdb.addMasterBook(master_book);
                 }
-            };*/
+            };
 
         }
 
@@ -90,7 +89,7 @@ public class AddBookDb implements AsyncResponse {
         public void processFinish(Bitmap output){
             googleCover = output;
             mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
-           // new Photos(context).getURLFromBitmapMasterBook(googleCover, mcmb,mb);
+            new Photos(context).getURLFromBitmapMasterBook(googleCover, mcmb,mb);
         }
 
         public void addBookToDatabase() throws NullPointerException {

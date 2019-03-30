@@ -3,6 +3,7 @@ package ca.rededaniskal.Database;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -19,6 +20,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
@@ -74,7 +78,7 @@ public class Photos {
             Log.d("uri uri", uri.toString());
 
 
-            String url = "http://" + bi.getTitle() + bi.getBookID() + uri.toString() + ".html";
+            String url = "http://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
             Log.d("http uri", url);
             bi.setCover(url);
             mcbi.onCallback(bi);
@@ -85,16 +89,35 @@ public class Photos {
     }
 
     public void getURLFromBitmapMasterBook(Bitmap inImage, myCallBackMasterBook mcmb, Master_Book mb) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "http://TitleOriginal", null);
-        Uri uri = Uri.parse(path);
-        
-        mb.setGoogleCover(uri.toString());
-        mcmb.onCallback(mb);
+        if (inImage != null){
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+            Uri uri = Uri.parse(path);
 
+
+            String url = "http://" + mb.getTitle() + uri.toString() + mb.getISBN() + ".html";
+            mb.setGoogleCover(url);
+            mcmb.onCallback(mb);
+
+        }
     }
 
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            // Log exception
+            return null;
+        }
+    }
 
     /*
     //https://stackoverflow.com/questions/40581930/how-to-upload-an-image-to-firebase-storage

@@ -164,11 +164,12 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
                         }
                 }
 
-                delegate.processFinish(googleCover);
+                //delegate.processFinish(googleCover);
             } catch (Exception e) {
-                //cover.setImageBitmap(null);
                 // If onPostExecute does not receive a proper JSON string
+                Log.d("Reach exception in onPostExecute" , e.toString());
                 e.printStackTrace();
+                delegate.processFinish(null);
             }
         } else {
             return;
