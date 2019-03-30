@@ -10,6 +10,7 @@
  */
 package ca.rededaniskal.Activities.Fragments;
 import ca.rededaniskal.Activities.View_All_Requests_Activity;
+import ca.rededaniskal.Activities.View_Pending_Exchanges_Activity;
 import ca.rededaniskal.Activities.View_Users_Activity;
 import ca.rededaniskal.BusinessLogic.Login_Manager_BL;
 import ca.rededaniskal.BusinessLogic.Login_Manager_Helper_BL;
@@ -135,6 +136,15 @@ public class View_Own_Profile_Fragment extends Fragment {
         Button viewAllRequests = (Button) v.findViewById(R.id.view_all_requests);
         Button viewAllUsers = (Button) v.findViewById(R.id.viewUsers);
         Button viewAllBooks = (Button) v.findViewById(R.id.viewBooks);
+        Button viewExchanges = v.findViewById(R.id.pendingExchanges);
+
+        viewExchanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), View_Pending_Exchanges_Activity.class);
+                startActivity(intent);
+            }
+        });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
