@@ -81,7 +81,7 @@ public class getAllBooks {
                             User user = snapshot.getValue(User.class);
                             dis.setOwner(user.getUserName());
                             book_list.set(j, dis);
-                            getBorrowerUsername();
+
                         }
                     }
                 }
@@ -93,6 +93,7 @@ public class getAllBooks {
             });
 
         }
+        getBorrowerUsername();
     }
 
     private void getBorrowerUsername() {
