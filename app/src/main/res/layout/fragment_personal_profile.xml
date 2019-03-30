@@ -22,6 +22,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/change_info">
@@ -104,9 +105,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/borrowed_requested_books" />
                 </TableRow>
 
-
-
-
                 <TableRow
                     android:id="@+id/borrow_request_books"
                     android:layout_width="match_parent"
@@ -138,10 +136,7 @@
                         android:text="@string/view_all_request" />
                 </TableRow>
 
-
-
                 <TableRow
-                    android:id="@+id/row5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -158,7 +153,6 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/row6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -183,6 +177,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@color/colorPrimary"
                         android:text="@string/logout"
                         android:textColor="@color/colorPrimaryLight" />
@@ -207,7 +202,7 @@
 
             <TableLayout
                 android:id="@+id/change_info"
-                android:layout_width="320dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -219,7 +214,7 @@
 
                 <TableRow
 
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -233,9 +228,9 @@
                         android:textSize="12dp" />
 
                     <TextView
-
+                        android:layout_weight="1"
                         android:id="@+id/DisplayUserName"
-                        android:layout_width="260dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/background_light"
                         android:padding="1dip"
@@ -254,6 +249,7 @@
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:background="#FFFFFF"
                         android:padding="1dip"
                         android:text="@string/phone_num"
@@ -262,7 +258,8 @@
 
                     <TextView
                         android:id="@+id/DisplayPhoneNumber"
-                        android:layout_width="260dp"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:background="#FFFFFF"
                         android:padding="1dip"
@@ -288,8 +285,9 @@
 
                     <TextView
                         android:id="@+id/DisplayEmail"
-                        android:layout_width="260dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#FFFFFF"
                         android:padding="1dip"
                         android:text="example@exmaple.ca"
@@ -316,8 +314,9 @@
 
                     <TextView
                         android:id="@+id/DisplayLocation"
-                        android:layout_width="260dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#FFFFFF"
                         android:padding="1dip"
                         android:text="City, Province"
@@ -326,15 +325,10 @@
 
                 </TableRow>
 
-
-
-
-
             </TableLayout>
 
-
-
         </android.support.constraint.ConstraintLayout>
+
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

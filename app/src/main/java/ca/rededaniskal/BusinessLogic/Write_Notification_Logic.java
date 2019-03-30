@@ -1,8 +1,12 @@
 package ca.rededaniskal.BusinessLogic;
 
+import android.util.Log;
+
 import ca.rededaniskal.Database.Write_Notification_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Notification;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class Write_Notification_Logic {
 
@@ -10,9 +14,11 @@ public class Write_Notification_Logic {
     private String UID;
     private String RequestID;
     private String RequestType;
+    private String sender;
 
-    public Write_Notification_Logic(String UID, String RequestID, String RequestType){
+    public Write_Notification_Logic(String UID, String sender, String RequestID, String RequestType){
         this.UID = UID;
+        this.sender = sender;
         this.RequestID = RequestID;
         this.RequestType = RequestType;
         createNotification();
@@ -34,8 +40,8 @@ public class Write_Notification_Logic {
     }
 
     public void createNotification(){
-
-        Notification notification = new Notification(UID, RequestID, RequestType);
+        Log.d(TAG, "&*&*&* Create Notification sender: " + sender);
+        Notification notification = new Notification(UID, sender, RequestID, RequestType);
 
         db = new Write_Notification_DB(notification);
     }

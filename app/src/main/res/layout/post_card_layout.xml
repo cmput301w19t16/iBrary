@@ -20,12 +20,10 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-
-
+                
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/imageView2"
@@ -47,18 +45,12 @@
 
                             <TextView
                                 android:id="@+id/user"
+                                android:layout_weight="1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
                                 android:text="@string/username"
                                 android:textColor="@color/common_google_signin_btn_text_dark_focused" />
-
-                            <TextView
-                                android:id="@+id/postedabout"
-                                android:layout_weight="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/posted_on" />
 
                         </TableRow>
 

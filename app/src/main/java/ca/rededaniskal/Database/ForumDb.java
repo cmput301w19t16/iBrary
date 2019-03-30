@@ -2,7 +2,9 @@ package ca.rededaniskal.Database;
 
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.List;
+import ca.rededaniskal.EntityClasses.Forum;
+
+
 
 public class ForumDb extends Entity_Database {
 
@@ -15,7 +17,8 @@ public class ForumDb extends Entity_Database {
         return db.getReference(References.FORUM.reference());
     }
 
-    public void addThread(List childThreads, String ParentID){
+    public void addForum(Forum forum){
+
 
 
 

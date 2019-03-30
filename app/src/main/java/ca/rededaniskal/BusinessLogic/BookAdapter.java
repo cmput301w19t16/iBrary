@@ -49,7 +49,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         //Set the layout
         LayoutInflater inflater = LayoutInflater.from(mctx);
-        View view = inflater.inflate(R.layout.book_list_view, null);
+        View view = inflater.inflate(R.layout.book_list_view, viewGroup, false);
         BookViewHolder holder = new BookViewHolder(view);
         return holder;
     }
