@@ -12,7 +12,7 @@ import java.util.Date;
 import ca.rededaniskal.BusinessLogic.Book_ExchangeAdapter;
 import ca.rededaniskal.BusinessLogic.UserAdapter;
 import ca.rededaniskal.EntityClasses.Book_Exchange;
-import ca.rededaniskal.EntityClasses.Check_In;
+import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
