@@ -33,6 +33,7 @@ public class Read_Exchange_DB {
 
     public Read_Exchange_DB(View_Pending_Exchanges_Activity parent) {
         this.parent = parent;
+        exchanges = new ArrayList<>();
 
     }
 

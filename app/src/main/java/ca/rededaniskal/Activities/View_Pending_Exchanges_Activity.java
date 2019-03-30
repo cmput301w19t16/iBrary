@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,8 +23,10 @@ import static android.support.v4.content.ContextCompat.startActivity;
 
 public class View_Pending_Exchanges_Activity extends AppCompatActivity {
 
+    private static final String TAG = "View_Pending_Exchanges_Activity";
     private RecyclerView recyclerView;
     private Book_ExchangeAdapter adapter;
+    ArrayList<Exchange> exchanges;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +37,15 @@ public class View_Pending_Exchanges_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Pending Exchanges");
 
-        ArrayList<Exchange> exchanges = new ArrayList<>(); //TODO: get from DB
+         //TODO: get from DB
         Date d = new Date();
+        exchanges = new ArrayList<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.Display);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        Log.d(TAG, "%*%*%  This null? " + exchanges);
         adapter = new Book_ExchangeAdapter(this, exchanges);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -54,6 +59,7 @@ public class View_Pending_Exchanges_Activity extends AppCompatActivity {
     }
 
     public void updateAdapter(ArrayList<Exchange> exchanges){
+        Log.d(TAG, "%*%*%  Or This null? " + exchanges);
         adapter = new Book_ExchangeAdapter(this, exchanges);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

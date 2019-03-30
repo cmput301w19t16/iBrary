@@ -6,6 +6,7 @@ import java.util.Date;
 public class Exchange extends Book_Exchange implements Serializable {
     private boolean ownerScanend;
     private boolean borrowedScanned;
+    private String exchangeID;
     public Exchange(String owner, String borrower, String isbn, String bookid, Double lat,
                     Double lng, Date time) {
 
@@ -15,6 +16,14 @@ public class Exchange extends Book_Exchange implements Serializable {
     }
 
     public Exchange(){}
+
+    public String getExchangeID() {
+        return exchangeID;
+    }
+
+    public void setExchangeID(String exchangeID) {
+        this.exchangeID = exchangeID;
+    }
 
     public boolean isOwnerScanend() {
         return ownerScanend;

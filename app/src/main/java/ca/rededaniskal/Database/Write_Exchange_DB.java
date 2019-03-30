@@ -15,17 +15,19 @@ public class Write_Exchange_DB {
     public void addExchange(Exchange exchange){
         mDatabase = FirebaseDatabase.getInstance().getReference("Exchanges");
         String key = mDatabase.push().getKey();
+        exchange.setExchangeID(key);
         mDatabase.child(key).setValue(exchange);
     }
 
-    public void removeExchange(String key){
+    public void removeExchange(Exchange exchange){
         mDatabase = FirebaseDatabase.getInstance().getReference("Exchanges");
+        String key = exchange.getExchangeID();
         mDatabase.child(key).removeValue();
     }
 
-    public void updateExchange(){
+    public void updateExchange(Exchange exchange){
         mDatabase = FirebaseDatabase.getInstance().getReference("Exchanges");
-        String key = mDatabase.push().getKey();
+        String key = exchange.getExchangeID();
         mDatabase.child(key).setValue(exchange);
     }
 }
