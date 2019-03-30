@@ -183,7 +183,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 //URL url = new Photos(getApplicationContext()).returnURLFromBitmap(myCover,bi.getTitle(), bi.getBookID());
                 //Log.d("URLphoto", "The url for book istance is"+ url.toString() );
                 //bi.setCover(url);
-                businessLogic.saveInformation(bi, getApplicationContext());
+                //businessLogic.saveInformation(bi, getApplicationContext());
                 Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
 
 
