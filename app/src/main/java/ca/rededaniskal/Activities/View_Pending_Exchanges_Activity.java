@@ -34,7 +34,7 @@ public class View_Pending_Exchanges_Activity extends AppCompatActivity {
         Date d = new Date();
 
 
-        Book_Exchange e = new Check_In("Revan", "Nick", "12345", "12345", 37.0, 67.0, d);
+        Book_Exchange e = new Exchange("Revan", "Nick", "12345", "12345", 37.0, 67.0, d);
         exchanges.add(e);
 
         recyclerView = (RecyclerView) findViewById(R.id.Display);
