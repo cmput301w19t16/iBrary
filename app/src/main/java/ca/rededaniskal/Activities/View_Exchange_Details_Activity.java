@@ -36,7 +36,7 @@ import ca.rededaniskal.R;
  * Display details about a book pick up.
  */
 public class View_Exchange_Details_Activity extends  AppCompatActivity  implements OnMapReadyCallback {
-    TextView title, owner, dateTime;
+    TextView title, owner, dateTime, borrower;
 
     Button goToScanner;
     String mode;
@@ -60,6 +60,7 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
         title = findViewById(R.id.viewtitle);
         owner = findViewById(R.id.viewOwner);
         dateTime = findViewById(R.id.viewDateTime);
+        borrower = findViewById(R.id.viewborrower);
 
 
         goToScanner = findViewById(R.id.ScanBookPickUpButton);
@@ -74,6 +75,7 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
 
         title.setText( exchange.getBookid()); //TODO: get title from dp
         owner.setText( exchange.getOwner());
+        borrower.setText(exchange.getBorrower());
 
         //Get date in the right format
         SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy HH:mm");
