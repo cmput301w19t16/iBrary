@@ -89,6 +89,7 @@ public class AddBookDb implements AsyncResponse {
         public void processFinish(Bitmap output){
             googleCover = output;
             mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
+            Log.d("got to processFinish", "hii");
             new Photos(context).getURLFromBitmapMasterBook(googleCover, mcmb,mb);
         }
 
