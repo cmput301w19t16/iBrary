@@ -36,8 +36,9 @@ public class Write_Notification_DB {
     public Write_Notification_DB(String RequestID) {
         Log.d(TAG, "*!*!* In Write_Notification_DB");
         this.RequestID = RequestID;
-        getNotificationKey();
         this.delete = true;
+        getNotificationKey();
+
     }
 
     public Write_Notification_DB(){
