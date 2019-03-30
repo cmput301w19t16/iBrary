@@ -22,6 +22,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ import android.widget.EditText;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.zip.Inflater;
 
 import ca.rededaniskal.Activities.Filter_My_Books_Logic;
@@ -87,6 +90,7 @@ public class Search_Fragment extends Fragment {
     private SwipeRefreshLayout swipeContainer;
     private View view;
     private String queryString;
+    private ArrayList<Master_Book> viewBookList;
 
 
 
@@ -131,6 +135,7 @@ public class Search_Fragment extends Fragment {
         swipeContainer = view.findViewById(R.id.swipeContainersearch);
 
         dbView = view;
+        viewBookList = new ArrayList<>();
 
 
 
@@ -144,13 +149,18 @@ public class Search_Fragment extends Fragment {
         searchString.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                viewBookList.clear();
+                Log.d("Searchlog", "**************querylisten");
+
                 new Search_Logic(search_fragment, chosenOptions,query);
                 queryString = query;
+                searchString.clearFocus();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                viewBookList.clear();
                 queryString = newText;
 
                 return false;
@@ -196,9 +206,7 @@ public class Search_Fragment extends Fragment {
                                 item = item + ", ";
                             }
                         }
-
-
-
+                        viewBookList.clear();
                     }
                 });
 
@@ -232,6 +240,8 @@ public class Search_Fragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                viewBookList.clear();
+                Log.d("Searchlog", "**************Onrefresh");
 
                 new Search_Logic(search_fragment, chosenOptions, queryString );
                 new Handler().postDelayed(new Runnable() {
@@ -248,6 +258,7 @@ public class Search_Fragment extends Fragment {
     }
 
 public void update_books(ArrayList<Master_Book> master_books){
+        viewBookList = master_books;
 
 
         display = dbView.findViewById(R.id.display);
@@ -258,6 +269,23 @@ public void update_books(ArrayList<Master_Book> master_books){
         MB_adapter = new Master_BookAdapter( Search_Fragment.this, master_books);
         display.setAdapter( MB_adapter );
         //MB_adapter.notifyDataSetChanged();
+
+    }
+    public  void addBookToAdapter(Master_Book m){
+        viewBookList.add(m);
+        LinkedHashSet<Master_Book> remove = new LinkedHashSet<>(viewBookList);
+        viewBookList = new ArrayList<>(remove);
+        update_books(viewBookList);
+
+
+
+
+    }
+    public  void addBookToAdapter(ArrayList<Master_Book> m){
+        viewBookList.addAll(m);
+        update_books(viewBookList);
+
+
 
     }
 

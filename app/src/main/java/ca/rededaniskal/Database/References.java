@@ -3,6 +3,19 @@ package ca.rededaniskal.Database;
 
 
 public enum References {
+ INDICESAUTHOR{
+  @Override
+  public String reference() {
+   return "author-index";
+  }
+ },
+ INDICESTITLE{
+  @Override
+  public String reference() {
+   return "title-index";
+  }
+ },
+
  ALLBOOKS{
   @Override
   public String reference(){

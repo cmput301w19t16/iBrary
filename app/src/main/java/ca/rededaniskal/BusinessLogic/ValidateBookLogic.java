@@ -58,6 +58,7 @@ public class ValidateBookLogic {
                 String[] joins = {"the", "and", "or", "if", "a", "an", "at"};
                 char[] letters = words[i].toCharArray();
 
+
                 letters[0] = Character.toUpperCase(letters[0]);
 
                 words[i] = new String(letters);

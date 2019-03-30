@@ -36,12 +36,7 @@ import ca.rededaniskal.EntityClasses.Master_Book;
 
         public void update() {
             addBookToDatabase();
-            if (!masterdb.checkExists(masterdb.getReference().child(book_instance.getISBN()))) {
-                book_instance.setAuthor("Williams");
 
-
-
-            }
             Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
             masterdb.addMasterBook(mb);
 

@@ -2,7 +2,7 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.ArrayList;
 
-public class Forum {
+public class  Forum {
 
     private ArrayList<Parent_Thread> threads = new ArrayList<>();
     private Master_Book Book;
