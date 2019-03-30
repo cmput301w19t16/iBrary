@@ -58,7 +58,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         //Set the layout
         LayoutInflater inflater = LayoutInflater.from(mctx);
-        View view = inflater.inflate(R.layout.user_list_view, null);
+        View view = inflater.inflate(R.layout.user_list_view, viewGroup, false);
         UserViewHolder holder = new UserViewHolder(view);
         return holder;
     }
@@ -81,16 +81,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         //TODO: Set Profile Pic
 
-
-
         //if User clicks on another User, will start the user details Activity
 
     }
-
-
-
-
-
 
 
     /**
