@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="ca.rededaniskal">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -37,6 +36,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activities.View_Pending_Exchanges_Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
+
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -71,6 +75,15 @@
             android:label="@string/title_activity_view__pick_up__details"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".Activities.Forum_Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <activity
+            android:name=".Activities.View_Thread_Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".Activities.Establish_Exchange_Details_Activity"
             android:label="@string/title_activity_establish_location"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -81,13 +94,11 @@
         <activity
             android:name=".Activities.Set_Location_Activity"
             android:label="@string/title_activity_set_location" />
-
         <activity android:name=".Activities.View_All_Books_Activity" />
         <activity android:name=".Activities.View_All_Users_Activity" />
-        <activity android:name=".Activities.View_Users_Activity"
+        <activity
+            android:name=".Activities.View_Users_Activity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
         <activity android:name=".Activities.View_My_Library_Activity" />
         <activity android:name=".Activities.Edit_Book_Instance_Activity" />

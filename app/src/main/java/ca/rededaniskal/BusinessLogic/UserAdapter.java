@@ -17,11 +17,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.User_Details_Activity;
+import ca.rededaniskal.Database.Follow_DB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -32,6 +39,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private User globalUser = new User("username", "email", "location");
     public Context mctx;
     private ArrayList<User> users;
+
 
     /**
      * Instantiates a new User adapter.
@@ -62,42 +70,28 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
      */
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder  userViewHolder, final int i) {
-        final User user = users.get(i);
+        User user = users.get(i);
+        userViewHolder.setUser(user);
 
         //Set the user attributes
         userViewHolder.UserName.setText(user.getUserName());
         userViewHolder.UserLocation.setText(user.getLocation());
         userViewHolder.UserMutualFriends.setText(globalUser.numberMutualFriends(user).toString());// TODO: Implement global User
+        //userViewHolder.setUser(user);
+
         //TODO: Set Profile Pic
 
-        //If they are Friends, set the icon to the friends icon
-        if ( true ){
-            userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_black_24dp);
-        }else{
-            userViewHolder.statusIcon.setImageResource(R.drawable.ic_person_add_black_24dp);
-        }
 
-        //Set on click listener for the icon (in order to add friends)
-        userViewHolder.statusIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (true){ // if they are not friends
-                    Log.d(TAG, "*!*!*! Listened: Add Friend Button");
-                    //TODO: DB add request to db
-                }
-            }
-        });
 
         //if User clicks on another User, will start the user details Activity
-        userViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mctx, User_Details_Activity.class); // TODO: change the name of this for the
-                intent.putExtra("user", user);
-                mctx.startActivity(intent);
-            }
-        });
+
     }
+
+
+
+
+
+
 
     /**
      * returns the size of the Entry list
@@ -115,6 +109,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     class UserViewHolder extends RecyclerView.ViewHolder {
         ImageView profilePic, statusIcon;
         TextView UserName, UserLocation, UserMutualFriends;
+        Button Follow_or_unfollow;
+        private boolean isFollowing;
+        private boolean swapping;
+        private Follow_DB fdb;
+        private FirebaseUser currentUser;
+
+        private myCallbackBool mcb;
+
+        private User user;
 
         /**
          * Instantiates a new Entry view holder.
@@ -126,6 +129,91 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             UserName = itemView.findViewById(R.id.title);
             UserLocation = itemView.findViewById(R.id.author);
             UserMutualFriends = itemView.findViewById(R.id.UserMutualFriends);
+
+            currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+            /*
+
+            I THINK THE PROBLEM HERE IS THAT ITS NOT HAVING ENOUGH TIME TO GET THE CURRENTUSER
+            TRY PASSING THE CURRENT USER TO THIS ACTIVITY AS AN ARGUMENT OR SOMETHING.
+
+             */
+
+
+            swapping = false;
+
+            fdb = new Follow_DB();
+
+            mcb = new myCallbackBool() {
+                @Override
+                public void onCallback(Boolean value) {
+                    isFollowing = value;
+                    int followcountchange;
+                    if (isFollowing){
+                        followcountchange = -1;
+                    }
+                    else{
+                        followcountchange = 1;
+                    }
+                    if (swapping){
+                        fdb.swapFollow(currentUser.getUid(), user.getUID(), isFollowing);
+                        swapping = false;
+                        isFollowing = !isFollowing;
+                        user.setFollowerCount(user.getFollowerCount() + followcountchange);
+                    }
+                    setFriendText();
+                    setFollowers();
+                }
+            };
+
+            Follow_or_unfollow = itemView.findViewById(R.id.fufButton);
+            Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    friendButtonPressed();
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mctx, User_Details_Activity.class); // TODO: change the name of this for the
+                    intent.putExtra("user", user);
+                    mctx.startActivity(intent);
+                }
+            });
         }
+
+        public void friendButtonPressed(){
+            swapping = true;
+            fdb.isFollowing(currentUser.getUid(), user.getUID(), mcb);
+        }
+
+        public void setFriendText(){
+            if (isFollowing){
+                Follow_or_unfollow.setText("Unfollow");
+                Follow_or_unfollow.setBackgroundColor(mctx.getResources()
+                        .getColor(R.color.denyRed, mctx.getTheme()));
+            }
+            else{
+                Follow_or_unfollow.setText("Follow");
+                Follow_or_unfollow.setBackgroundColor(mctx.getResources()
+                        .getColor(R.color.acceptGreen, mctx.getTheme()));
+            }
+
+
+        }
+
+        private void setFollowers(){
+            UserMutualFriends.setText("Followers:   " + Integer.toString(user.getFollowerCount()));
+        }
+
+        public void setUser(User u){
+            user = u;
+            fdb.isFollowing(currentUser.getUid(), user.getUID(), mcb);
+        }
+
+
     }
 }
