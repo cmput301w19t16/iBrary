@@ -20,7 +20,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/ProfilePicture"
+                android:id="@+id/BookCover"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="8dp"
@@ -55,7 +55,7 @@
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.066"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -69,7 +69,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.058"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
                 app:layout_constraintTop_toBottomOf="@+id/username" />
 
             <TextView
@@ -85,7 +85,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.058"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
                 app:layout_constraintTop_toBottomOf="@+id/Location" />
 
 

@@ -19,7 +19,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/ProfilePicture"
+                android:id="@+id/BookCover"
                 android:layout_width="102dp"
                 android:layout_height="125dp"
                 android:layout_marginTop="8dp"
@@ -39,7 +39,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -53,7 +53,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
                 app:layout_constraintTop_toBottomOf="@+id/username" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
                 app:layout_constraintTop_toBottomOf="@+id/Location" />
 
             <TextView
@@ -78,7 +78,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Status"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                app:layout_constraintStart_toEndOf="@+id/ProfilePicture"
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
                 app:layout_constraintTop_toBottomOf="@+id/BookISBN" />
 
             <TextView

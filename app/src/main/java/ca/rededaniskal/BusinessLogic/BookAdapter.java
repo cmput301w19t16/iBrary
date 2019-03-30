@@ -12,6 +12,8 @@ package ca.rededaniskal.BusinessLogic;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
+import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.R;
@@ -68,6 +71,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         bookViewHolder.bookISBN.setText(book.getISBN());
         bookViewHolder.bookStatus.setText(book.getStatus());
         bookViewHolder.bookOwner.setText(book.getOwner());
+        if(book.getCover() != null){
+            Bitmap bitmap = new Photos(mctx).getBitmapFromURL(book.getCover());
+            bookViewHolder.bookCover.setImageBitmap(bitmap);
+        }
 
         //if User clicks on a Book, will start the book details Activity
         bookViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +107,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
      */
     class BookViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        ImageView bookCover;
         TextView bookTitle, bookAuthor, bookISBN, bookStatus, bookOwner;
 
         /**
@@ -115,6 +122,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             bookISBN = itemView.findViewById(R.id.BookISBN);
             bookStatus = itemView.findViewById(R.id.bookStatus);
             bookOwner = itemView.findViewById(R.id.bookOwner);
+            bookCover = itemView.findViewById(R.id.BookCover);
         }
     }
 
