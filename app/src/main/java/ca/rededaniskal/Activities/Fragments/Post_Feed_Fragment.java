@@ -13,7 +13,6 @@ package ca.rededaniskal.Activities.Fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +23,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import ca.rededaniskal.EntityClasses.Post;
-import ca.rededaniskal.EntityClasses.Text_Post;
 import ca.rededaniskal.BusinessLogic.PostAdapter;
-import ca.rededaniskal.EntityClasses.Rating_Post;
 import ca.rededaniskal.R;
 
 /**
@@ -114,27 +111,14 @@ public class Post_Feed_Fragment extends Fragment {
         final RecyclerView recyclerView = view.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
         final ArrayList<Post> postList = new ArrayList<Post>();
-        postList.add(new Text_Post("Loved this Book!", "Nick", "Happy Potter"));
-        postList.add(new Text_Post("Can I borrow this from anyone?", "Revan", "Oxford English Dictionary"));
 
-        postList.add(new Rating_Post("Very Good", "Revan", "Happy Potter", 5.0));
-        postList.add(new Rating_Post("Enjoyed", "Skye", "Happy Potter", 4.0));
-
-
-        postList.add(new Text_Post("Looking forward to reading this", "Revan", "Happy Potter 2"));
-        postList.add(new Text_Post("Illuminating", "Skye", "Happy Potter"));
-        postList.add(new Text_Post("Luminous", "Skye", "Happy Potter2"));
-
-        postList.add(new Rating_Post("Good read :) ", "Alex", "The Hobbit", 3.0));
-        postList.add(new Rating_Post("Excellent!", "Daniela", "BLAW", 5.0));
-
-        for (Post p: postList){
-            p.setID("Some post id");
-        }
+        postList.add(new Post("Loved this Book!", "Nick", "Happy Potter", "Thoughts on Book"));
+        postList.add(new Post("Can I borrow this from anyone?", "Revan", "Oxford English Dictionary", "Looking to lend this"));
+        postList.add(new Post("Luminous!", "Skype", "Happy Potter", "Thoughts on Book"));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        final PostAdapter postAdapter = new PostAdapter(postList, Post_Feed_Fragment.this);
+        final PostAdapter postAdapter = new PostAdapter(Post_Feed_Fragment.this, postList);
         recyclerView.setAdapter(postAdapter);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -142,7 +126,7 @@ public class Post_Feed_Fragment extends Fragment {
             public void onRefresh() {
                 postList.add(new Post("This post should now show up",
                         "blank", "blank", "Display"));
-                recyclerView.setAdapter(new PostAdapter(postList, Post_Feed_Fragment.this));
+                recyclerView.setAdapter(new PostAdapter(Post_Feed_Fragment.this, postList));
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         // Stop animation (This will be after 3 seconds)
