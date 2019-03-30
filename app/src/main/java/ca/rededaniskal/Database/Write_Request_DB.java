@@ -96,7 +96,7 @@ public class Write_Request_DB {
         String owner = book.getOwner();
         String requestType = "Book Requested";
 
-        Write_Notification_Logic new_notif = new Write_Notification_Logic(owner, k, requestType);
+        Write_Notification_Logic new_notif = new Write_Notification_Logic(owner, request.getsenderUID(), k, requestType);
         Update_Book_DB book_status = new Update_Book_DB(book);
     }
 
@@ -116,7 +116,7 @@ public class Write_Request_DB {
 
         if(request.getStatus().equals("Accepted")){
             String requestType = "Book Request Accepted";
-            Write_Notification_Logic delete_notif = new Write_Notification_Logic(request.getsenderUID(), key, requestType);
+            Write_Notification_Logic delete_notif = new Write_Notification_Logic(request.getsenderUID(), request.getrecipientUID(), key, requestType);
         }
         Update_Book_DB book_status = new Update_Book_DB(request.getrecipientUID(), request.getIsbn());
     }

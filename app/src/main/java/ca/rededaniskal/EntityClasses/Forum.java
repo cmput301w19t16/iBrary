@@ -2,7 +2,7 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.ArrayList;
 
-public class Forum {
+public class  Forum {
 
     private ArrayList<Thread> threads = new ArrayList<>();
     private String isbn;
