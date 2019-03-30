@@ -20,7 +20,7 @@ import ca.rededaniskal.EntityClasses.User;
 
 import static android.content.ContentValues.TAG;
 
-public class SignUpDB {
+public class  SignUpDB {
 
     // To read or write from the database, a database reference is needed
     private DatabaseReference mDatabase;
