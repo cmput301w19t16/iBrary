@@ -32,7 +32,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
 
-import ca.rededaniskal.BusinessLogic.UseGoogleBooksAPI;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -60,6 +59,12 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     private ImageView cover;
     private String isbn;
     private String returnString;
+    private String Title;
+    private String Author;
+    private String ISBN;
+    private String titleHint;
+    private String authorHint;
+    private String isbnHint;
 
     private ValidateBookLogic businessLogic;
 
@@ -82,6 +87,32 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
         addBook = findViewById(R.id.addBook);
 
         cover = findViewById(R.id.BookCover);
+
+        addAuthor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    authorHint="";
+                }
+
+
+            }
+        });
+        addISBN.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    isbnHint = "";
+                }
+
+            }
+        });
+        addTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){ titleHint="";}
+            }
+        });
 
         openScanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,16 +146,15 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
                 // view is refreshed
 
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                String Title = addTitle.getText().toString();
-                String Author = addAuthor.getText().toString();
-                String ISBN = addISBN.getText().toString();
+                getInfo();
+
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN);
 
 
 
-
-                if (businessLogic.isValid().equals("")){
-                    businessLogic.saveInformation(new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available"));
+                String error_m =businessLogic.isValid();
+                if (error_m.equals("")){
+                    businessLogic.saveInformation(userID);
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
 
 
@@ -133,6 +163,13 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
                 finish();}
 
                 else{
+
+                    Toast.makeText(Add_Book_To_Library_Activity.this, error_m , Toast.LENGTH_SHORT);
+                    authorHint = businessLogic.getAuthorError();
+                    titleHint = businessLogic.getTitleError();
+                    isbnHint=businessLogic.getISBNError();
+                    set_Book_Info_Hints();
+
 
 
                 }
@@ -146,9 +183,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
     }
 
     public void getInfo() {
-        String Title = addTitle.getText().toString();
-        String Author = addAuthor.getText().toString();
-        String ISBN = addISBN.getText().toString();
+        Title = addTitle.getText().toString();
+        Author = addAuthor.getText().toString();
+        ISBN = addISBN.getText().toString();
 
 
     }
@@ -184,5 +221,15 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity {
             addISBN.setText(ISBN);
         }
     }
+
+
+
+
+public void set_Book_Info_Hints(){
+        addAuthor.setHint(authorHint);
+        addTitle.setHint(titleHint);
+        addISBN.setHint(isbnHint);
+}
+
 
 }

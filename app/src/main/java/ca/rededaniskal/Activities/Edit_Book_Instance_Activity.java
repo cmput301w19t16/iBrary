@@ -120,7 +120,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 getInfo();
 
-                businessLogic.delete(book.getBookID(), book.getISBN());
+                businessLogic.delete(book.getBookID());
 
                 Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                 startActivity(intent);
