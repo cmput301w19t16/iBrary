@@ -137,40 +137,46 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
         if (!isCancelled() && responseJson != null) {
             String title = null;
             JSONArray authors = null;
-            try {
 
+            if(responseJson.has("imageLinks")){
+                try {
+                    // Get appropriate fields out of JSON object.
 
-                // Get appropriate fields out of JSON object.
-                JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
-                switch (mode) {
-                    case 1:
-                        new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
-                        break;
+                    JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
+                    switch (mode) {
+                        case 1:
+                            new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
+                            break;
 
-                    default:
-                        JSONArray itemsArray = responseJson.getJSONArray("items");
-                        JSONObject book = itemsArray.getJSONObject(0);
-                        JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+                        default:
+                            JSONArray itemsArray = responseJson.getJSONArray("items");
+                            JSONObject book = itemsArray.getJSONObject(0);
+                            JSONObject volumeInfo = book.getJSONObject("volumeInfo");
 
-                        title = volumeInfo.getString("title");
-                        authors = volumeInfo.getJSONArray("authors");
+                            title = volumeInfo.getString("title");
+                            authors = volumeInfo.getJSONArray("authors");
 
-                        // If both are found, display the result.
-                        if (title != null && authors != null) {
-                            for (int i = 0; i < authors.length(); i++) {
-                                myAuthor.append(authors.get(i).toString());
+                            // If both are found, display the result.
+                            if (title != null && authors != null) {
+                                for (int i = 0; i < authors.length(); i++) {
+                                    myAuthor.append(authors.get(i).toString());
+                                }
+                                myTitle.setText(title);
                             }
-                            myTitle.setText(title);
-                        }
+                    }
+
+                    //delegate.processFinish(googleCover);
+                } catch (Exception e) {
+                    // If onPostExecute does not receive a proper JSON string
+                    Log.d("Reach exception in onPostExecute" , e.toString());
+                    e.printStackTrace();
+                    delegate.processFinish(null);
                 }
 
-                //delegate.processFinish(googleCover);
-            } catch (Exception e) {
-                // If onPostExecute does not receive a proper JSON string
-                Log.d("Reach exception in onPostExecute" , e.toString());
-                e.printStackTrace();
-                delegate.processFinish(null);
+            } else {
+                return;
             }
+
         } else {
             return;
         }
