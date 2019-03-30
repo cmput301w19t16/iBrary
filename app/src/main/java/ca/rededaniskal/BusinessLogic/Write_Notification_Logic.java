@@ -10,9 +10,11 @@ public class Write_Notification_Logic {
     private String UID;
     private String RequestID;
     private String RequestType;
+    private String sender;
 
-    public Write_Notification_Logic(String UID, String RequestID, String RequestType){
+    public Write_Notification_Logic(String UID, String sender, String RequestID, String RequestType){
         this.UID = UID;
+        this.sender = sender;
         this.RequestID = RequestID;
         this.RequestType = RequestType;
         createNotification();
@@ -35,7 +37,7 @@ public class Write_Notification_Logic {
 
     public void createNotification(){
 
-        Notification notification = new Notification(UID, RequestID, RequestType);
+        Notification notification = new Notification(UID, sender, RequestID, RequestType);
 
         db = new Write_Notification_DB(notification);
     }

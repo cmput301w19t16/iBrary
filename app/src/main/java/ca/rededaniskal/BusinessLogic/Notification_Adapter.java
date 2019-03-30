@@ -131,7 +131,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
     public void checkEmpty(){
         if (mDataset.size() == 0){
-            Notification dummy = new Notification("You", "idnumber", true);
+            Notification dummy = new Notification("You", "Me", "idnumber", true);
             dummy.setRequestType("Other");
             mDataset.add(dummy);
         }
