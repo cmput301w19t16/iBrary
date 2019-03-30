@@ -14,16 +14,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.View_Thread_Activity;
-import ca.rededaniskal.EntityClasses.Parent_Thread;
+import ca.rededaniskal.EntityClasses.Thread;
 import ca.rededaniskal.R;
 
 public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHolder>{
 
     public static final String REPLIED = "replied";
     public Context mctx;
-    private ArrayList<Parent_Thread> threads;
+    private ArrayList<Thread> threads;
 
-    public ForumAdapter(Context mctx, ArrayList<Parent_Thread> threads) {
+    public ForumAdapter(Context mctx, ArrayList<Thread> threads) {
         this.mctx = mctx;
         this.threads = threads;
     }
@@ -43,7 +43,7 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ForumViewHolder forumViewHolder, final int i) {
-        final Parent_Thread child_thread = threads.get(i);
+        final Thread child_thread = threads.get(i);
 
 
         //TODO: Set profile pictures
@@ -52,7 +52,7 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
         forumViewHolder.text.setText(child_thread.getText());
         forumViewHolder.name.setText(child_thread.getCreator());
         forumViewHolder.topic.setText(child_thread.getTopic());
-        Integer numreplies = child_thread.getThreads().size();
+        Integer numreplies = child_thread.getComments().size();
 
         forumViewHolder.replies.setText(Integer.toString(numreplies).concat(" replies"));
 
@@ -62,9 +62,7 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
             public void onClick(View v) {
                 Intent intent = new Intent(mctx, View_Thread_Activity.class); // TODO: change the name of this for the
 
-                ArrayList<Parent_Thread> temp = new ArrayList<>();
-                temp.add(child_thread);
-                intent.putExtra("parent", temp);
+                intent.putExtra("thread", child_thread);
                 mctx.startActivity(intent);
             }
         });

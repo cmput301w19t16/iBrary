@@ -80,6 +80,10 @@
 
 
         <activity
+            android:name=".Activities.View_Thread_Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".Activities.Establish_Exchange_Details_Activity"
             android:label="@string/title_activity_establish_location"
             android:theme="@style/AppTheme.NoActionBar" />
