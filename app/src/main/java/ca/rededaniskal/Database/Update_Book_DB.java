@@ -18,19 +18,19 @@ public class Update_Book_DB {
     private BorrowRequest request;
     private Book_Instance book;
     private DatabaseReference mDatabase;
-    private String book_instances_key;
-    private String all_books_key;
     private boolean isRequested;
     private boolean isAccepted;
     private boolean isBorrowed;
     private String owner;
     private String isbn;
+    private String book_key;
 
     public Update_Book_DB(Book_Instance book) {
         this.book = book;
         this.isRequested = false;
         this.isAccepted = false;
         this.isBorrowed = false;
+        this.book_key = book.getBookID();
 
         bookStatus();
     }
@@ -80,36 +80,12 @@ public class Update_Book_DB {
                 if (dataSnapshot.exists()) {
                     Log.d(ContentValues.TAG, "*********----->exists");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
-                        book_instances_key = snapshot.getKey();
+                        Book_Instance book = snapshot.getValue(Book_Instance.class);
+                        book_key = snapshot.getKey();
                         updateBookInstance();
-                    }
-
-                }
-                getAllBooks();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void getAllBooks(){
-        Query query = FirebaseDatabase.getInstance().getReference("all-books")
-                .orderByChild("isbn")
-                .equalTo(book.getISBN());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    Log.d(ContentValues.TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
-                        all_books_key = snapshot.getKey();
                         updateAllBooks();
                     }
+
                 }
             }
 
@@ -120,13 +96,8 @@ public class Update_Book_DB {
         });
     }
 
-    public void updateBookInstance(){
-        mDatabase = FirebaseDatabase.getInstance().getReference("book-instances");
-        mDatabase.child(book.getOwner())
-                .child(book_instances_key)
-                .setValue(book);
 
-    }
+
 
 
     public void bookStatus(){
@@ -152,6 +123,7 @@ public class Update_Book_DB {
                     }
                 }
                 updateBookStatus();
+
             }
 
             @Override
@@ -180,7 +152,15 @@ public class Update_Book_DB {
 
     public void updateAllBooks(){
         mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
-        mDatabase.child(all_books_key)
+        mDatabase.child(book_key)
                 .setValue(book);
+    }
+
+    public void updateBookInstance(){
+        mDatabase = FirebaseDatabase.getInstance().getReference("book-instances");
+        mDatabase.child(book.getOwner())
+                .child(book_key)
+                .setValue(book);
+
     }
 }

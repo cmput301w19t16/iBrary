@@ -12,8 +12,8 @@ import java.util.Date;
 import ca.rededaniskal.BusinessLogic.Book_ExchangeAdapter;
 import ca.rededaniskal.BusinessLogic.UserAdapter;
 import ca.rededaniskal.EntityClasses.Book_Exchange;
-import ca.rededaniskal.EntityClasses.Check_In;
-import ca.rededaniskal.EntityClasses.User;
+import ca.rededaniskal.EntityClasses.Exchange;
+
 import ca.rededaniskal.R;
 
 public class View_Pending_Exchanges_Activity extends AppCompatActivity {
@@ -34,7 +34,7 @@ public class View_Pending_Exchanges_Activity extends AppCompatActivity {
         Date d = new Date();
 
 
-        Book_Exchange e = new Check_In("Revan", "Nick", "12345", "12345", 37.0, 67.0, d);
+        Book_Exchange e = new Exchange("Revan", "Nick", "12345", "12345", 37.0, 67.0, d);
         exchanges.add(e);
 
         recyclerView = (RecyclerView) findViewById(R.id.Display);

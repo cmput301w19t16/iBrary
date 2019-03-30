@@ -10,7 +10,9 @@
  */
 package ca.rededaniskal.Activities;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,8 +31,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.Database.getAllBooks;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -41,7 +45,7 @@ public class View_All_Books_Activity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
-    private Book_List BL;
+    private ArrayList<Display_Username> BL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,12 @@ public class View_All_Books_Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (intent.getExtras() != null ){
+        if (intent.getExtras() != null) {
             Master_Book mb = (Master_Book) intent.getSerializableExtra("master_book"); //Get the book
             //TODO: get related books for the database
         }
 
-        BL = new Book_List(); //Initiatize books to be displayed
+        BL = new ArrayList<>(); //Initiatize books to be displayed
 
         //Set the card views
         recyclerView = (RecyclerView) findViewById(R.id.DisplayBooks);
@@ -66,44 +70,14 @@ public class View_All_Books_Activity extends AppCompatActivity {
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
 
-        getAllBooks db = new getAllBooks();
+        getAllBooks db = new getAllBooks(this);
+    }
+
+    public void addBook(ArrayList<Display_Username> book_list){
+        bookAdapter = new BookAdapter(this, book_list);
+        recyclerView.setAdapter(bookAdapter);
+        bookAdapter.notifyDataSetChanged();
     }
 
 
-    private class getAllBooks{
-        DatabaseReference mDatabase;
-
-        public getAllBooks() {
-            getUserQuery();
-        }
-
-        private void getUserQuery(){
-            mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
-            mDatabase.addListenerForSingleValueEvent(valueEventListener);
-        }
-
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                BL.clear();
-                Log.d(TAG, "*********----->onDataChange");
-                if (dataSnapshot.exists()) {
-                    Log.d(TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        //Log.d(TAG, "*********----->"+snapshot.getValue());
-                        Book_Instance book = snapshot.getValue(Book_Instance.class);
-                        BL.addBook(book);
-                    }
-                    bookAdapter.notifyDataSetChanged();
-                }
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-    }
 }
