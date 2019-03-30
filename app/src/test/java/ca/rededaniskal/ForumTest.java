@@ -53,7 +53,7 @@ public class ForumTest {
         Post reply = new Post("this is a post", user.getUserName(), "333", "Friend");
         forumPosts.addPost(reply);
 
-        assertEquals("@james smith Reply post test", reply.getMessage());
+        assertEquals("@james smith Reply post test", reply.getText());
     }
 
     @Test

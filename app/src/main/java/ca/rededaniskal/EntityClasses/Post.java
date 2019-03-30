@@ -1,58 +1,49 @@
 package ca.rededaniskal.EntityClasses;
 
-import java.util.UUID;
-
-import java.util.Date;
-
 public class Post {
-    private String message;
-    private Date timestamp;
-    private String userName;
+    private String text;
+    private String uid;
     private String ISBN;
-    private String postID;
-    private String type;
+    private String topic;
 
     // Constructor for a post
-    public Post(String message, String userName, String ISBN, String TYPE) {
-        this.message = message;
-        this.timestamp = new Date();
-        this.userName = userName;
+    public Post(String text, String uid, String ISBN, String topic) {
+        this.text = text;
+        this.uid = uid;
         this.ISBN = ISBN;
-        this.type = TYPE;
+        this.topic = topic;
     }
 
 
-    public String getISBN(){ return ISBN;}
-
-    public String getType(){ return type;}
-
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public void setPostID(String postID){
-        this.postID = postID;
+    public String getUid() {
+        return uid;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getISBN() {
+        return ISBN;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
     }
 
-    public void setID(String id) {this.postID = id;}
+    public String getTopic() {
+        return topic;
+    }
 
-    public String getID() {return this.postID;}
-
-
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
 }

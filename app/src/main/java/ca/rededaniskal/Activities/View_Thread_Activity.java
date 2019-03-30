@@ -121,6 +121,7 @@ public class View_Thread_Activity extends AppCompatActivity {
                             Comment newComment = new Comment(uid, textStr);
 
                             parent.addComment(newComment);
+                            replies.setText(Integer.toString(parent.numComments()).concat(" replies"));
 
                             adapterChildren.notifyDataSetChanged();
                             popupWindow.dismiss();
