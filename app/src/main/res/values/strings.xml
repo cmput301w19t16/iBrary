@@ -103,6 +103,22 @@
     <string name="view_all_users">View All Users</string>
     <string name="view_all_books">View All Books</string>
     <string name="requests2">requests</string>
+    <string name="title_activity_establish_location">EstablishLocation</string>
+    <string name="select_pick_up_location">Pick-up Location</string>
+    <string name="select_pick_up_time">Pick-up Time</string>
+    <string name="select_pick_up_date">Pick-up Date</string>
+    <string name="title_activity_view__pick_up__details">View_PickUp_Details</string>
+    <string name="view_pick_up_details">Pick-up Details</string>
+    <string name="view_drop_off_details">Book Return Details</string>
+    <string name="check_out_book">Check Out Book</string>
+    <string name="meet_username">You can meet </string>
+    <string name="select_pick_up_dets">Select Pick-up Details </string>
+    <string name="select_drop_off_dets">Select Drop-off Details </string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="establish_exchange_pick_up">Establish Pick</string>
+    <string name="title_activity_take__photo_">Take_Photo_Activity</string>
     <string name="title_activity_view__book__request_">View_Book_Request_Activity</string>
 
     <string name="new_forum_topic">New Forum Topic</string>
@@ -110,11 +126,23 @@
     <string name="post">Post</string>
     <string name="new_post">New Post</string>
     <string name="add_post">Add New Post</string>
+    <string name="title_activity_set__pickup__location_">Map</string>
     <string name="avg_rating">avg. rating</string>
     <string name="rating">my rating</string>
     <string name="confirm">Confirm</string>
     <string name="deny">Deny</string>
-
+    <string name="title_activity_set_location">Map</string>
+    <string name="set__location">Set Location</string>
+    <string name="title_activity_view__pickup_">Map</string>
+    <string name="author_space">author</string>
+    <string name="my_followers">My Followers</string>
+    <string name="im_following">Im Following</string>
+    <string name="usersImFollowing">Users I\'M Following</string>
+    <string name="pending_exchanges">Pending Exchanges</string>
+    <string name="borrower">Borrower</string>
+    <string name="posted_on">posted on</string>
+    <string name="topic">topic</string>
+    <string name="text">text</string>
 
 
 </resources>

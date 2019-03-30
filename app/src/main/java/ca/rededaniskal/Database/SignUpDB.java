@@ -8,8 +8,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import ca.rededaniskal.Activities.Signup_Activity;
 import ca.rededaniskal.EntityClasses.User;
@@ -43,6 +47,30 @@ public class  SignUpDB {
 
 
     public void setSuccess(boolean success) {this.success = success;
+    }
+
+    public void uniqueUserName(String username, String Email, String Password){
+        final String email = Email;
+        final String password = Password;
+        Query query = FirebaseDatabase.getInstance().getReference("Users")
+                .orderByChild("userName")
+                .equalTo(username);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    createUser(email, password);
+                }else{
+                    parent.userNameTaken();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
@@ -84,10 +112,11 @@ public class  SignUpDB {
         Log.d(TAG, parent.getUserEmail());
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-        String key = mDatabase.push().getKey();
+        //String key = mDatabase.push().getKey();
 
         User newUser = parent.getUser();
         newUser.setUID(UID);
+        String key = UID;
 
         mDatabase.child(key).setValue(newUser);
 

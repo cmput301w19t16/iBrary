@@ -1,14 +1,13 @@
 package ca.rededaniskal.Database;
 
-import android.app.Activity;
-
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 import ca.rededaniskal.EntityClasses.Forum;
 import ca.rededaniskal.EntityClasses.Text_Post;
+
 
 public class ForumDb extends Entity_Database {
 

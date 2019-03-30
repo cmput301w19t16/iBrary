@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,31 +22,24 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.BusinessLogic.ThreadAdapter;
-import ca.rededaniskal.EntityClasses.Forum;
-import ca.rededaniskal.EntityClasses.Parent_Thread;
+import ca.rededaniskal.EntityClasses.Comment;
 import ca.rededaniskal.EntityClasses.Thread;
-import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class View_Thread_Activity extends AppCompatActivity {
 
-    ArrayList<Parent_Thread> displayParent;
-    Parent_Thread parent;
-    ArrayList<Thread> children;
+    private ArrayList<Thread> displayParent;
+    private Thread parent;
+    private ArrayList<Comment> children;
 
-    private RecyclerView viewParent;
     private RecyclerView viewChildren;
-
-    //We need two different adapters , one to display the parent at the top and tbe other to show children
-    private ForumAdapter adapterParent;
     private ThreadAdapter adapterChildren;
-
     private FloatingActionButton addTopic;
+
+    private TextView name, topic, text, replies;
 
     private FirebaseAuth mAuth;
 
@@ -59,18 +51,24 @@ public class View_Thread_Activity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Intent intent = getIntent();
-        displayParent = (ArrayList<Parent_Thread>) intent.getSerializableExtra("parent");
+        parent = (Thread)  intent.getSerializableExtra("thread");
+        children = parent.getComments();
 
-        children = displayParent.get(0).getThreads();
+
+
         addTopic = findViewById(R.id.add);
 
-        //Set the recycler view for the Parent
-        viewParent= findViewById(R.id.ViewParent);
-        viewParent.setHasFixedSize(true);
-        viewParent.setLayoutManager(new LinearLayoutManager(this));
-        adapterParent = new ForumAdapter(this, displayParent);
-        viewParent.setAdapter(adapterParent);
-        adapterParent.notifyDataSetChanged();
+        //Set the views for the Parent
+        name = findViewById(R.id.name);
+        topic = findViewById(R.id.topic);
+        text = findViewById(R.id.text);
+        replies = findViewById(R.id.replies);
+
+        name.setText(parent.getCreator());
+        topic.setText(parent.getTopic());
+        text.setText(parent.getText());
+        replies.setText(Integer.toString(parent.numComments()).concat(" replies")  );
+
 
         //Set the recycler view for the Children
         viewChildren = findViewById(R.id.ViewThreads);
@@ -120,12 +118,12 @@ public class View_Thread_Activity extends AppCompatActivity {
                             String uid = currentUser.getUid();
                             String textStr = text.getText().toString();
 
-                            Thread newThread = new Thread(uid, textStr);
+                            Comment newComment = new Comment(uid, textStr);
 
-                            displayParent.get(0).addThread(newThread);
+                            parent.addComment(newComment);
+                            replies.setText(Integer.toString(parent.numComments()).concat(" replies"));
 
                             adapterChildren.notifyDataSetChanged();
-                            adapterParent.notifyDataSetChanged();
                             popupWindow.dismiss();
                         }
                     }

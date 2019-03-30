@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activities.Establish_Exchange_Details_Activity"
+    tools:showIn="@layout/activity_establish_location">
+
+    <Button
+        android:id="@+id/ConfirmExchangeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+        app:layout_constraintVertical_bias="0.048" />
+
+
+    <TableLayout
+        android:id="@+id/tableLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/displayLoc"
+                android:layout_width="254dp"
+                android:layout_height="match_parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <Button
+                android:id="@+id/chooseLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set__location" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/PickUpTimeEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="time"
+
+                />
+
+            <Button
+                android:id="@+id/ExchangeTimeButton"
+                android:layout_width="104dp"
+                android:layout_height="match_parent"
+
+                android:text="@string/time"
+
+                />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/PickUpDateEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:ems="10"
+                android:inputType="date"
+                />
+
+
+            <Button
+                android:id="@+id/ExchangeDateButton"
+                android:layout_width="148dp"
+                android:layout_height="match_parent"
+                android:text="@string/date" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="136dp"
+        android:layout_height="153dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_book_black_24dp" />
+
+</android.support.constraint.ConstraintLayout>

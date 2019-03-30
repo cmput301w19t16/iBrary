@@ -1,14 +1,20 @@
 package ca.rededaniskal.EntityClasses;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Request {
-    private String senderUID;
-    private String recipientUID;
+public class Request implements Serializable {
+
     private String requestType;
     private String status;
     private String requestId;
     private Date timestamp;
+    private String recipientUID;
+    private String senderUID;
+
+    private Double lat;
+    private Double lng;
+
     public Request(){}
 
     public Request(String senderUID, String recipientUID, String type){
@@ -78,5 +84,21 @@ public class Request {
 
     public void setRequestId(String requestId) {
         this.requestId = requestId;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 }

@@ -11,6 +11,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.EntityClasses.Book;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
@@ -30,7 +31,7 @@ public class BookInstanceDb extends Entity_Database {
     }
     public DatabaseReference currentUserBooklist(){ return mDatabase.child(getUID());}
 
-    public Book_Instance getBookInstance(String ownerID, String bookID){
+    public void getBookInstance(String ownerID, String bookID, final myCallbackBookInstance mcbbi){
 
 
         bookRef = mDatabase.child(ownerID).child(bookID);
@@ -38,7 +39,7 @@ public class BookInstanceDb extends Entity_Database {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-                    book = dataSnapshot.getValue(Book_Instance.class);
+                    mcbbi.onCallback(dataSnapshot.getValue(Book_Instance.class));
                 }
             }
 
@@ -47,8 +48,6 @@ public class BookInstanceDb extends Entity_Database {
 
             }
         });
-
-        return book;
     }
 
 

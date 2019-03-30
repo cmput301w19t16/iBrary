@@ -8,23 +8,34 @@ public class Notification {
     private String requestID;
     private boolean seen;
     private String requestType;
+    private String sender;
 
     public Notification(){}
 
-    public Notification(String user, String req, boolean s){
+    public Notification(String user, String sender, String req, boolean s){
         timestamp = new Date();
         requestID = req;
         userID = user;
+        this.sender = sender;
         seen = s;
         requestType = "";
     }
 
-    public Notification(String user, String req, String rT){
+    public Notification(String user, String sender, String req, String rT){
         timestamp = new Date();
         requestID = req;
         userID = user;
         seen = false;
         requestType = rT;
+        this.sender = sender;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     public Date getTimestamp() {

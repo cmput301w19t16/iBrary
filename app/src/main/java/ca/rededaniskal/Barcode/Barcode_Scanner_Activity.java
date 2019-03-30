@@ -21,13 +21,19 @@ import java.util.List;
 public class Barcode_Scanner_Activity extends AppCompatActivity implements View.OnClickListener, Barcode_Reader_Fragment.BarcodeReaderListener {
 
     private TextView mTvResult;
+    private Class returnTo;
+
+    /*public Barcode_Scanner_Activity(Class returnTo){
+        this.returnTo = returnTo;
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode__scanner_);
+        returnTo = getIntent().getSerializableExtra("ReturnClass").getClass();
         findViewById(R.id.btn_fragment).setOnClickListener(this);
-        mTvResult = findViewById(R.id.tv_result);
+        //mTvResult = findViewById(R.id.tv_result);
 
     }
 
@@ -42,11 +48,8 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_fragment:
-                addBarcodeReaderFragment();
-                break;
-        }
+        if (v.getId() == R.id.btn_fragment)
+            addBarcodeReaderFragment();
     }
 
 
@@ -63,19 +66,13 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
 
     @Override
     public void onScanned(Barcode barcode) {
-        Intent intent = new Intent(this, Add_Book_To_Library_Activity.class);
+        Intent intent = new Intent(this, returnTo);
         intent.putExtra("ISBN", barcode.rawValue);
         Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
         mTvResult.setText(barcode.rawValue);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
-
-    /*@Override
-    public void onScanned(Barcode barcode) {
-        Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
-        mTvResult.setText(barcode.rawValue);
-    }*/
 
     @Override
     public void onScannedMultiple(List<Barcode> barcodes) {

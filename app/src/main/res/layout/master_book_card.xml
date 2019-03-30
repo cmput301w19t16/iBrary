@@ -8,7 +8,6 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
 
@@ -18,71 +17,117 @@
             android:layout_height="match_parent"
             android:padding="8dp">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/book_title"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/author"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="14sp"
-                android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rating" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/author2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/isbn"
-                android:textColor="@color/common_google_signin_btn_text_light_default"
-                android:textSize="14sp"
-                android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/author" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_title"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="24sp"
+                    android:layout_span="2"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/showisbn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/author"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="14sp"
-                android:textStyle="normal"
-                app:layout_constraintStart_toEndOf="@+id/author2"
-                app:layout_constraintTop_toBottomOf="@+id/author" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
 
-            <RatingBar
-                android:id="@+id/rating"
-                style="@style/Widget.AppCompat.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:stepSize="0.1"
-                android:theme="@style/RatingBarAvg"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                    <RatingBar
+                        android:id="@+id/rating"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:stepSize="0.1"
+                        android:theme="@style/RatingBarAvg" />
+
+            </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/author"
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="12dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/author"
+                        android:textColor="@color/common_google_signin_btn_text_light_default"
+
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/showauthor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/author"
+                        android:layout_weight="1"
+                        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                    <TextView
+                        android:id="@+id/ISBN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/isbn"
+                        android:textColor="@color/common_google_signin_btn_text_light_default"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/showisbn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/isbn"
+                        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:textStyle="normal" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                </TableRow>
+
+
+
+
+            </TableLayout>
+
+
+
+
+
+
+
+
+
+
+
+
 
         </android.support.constraint.ConstraintLayout>
 

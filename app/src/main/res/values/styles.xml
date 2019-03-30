@@ -8,6 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Custom theme for TimePickerDialog -->
+    <style name="MyTimePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
+    </style>
+
+    <style name="TimePickerDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="showTitle">false</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <!--Custom theme for DatePickerDialog -->
+    <style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:datePickerDialogTheme">@style/DatePickerDialogTheme</item>
+    </style>
+
+    <style name="DatePickerDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="showTitle">false</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

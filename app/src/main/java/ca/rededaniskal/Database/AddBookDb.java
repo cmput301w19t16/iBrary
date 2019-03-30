@@ -2,6 +2,8 @@ package ca.rededaniskal.Database;
     /*author Skye*/
 //Interacts with the Firebase when a user adds a book to ther library
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.provider.FirebaseInitProvider;
 
 import ca.rededaniskal.Activities.Fragments.Search_Fragment;
@@ -40,12 +42,6 @@ import ca.rededaniskal.EntityClasses.Master_Book;
             Master_Book mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
             masterdb.addMasterBook(mb);
 
-
-
-
-
-
-
         }
 
 
@@ -53,7 +49,9 @@ import ca.rededaniskal.EntityClasses.Master_Book;
             success = instancedb.getStorageId();
             book_instance.setBookID(success);
             bookAdded = instancedb.addBookInstance(book_instance);
-
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
+            String key = book_instance.getBookID();
+            mDatabase.child(key).setValue(book_instance);
 
         }
 

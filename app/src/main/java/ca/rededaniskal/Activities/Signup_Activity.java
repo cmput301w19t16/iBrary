@@ -9,6 +9,7 @@
  */
 package ca.rededaniskal.Activities;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -73,7 +75,9 @@ public class Signup_Activity extends AppCompatActivity {
     private Login_Manager_Helper_BL lmblHelper;
 
     private FusedLocationProviderClient client;
-    TextView location;
+    private double lat;
+    private double lon;
+    TextView locationText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,39 +96,37 @@ public class Signup_Activity extends AppCompatActivity {
             }
         });
 
-        location = findViewById(R.id.location);
+        locationText = findViewById(R.id.location);
 
         client = LocationServices.getFusedLocationProviderClient(this);
 
         requestPermission();
 
         //Set onClick Listeners
-        location.setOnClickListener(new View.OnClickListener() {
+        locationText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Get the user location and set the relevent fields
+                //Get the user location and set the relevant fields
 
                 if (ActivityCompat.checkSelfPermission(Signup_Activity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                client.getLastLocation().addOnSuccessListener(Signup_Activity.this, new OnSuccessListener<Location>() {
+                client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
-                    public void onSuccess(Location location2) {
-                        if(location2!=null) {
-                            //newLocation.setText(location.getLatitude() + " " + location.getLongitude());
-                            location.setText(getAddressName(location2.getLatitude(), location2.getLongitude()));
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            Location location = task.getResult();
+                            locationText.setText(getAddressName(location.getLatitude(), location.getLongitude()));
                         }
                     }
                 });
-
             }
         });
     }
 
-
     private String getAddressName(double lat, double lon) {
         String address = "";
-        Geocoder geocoder = new Geocoder(Signup_Activity.this, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(lat, lon, 1);
             address = addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea();
@@ -134,12 +136,11 @@ public class Signup_Activity extends AppCompatActivity {
         return address;
     }
 
-
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[] {ACCESS_FINE_LOCATION}, 1);
     }
 
-    //Make sure the fields are valid before signup
+    //Make sure the fields are valid before sign up
     public void validateFields(){
         String error = businessLogic.validdatePhone();
         if(!error.equals("")){
@@ -188,14 +189,19 @@ public class Signup_Activity extends AppCompatActivity {
             SignUpDB db = new SignUpDB(this);
             String email = emailText.getText().toString();
             String password = passwordText.getText().toString();
+            String username = usernameText.getText().toString();
             lmbl = Login_Manager_BL.getLoginManager();
             lmblHelper = new Login_Manager_Helper_BL(this.getBaseContext());
             lmbl.setUsername(email);
             lmbl.setPassword(password);
             lmblHelper.saveInFile(lmbl);
 
-            db.createUser(email, password);
+            db.uniqueUserName(username, email, password);
             }
+    }
+
+    public void userNameTaken(){
+        usernameText.setError("This username is already taken");
     }
 
 

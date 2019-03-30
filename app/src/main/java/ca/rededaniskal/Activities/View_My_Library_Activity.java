@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
 import ca.rededaniskal.Database.ReadMyBookDB;
 
@@ -50,11 +52,11 @@ public class View_My_Library_Activity extends AppCompatActivity {
     String[] filterOptions;
     boolean[] selectedOptions;
     ArrayList<Integer> chosenOptions = new ArrayList<>();
-    Book_List BL;
+    private ArrayList<Display_Username> BL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        BL = new Book_List();
+        BL = new ArrayList<Display_Username>();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__my__library_);
@@ -63,6 +65,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
         selectedOptions = new boolean[filterOptions.length];
 
         recyclerView = (RecyclerView) findViewById(R.id.DisplayBooks);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -139,7 +142,8 @@ public class View_My_Library_Activity extends AppCompatActivity {
     }
 
     //Update the View
-    public void updateBookView(Book_List book_list){
+    public void updateBookView(ArrayList<Display_Username> book_list){
+
         //uses filter book logic to allow users to filter books by status
         if (chosenOptions.size()!=0){
         Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);

@@ -20,20 +20,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ca.rededaniskal.Activities.Book_Details_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder>{
     public Activity mctx;
-    private Book_List bookList;
+    private ArrayList<Display_Username> bookList;
 
     /**
      * Instantiates a new Entry adapter.
      */
-    public BookAdapter(Activity mctx, Book_List bookList) {
+    public BookAdapter(Activity mctx, ArrayList<Display_Username> bookList) {
         this.mctx = mctx;
         this.bookList = bookList;
     }
@@ -47,7 +50,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         //Set the layout
         LayoutInflater inflater = LayoutInflater.from(mctx);
-        View view = inflater.inflate(R.layout.book_list_view, null);
+        View view = inflater.inflate(R.layout.book_list_view, viewGroup, false);
         BookViewHolder holder = new BookViewHolder(view);
         return holder;
     }
@@ -60,14 +63,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
      */
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder  bookViewHolder, final int i) {
-        final Book_Instance book = bookList.getBookByIndex(i);
-
+        final Display_Username display = bookList.get(i);
+        final Book_Instance book = display.getBook();
         //Set the book attributes
         bookViewHolder.bookTitle.setText(book.getTitle());
         bookViewHolder.bookAuthor.setText(book.getAuthor());
         bookViewHolder.bookISBN.setText(book.getISBN());
         bookViewHolder.bookStatus.setText(book.getStatus());
-        bookViewHolder.bookOwner.setText(book.getOwner());
+        bookViewHolder.bookOwner.setText(display.getOwner());
+        bookViewHolder.bookPosessor.setText(display.getBorrower());
 
         //if User clicks on a Book, will start the book details Activity
         bookViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +105,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     class BookViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
-        TextView bookTitle, bookAuthor, bookISBN, bookStatus, bookOwner;
+        TextView bookTitle, bookAuthor, bookISBN, bookStatus, bookOwner, bookPosessor;
 
         /**
          * Instantiates a new Entry view holder.
@@ -110,12 +114,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             super(itemView);
             //imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
 
-            bookTitle = itemView.findViewById(R.id.username);
-            bookAuthor = itemView.findViewById(R.id.Location);
-            bookISBN = itemView.findViewById(R.id.BookISBN);
-            bookStatus = itemView.findViewById(R.id.bookStatus);
-            bookOwner = itemView.findViewById(R.id.bookOwner);
+            bookTitle = itemView.findViewById(R.id.title);
+            bookAuthor = itemView.findViewById(R.id.author);
+            bookISBN = itemView.findViewById(R.id.isbn);
+            bookStatus = itemView.findViewById(R.id.viewStatus);
+            bookOwner = itemView.findViewById(R.id.viewOwner);
+            bookPosessor = itemView.findViewById(R.id.viewPosessor);
         }
     }
-
 }

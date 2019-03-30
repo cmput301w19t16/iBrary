@@ -30,7 +30,7 @@ Responsibility
 Collaborators
 Receive Notification
 Send Notification
-ArrayList<String> aka message
+ArrayList<String> aka text
 Read/UnRead
 
 -Users

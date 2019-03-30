@@ -29,6 +29,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -53,6 +57,7 @@ import ca.rededaniskal.Database.editUserDetailsDB;
 
 //Author: RevaN
 public class Edit_Profile_Activity extends AppCompatActivity {
+    public static final String GET_TEXTS = "*********----->getTexts";
     Button saveButton;
     FloatingActionButton editProfilePic;
     ImageView profilePicture;
@@ -63,6 +68,8 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     //For Camera
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +91,13 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         confirmNewPassword = findViewById(R.id.confirm_pass);
         db = new editUserDetailsDB(this);
         if (db.getFailed()){returnToLogin();}
+
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User use = getTexts();
-                db.saveNewDetails(use);
+                db.uniqueUserName(use);
             }
         });
 
@@ -107,6 +116,10 @@ public class Edit_Profile_Activity extends AppCompatActivity {
 //        });
     }
 
+    public void userNameTaken(){
+        EditText u = findViewById(R.id.new_username);
+        u.setError("This username is already taken");
+    }
 
     public User getTexts(){
         Log.d(TAG, "*********----->getTexts");
@@ -142,6 +155,8 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         Log.d(TAG, "*********----->LEAVING setTexts");
     }
 
+
+
     //Code From https://stackoverflow.com/a/5991757
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -158,6 +173,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         }
     }
 
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -170,4 +186,8 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         startActivity(new Intent(this, Login_Activity.class));
     }
 
+    public void nextActivity(){
+        startActivity(new Intent(Edit_Profile_Activity.this, View_Own_Profile_Fragment.class));
+        this.finish();
+    }
 }

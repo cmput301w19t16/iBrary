@@ -10,7 +10,6 @@
  */package ca.rededaniskal.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,9 +20,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import ca.rededaniskal.Database.Write_Friendship_DB;
-import ca.rededaniskal.BusinessLogic.Add_Remove_Friend_Logic;
-import ca.rededaniskal.EntityClasses.Master_Book;
+import ca.rededaniskal.Database.Follow_DB;
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -49,12 +47,14 @@ public class User_Details_Activity extends AppCompatActivity {
     ImageView UserPic;
 
 
+    private boolean swapping;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private Write_Friendship_DB fdb;
+    private Follow_DB fdb;
     private boolean isFollowing;
 
     private Button Follow_or_unfollow;
+    private myCallbackBool mcb;
 
 
     @Override
@@ -71,20 +71,39 @@ public class User_Details_Activity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        swapping = false;
 
-        fdb = new Write_Friendship_DB(user_received.getUID());
-        isFollowing = fdb.isFollowing(currentUser.getUid(), user_received.getUserName());
-        setFriendText();
+        mcb = new myCallbackBool() {
+            @Override
+            public void onCallback(Boolean value) {
+                isFollowing = value;
+                int followcountchange;
+                if (isFollowing){
+                    followcountchange = -1;
+                }
+                else{
+                    followcountchange = 1;
+                }
+                if (swapping){
+                    fdb.swapFollow(currentUser.getUid(), user_received.getUID(), isFollowing);
+                    swapping = false;
+                    isFollowing = !isFollowing;
+                    user_received.setFollowerCount(user_received.getFollowerCount() + followcountchange);
+                }
+                setFriendText();
+                fillData(user_received);
+            }
+        };
+
+        fdb = new Follow_DB();
+        fdb.isFollowing(currentUser.getUid(), user_received.getUserName(), mcb);
 
         Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 friendButtonPressed();
-
             }
-        }
-
-        );
+        });
 
     }
 
@@ -100,7 +119,7 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayFavAuthor = (TextView) findViewById(R.id.DisplayBookAuthor);
         DisplayFavISBN = (TextView) findViewById(R.id.DisplayBookISBN);
 
-        UserPic = (ImageView) findViewById(R.id.ProfilePicture);
+        UserPic = (ImageView) findViewById(R.id.Cover);
         BookCover = (ImageView) findViewById(R.id.DisplayFavBookCover);
 
 
@@ -110,7 +129,6 @@ public class User_Details_Activity extends AppCompatActivity {
         String email = user.getEmail();
         String phone_num = user.getPhoneNumber();
 
-        Integer followers = 0;
 
 
 
@@ -118,24 +136,28 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayLocation.setText(location);
         DisplayEmail.setText(email);
         DisplayPhoneNum.setText(phone_num);
-        DisplayTotalFollowers.setText(followers.toString().concat(" followers"));
+        DisplayTotalFollowers.setText("Followers:    " + Integer.toString(user_received.getFollowerCount()));
 
     }
 
     public void friendButtonPressed(){
-        isFollowing = !isFollowing;
-        setFriendText();
-//        fdb.setFollowing(currentUser.getUid(), user_received.getUID(), isFollowing);
+        swapping = true;
+        fdb.isFollowing(currentUser.getUid(), user_received.getUID(), mcb);
     }
 
     public void setFriendText(){
         if (isFollowing){
             Follow_or_unfollow.setText("Unfollow");
-            Follow_or_unfollow.setBackgroundColor(Color.RED);
+            Follow_or_unfollow.setBackgroundColor(getResources()
+                    .getColor(R.color.denyRed, getTheme()));
         }
         else{
             Follow_or_unfollow.setText("Follow");
-            Follow_or_unfollow.setBackgroundColor(Color.GREEN);
+            Follow_or_unfollow.setBackgroundColor(getResources()
+                    .getColor(R.color.acceptGreen, getTheme()));
         }
     }
+
+
+
 }
