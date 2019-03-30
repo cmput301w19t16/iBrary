@@ -49,12 +49,14 @@ import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
+import ca.rededaniskal.Database.AsyncResponse;
 import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 
 
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.R;
 
 /**
@@ -65,7 +67,7 @@ import ca.rededaniskal.R;
  * Make the user's photo saved in the database
  */
 
-public class Add_Book_To_Library_Activity extends AppCompatActivity implements Serializable {
+public class Add_Book_To_Library_Activity extends AppCompatActivity implements Serializable, AsyncResponse {
 
     private static final String TAG = "Add_Book_To_Library_Activity";
 
@@ -75,7 +77,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private Button openScanner, addBook;
     private FloatingActionButton openCamera;
     private ImageView cover;
-    private String isbn;
+    private String ISBN;
     private String returnString;
 
     private ValidateBookLogic businessLogic;
@@ -91,6 +93,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private Bitmap myCover = null;
     private myCallbackBookInstance mcbi;
     private Add_Book_To_Library_Activity mcabtla;
+    private Title_Author_GoogleBooksAPI asyncTask;
+    private Bitmap googleCover;
 //    private View view;
 
     @Override
@@ -162,6 +166,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 Book_Instance bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
 
 
+                asyncTask = new Title_Author_GoogleBooksAPI(getApplicationContext(),addTitle, addAuthor, cover, 1).execute(ISBN);;
+                asyncTask.delegate = this;
+                asyncTask.execute(isbn);
+
                mcbi = new myCallbackBookInstance() {
                     @Override
                     public void onCallback(Book_Instance book_instance) {
@@ -199,6 +207,11 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
         addBook.setOnClickListener(onClickListener);
 
+    }
+    @Override
+    public void processFinish(Bitmap output){
+        googleCover = output;
+        new Photos(context).getURLFromBitmapMasterBook(googleCover, mcmb,mb);
     }
 
     public void getInfo() {
@@ -249,7 +262,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         }
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
                 String ISBN = data.getStringExtra("ISBN");
-                new Title_Author_GoogleBooksAPI(this, addTitle, addAuthor, cover, 2).execute(ISBN);
+                //new Title_Author_GoogleBooksAPI(this, addTitle, addAuthor, cover, 2)
                 addISBN.setText(ISBN);
         }
 

@@ -179,7 +179,7 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
                 e.printStackTrace();
                 //delegate.processFinish(null);
             }
-            delegate.processFinish(result);
+            delegate.processFinish(googleCover);
 
         } else {
             return;

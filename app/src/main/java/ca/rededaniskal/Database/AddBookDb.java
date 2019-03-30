@@ -30,13 +30,13 @@ import ca.rededaniskal.EntityClasses.Master_Book;
 
 import static java.security.AccessController.getContext;
 
-public class AddBookDb implements AsyncResponse {
+public class AddBookDb {
         public final String TAG = "AddBookDb";
         MasterBookDb masterdb;
         BookInstanceDb instancedb;
         boolean bookAdded;
-        private Bitmap googleCover;
-        private Title_Author_GoogleBooksAPI asyncTask;
+
+
         private Context context;
         private myCallBackMasterBook mcmb;
         private Master_Book mb;
@@ -71,9 +71,7 @@ public class AddBookDb implements AsyncResponse {
             }
 
             String isbn = book_instance.getISBN();
-            asyncTask = new Title_Author_GoogleBooksAPI(context,null, null, null, 1);
-            asyncTask.delegate = this;
-            asyncTask.execute(isbn);
+            mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
 
 
             mcmb = new myCallBackMasterBook() {
@@ -85,13 +83,6 @@ public class AddBookDb implements AsyncResponse {
 
         }
 
-        @Override
-        public void processFinish(Bitmap output){
-            googleCover = output;
-            mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
-            Log.d("got to processFinish", "hii");
-            new Photos(context).getURLFromBitmapMasterBook(googleCover, mcmb,mb);
-        }
 
         public void addBookToDatabase() throws NullPointerException {
             success = instancedb.getStorageId();
