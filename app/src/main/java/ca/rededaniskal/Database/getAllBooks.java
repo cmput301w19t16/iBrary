@@ -11,6 +11,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import ca.rededaniskal.Activities.View_All_Books_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Display_Username;
@@ -22,8 +24,10 @@ public class getAllBooks {
     private View_All_Books_Activity parent;
     private DatabaseReference mDatabase;
     private Display_Username display;
+    private ArrayList<Display_Username> book_list;
 
     public getAllBooks(View_All_Books_Activity parent) {
+        Log.d(TAG, "*********----->AllBooks");
         this.parent = parent;
         getUserQuery();
     }
@@ -37,15 +41,17 @@ public class getAllBooks {
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d(TAG, "*********----->onDataChange");
+            Log.d(TAG, "*********----->All Books Data change");
             if (dataSnapshot.exists()) {
                 Log.d(TAG, "*********----->exists");
+                book_list = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    //Log.d(TAG, "*********----->"+snapshot.getValue());
                     Book_Instance book = snapshot.getValue(Book_Instance.class);
+                    Log.d(TAG, "*********----->Got this book: " + book.getTitle());
                     display = new Display_Username(book);
-                    getUsernameOwner(book);
+                    book_list.add(display);
                 }
+                getUsernameOwner();
             }
         }
 
@@ -56,58 +62,68 @@ public class getAllBooks {
         }
     };
 
-    private void getUsernameOwner(Book_Instance book){
-        final Book_Instance bk = book;
-        String UID = book.getOwner();
-        Query query = FirebaseDatabase.getInstance().getReference("Users")
-                .orderByChild("uid")
-                .equalTo(UID);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange (@NonNull DataSnapshot dataSnapshot){
-                Log.d(ContentValues.TAG, "*********----->onDataChange");
-                if (dataSnapshot.exists()) {
-                    Log.d(ContentValues.TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        User user = snapshot.getValue(User.class);
-                        display.setOwner(user.getUserName());
-                        getBorrowerUsername(bk);
+    private void getUsernameOwner() {
+        for (int i = 0; i < book_list.size(); i++) {
+            final int j = i;
+            final Display_Username dis = book_list.get(i);
+            final Book_Instance bk = dis.getBook();
+            String UID = bk.getOwner();
+            Query query = FirebaseDatabase.getInstance().getReference("Users")
+                    .orderByChild("uid")
+                    .equalTo(UID);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d(ContentValues.TAG, "*********----->onDataChange");
+                    if (dataSnapshot.exists()) {
+                        Log.d(ContentValues.TAG, "*********----->exists");
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            User user = snapshot.getValue(User.class);
+                            dis.setOwner(user.getUserName());
+                            book_list.set(j, dis);
+                            getBorrowerUsername();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled (@NonNull DatabaseError databaseError){
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+        }
     }
 
-    private void getBorrowerUsername(Book_Instance book){
-        final Book_Instance bk = book;
-        String UID = book.getPossessor();
-        Query query = FirebaseDatabase.getInstance().getReference("Users")
-                .orderByChild("uid")
-                .equalTo(UID);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange (@NonNull DataSnapshot dataSnapshot){
-                Log.d(ContentValues.TAG, "*********----->onDataChange");
-                if (dataSnapshot.exists()) {
-                    Log.d(ContentValues.TAG, "*********----->exists");
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        User user = snapshot.getValue(User.class);
-                        display.setBorrower(user.getUserName());
-                        parent.addBook(display);
-
+    private void getBorrowerUsername() {
+        for (int i = 0; i < book_list.size(); i++) {
+            final int j = i;
+            final Display_Username dis = book_list.get(i);
+            final Book_Instance bk = dis.getBook();
+            String UID = bk.getPossessor();
+            Query query = FirebaseDatabase.getInstance().getReference("Users")
+                    .orderByChild("uid")
+                    .equalTo(UID);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d(ContentValues.TAG, "*********----->onDataChange");
+                    if (dataSnapshot.exists()) {
+                        Log.d(ContentValues.TAG, "*********----->exists");
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            User user = snapshot.getValue(User.class);
+                            dis.setBorrower(user.getUserName());
+                            book_list.set(j, dis);
+                        }
+                        parent.addBook(book_list);
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled (@NonNull DatabaseError databaseError){
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
     }
 }

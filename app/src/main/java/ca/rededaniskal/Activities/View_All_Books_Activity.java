@@ -73,8 +73,9 @@ public class View_All_Books_Activity extends AppCompatActivity {
         getAllBooks db = new getAllBooks(this);
     }
 
-    public void addBook(Display_Username display){
-        BL.add(display);
+    public void addBook(ArrayList<Display_Username> book_list){
+        bookAdapter = new BookAdapter(this, book_list);
+        recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
     }
 
