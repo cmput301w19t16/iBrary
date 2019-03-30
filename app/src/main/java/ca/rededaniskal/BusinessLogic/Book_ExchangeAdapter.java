@@ -75,7 +75,7 @@ public class Book_ExchangeAdapter extends RecyclerView.Adapter<Book_ExchangeAdap
         public Book_ExchangeViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.title);
+            title = itemView.findViewById(R.id.Title);
             owner = itemView.findViewById(R.id.showowner);
             borrower = itemView.findViewById(R.id.showborrower);
             time = itemView.findViewById(R.id.showtime);

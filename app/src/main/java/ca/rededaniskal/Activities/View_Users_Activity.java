@@ -117,6 +117,7 @@ public class View_Users_Activity extends AppCompatActivity {
         });
 
         updateFollowers();
+
     }
 
     private void updateRecyclerView(){

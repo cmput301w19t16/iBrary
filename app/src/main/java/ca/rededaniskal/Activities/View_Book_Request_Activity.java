@@ -63,10 +63,16 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         bidb = new BookInstanceDb();
         currentUID = bidb.getUID();
 
-        nameField = findViewById(R.id.title);
+        nameField = findViewById(R.id.userField);
+        nameField = findViewById(R.id.username);
         locationField = findViewById(R.id.location);
         followersField = findViewById(R.id.followers);
         userField = findViewById(R.id.userField);
+
+        title = findViewById(R.id.Title);
+        author = findViewById(R.id.Author);
+
+
 
 
         userField.setOnClickListener(new View.OnClickListener() {
@@ -76,9 +82,6 @@ public class View_Book_Request_Activity extends AppCompatActivity {
             }
         });
 
-
-        title = findViewById(R.id.title);
-        followers = 0;
         //author = findViewById(R.id.author);
 
         myCallbackBookInstance mcbbi = new myCallbackBookInstance() {
@@ -89,7 +92,10 @@ public class View_Book_Request_Activity extends AppCompatActivity {
             }
         };
         bidb.getBookInstance(currentUID, bookID, mcbbi);
+        //title.setText(currentUID);
+        //author.setText(bookID);
 
+        bookField = findViewById(R.id.bookField);
         bookField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,8 +129,8 @@ public class View_Book_Request_Activity extends AppCompatActivity {
 
     private void fillUserField(){
         nameField.setText(user.getUserName());
-        locationField.setText(user.getLocation());
-        followersField.setText(Integer.toString(followers) + " followers");
+        locationField.setText("get the location"); //TODO: put user location into user properly (user.getlocation());
+        followersField.setText(Integer.toString(user.getFollowerCount()) + " followers");
     }
 
     private void fillBookField(){

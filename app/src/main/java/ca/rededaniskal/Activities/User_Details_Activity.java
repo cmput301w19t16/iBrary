@@ -90,7 +90,7 @@ public class User_Details_Activity extends AppCompatActivity {
         };
 
         fdb = new Follow_DB();
-        fdb.isFollowing(currentUser.getUid(), user_received.getUserName(), mcb);
+        fdb.isFollowing(currentUser.getUid(), user_received.getUID(), mcb);
 
         Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,8 +108,6 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayEmail = (TextView) findViewById(R.id.DisplayEmail);
         DisplayPhoneNum = (TextView) findViewById(R.id.DisplayPhoneNumber);
         DisplayTotalFollowers = (TextView) findViewById(R.id.UserMutualFriends);
-
-        UserPic = (ImageView) findViewById(R.id.Cover);
 
         String username = user.getUserName();
         String location = user.getLocation();

@@ -2,6 +2,8 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.Date;
 
+
+
 public class Notification {
     private Date timestamp;
     private String userID;
@@ -62,11 +64,11 @@ public class Notification {
         this.userID = userID;
     }
 
-    public String getRequest() {
+    public String getRequestID() {
         return requestID;
     }
 
-    public void setRequest(String request) {
+    public void setRequestID(String request) {
         this.requestID = request;
     }
 
