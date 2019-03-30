@@ -127,22 +127,11 @@ public class Search_Fragment extends Fragment {
         swipeContainer = view.findViewById(R.id.swipeContainersearch);
         dbView = view;
 
-
-
-
-
-        //master_books.add(new Master_Book("Invisible", "sdf", "sdfds"));
-
-
-
         searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
 
         //Adapter stuff
-
-
-
         searchBy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,20 +208,15 @@ public class Search_Fragment extends Fragment {
         return view;
     }
 
-public void update_books(ArrayList<Master_Book> master_books){
+public void update_books(ArrayList<Master_Book> master_books) {
 
+    display = dbView.findViewById(R.id.display);
+    display.setHasFixedSize(true);
+    display.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        display = dbView.findViewById(R.id.display);
-        display.setHasFixedSize(true);
-        display.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        MB_adapter = new Master_BookAdapter( Search_Fragment.this, master_books);
-        display.setAdapter( MB_adapter );
-        //MB_adapter.notifyDataSetChanged();
+    MB_adapter = new Master_BookAdapter(Search_Fragment.this, master_books);
+    display.setAdapter(MB_adapter);
+    //MB_adapter.notifyDataSetChanged();
 
     }
-
-
-
 }
