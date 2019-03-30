@@ -281,23 +281,19 @@ else{
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             cover.setImageBitmap(photo);
             new Photos(this.getClass(), getApplicationContext()).uploadImage(photo, Add_Book_To_Library_Activity.class);
+        } else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            String ISBN = data.getStringExtra("ISBN");
+            new UseGoogleBooksAPI(this, addTitle, addAuthor, cover).execute(ISBN);
+            addISBN.setText(ISBN);
         }
-        else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-                String ISBN = data.getStringExtra("ISBN");
-                new UseGoogleBooksAPI(this, addTitle, addAuthor, cover).execute(ISBN);
-                addISBN.setText(ISBN);
+    }
+
+
+        public void set_Book_Info_Hints () {
+            addAuthor.setHint(authorHint);
+            addTitle.setHint(titleHint);
+            addISBN.setHint(isbnHint);
         }
-
-
-
-
-
-public void set_Book_Info_Hints(){
-        addAuthor.setHint(authorHint);
-        addTitle.setHint(titleHint);
-        addISBN.setHint(isbnHint);
-}
 
 
 }
-
