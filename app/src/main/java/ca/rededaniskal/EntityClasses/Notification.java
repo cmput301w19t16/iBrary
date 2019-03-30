@@ -16,6 +16,7 @@ public class Notification {
         timestamp = new Date();
         requestID = req;
         userID = user;
+        this.sender = sender;
         seen = s;
         requestType = "";
     }
@@ -26,6 +27,7 @@ public class Notification {
         userID = user;
         seen = false;
         requestType = rT;
+        this.sender = sender;
     }
 
     public String getSender() {
