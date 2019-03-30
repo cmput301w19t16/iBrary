@@ -3,18 +3,18 @@
 *
 * Instances in in Follow_DB,
 *
-* Friendship is assumed to be commutative, it does not matter who is leader or follower.
+* Following is assumed to be commutative, it does not matter who is leader or follower.
 *
 * */
 
 
 package ca.rededaniskal.EntityClasses;
 
-public class Friendship {
+public class Following {
     private String leader;
     private String follower;
 
-    public Friendship(String leader, String follower){
+    public Following(String follower, String leader){
         this.leader = leader;
         this.follower = follower;
     }
