@@ -145,8 +145,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         addAuthor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-                    authorHint="";
+                if (hasFocus) {
+                    authorHint = "";
                 }
 
 
@@ -155,7 +155,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         addISBN.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
+                if (hasFocus) {
                     isbnHint = "";
                 }
 
@@ -164,10 +164,12 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         addTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){ titleHint="";}
+                if (hasFocus) {
+                    titleHint = "";
+                }
             }
         });
-      
+
         myProgress = new ProgressDialog(this);
 
 
@@ -213,33 +215,27 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 getInfo();
 
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN);
-              
-              //                bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
+
+                //                bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
-               // businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle);
+                // businessLogic = new ValidateBookLogic(Title, Author, ISBN, bookCoverGoogle);
 
 
-
-                String error_m =businessLogic.isValid();
-                if (error_m.equals("")){
+                String error_m = businessLogic.isValid();
+                if (error_m.equals("")) {
                     businessLogic.saveInformation(userID);
 
-               
 
-
-               
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
 
 
                     startActivity(intent);
-                  finish();
-                }
-
-else{
-                    Toast.makeText(Add_Book_To_Library_Activity.this, error_m , Toast.LENGTH_SHORT);
+                    finish();
+                } else {
+                    Toast.makeText(Add_Book_To_Library_Activity.this, error_m, Toast.LENGTH_SHORT);
                     authorHint = businessLogic.getAuthorError();
                     titleHint = businessLogic.getTitleError();
-                    isbnHint=businessLogic.getISBNError();
+                    isbnHint = businessLogic.getISBNError();
                     set_Book_Info_Hints();
 
                 }
@@ -281,23 +277,20 @@ else{
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             cover.setImageBitmap(photo);
             new Photos(this.getClass(), getApplicationContext()).uploadImage(photo, Add_Book_To_Library_Activity.class);
+        } else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            String ISBN = data.getStringExtra("ISBN");
+            new UseGoogleBooksAPI(this, addTitle, addAuthor, cover).execute(ISBN);
+            addISBN.setText(ISBN);
         }
-        else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-                String ISBN = data.getStringExtra("ISBN");
-                new UseGoogleBooksAPI(this, addTitle, addAuthor, cover).execute(ISBN);
-                addISBN.setText(ISBN);
+    }
+
+
+        public void set_Book_Info_Hints(){
+            addAuthor.setHint(authorHint);
+            addTitle.setHint(titleHint);
+            addISBN.setHint(isbnHint);
         }
 
 
-
-
-
-public void set_Book_Info_Hints(){
-        addAuthor.setHint(authorHint);
-        addTitle.setHint(titleHint);
-        addISBN.setHint(isbnHint);
-}
-
-
-}
+    }
 

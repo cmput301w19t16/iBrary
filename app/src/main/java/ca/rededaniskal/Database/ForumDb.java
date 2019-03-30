@@ -6,7 +6,7 @@ import java.util.List;
 
 
 import ca.rededaniskal.EntityClasses.Forum;
-import ca.rededaniskal.EntityClasses.Text_Post;
+//import ca.rededaniskal.EntityClasses.Text_Post;
 
 
 public class ForumDb extends Entity_Database {
@@ -20,19 +20,7 @@ public class ForumDb extends Entity_Database {
         return db.getReference(References.FORUM.reference());
     }
 
-    public void addForum(Forum forum){
+    public void addForum(Forum forum){}
 
-
-
-
-    }
-
-    public void addParentThread(){
-
-    }
-
-
-
-
-
+    public void addParentThread(){}
 }

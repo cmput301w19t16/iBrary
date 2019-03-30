@@ -53,6 +53,13 @@ public class ValidateBookLogic {
 
     }
 
+    public ValidateBookLogic(String title, String author, String ISBN) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+
+    }
+
     //Validate the title of the new book
     public boolean validateTitle() {
         if (this.title.isEmpty()) {

@@ -70,6 +70,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Book Exchange Details");
 
+        // Assign buttons and edittexts of UI
         btnDatePicker = (Button) findViewById(R.id.ExchangeDateButton);
         btnTimePicker = (Button) findViewById(R.id.ExchangeTimeButton);
         confirmDetails = (Button) findViewById(R.id.ConfirmExchangeButton);

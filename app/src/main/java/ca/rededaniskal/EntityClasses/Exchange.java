@@ -10,6 +10,9 @@ public class Exchange extends Book_Exchange implements Serializable {
 
         super(owner, borrower, isbn, bookid, lat, lng, time);
     }
+
+    public Exchange(){}
+
     public void updateBookStatus(){}
 
     public void addBookToBorrowed(){}

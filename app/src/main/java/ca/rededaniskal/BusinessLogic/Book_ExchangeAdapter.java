@@ -15,15 +15,16 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.View_Exchange_Details_Activity;
 import ca.rededaniskal.EntityClasses.Book_Exchange;
+import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.R;
 
 public class Book_ExchangeAdapter extends RecyclerView.Adapter<Book_ExchangeAdapter.Book_ExchangeViewHolder>{
 
     public static final String REPLIED = "replied";
     public Context mctx;
-    private ArrayList<Book_Exchange> Book_Exchanges;
+    private ArrayList<Exchange> Book_Exchanges;
 
-    public Book_ExchangeAdapter(Context mctx, ArrayList<Book_Exchange> Book_Exchanges) {
+    public Book_ExchangeAdapter(Context mctx, ArrayList<Exchange> Book_Exchanges) {
         this.mctx = mctx;
         this.Book_Exchanges = Book_Exchanges;
     }
@@ -43,7 +44,7 @@ public class Book_ExchangeAdapter extends RecyclerView.Adapter<Book_ExchangeAdap
 
     @Override
     public void onBindViewHolder(@NonNull Book_ExchangeViewHolder book_ExchangeViewHolder, final int i) {
-        final Book_Exchange exchange = Book_Exchanges.get(i);
+        final Exchange exchange = Book_Exchanges.get(i);
 
         book_ExchangeViewHolder.title.setText(exchange.getBookid()); //TODO: get title from the DB
         book_ExchangeViewHolder.owner.setText(exchange.getOwner());
