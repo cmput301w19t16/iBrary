@@ -19,6 +19,7 @@ import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.BusinessLogic.myCallbackInt;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.BusinessLogic.myCallbackUidList;
+import ca.rededaniskal.BusinessLogic.myCallbackUserList;
 import ca.rededaniskal.EntityClasses.User;
 
 public class Follow_DB {

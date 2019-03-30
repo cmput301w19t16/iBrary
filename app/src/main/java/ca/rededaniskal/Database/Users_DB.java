@@ -9,28 +9,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.BusinessLogic.myCallbackInt;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
+import ca.rededaniskal.BusinessLogic.myCallbackUserList;
 import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.User;
 
 public class Users_DB {
     private DatabaseReference mDatabase;
     private User user;
-
-    private String userName;
-    private String email;
-    private String phoneNumber;
-    private String location;
-    private int followCount;
-    private String profilePic;
-    private ArrayList<User> friends;
-    private Book_List ownedBooks;
-    private Book_List borrowedBooks; // Includes accepted
-    private Book_List requestedBooks;
+    private ArrayList<User> userArrayList;
 
     public Users_DB() {
         getUserQuery();
@@ -59,7 +51,9 @@ public class Users_DB {
                     user.setUID(userid);*/
                     user = dataSnapshot.getValue(User.class);
                     mcb.onCallback(user);
-
+                }
+                else{
+                    mcb.onCallback(null);
                 }
             }
 
@@ -68,6 +62,31 @@ public class Users_DB {
 
             }
         });
+    }
+
+    public void getListOfUsers(ArrayList<String> uidList, final myCallbackUserList mcbul){
+        userArrayList = new ArrayList<>();
+        for (String uid : uidList){
+            myCallbackUser mcbu = new myCallbackUser() {
+                @Override
+                public void onCallback(User user) {
+                    if (user != null) {
+                        userArrayList.add(user);
+                    }
+                }
+            };
+            getUser(uid, mcbu);
+        }
+        myCallbackUser mcbu = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                if (user == null) {
+                    mcbul.onCallback(userArrayList);
+                }
+            }
+        };
+        getUser("theresnowayausercouldhavethislongofaname", mcbu);
+
     }
 
 }
