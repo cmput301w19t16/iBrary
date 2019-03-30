@@ -57,7 +57,7 @@ public class Photos {
             String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
             Uri uri = Uri.parse(path);
 
-            String url = "https://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
+            String url = "http://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
             url = url.replace(" ", "");
             return url;
         }
@@ -73,7 +73,7 @@ public class Photos {
             String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
             Uri uri = Uri.parse(path);
 
-            String url = "https://" + title + uri.toString() + isbn + "mb.html";
+            String url = "http://" + title + uri.toString() + isbn + "mb.html";
             url = url.replace(" ", "");
             return url;
         }
