@@ -8,17 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.View_Exchange_Details_Activity;
-import ca.rededaniskal.Activities.View_Thread_Activity;
 import ca.rededaniskal.EntityClasses.Book_Exchange;
-import ca.rededaniskal.EntityClasses.Parent_Thread;
 import ca.rededaniskal.R;
 
 public class Book_ExchangeAdapter extends RecyclerView.Adapter<Book_ExchangeAdapter.Book_ExchangeViewHolder>{

@@ -1,34 +1,60 @@
 package ca.rededaniskal.EntityClasses;
-//Created by Revan on 2019-03-22
+//Created by Revan on 2019-03-25
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Thread implements Serializable {
-    private ArrayList<Thread> child_threads = new ArrayList<>();
-    private String creator;
+
+    private String topic;
     private String text;
+    private String creator;
+    ArrayList<Comment> comments;
 
-    public Thread( String creator, String text ){
-        //TODO Authenticate that is forum doesnt already exist
-        this.creator = creator;
+    public Thread(String creator, String text, String topic){
         this.text = text;
+        this.creator = creator;
+        this.topic = topic;
+        comments = new ArrayList<>();
     }
 
-    public ArrayList<Thread> getThreads() {
-        return child_threads;
+    public void addComment(Comment newComment){
+        comments.add(newComment);
     }
 
-    public void addThread(Thread newThread){
-        this.child_threads.add(newThread);
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getText() {
         return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public String getCreator() {
         return creator;
     }
 
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Integer numComments(){
+        return comments.size();
+    }
 }
