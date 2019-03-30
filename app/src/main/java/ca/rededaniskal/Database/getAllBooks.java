@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,54 +11,48 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
+import ca.rededaniskal.Activities.View_All_Books_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
-import ca.rededaniskal.EntityClasses.Book_List;
-import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
 import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.EntityClasses.User;
 
-import static android.support.constraint.Constraints.TAG;
+import static android.content.ContentValues.TAG;
 
-public class ReadBookDB{
-    private View_Borrowed_Requested_Activity parent;
-    private BookInstanceDb instanceDb;
+public class getAllBooks {
+    private View_All_Books_Activity parent;
+    private DatabaseReference mDatabase;
     private Display_Username display;
 
-
-    public ReadBookDB(View_Borrowed_Requested_Activity p){
-        parent = p;
-        instanceDb = new BookInstanceDb();
-        update();
+    public getAllBooks(View_All_Books_Activity parent) {
+        this.parent = parent;
+        getUserQuery();
     }
 
-
-    public void update(){
-       instanceDb.currentUserBooklist().addListenerForSingleValueEvent(valueEventListener);
+    private void getUserQuery() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
+        mDatabase.addListenerForSingleValueEvent(valueEventListener);
     }
 
 
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            Log.d(TAG, "**************---> In OnDataChange");
-            if (dataSnapshot.exists()){
-                ArrayList<Display_Username> book_list = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                    Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
-                    Log.d(TAG, "**************--->"+book_instance.getOwner());
-                    display = new Display_Username(book_instance);
-                    getUsernameOwner(book_instance);
-
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            Log.d(TAG, "*********----->onDataChange");
+            if (dataSnapshot.exists()) {
+                Log.d(TAG, "*********----->exists");
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    //Log.d(TAG, "*********----->"+snapshot.getValue());
+                    Book_Instance book = snapshot.getValue(Book_Instance.class);
+                    display = new Display_Username(book);
+                    getUsernameOwner(book);
                 }
             }
         }
 
 
         @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
+        public void onCancelled(DatabaseError databaseError) {
+
         }
     };
 
@@ -105,7 +98,7 @@ public class ReadBookDB{
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);
                         display.setBorrower(user.getUserName());
-                        parent.updateBookView(display);
+                        parent.addBook(display);
 
                     }
                 }
