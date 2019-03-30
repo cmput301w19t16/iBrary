@@ -14,11 +14,11 @@ public class Master_Book extends Book implements Serializable {
     private Integer totalNumRating;
     private Float sumRatings;
     private HashMap<String, Float>mapUsersRating;
-    private URL googleCover;
+    private String googleCover;
 
     public  Master_Book(){}
 
-    public Master_Book(String newTitle, String newAuthor, String newIsbn, URL mcover){
+    public Master_Book(String newTitle, String newAuthor, String newIsbn, String mcover){
         super(newTitle, newAuthor, newIsbn);
         this.googleCover = mcover;
         avgRating = -1.00f;
@@ -62,11 +62,11 @@ public class Master_Book extends Book implements Serializable {
         mapUsersRating.remove(username);
     }
 
-    public void setGoogleCover(URL newCover){
+    public void setGoogleCover(String newCover){
         this.googleCover = newCover;
     }
 
-    public URL getGoogleCover(){
+    public String getGoogleCover(){
         return this.googleCover;
     }
 

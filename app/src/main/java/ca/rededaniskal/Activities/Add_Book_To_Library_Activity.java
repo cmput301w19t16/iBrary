@@ -24,6 +24,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.Serializable;
-import java.net.URL;
+
 
 
 //import ca.rededaniskal.BusinessLogic.AddBookLogic;
@@ -88,7 +89,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private Uri picUri = null;
     private Bitmap bookCoverGoogle = null;
     private Bitmap myCover = null;
-    private URL myUrl = null;
+    private myCallbackBookInstance mcbi;
+    private Add_Book_To_Library_Activity mcabtla;
+//    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +99,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         setContentView(R.layout.activity_add_book_instance);
 
         //myStorage = FirebaseStorage.getInstance().getReference();
-
-
+        //mcbi = new myCallbackBookInstance();
+        //view = v;
+        mcabtla = this;
         //Set buttons and EditTexts
         addTitle = findViewById(R.id.addTitle);
         addAuthor = findViewById(R.id.addAuthor);
@@ -120,12 +124,12 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             }
         });
 
-
+/*
         final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/picFolder/";
         File newdir = new File(dir);
         if (!newdir.exists()) {
             newdir.mkdir();
-        }
+        }*/
         openCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +158,11 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String ISBN = addISBN.getText().toString();
                 //bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
-                myCallbackBookInstance mcbi = new myCallbackBookInstance() {
+                businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
+                Book_Instance bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
+
+
+               mcbi = new myCallbackBookInstance() {
                     @Override
                     public void onCallback(Book_Instance book_instance) {
                         if (businessLogic.isValid().equals("")) {
@@ -171,9 +179,21 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                         }
                     }
                 };
-                businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
-                Book_Instance bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
                 new Photos(getApplicationContext()).getURLFromBitmap(myCover, mcbi, bi);
+                //URL url = new Photos(getApplicationContext()).returnURLFromBitmap(myCover,bi.getTitle(), bi.getBookID());
+                //Log.d("URLphoto", "The url for book istance is"+ url.toString() );
+                //bi.setCover(url);
+                businessLogic.saveInformation(bi, getApplicationContext());
+                Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
+
+
+                startActivity(intent);
+
+                finish();
+               // new Photos(getApplicationContext()).getURLFromBitmap(myCover, mcabtla, bi);
+
+
+
             }
         };
 
@@ -188,7 +208,21 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
 
     }
+/*
+    public void onCallback(Book_Instance book_instance) {
+        if (businessLogic.isValid().equals("")) {
+            businessLogic.saveInformation(book_instance, getApplicationContext());
+            Intent intent = new Intent(getWindow().getDecorView().getRootView().getContext(), View_My_Library_Activity.class);
 
+
+            startActivity(intent);
+
+            finish();
+        } else {
+
+
+        }
+    }*/
     //Code From https://stackoverflow.com/a/5991757
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

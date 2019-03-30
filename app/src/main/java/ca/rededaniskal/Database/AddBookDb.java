@@ -19,7 +19,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.net.URL;
+
 import java.util.Random;
 
 import ca.rededaniskal.BusinessLogic.Photo_GoogleBooksAPI;
@@ -38,8 +38,6 @@ public class AddBookDb implements AsyncResponse {
         private Bitmap googleCover;
         private Title_Author_GoogleBooksAPI asyncTask;
         private Context context;
-        private URL googleCoverURL;
-        private URL myCoverURL;
         private myCallBackMasterBook mcmb;
         private Master_Book mb;
 
@@ -77,14 +75,14 @@ public class AddBookDb implements AsyncResponse {
             asyncTask.delegate = this;
             asyncTask.execute(isbn);
 
-
+/*
             mcmb = new myCallBackMasterBook() {
                 @Override
                 public void onCallback(Master_Book master_book) {
                     master_book.setGoogleCover(googleCoverURL);
                     masterdb.addMasterBook(master_book);
                 }
-            };
+            };*/
 
         }
 

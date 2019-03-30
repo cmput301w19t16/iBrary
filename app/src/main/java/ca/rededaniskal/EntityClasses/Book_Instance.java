@@ -15,13 +15,13 @@ public class Book_Instance extends Book implements Serializable {
     private String possessor;
     private String condition;
     private String bookID;
-    private URL cover;
+    private String cover;
 
     //private BufferedImage bookImage;
 
     private String status;
 
-    public Book_Instance(String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus, URL cover){
+    public Book_Instance(String newTitle, String newAuthor, String newIsbn, String newOwner, String newpossessor, String newCondition, String newStatus, String cover){
         super(newTitle, newAuthor, newIsbn);
         this.bookID = null;
         this.owner = newOwner;
@@ -84,11 +84,11 @@ public class Book_Instance extends Book implements Serializable {
         return status;
     }
 
-    public URL getCover(){
+    public String getCover(){
         return cover;
     }
 
-    public void setCover(URL cover) {
+    public void setCover(String cover) {
         this.cover = cover;
     }
 }

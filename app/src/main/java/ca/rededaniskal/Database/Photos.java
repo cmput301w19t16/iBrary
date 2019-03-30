@@ -38,8 +38,7 @@ public class Photos {
     static private Context context;
 
 
-
-    public Photos(Context context){
+    public Photos(Context context) {
         myStorage = FirebaseStorage.getInstance().getReference();
         myProgress = new ProgressDialog(context);
         this.context = context;
@@ -47,18 +46,41 @@ public class Photos {
     }
 
 
-    public void getURLFromBitmap(Bitmap inImage, myCallbackBookInstance mcbi, Book_Instance bi) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "https://" + bi.getTitle() +  bi.getBookID() + ".html", null);
-        Uri uri = Uri.parse(path);
+    public URL returnURLFromBitmap(Bitmap inImage, String title, String id) {
+        if (inImage != null) {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "http://" + title + id + ".html", null);
+            Uri uri = Uri.parse(path);
 
-        try {
-            bi.setCover(new URL(uri.toString()));
-            mcbi.onCallback(bi);
+            try {
+                return new URL(uri.toString());
+                //mcbi.onCallback(bi);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
-        catch (MalformedURLException e) {
-            e.printStackTrace();
+        return null;
+    }
+
+
+    public void getURLFromBitmap(Bitmap inImage, myCallbackBookInstance mcbi, Book_Instance bi) {
+        if (inImage != null) {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+            Log.d("path path", path);
+            Uri uri = Uri.parse(path);
+            Log.d("uri uri", uri.toString());
+
+
+            String url = "http://" + bi.getTitle() + bi.getBookID() + uri.toString() + ".html";
+            Log.d("http uri", url);
+            bi.setCover(url);
+            mcbi.onCallback(bi);
+
+        } else {
+            Log.d("Bitmap", "Bitmap null");
         }
     }
 
@@ -67,14 +89,10 @@ public class Photos {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "http://TitleOriginal", null);
         Uri uri = Uri.parse(path);
+        
+        mb.setGoogleCover(uri.toString());
+        mcmb.onCallback(mb);
 
-        try {
-            mb.setGoogleCover(new URL(uri.toString()));
-            mcmb.onCallback(mb);
-        }
-        catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
     }
 
 
