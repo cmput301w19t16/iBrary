@@ -72,8 +72,8 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
 
                             if (marker == null){
                                 marker =   mMap.addMarker(new MarkerOptions()
-                                        .title("Shop")
-                                        .snippet("Is this the right location?")
+                                        .title("Meeting Location")
+                                        .snippet("Press and hold the marker to drag it")
                                         .position(position));
                                 marker.setDraggable(true);
 

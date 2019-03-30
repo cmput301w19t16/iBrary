@@ -3,6 +3,7 @@ package ca.rededaniskal;
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
 
 import com.robotium.solo.Solo;
 
@@ -11,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
 import ca.rededaniskal.Activities.View_All_Requests_Activity;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
@@ -42,4 +44,20 @@ public class AllRequestsTest extends ActivityTestRule<View_All_Requests_Activity
         Activity activity = rule.getActivity();
     }
 
+    @Test
+    public void Test() {
+        solo.assertCurrentActivity("Wrong activity", View_All_Requests_Activity.class);
+        View btn = solo.getView(R.id.accept);
+        solo.clickOnView(btn);
+
+        solo.assertCurrentActivity("Wrong activity", Establish_Exchange_Details_Activity.class);
+
+        solo.clickOnButton("Time");
+        solo.setTimePicker(0, 10, 0);
+        solo.clickOnText("OK");
+
+        solo.clickOnButton("Date");
+        solo.setDatePicker(0,2019, 4, 16);
+        solo.clickOnText("OK");
+    }
 }

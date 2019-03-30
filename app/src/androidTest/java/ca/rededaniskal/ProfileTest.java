@@ -14,7 +14,10 @@ import org.junit.runner.RunWith;
 import ca.rededaniskal.Activities.Edit_Profile_Activity;
 import ca.rededaniskal.Activities.Login_Activity;
 import ca.rededaniskal.Activities.Main_Activity;
+import ca.rededaniskal.Activities.View_All_Requests_Activity;
+import ca.rededaniskal.Activities.View_All_Users_Activity;
 import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
+import ca.rededaniskal.Activities.View_Pending_Exchanges_Activity;
 import ca.rededaniskal.Activities.View_Users_Activity;
 import ca.rededaniskal.Activities.View_My_Library_Activity;
 
@@ -56,36 +59,52 @@ public class ProfileTest extends ActivityTestRule<Main_Activity>{
     }
 
     @Test
-    public void TestFriendList() {
+    public void TestFollowers() {
         solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
         solo.clickOnText("Profile");
-        solo.clickOnButton("Friends list");
+        solo.clickOnButton("My Followers");
         solo.assertCurrentActivity("Wrong activity", View_Users_Activity.class);
     }
 
     @Test
-    public void TestBorrowRequestBooks() {
+    public void TestMyLibrary() {
         solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
         solo.clickOnText("Profile");
-        solo.clickOnButton("Borrowed/Requested Books");
-        solo.assertCurrentActivity("Wrong activity", View_Borrowed_Requested_Activity.class);
+        solo.clickOnButton("My Library");
+        solo.assertCurrentActivity("Wrong activity", View_My_Library_Activity.class);
     }
+
+    @Test
+    public void TestPendingExchange() {
+        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
+        solo.clickOnText("Profile");
+        solo.clickOnButton("Pending Exchanges");
+        solo.assertCurrentActivity("Wrong activity", View_Pending_Exchanges_Activity.class);
+    }
+
+//    @Test
+//    public void TestBorrowRequestBooks() {
+//        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
+//        solo.clickOnText("Profile");
+//        solo.clickOnButton("Borrowed/Requested Books");
+//        solo.assertCurrentActivity("Wrong activity", View_Borrowed_Requested_Activity.class);
+//    }
 
     @Test
     public void TestAllBookRequests() {
         solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
         solo.clickOnText("Profile");
         solo.clickOnButton("All Book Requests");
-        solo.assertCurrentActivity("Wrong activity", View_Borrowed_Requested_Activity.class);
+        solo.assertCurrentActivity("Wrong activity", View_All_Requests_Activity.class);
 
     }
 
     @Test
-    public void TestLibrary() {
+    public void TestAllUsers() {
         solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
         solo.clickOnText("Profile");
-        solo.clickOnButton("My Library");
-        solo.assertCurrentActivity("Wrong activity", View_My_Library_Activity.class);
+        solo.clickOnButton("View All Users");
+        solo.assertCurrentActivity("Wrong activity", View_All_Users_Activity.class);
     }
 
     @Test
