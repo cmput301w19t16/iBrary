@@ -150,32 +150,33 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
                     e.printStackTrace();
                 }
             }
-            try {
-                // Get appropriate fields out of JSON object.
-                JSONArray itemsArray = responseJson.getJSONArray("items");
-                JSONObject book = itemsArray.getJSONObject(0);
-                JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+            if (responseJson.has("items")){
+                try {
+                    // Get appropriate fields out of JSON object.
+                    JSONArray itemsArray = responseJson.getJSONArray("items");
+                    JSONObject book = itemsArray.getJSONObject(0);
+                    JSONObject volumeInfo = book.getJSONObject("volumeInfo");
 
-                title = volumeInfo.getString("title");
-                authors = volumeInfo.getJSONArray("authors");
+                    title = volumeInfo.getString("title");
+                    authors = volumeInfo.getJSONArray("authors");
 
-                // If both are found, display the result.
-                if (title != null && authors != null) {
-                    for (int i = 0; i < authors.length(); i++) {
-                        myAuthor.append(authors.get(i).toString());
+                    // If both are found, display the result.
+                    if (title != null && authors != null) {
+                        for (int i = 0; i < authors.length(); i++) {
+                            myAuthor.append(authors.get(i).toString());
+                        }
+                        myTitle.setText(title);
                     }
-                    myTitle.setText(title);
+
+
+                    //delegate.processFinish(googleCover);
+                } catch (Exception e) {
+                    // If onPostExecute does not receive a proper JSON string
+                    Log.d("Reach exception in onPostExecute", e.toString());
+                    e.printStackTrace();
+                    //delegate.processFinish(null);
                 }
-
-
-                //delegate.processFinish(googleCover);
-            } catch (Exception e) {
-                // If onPostExecute does not receive a proper JSON string
-                Log.d("Reach exception in onPostExecute", e.toString());
-                e.printStackTrace();
-                //delegate.processFinish(null);
             }
-
         }
         delegate.processFinish(googleCover);
     }

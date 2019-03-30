@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,8 +75,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         if(book.getCover() != null){
             Bitmap bitmap = new Photos(mctx).getBitmapFromURL(book.getCover());
             bookViewHolder.bookCover.setImageBitmap(bitmap);
+            Log.v("BookAdapter", "getCover not null");
         }
 
+        Log.v("BookAdapterTwo", "getCover null");
         //if User clicks on a Book, will start the book details Activity
         bookViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
