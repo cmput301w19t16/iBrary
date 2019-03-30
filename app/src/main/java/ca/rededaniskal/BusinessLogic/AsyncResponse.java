@@ -1,4 +1,4 @@
-package ca.rededaniskal.Database;
+package ca.rededaniskal.BusinessLogic;
 
 import android.graphics.Bitmap;
 

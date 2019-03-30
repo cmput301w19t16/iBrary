@@ -2,51 +2,22 @@ package ca.rededaniskal.Database;
     /*author Skye*/
 //Interacts with the Firebase when a user adds a book to ther library
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.ByteArrayOutputStream;
-
-import java.util.Random;
-
-import ca.rededaniskal.BusinessLogic.Photo_GoogleBooksAPI;
-import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
 import ca.rededaniskal.BusinessLogic.myCallBackMasterBook;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
-import static java.security.AccessController.getContext;
-
 public class AddBookDb {
         public final String TAG = "AddBookDb";
-        MasterBookDb masterdb;
-        BookInstanceDb instancedb;
+        private MasterBookDb masterdb;
+        private BookInstanceDb instancedb;
         boolean bookAdded;
 
-
-        private Context context;
         private myCallBackMasterBook mcmb;
         private Master_Book mb;
+        private String success;
+        private Book_Instance book_instance;
 
-
-
-        String success;
-        Book_Instance book_instance;
-
-        public AddBookDb(Book_Instance book_instance, Context context) {
+        public AddBookDb(Book_Instance book_instance) {
 
             //Creates a new reference to the correct path in the Firebase
             //Book instances are stored under there unique id, under my-books,
@@ -56,7 +27,6 @@ public class AddBookDb {
             this.book_instance = book_instance;
             this.masterdb = new MasterBookDb();
             this.instancedb = new BookInstanceDb();
-            this.context = context;
 
             update();
 
@@ -70,17 +40,8 @@ public class AddBookDb {
 
             }
 
-            String isbn = book_instance.getISBN();
             mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
-
-
-            mcmb = new myCallBackMasterBook() {
-                @Override
-                public void onCallback(Master_Book master_book) {
-                    masterdb.addMasterBook(master_book);
-                }
-            };
-
+            masterdb.addMasterBook(mb);
         }
 
 

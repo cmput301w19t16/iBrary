@@ -28,8 +28,6 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import ca.rededaniskal.Database.AsyncResponse;
-
 
 /**
  * Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.

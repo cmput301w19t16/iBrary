@@ -31,8 +31,6 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import ca.rededaniskal.Database.AsyncResponse;
-
 
 /**
  * Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.
@@ -47,11 +45,11 @@ public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONO
 
     private ImageView cover;
     private Bitmap googleCover;
-    private AsyncResponse delegate;
+    public AsyncResponse delegate;
     //private Class fromClass;
     private ConnectivityManager myConnectivityManager;
 
-    public Title_Author_GoogleBooksAPI(Context context, TextView title, TextView author, ImageView cover, int mode) {
+    public Title_Author_GoogleBooksAPI(Context context, TextView title, TextView author, ImageView cover) {
         this.context = context;
         this.myTitle = title;
         this.myAuthor = author;

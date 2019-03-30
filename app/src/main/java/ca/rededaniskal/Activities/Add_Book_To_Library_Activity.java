@@ -18,13 +18,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +34,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.StorageReference;
 //import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.io.Serializable;
 
 
@@ -49,14 +46,13 @@ import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
-import ca.rededaniskal.Database.AsyncResponse;
+import ca.rededaniskal.BusinessLogic.AsyncResponse;
 import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 
 
-import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.R;
 
 /**
@@ -107,6 +103,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         //view = v;
         mcabtla = this;
         //Set buttons and EditTexts
+        asyncTask = new Title_Author_GoogleBooksAPI(getApplicationContext(),addTitle, addAuthor, cover);
+        asyncTask.delegate = this;
         addTitle = findViewById(R.id.addTitle);
         addAuthor = findViewById(R.id.addAuthor);
         addISBN = findViewById(R.id.addISBN);
@@ -166,9 +164,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 Book_Instance bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
 
 
-                asyncTask = new Title_Author_GoogleBooksAPI(getApplicationContext(),addTitle, addAuthor, cover, 1).execute(ISBN);;
-                asyncTask.delegate = this;
-                asyncTask.execute(isbn);
+                asyncTask.execute(ISBN);
 
                mcbi = new myCallbackBookInstance() {
                     @Override
@@ -208,7 +204,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         addBook.setOnClickListener(onClickListener);
 
     }
-    @Override
+
     public void processFinish(Bitmap output){
         googleCover = output;
         new Photos(context).getURLFromBitmapMasterBook(googleCover, mcmb,mb);
