@@ -113,7 +113,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
          */
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
-          //  profilePic = itemView.findViewById(R.id.profilepic); //TODO: Make this display the Users image
+
+            profilePic = itemView.findViewById(R.id.BookCover); //TODO: Make this display the Users image
+
             statusIcon = itemView.findViewById(R.id.StatusIcon);
             UserName = itemView.findViewById(R.id.title);
             UserLocation = itemView.findViewById(R.id.author);

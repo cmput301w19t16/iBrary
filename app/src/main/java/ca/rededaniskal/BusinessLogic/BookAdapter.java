@@ -12,8 +12,11 @@ package ca.rededaniskal.BusinessLogic;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
+import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
@@ -69,9 +73,18 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         bookViewHolder.bookAuthor.setText(book.getAuthor());
         bookViewHolder.bookISBN.setText(book.getISBN());
         bookViewHolder.bookStatus.setText(book.getStatus());
-        bookViewHolder.bookOwner.setText(display.getOwner());
+
+        bookViewHolder.bookOwner.setText(book.getOwner());
+        if(book.getCover() != null || book.getCover() != ""){
+            LoadImage loader = new LoadImage(bookViewHolder.bookCover);
+            loader.execute(book.getCover());
+
+        }
+
         bookViewHolder.bookPosessor.setText(display.getBorrower());
 
+
+        Log.v("BookAdapterTwo", "getCover null");
         //if User clicks on a Book, will start the book details Activity
         bookViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +116,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
      */
     class BookViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+
+        ImageView bookCover;
+
         TextView bookTitle, bookAuthor, bookISBN, bookStatus, bookOwner, bookPosessor;
 
         /**
@@ -111,14 +126,17 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
          */
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
-            //imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
+     
 
-            bookTitle = itemView.findViewById(R.id.Title);
-            bookAuthor = itemView.findViewById(R.id.location);
-            bookISBN = itemView.findViewById(R.id.isbn);
-            bookStatus = itemView.findViewById(R.id.viewStatus);
-            bookOwner = itemView.findViewById(R.id.viewOwner);
-            bookPosessor = itemView.findViewById(R.id.viewPosessor);
+            bookTitle = itemView.findViewById(R.id.username);
+            bookAuthor = itemView.findViewById(R.id.Location);
+            bookISBN = itemView.findViewById(R.id.BookISBN);
+            bookStatus = itemView.findViewById(R.id.bookStatus);
+            bookOwner = itemView.findViewById(R.id.bookOwner);
+            bookCover = itemView.findViewById(R.id.BookCover);
+
+
+
         }
     }
 }

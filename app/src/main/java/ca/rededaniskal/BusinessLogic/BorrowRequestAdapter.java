@@ -171,7 +171,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
      */
     class BorrowRequestViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView profilePic;
+        ImageView bookCover;
         TextView requestInfo;
         TextView bookInfo;
         ImageButton accept, cancel;
@@ -184,12 +184,16 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             cancel = itemView.findViewById(R.id.cancel);
             bookInfo = itemView.findViewById(R.id.bookInfo);
 
+            bookCover = itemView.findViewById(R.id.BookCover);
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     viewRequest();
                 }
             });
+
         }
     }
 
