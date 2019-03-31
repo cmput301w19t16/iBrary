@@ -76,7 +76,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         bookViewHolder.bookAuthor.setText(book.getAuthor());
         bookViewHolder.bookISBN.setText(book.getISBN());
         bookViewHolder.bookStatus.setText(book.getStatus());
-        bookViewHolder.bookOwner.setText(book.getOwner());
+        bookViewHolder.bookOwner.setText(display.getOwner());
         bookViewHolder.bookPosessor.setText(display.getBorrower());
 
         if(book.getCover() != null || book.getCover() != ""){
