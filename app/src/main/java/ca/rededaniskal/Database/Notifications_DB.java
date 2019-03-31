@@ -14,6 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.myCallbackNotiList;
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.Notification;
 
 public class Notifications_DB {
@@ -34,6 +35,38 @@ public class Notifications_DB {
                         notiList.add(snapshot.getValue(Notification.class));
                     }
                     mcbnl.onCallback(notiList);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(ContentValues.TAG, "WE GOOFED UP BUDDY");
+            }
+        });
+    }
+
+
+    //deletes all notifications with request == reqID
+    public void deleteNotification(String reqID){
+        Query query = mDatabase.child("Notifications").orderByChild("request").equalTo(reqID);
+        final myCallbackStringList mcbsl = new myCallbackStringList() {
+            @Override
+            public void onCallback(ArrayList<String> strList) {
+                for (String str : strList){
+                    mDatabase.child("Notifications/" + str).removeValue();
+                }
+
+            }
+        };
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ArrayList<String> al = new ArrayList<>();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        al.add(snapshot.getKey());
+                    }
+                    mcbsl.onCallback(al);
                 }
             }
 
