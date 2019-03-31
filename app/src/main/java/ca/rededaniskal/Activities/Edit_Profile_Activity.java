@@ -45,6 +45,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -70,6 +71,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     private final static int PLACE_PICKER_REQUEST = 999;
+    private Boolean haveProfilPic = false;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -88,6 +90,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         }
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
+            haveProfilPic = true;
             profilePicture.setImageBitmap(photo);
         }
     }
