@@ -53,6 +53,7 @@ import ca.rededaniskal.BusinessLogic.Title_Author_GoogleBooksAPI;
 
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
+import ca.rededaniskal.BusinessLogic.myCallBackString;
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.BusinessLogic.AsyncResponse;
 import ca.rededaniskal.Database.Photos;
@@ -98,6 +99,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private boolean alreadyGotBookInfoAPI = false;
     private boolean personalCover = false;
     private Uri uri;
+    private StorageReference storageReference;
+    private StorageReference images;
+    private myCallBackString mcbstr;
 //    private View view;
 
     @Override
@@ -161,20 +165,33 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 }
 
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
-                Book_Instance bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
-                String book_instance_url;
+                final Book_Instance bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
+
+                mcbstr = new myCallBackString() {
+                    @Override
+                    public void onCallback(String url) {
+                       bi.setCover(url);
+                    }
+                };
+
+                /*
+                Intent i = new Intent(v.getContext(), Photos.class);
+                i.putExtra("BookInstance", bi);
+                startActivity(i);
+
+                String book_instance_url;*/
                 if (personalCover){
-                     book_instance_url = new Photos(getApplicationContext()).returnURLStrFromBitmapBi(myCover, bi);
+                     new Photos().BitmapToURLBI(myCover, bi, mcbstr);
                 }
                 else {
-                     book_instance_url = new Photos(getApplicationContext()).returnURLStrFromBitmapBi(googleCover, bi);
+                     new Photos().BitmapToURLBI(googleCover, bi, mcbstr);
                 }
 
-                bi.setCover(book_instance_url);
-                String master_book_url = new Photos(getApplicationContext()).returnURLStrFromBitmapMb(googleCover, Title, ISBN);
+                //bi.setCover(book_instance_url);
+                //new Photos().BitmapToURLMB(googleCover, Title, ISBN, mcbstr);
 
                 if (businessLogic.isValid().equals("")) {
-                    businessLogic.saveInformation(bi, getApplicationContext(), master_book_url);
+                    businessLogic.saveInformation(bi, googleCover);
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                     startActivity(intent);
                     finish();
@@ -266,35 +283,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             personalCover = true;
             cover.setImageBitmap(myCover);
 
-
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            myCover.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            byte[] dataArray = bytes.toByteArray();
-            String fileName = UUID.randomUUID().toString();
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-            StorageReference images = storageReference.child("images");
-            StorageReference imageRef = images.child(fileName + ".jpeg");
-
-            UploadTask uploadTask = imageRef.putBytes(dataArray);
-
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                    while(!uri.isComplete());
-                    Uri uriURL = uri.getResult();
-                    Toast.makeText(Add_Book_To_Library_Activity.this, "Upload Success, download URL " +
-                            uriURL.toString(), Toast.LENGTH_LONG).show();
-                    Log.i("FBApp1 URL ", uriURL.toString());
-
-                }
-            });
-            
         }
 
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
@@ -305,6 +293,39 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         }
 
     }
+
+/*
+    public void BitmapToURLBI (final Book_Instance bi){
+        storageReference = FirebaseStorage.getInstance().getReference();
+        images = storageReference.child("images");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        myCover.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        byte[] dataArray = bytes.toByteArray();
+        String fileName = bi.getTitle()+ bi.getBookID();
+
+        StorageReference imageRef = images.child(fileName + ".jpeg");
+
+        UploadTask uploadTask = imageRef.putBytes(dataArray);
+
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                while(!uri.isComplete());
+                Uri uriURL = uri.getResult();
+                bi.setCover(uriURL.toString());
+                /*Toast.makeText(Add_Book_To_Library_Activity.this, "Upload Success, download URL " +
+                        uriURL.toString(), Toast.LENGTH_LONG).show();
+                Log.i("FBApp1 URL ", uriURL.toString());
+            }
+        });
+    }*/
 /*
     private void UploadImage(){
         myStorage = FirebaseStorage.getInstance().getReference();

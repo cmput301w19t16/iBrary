@@ -2,7 +2,10 @@ package ca.rededaniskal.Database;
     /*author Skye*/
 //Interacts with the Firebase when a user adds a book to ther library
 
+import android.graphics.Bitmap;
+
 import ca.rededaniskal.BusinessLogic.myCallBackMasterBook;
+import ca.rededaniskal.BusinessLogic.myCallBackString;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
@@ -16,9 +19,10 @@ public class AddBookDb {
         private Master_Book mb;
         private String success;
         private Book_Instance book_instance;
-        private String mb_url;
+        private myCallBackString mcbstr;
+        private Bitmap bitmap;
 
-        public AddBookDb(Book_Instance book_instance, String URL) {
+        public AddBookDb(Book_Instance book_instance, Bitmap bitmap) {
 
             //Creates a new reference to the correct path in the Firebase
             //Book instances are stored under there unique id, under my-books,
@@ -28,14 +32,14 @@ public class AddBookDb {
             this.book_instance = book_instance;
             this.masterdb = new MasterBookDb();
             this.instancedb = new BookInstanceDb();
-            this.mb_url = URL;
+            this.bitmap = bitmap;
 
-            update(mb_url);
+            update(bitmap);
 
         }
 
 
-        public void update(String url) {
+        public void update(Bitmap bitmap) {
             addBookToDatabase();
             if (!masterdb.checkExists(masterdb.getReference().child(book_instance.getISBN()))) {
                 book_instance.setAuthor("Williams");
@@ -43,7 +47,15 @@ public class AddBookDb {
             }
 
             mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
-            mb.setGoogleCover(url);
+
+            mcbstr = new myCallBackString() {
+                @Override
+                public void onCallback(String url) {
+                    mb.setGoogleCover(url);
+                }
+            };
+            new Photos().BitmapToURLMB(bitmap, book_instance.getTitle(), book_instance.getISBN(), mcbstr);
+            //mb.setGoogleCover(url);
             masterdb.addMasterBook(mb);
         }
 

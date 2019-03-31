@@ -2,6 +2,7 @@ package ca.rededaniskal.Database;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -34,6 +35,7 @@ import java.util.UUID;
 
 import ca.rededaniskal.Activities.Add_Book_To_Library_Activity;
 import ca.rededaniskal.BusinessLogic.myCallBackMasterBook;
+import ca.rededaniskal.BusinessLogic.myCallBackString;
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
@@ -47,14 +49,92 @@ public class Photos {
     static private ProgressDialog myProgress;
     static private Context context;
 
+    private StorageReference storageReference;
+    private StorageReference images;
 
-    public Photos(Context context) {
-        myStorage = FirebaseDatabase.getInstance().getReference();
-        myProgress = new ProgressDialog(context);
-
-        this.context = context;
+    public Photos() {
+        //myStorage = FirebaseDatabase.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
+        images = storageReference.child("images");
+        //myProgress = new ProgressDialog(context);
 
     }
+
+    public void BitmapToURLBI (Bitmap cover, Book_Instance bi, final myCallBackString mcbstr){
+        if(cover != null){
+            storageReference = FirebaseStorage.getInstance().getReference();
+            images = storageReference.child("images");
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            cover.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            byte[] dataArray = bytes.toByteArray();
+            String title = bi.getTitle().replace(" ", "");
+            String fileName = title + bi.getBookID();
+
+            StorageReference imageRef = images.child(fileName + ".jpeg");
+
+            UploadTask uploadTask = imageRef.putBytes(dataArray);
+
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                    while(!uri.isComplete());
+                    Uri uriURL = uri.getResult();
+                    Log.i("FBApp1 URL ", uriURL.toString());
+                    Intent intent = new Intent(view.getContext(), Add_Book_To_Library_Activity.class);
+                    intent.putExtra("URl", uriURL.toString());
+                    view.getContext().startActivity(intent);
+                    mcbstr.onCallback(uriURL.toString());
+                    //bi.setCover(uriURL.toString());
+                /*Toast.makeText(Add_Book_To_Library_Activity.this, "Upload Success, download URL " +
+                        uriURL.toString(), Toast.LENGTH_LONG).show();*/
+                }
+            });
+        }
+    }
+
+    public void BitmapToURLMB (Bitmap cover, String title, String isbn, final myCallBackString mcbstr){
+        if (cover != null){
+            storageReference = FirebaseStorage.getInstance().getReference();
+            images = storageReference.child("images");
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            cover.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            byte[] dataArray = bytes.toByteArray();
+            String newTitle = title.replace(" ", "");
+            String fileName = newTitle+ isbn;
+
+            StorageReference imageRef = images.child(fileName + ".jpeg");
+
+            UploadTask uploadTask = imageRef.putBytes(dataArray);
+
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                    while(!uri.isComplete());
+                    Uri uriURL = uri.getResult();
+
+                    Log.i("FBApp1 URL ", uriURL.toString());
+
+                    mcbstr.onCallback(uriURL.toString());
+
+                }
+            });
+        }
+    }
+
     /*
 
     private void uploadToFirebase() {

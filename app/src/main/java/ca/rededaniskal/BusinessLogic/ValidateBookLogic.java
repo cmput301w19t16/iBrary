@@ -136,8 +136,8 @@ public class ValidateBookLogic {
 
 
 
-    public void saveInformation(Book_Instance book, Context context, String mb_url){
-         new AddBookDb(book, mb_url);
+    public void saveInformation(Book_Instance book, Bitmap bitmap){
+         new AddBookDb(book, bitmap);
 
 
     }
