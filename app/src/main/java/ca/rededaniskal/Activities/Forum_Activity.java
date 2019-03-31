@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.Thread;
 
 import ca.rededaniskal.EntityClasses.Forum;

@@ -15,7 +15,7 @@ public class Book_Instance extends Book implements Serializable {
     private String possessor;
     private String condition;
     private String bookID;
-    private String cover;
+    private String cover = null;
 
     //private BufferedImage bookImage;
 

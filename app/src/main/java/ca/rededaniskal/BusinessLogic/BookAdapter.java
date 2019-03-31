@@ -73,16 +73,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         bookViewHolder.bookAuthor.setText(book.getAuthor());
         bookViewHolder.bookISBN.setText(book.getISBN());
         bookViewHolder.bookStatus.setText(book.getStatus());
-
         bookViewHolder.bookOwner.setText(book.getOwner());
+        bookViewHolder.bookPosessor.setText(display.getBorrower());
+
         if(book.getCover() != null || book.getCover() != ""){
             LoadImage loader = new LoadImage(bookViewHolder.bookCover);
             loader.execute(book.getCover());
-
         }
-
-        bookViewHolder.bookPosessor.setText(display.getBorrower());
-
 
         Log.v("BookAdapterTwo", "getCover null");
         //if User clicks on a Book, will start the book details Activity
@@ -126,16 +123,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
          */
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
-     
 
-            bookTitle = itemView.findViewById(R.id.username);
-            bookAuthor = itemView.findViewById(R.id.Location);
-            bookISBN = itemView.findViewById(R.id.BookISBN);
-            bookStatus = itemView.findViewById(R.id.bookStatus);
-            bookOwner = itemView.findViewById(R.id.bookOwner);
-            bookCover = itemView.findViewById(R.id.BookCover);
+            bookTitle = itemView.findViewById(R.id.Title);
+            bookAuthor = itemView.findViewById(R.id.author);
+            bookISBN = itemView.findViewById(R.id.isbn);
+            bookStatus = itemView.findViewById(R.id.viewStatus);
+            bookOwner = itemView.findViewById(R.id.viewOwner);
+            bookPosessor = itemView.findViewById(R.id.viewPosessor);
 
-
+            bookCover = itemView.findViewById(R.id.cover);
 
         }
     }

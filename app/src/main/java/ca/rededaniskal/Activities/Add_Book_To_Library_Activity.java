@@ -193,44 +193,37 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
-                if (alreadyGotBookInfoAPI == false){
+                if (alreadyGotBookInfoAPI == false) {
                     asyncTask.execute(ISBN);
                 }
 
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
                 bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
 
-           
+
                 String error_m = businessLogic.isValid();
                 if (error_m.equals("")) {
-                  
+
                     Photos photos = new Photos();
-                    if(personalCover){
+                    if (personalCover) {
                         photos.bitmapToURLBI(myCover, bi);
-                    }
-                    else
-                    {
+                    } else {
                         photos.bitmapToURLBI(googleCover, bi);
                     }
                     String url = photos.BitmapToURLMB(googleCover, Title, ISBN);
-                  
-                  
-                    businessLogic.saveInformation(userID);
+
+
+                    businessLogic.saveInformation(bi, userID);
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
-                    startActivityForResult(uploadIntent, UPLOAD_REQUEST_BI);
-                    new Photos().bitmapToURLBI(googleCover, bi);
-             
-            
+
+
                 } else {
                     Toast.makeText(Add_Book_To_Library_Activity.this, error_m, Toast.LENGTH_SHORT);
                     authorHint = businessLogic.getAuthorError();
                     titleHint = businessLogic.getTitleError();
                     isbnHint = businessLogic.getISBNError();
                     set_Book_Info_Hints();
-
                 }
-            
-
             }
         };
 
@@ -250,7 +243,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
     }
 
-    
+
     //Code From https://stackoverflow.com/a/5991757
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -274,35 +267,23 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             personalCover = true;
             cover.setImageBitmap(myCover);
 
-        }
-
-        else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             String ISBN = data.getStringExtra("ISBN");
             asyncTask.execute(ISBN);
             alreadyGotBookInfoAPI = true;
             addISBN.setText(ISBN);
-        }
-
-        else if (requestCode == UPLOAD_REQUEST_BI && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == UPLOAD_REQUEST_BI && resultCode == Activity.RESULT_OK) {
             String URL = data.getStringExtra("URL");
             bi.setCover(URL);
-        }
-
-        else if (requestCode == UPLOAD_REQUEST_MB && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == UPLOAD_REQUEST_MB && resultCode == Activity.RESULT_OK) {
             coverURLMb = data.getStringExtra("URL");
         }
 
     }
 
-}
-
-
-
-        public void set_Book_Info_Hints () {
-            addAuthor.setHint(authorHint);
-            addTitle.setHint(titleHint);
-            addISBN.setHint(isbnHint);
-        }
-
-
+    public void set_Book_Info_Hints() {
+        addAuthor.setHint(authorHint);
+        addTitle.setHint(titleHint);
+        addISBN.setHint(isbnHint);
+    }
 }

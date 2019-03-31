@@ -34,12 +34,10 @@ public class AddBookDb {
             //Book instances are stored under there unique id, under my-books,
             //under unique user Uid, under book-instances.
 
-
             this.book_instance = book_instance;
             this.masterdb = new MasterBookDb();
             this.instancedb = new BookInstanceDb();
             this.mbCoverURL = url;
-
             update();
 
         }
@@ -47,9 +45,6 @@ public class AddBookDb {
 
         public void update() {
             addBookToDatabase();
-
-            }
-
             mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
             mb.setGoogleCover(mbCoverURL);
             masterdb.addMasterBook(mb);

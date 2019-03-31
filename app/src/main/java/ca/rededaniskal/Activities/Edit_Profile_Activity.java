@@ -73,17 +73,6 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-        if (resultCode == RESULT_OK) {
-            switch (requestCode){
-                case PLACE_PICKER_REQUEST:
-                    Place place = PlacePicker.getPlace(this, data);
-                    String placeName = String.format("Place: %s", place.getName());
-                    double latitude = place.getLatLng().latitude;
-                    double longitude = place.getLatLng().longitude;
-
-            }
-        }
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             profilePicture.setImageBitmap(photo);
