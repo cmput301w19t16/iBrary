@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
+import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.User;
 
 public class Follow_DB {
@@ -112,12 +113,17 @@ public class Follow_DB {
         mDatabase.child("followings/" + follower + "/" + leader).removeValue();
         //mDatabase.removeValue();
         changeFollowCount(-1, leader);
+        Notifications_DB nb = new Notifications_DB();
+        nb.deleteNotification(follower + "/" + leader);
     }
 
     private void follow(String follower, String leader){
         mDatabase.child("followings/" + follower).child(leader).setValue(leader);
         //mDatabase.child(leader).setValue(leader);
         changeFollowCount(1, leader);
+        Notification notification = new Notification(leader, follower, follower + "/" + leader, "Friend Request");
+        Notifications_DB nb = new Notifications_DB();
+        nb.storeNotification(notification);
     }
 
     private void changeFollowCount(final int i, String leader){

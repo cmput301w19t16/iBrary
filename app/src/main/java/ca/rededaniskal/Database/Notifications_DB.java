@@ -76,4 +76,9 @@ public class Notifications_DB {
             }
         });
     }
+
+    public void storeNotification(Notification notification){
+        DatabaseReference key = mDatabase.child("Notifications").push();
+        key.setValue(notification);
+    }
 }

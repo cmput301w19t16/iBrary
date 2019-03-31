@@ -46,12 +46,15 @@ import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
 import ca.rededaniskal.BusinessLogic.myCallbackBRList;
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
+import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Borrow_Req_DB;
 import ca.rededaniskal.Database.Username_For_Book_Details_DB;
 import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Exchange;
+import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -154,16 +157,27 @@ public class Book_Details_Activity extends AppCompatActivity {
 
             brdb.getBooksBorrowRequests(book.getBookID(), mcbrl);
 
-        }else{
-                viewRequests.setVisibility(viewRequests.INVISIBLE);
+        } else {
+            viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
-       BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
+        BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
 
-       isRequested = db.bookInUserRequests();
-
-
+        //isRequested = db.bookInUserRequests();
+        myCallbackBool mcbb = new myCallbackBool() {
+            @Override
+            public void onCallback(Boolean value) {
+                isRequested = value;
+                continueCreating();
+            }
+        };
         FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
+        Borrow_Req_DB brdb = new Borrow_Req_DB();
+        brdb.requestExists(book.getBookID(), uid, mcbb);
+    }
+
+    private void continueCreating(){
+
 
         //Set appropriate text for the button at the bottom
         if (book.getStatus().equals("Requested") && isRequested) {
@@ -212,6 +226,12 @@ public class Book_Details_Activity extends AppCompatActivity {
                 if (isRequested){
                     Request_Cancel.setText(R.string.request_book);
                     isRequested = false;
+                    Borrow_Req_DB brdb = new Borrow_Req_DB();
+                    brdb.removeBorrowRequest(book.getBookID(), uid);
+                    //BorrowRequest request = new BorrowRequest(uid, book.getOwner(), book.getISBN(),book.getBookID());
+                    //Notification notification = new Notification(book.)
+                    //brdb.createBorrowRequest(request, notification);
+
 
                 }else if(canReturn){
                     //TODO: DB
@@ -221,14 +241,14 @@ public class Book_Details_Activity extends AppCompatActivity {
                     intent.putExtra("BorrowRequestObject", request);
                     intent.putExtra("Returning", true);
                     v.getContext().startActivity(intent);
-                }
-
-                else{
+                    logic = new Book_Details_Logic(book, isRequested);
+                }else{
                     //Case Request book
                     Request_Cancel.setText(R.string.cancel_request);
                     isRequested = true;
+                    logic = new Book_Details_Logic(book, isRequested);
                 }
-                logic = new Book_Details_Logic(book, isRequested);
+                //logic = new Book_Details_Logic(book, isRequested);
             }
         });
 
