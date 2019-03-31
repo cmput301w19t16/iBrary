@@ -39,9 +39,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Activities.Test_Activity"
-            android:label="@string/title_activity_test_"></activity>
-        <activity
             android:name=".Activities.Upload_Img_Activity"
             android:label="@string/title_activity_upload_img" />
         <!--

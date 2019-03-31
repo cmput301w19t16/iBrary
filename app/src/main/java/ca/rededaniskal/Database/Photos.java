@@ -60,8 +60,8 @@ public class Photos {
 
     }
 
-    public void BitmapToURLBI (Bitmap cover, final Book_Instance bi){
-        if(cover != null){
+    public void bitmapToURLBI(Bitmap cover, final Book_Instance bi) {
+        if (cover != null) {
             storageReference = FirebaseStorage.getInstance().getReference();
             images = storageReference.child("images");
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -75,7 +75,7 @@ public class Photos {
             UploadTask uploadTask = imageRef.putBytes(dataArray);
 
 
-            uploadTask.addOnFailureListener(new OnFailureListener() {
+            /*uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle unsuccessful uploads
@@ -84,35 +84,43 @@ public class Photos {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                    while(!uri.isComplete());
+                    while (!uri.isComplete()) ;
                     Uri uriURL = uri.getResult();
                     Log.i("FBApp1 URL ", uriURL.toString());
                     bi.setCover(uriURL.toString());
 //                    mcbstr.onCallback(uriURL.toString());
                     //bi.setCover(uriURL.toString());
                 /*Toast.makeText(Add_Book_To_Library_Activity.this, "Upload Success, download URL " +
-                        uriURL.toString(), Toast.LENGTH_LONG).show();*/
+                        uriURL.toString(), Toast.LENGTH_LONG).show();
                 }
-            });
+            });*/
+            while (!uploadTask.isComplete()) ;
+            Task<Uri> uri = uploadTask.getResult().getStorage().getDownloadUrl();
+            while (!uri.isComplete()) ;
+            Uri uriURL = uri.getResult();
+            Log.i("FBApp1 URL ", uriURL.toString());
+            bi.setCover(uriURL.toString());
+
+
         }
     }
 
-    public void BitmapToURLMB (Bitmap cover, String title, String isbn){
-        if (cover != null){
+    public void BitmapToURLMB(Bitmap cover, String title, String isbn) {
+        if (cover != null) {
             storageReference = FirebaseStorage.getInstance().getReference();
             images = storageReference.child("images");
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             cover.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
             byte[] dataArray = bytes.toByteArray();
             String newTitle = title.replace(" ", "");
-            String fileName = newTitle+ isbn;
+            String fileName = newTitle + isbn;
 
             StorageReference imageRef = images.child(fileName + ".jpeg");
 
             UploadTask uploadTask = imageRef.putBytes(dataArray);
 
 
-            uploadTask.addOnFailureListener(new OnFailureListener() {
+            /*uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle unsuccessful uploads
@@ -121,7 +129,7 @@ public class Photos {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                    while(!uri.isComplete());
+                    while (!uri.isComplete()) ;
                     Uri uriURL = uri.getResult();
 
                     Log.i("FBApp1 URL ", uriURL.toString());
@@ -129,7 +137,13 @@ public class Photos {
                     //mcbstr.onCallback(uriURL.toString());
 
                 }
-            });
+            });*/
+            while (!uploadTask.isComplete()) ;
+            Task<Uri> uri = uploadTask.getResult().getStorage().getDownloadUrl();
+            while (!uri.isComplete()) ;
+            Uri uriURL = uri.getResult();
+            Log.i("FBApp1 URL ", uriURL.toString());
+            bi.setCover(uriURL.toString());
         }
     }
 
@@ -241,13 +255,12 @@ public class Photos {
             String url = "http://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
             url = url.replace(" ", "");
             return url;
-        }
-        else{
+        } else {
             return "";
         }
     }
 
-    public String returnURLStrFromBitmapMb(Bitmap inImage,String title, String isbn) {
+    public String returnURLStrFromBitmapMb(Bitmap inImage, String title, String isbn) {
         if (inImage != null) {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -257,48 +270,47 @@ public class Photos {
             String url = "http://" + title + uri.toString() + isbn + "mb.html";
             url = url.replace(" ", "");
             return url;
-        }
-        else{
+        } else {
             return "";
         }
     }
 
-/*
-    public void getURLFromBitmap(Bitmap inImage, myCallbackBookInstance mcbi, Book_Instance bi) {
-        if (inImage != null) {
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-            Log.d("path path", path);
-            Uri uri = Uri.parse(path);
-            Log.d("uri uri", uri.toString());
+    /*
+        public void getURLFromBitmap(Bitmap inImage, myCallbackBookInstance mcbi, Book_Instance bi) {
+            if (inImage != null) {
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+                Log.d("path path", path);
+                Uri uri = Uri.parse(path);
+                Log.d("uri uri", uri.toString());
 
 
-            String url = "http://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
-            Log.d("http uri", url);
-            bi.setCover(url);
-            mcbi.onCallback(bi);
+                String url = "http://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
+                Log.d("http uri", url);
+                bi.setCover(url);
+                mcbi.onCallback(bi);
 
-        } else {
-            Log.d("Bitmap", "Bitmap null");
+            } else {
+                Log.d("Bitmap", "Bitmap null");
+            }
         }
-    }
 
-    public void getURLFromBitmapMasterBook(Bitmap inImage, myCallBackMasterBook mcmb, Master_Book mb) {
-        if (inImage != null){
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-            Uri uri = Uri.parse(path);
+        public void getURLFromBitmapMasterBook(Bitmap inImage, myCallBackMasterBook mcmb, Master_Book mb) {
+            if (inImage != null){
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+                Uri uri = Uri.parse(path);
 
 
-            String url = "http://" + mb.getTitle() + uri.toString() + mb.getISBN() + ".html";
-            mb.setGoogleCover(url);
-            mcmb.onCallback(mb);
+                String url = "http://" + mb.getTitle() + uri.toString() + mb.getISBN() + ".html";
+                mb.setGoogleCover(url);
+                mcmb.onCallback(mb);
 
+            }
         }
-    }
-*/
+    */
     //https://stackoverflow.com/questions/8992964/android-load-from-url-to-bitmap
     public static Bitmap getBitmapFromURL(String src) {
         try {

@@ -35,7 +35,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.StorageReference;
 //import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 
@@ -87,7 +86,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
     private static final int UPLOAD_REQUEST_BI = 2000;
     private static final int UPLOAD_REQUEST_MB = 3000;
-    private static final int TEST_REQUEST = 4000;
 
     private Bitmap myCover = null;
     private myCallbackBookInstance mcbi;
@@ -180,9 +178,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
                 String book_instance_url;*/
 
-                Intent testintent = new Intent(v.getContext(), Test_Activity.class);
-                startActivityForResult(testintent, TEST_REQUEST);
-                Intent uploadIntent = new Intent(v.getContext(), Upload_Img_Activity.class);
+                /*Intent uploadIntent = new Intent(v.getContext(), Upload_Img_Activity.class);
                 uploadIntent.putExtra("Title", Title);
                 uploadIntent.putExtra("ID", bi.getBookID());
                 uploadIntent.putExtra("Mode",  1);
@@ -194,7 +190,12 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     uploadIntent.putExtra("Bitmap", byteArray);
                     Log.i("About to start new activity", "have personal cover");
                     startActivityForResult(uploadIntent, UPLOAD_REQUEST_BI);
-                     new Photos().BitmapToURLBI(myCover, bi);
+                    Photos photos = new Photos();
+                    photos.bitmapToURLBI(myCover, bi);
+                    while (bi.getCover() == null){
+                         //Wait for cover url
+                     }
+                     Log.i("url attribute", bi.getCover());
                 }
                 else {
                     googleCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
@@ -202,12 +203,21 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     uploadIntent.putExtra("Bitmap", byteArray);
 
                     startActivityForResult(uploadIntent, UPLOAD_REQUEST_BI);
-                    new Photos().BitmapToURLBI(googleCover, bi);
-                }
+                    new Photos().bitmapToURLBI(googleCover, bi);
+                }*/
 
                 //bi.setCover(book_instance_url);
                 //new Photos().BitmapToURLMB(googleCover, Title, ISBN, mcbstr);
 
+                Photos photos = new Photos();
+                if(personalCover){
+                    photos.bitmapToURLBI(myCover, bi);
+                }
+                else
+                {
+                    photos.bitmapToURLBI(googleCover, bi);
+                }
+              /*
                 if(googleCover != null){
                     Intent mbCoverIntent = new Intent(v.getContext(), Upload_Img_Activity.class);
                     mbCoverIntent.putExtra("Title", Title);
@@ -220,7 +230,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
                     mbCoverIntent.putExtra("Mode",  2);
                     startActivityForResult(mbCoverIntent, UPLOAD_REQUEST_MB);
-                }
+                }*/
 
 
                 if (businessLogic.isValid().equals("")) {
@@ -333,14 +343,11 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         else if (requestCode == UPLOAD_REQUEST_MB && resultCode == Activity.RESULT_OK){
             coverURLMb = data.getStringExtra("URL");
         }
-        else if (requestCode == TEST_REQUEST && resultCode == Activity.RESULT_OK){
-            Log.i("return test ", "returned from test");
-        }
 
     }
 
 /*
-    public void BitmapToURLBI (final Book_Instance bi){
+    public void bitmapToURLBI (final Book_Instance bi){
         storageReference = FirebaseStorage.getInstance().getReference();
         images = storageReference.child("images");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
