@@ -61,7 +61,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         final Post post = display.getPost();
         //Set the book attributes
         postViewHolder.user.setText(display.getPoster());
-        postViewHolder.title.setText(post.getISBN());
+        postViewHolder.title.setText(display.getTitle());
         postViewHolder.topic.setText(post.getTopic());
         postViewHolder.text.setText(post.getText());
 

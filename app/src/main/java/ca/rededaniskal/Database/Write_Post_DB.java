@@ -17,7 +17,9 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
+import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Display_Post;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.EntityClasses.User;
 
@@ -109,7 +111,7 @@ public class Write_Post_DB {
 
                     }
 
-                    getBorrowerUsername();
+                    getBookName();
                 }
             }
 
@@ -120,8 +122,39 @@ public class Write_Post_DB {
         });
     }
 
+
+    private void getBookName() {
+        for (int i = 0; i < posts.size(); i++) {
+            final Display_Post display = posts.get(i);
+            final int j = i;
+            String p = posts.get(i).getPost().getISBN();
+            Log.d(ContentValues.TAG, "*********----->p "+p);
+            Query query = FirebaseDatabase.getInstance().getReference("master-books")
+                    .child(p);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d(ContentValues.TAG, "*********----->onDataChange");
+                    if (dataSnapshot.exists()) {
+                        Log.d(ContentValues.TAG, "*********----->exists");
+
+                        Master_Book book = dataSnapshot.getValue(Master_Book.class);
+                        assert book != null;
+                        display.setTitle(book.getTitle());
+                        posts.set(j, display);
+                    }
+                    getBorrowerUsername();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
     private void getBorrowerUsername() {
-//        Log.d(TAG, "**************---> In getBorrowerUsername "+posts);
+        Log.d(TAG, "**************---> In getBorrowerUsername "+posts);
         for (int i = 0; i < posts.size(); i++) {
             final Display_Post display = posts.get(i);
             final int j = i;
