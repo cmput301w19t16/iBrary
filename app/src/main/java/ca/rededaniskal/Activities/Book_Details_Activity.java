@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
+import ca.rededaniskal.BusinessLogic.LoadImage;
 import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -70,7 +71,7 @@ public class Book_Details_Activity extends AppCompatActivity {
     TextView DisplayDescription;
     private Book_Details_Logic logic;
 
-    ImageView BookCover;
+    ImageView DisplayBookCover;
 
     Button GoToForum;
     Button Request_Cancel;
@@ -97,7 +98,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayStatus = (TextView) findViewById(R.id.DisplayStatus);
         DisplayDescription = (TextView) findViewById(R.id.editDescription);
 
-        BookCover = (ImageView) findViewById(R.id.BookCover);
+        DisplayBookCover = (ImageView) findViewById(R.id.BookCover);
 
         GoToForum = (Button) findViewById(R.id.GoToForum); //TODO: GO TO ACTIVITy
         Request_Cancel = (Button) findViewById(R.id.request_cancel);
@@ -115,6 +116,10 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayISBN.setText(book.getISBN());
         DisplayOwner.setText(book.getOwner());
         DisplayStatus.setText(book.getStatus());
+        if(book.getCover() != null || book.getCover() != ""){
+            LoadImage loader = new LoadImage(DisplayBookCover);
+            loader.execute(book.getCover());
+        }
         //DisplayDescription.setText(book.get); TODO: Descriptions?
 
         //TODO: Make this the actual user
