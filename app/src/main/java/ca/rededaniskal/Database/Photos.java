@@ -15,17 +15,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
+import java.util.UUID;
 
 import ca.rededaniskal.Activities.Add_Book_To_Library_Activity;
 import ca.rededaniskal.BusinessLogic.myCallBackMasterBook;
@@ -37,18 +42,116 @@ import ca.rededaniskal.EntityClasses.Master_Book;
 public class Photos {
 
 
-    static private StorageReference myStorage;
+    static private DatabaseReference myStorage;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     static private ProgressDialog myProgress;
     static private Context context;
 
 
     public Photos(Context context) {
-        myStorage = FirebaseStorage.getInstance().getReference();
+        myStorage = FirebaseDatabase.getInstance().getReference();
         myProgress = new ProgressDialog(context);
+
         this.context = context;
 
     }
+    /*
 
+    private void uploadToFirebase() {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+        //Select destination filename, folder
+        Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
+        final StorageReference profileimageRef = storageRef.child("profilepictures/" + System.currentTimeMillis() + ".jpg");
+        UploadTask uploadTask = profileimageRef.putFile(uriProfileImage);
+
+        Log.wtf("ImageURL", profileimageRef.toString());
+
+        //Upload image
+        if(uriProfileImage != null)
+        {
+            //Show progressbar
+            progressBar.setVisibility(View.VISIBLE);
+
+            Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful())
+                    {
+                        throw task.getException();
+                    }
+
+                    return profileimageRef.getDownloadUrl();
+                }
+
+                */
+/*
+
+    final StorageReference ref = myStorage.child("ur path ");
+    uploadTask = ref.putFile(file);
+
+    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+        @Override
+        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+            if (!task.isSuccessful()) {
+                throw task.getException();
+            }
+
+            return ref.getDownloadUrl(); //Call the getDownloadUrl() method
+        }
+    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+        @Override
+        public void onComplete(@NonNull Task<Uri> task) {
+            if (task.isSuccessful()) {
+                Uri downloadUri = task.getResult();
+            } else {
+                // Handle failures
+            }
+        }
+    });*/
+    /*public String tryGetURL(Bitmap inImage, Book_Instance bi) {
+        if (inImage != null) {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            byte[] data = bytes.toByteArray();
+            String fileName = UUID.randomUUID().toString();
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            StorageReference images = storageReference.child("images");
+            StorageReference imageRef = images.child(fileName + ".jpeg");
+
+            UploadTask uploadTask = imageRef.putBytes(data);
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                    while(!uri.isComplete());
+                    Uri url = uri.getResult();
+
+                }
+            });
+
+
+
+            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+            Uri uri = Uri.parse(path);
+
+            String url = "http://" + bi.getTitle() + uri.toString() + bi.getBookID() + ".html";
+            url = url.replace(" ", "");
+            final StorageReference ImagesRef = myStorage.child(url);
+            return url;
+        }
+        else{
+            return "";
+        }
+    }*/
 
     public String returnURLStrFromBitmapBi(Bitmap inImage, Book_Instance bi) {
         if (inImage != null) {

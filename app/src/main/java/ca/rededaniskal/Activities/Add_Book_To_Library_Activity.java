@@ -17,12 +17,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,11 +32,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 //import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.util.UUID;
 
 
 //import ca.rededaniskal.BusinessLogic.AddBookLogic;
@@ -88,6 +97,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private Bitmap googleCover;
     private boolean alreadyGotBookInfoAPI = false;
     private boolean personalCover = false;
+    private Uri uri;
 //    private View view;
 
     @Override
@@ -255,6 +265,36 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             myCover = (Bitmap) data.getExtras().get("data");
             personalCover = true;
             cover.setImageBitmap(myCover);
+
+
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            myCover.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            byte[] dataArray = bytes.toByteArray();
+            String fileName = UUID.randomUUID().toString();
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            StorageReference images = storageReference.child("images");
+            StorageReference imageRef = images.child(fileName + ".jpeg");
+
+            UploadTask uploadTask = imageRef.putBytes(dataArray);
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                    while(!uri.isComplete());
+                    Uri uriURL = uri.getResult();
+                    Toast.makeText(Add_Book_To_Library_Activity.this, "Upload Success, download URL " +
+                            uriURL.toString(), Toast.LENGTH_LONG).show();
+                    Log.i("FBApp1 URL ", uriURL.toString());
+
+                }
+            });
+            
         }
 
         else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
@@ -265,6 +305,31 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         }
 
     }
+/*
+    private void UploadImage(){
+        myStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference storageReferencecover = myStorage.child("images/coverbook.jpg");
+
+
+        Bitmap bitmap = ((BitmapDrawable) cover.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = storageReferencecover.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+            }
+        });
+    }*/
 }
 
 
