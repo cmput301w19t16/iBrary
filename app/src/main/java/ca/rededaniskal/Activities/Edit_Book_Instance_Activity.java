@@ -62,6 +62,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +147,11 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         String Author = editAuthor.getText().toString();
         String ISBN = editISBN.getText().toString();
 
+       /* BitmapDrawable drawable = (BitmapDrawable) cover.getDrawable();
+        Bitmap newCover = drawable.getBitmap();
+        Photos photos = new Photos();
+        photos.bitmapToURLBI(newCover, book);*/
+
         businessLogic = new ValidateBookLogic(Title,Author,ISBN, getApplicationContext());
     }
 
@@ -160,13 +166,14 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             String Author = editAuthor.getText().toString();
             String ISBN = editISBN.getText().toString();
 
+            Book_Instance bookInstance =
+                    new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus(), null);
+
             BitmapDrawable drawable = (BitmapDrawable) cover.getDrawable();
             Bitmap newCover = drawable.getBitmap();
             Photos photos = new Photos();
-            photos.bitmapToURLBI(newCover, book);
+            photos.bitmapToURLBI(newCover, bookInstance);
 
-            Book_Instance bookInstance =
-                    new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus(), null);
             bookInstance.setBookID(book.getBookID());
 
             businessLogic.updateInformation(bookInstance);
