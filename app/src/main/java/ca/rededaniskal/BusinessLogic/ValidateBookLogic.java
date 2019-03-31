@@ -57,6 +57,7 @@ public class ValidateBookLogic {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
+
     }
 
     //Validate the title of the new book

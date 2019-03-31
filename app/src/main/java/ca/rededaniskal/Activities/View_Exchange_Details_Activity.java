@@ -21,11 +21,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
+import ca.rededaniskal.Database.Update_Book_DB;
+import ca.rededaniskal.Database.Write_Exchange_DB;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.Request;
@@ -102,7 +106,39 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
         // check if the request code is same as what is passed  here it is 2
         if(requestCode == 1 && resultCode == Activity.RESULT_OK)
         {
-            //do something with ISBN to change the status of the book
+            // Once the scan is successful, update information about the exchange and book
+            // First, check who just scanned
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                String UID = user.getUid();
+
+                // Update their booleans
+                if(UID.equals(exchange.getOwner())){
+                    exchange.setOwnerScanend(true);
+                    // Once owner is scanned, book can be updated to have new possessor and status.
+                    if(!exchange.isReturning()){
+                        Update_Book_DB db = new Update_Book_DB(exchange.getOwner(), exchange.getBorrower(), exchange.getIsbn());
+                    }
+
+                }else{
+                    exchange.setBorrowedScanned(true);
+                    if(exchange.isReturning()){
+                        Update_Book_DB db = new Update_Book_DB(exchange.getOwner(), exchange.getOwner(), exchange.getIsbn());
+                    }
+                }
+
+                Write_Exchange_DB db = new Write_Exchange_DB();
+
+                // If the book has been scanned by both parties, exchange may be deleted.
+                if(exchange.isBorrowedScanned() && exchange.isOwnerScanend()){
+                    db.removeExchange(exchange);
+
+                // Otherwise, update the exchange object with the new booleans
+                }else{
+                    db.updateExchange(exchange);
+                }
+            }
         }
     }
 

@@ -15,7 +15,7 @@
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     <ImageView
-        android:id="@+id/Cover"
+        android:id="@+id/profilepic"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
@@ -24,55 +24,42 @@
         app:layout_constraintStart_toStartOf="@+id/userField"
         app:layout_constraintTop_toTopOf="@+id/userField" />
 
-    <ImageView
-        android:id="@+id/StatusIcon"
-        android:layout_width="53dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/userField"
-        app:layout_constraintEnd_toEndOf="@+id/userField"
-        app:layout_constraintStart_toEndOf="@+id/title"
-        app:layout_constraintTop_toTopOf="@+id/userField" />
-
     <TextView
-        android:id="@+id/title"
-        android:layout_width="159dp"
-        android:layout_height="19dp"
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="@string/username"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/Cover"
-        app:layout_constraintTop_toTopOf="@+id/Cover" />
+        app:layout_constraintStart_toEndOf="@+id/profilepic"
+        app:layout_constraintTop_toTopOf="@+id/profilepic" />
 
     <TextView
-        android:id="@+id/author"
-        android:layout_width="159dp"
-        android:layout_height="19dp"
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Location"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintStart_toStartOf="@+id/username"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
         android:id="@+id/followers"
         android:layout_width="159dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Mutual Friends"
+        android:text="Followers"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintStart_toStartOf="@+id/author"
-        app:layout_constraintTop_toBottomOf="@+id/author" />
+        app:layout_constraintStart_toStartOf="@+id/location"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <Button
         android:id="@+id/userField"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/askedField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -91,35 +78,34 @@
         app:layout_constraintTop_toTopOf="@+id/bookField" />
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="159dp"
-        android:layout_height="19dp"
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="Title"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/Author"
-        app:layout_constraintStart_toEndOf="@+id/Cover"
+        app:layout_constraintStart_toEndOf="@+id/profilepic"
         app:layout_constraintTop_toTopOf="@+id/bookField" />
 
     <TextView
         android:id="@+id/Author"
-        android:layout_width="159dp"
-        android:layout_height="19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Author"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="@+id/bookField"
-        app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintStart_toStartOf="@+id/Title"
+        app:layout_constraintTop_toBottomOf="@+id/Title" />
 
 
     <Button
         android:id="@+id/bookField"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/ConfirmButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
