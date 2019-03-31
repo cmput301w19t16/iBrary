@@ -23,7 +23,6 @@ import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.EntityClasses.Thread;
 
 import ca.rededaniskal.EntityClasses.Forum;
-import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.R;
 
 import static java.lang.Boolean.FALSE;
