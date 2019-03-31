@@ -12,7 +12,6 @@ package ca.rededaniskal.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,22 +19,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
-import ca.rededaniskal.EntityClasses.Book_Instance;
-import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.BusinessLogic.Filter_My_Books_Logic;
 import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
 import ca.rededaniskal.Database.ReadMyBookDB;
@@ -60,6 +50,10 @@ public class View_My_Library_Activity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__my__library_);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("My Library");
 
         filterOptions = getResources().getStringArray(R.array.filter_my_library);
         selectedOptions = new boolean[filterOptions.length];

@@ -60,8 +60,6 @@ public class View_All_Requests_Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
         //Testing purposes
         requestList.add(new BorrowRequest("Daniela", "Nick", "9780590353427", "123456"));
 

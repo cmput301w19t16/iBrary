@@ -12,8 +12,6 @@
 //https://www.youtube.com/redirect?q=https%3A%2F%2Fgithub.com%2Fcodingdemos%2FMultichoiceTutorial&redir_token=zWJM5OoUtOrwMvfLlGWm1qv4-B98MTU1MjE5NTgxMEAxNTUyMTA5NDEw&event=video_description&v=wfADRuyul04
 package ca.rededaniskal.Activities.Fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,24 +25,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.zip.Inflater;
 
-import ca.rededaniskal.Activities.Filter_My_Books_Logic;
-import ca.rededaniskal.BusinessLogic.BookAdapter;
-import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.BusinessLogic.Master_BookAdapter;
-import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.BusinessLogic.Search_Logic;
-import ca.rededaniskal.Database.Search_Books_Db;
-import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.Master_Book;
-import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 /**
@@ -143,6 +131,7 @@ public class Search_Fragment extends Fragment {
 
 
 
+
         //master_books.add(new Master_Book("Invisible", "sdf", "sdfds"));
 
         searchString = view.findViewById(R.id.fragmentSearchView);
@@ -167,18 +156,12 @@ public class Search_Fragment extends Fragment {
             }
         });
 
+
         searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
 
         //Adapter stuff
-
-
-
-
-
-
-
         searchBy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -257,38 +240,29 @@ public class Search_Fragment extends Fragment {
         return view;
     }
 
+
 public void update_books(ArrayList<Master_Book> master_books){
-        viewBookList = master_books;
+    viewBookList = master_books;
 
+    display = dbView.findViewById(R.id.display);
+    display.setHasFixedSize(true);
+    display.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        display = dbView.findViewById(R.id.display);
-        display.setHasFixedSize(true);
-        display.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        MB_adapter = new Master_BookAdapter( Search_Fragment.this, master_books);
-        display.setAdapter( MB_adapter );
-        //MB_adapter.notifyDataSetChanged();
+    MB_adapter = new Master_BookAdapter(Search_Fragment.this, master_books);
+    display.setAdapter(MB_adapter);
+    //MB_adapter.notifyDataSetChanged();
 
     }
+
     public  void addBookToAdapter(Master_Book m){
         viewBookList.add(m);
         LinkedHashSet<Master_Book> remove = new LinkedHashSet<>(viewBookList);
         viewBookList = new ArrayList<>(remove);
         update_books(viewBookList);
-
-
-
-
     }
+  
     public  void addBookToAdapter(ArrayList<Master_Book> m){
         viewBookList.addAll(m);
         update_books(viewBookList);
-
-
-
     }
-
-
-
 }

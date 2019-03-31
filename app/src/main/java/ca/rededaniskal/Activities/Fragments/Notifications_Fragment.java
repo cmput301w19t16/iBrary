@@ -82,6 +82,7 @@ public class Notifications_Fragment extends Fragment {
     private Notification_Adapter notiAdapter;
 
     private getUserRequestsDB db;
+    private User user;
 
 
     //private OnFragmentInteractionListener mListener;

@@ -177,6 +177,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
 
                         Intent intent = new Intent(getApplicationContext(), View_Exchange_Details_Activity.class);
                         intent.putExtra("exchange", exchange);
+                        finish();
 
                         startActivity(intent);
 

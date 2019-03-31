@@ -7,7 +7,6 @@ public class BookID {
 
     protected BookID(String key){
         this.ID = key;
-
     }
 
     public static BookID getInstance(String key){
@@ -16,10 +15,6 @@ public class BookID {
         }
        return bookID;
     }
-
-
-
-
 
     public String getID() {
         return ID;

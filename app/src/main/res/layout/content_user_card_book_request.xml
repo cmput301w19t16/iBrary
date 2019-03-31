@@ -20,7 +20,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/Cover"
+                android:id="@+id/profilepic"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="8dp"
@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/Title"
                 android:layout_width="159dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="8dp"
@@ -55,11 +55,11 @@
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.066"
-                app:layout_constraintStart_toEndOf="@+id/Cover"
+                app:layout_constraintStart_toEndOf="@+id/profilepic"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/author"
+                android:id="@+id/location"
                 android:layout_width="159dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="8dp"
@@ -69,8 +69,8 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.058"
-                app:layout_constraintStart_toEndOf="@+id/Cover"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintStart_toEndOf="@+id/profilepic"
+                app:layout_constraintTop_toBottomOf="@+id/Title" />
 
             <TextView
                 android:id="@+id/followers"
@@ -85,8 +85,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.058"
-                app:layout_constraintStart_toEndOf="@+id/Cover"
-                app:layout_constraintTop_toBottomOf="@+id/author" />
+                app:layout_constraintStart_toEndOf="@+id/profilepic"
+                app:layout_constraintTop_toBottomOf="@+id/location" />
 
 
         </android.support.constraint.ConstraintLayout>

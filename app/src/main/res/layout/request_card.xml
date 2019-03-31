@@ -19,7 +19,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/Cover"
+                android:id="@+id/profilepic"
                 android:layout_width="68dp"
                 android:layout_height="61dp"
                 android:layout_marginTop="8dp"
@@ -31,14 +31,14 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/Title"
                 android:layout_width="143dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/username"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/Cover"
+                app:layout_constraintStart_toEndOf="@+id/profilepic"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -48,8 +48,8 @@
                 android:text="@string/requests2"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/Cover"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintStart_toEndOf="@+id/profilepic"
+                app:layout_constraintTop_toBottomOf="@+id/Title" />
 
             <TextView
                 android:id="@+id/bookInfo"
@@ -59,8 +59,8 @@
                 android:text="@string/requests2"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/Cover"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintStart_toEndOf="@+id/profilepic"
+                app:layout_constraintTop_toBottomOf="@+id/Title" />
 
             <ImageButton
                 android:id="@+id/cancel"
