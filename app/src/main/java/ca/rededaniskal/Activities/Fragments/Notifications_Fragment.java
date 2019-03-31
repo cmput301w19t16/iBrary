@@ -38,6 +38,8 @@ import java.util.List;
 
 import ca.rededaniskal.Activities.Login_Activity;
 import ca.rededaniskal.BusinessLogic.Notification_Adapter;
+import ca.rededaniskal.BusinessLogic.myCallbackNotiList;
+import ca.rededaniskal.Database.Notifications_DB;
 import ca.rededaniskal.Database.Read_Notification_DB;
 import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.Request;
@@ -138,20 +140,19 @@ public class Notifications_Fragment extends Fragment {
 
 
 //        final ArrayList<Notification> notiList = new ArrayList<>();
-        notiList = new ArrayList<>();
+
 
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        notiAdapter = new Notification_Adapter(notiList, Notifications_Fragment.this);
-        recyclerView.setAdapter(notiAdapter);
-        Read_Notification_DB db = new Read_Notification_DB(this);
+        updateRV(recyclerView);
+
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 //                notiList.remove(0);
-                recyclerView.setAdapter(new Notification_Adapter(notiList, Notifications_Fragment.this));
+                updateRV(recyclerView);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -164,6 +165,19 @@ public class Notifications_Fragment extends Fragment {
         });
 
         return swipeContainer;
+    }
+
+    private void updateRV(final RecyclerView recyclerView){
+        Notifications_DB ndb = new Notifications_DB();
+        myCallbackNotiList mcbnl = new myCallbackNotiList() {
+            @Override
+            public void onCallback(ArrayList<Notification> notiList) {
+                notiAdapter = new Notification_Adapter(notiList, Notifications_Fragment.this);
+                recyclerView.setAdapter(notiAdapter);
+            }
+        };
+        FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+        ndb.getUsersNotifications(u.getUid(), mcbnl);
     }
 
     //This function takes the user back to the login page if they go back a page, as well as logs
