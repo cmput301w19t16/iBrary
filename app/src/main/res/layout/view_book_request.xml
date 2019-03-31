@@ -15,7 +15,9 @@
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     <ImageView
-        android:id="@+id/profilepic"
+
+        android:id="@+id/BookCover"
+
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
@@ -32,8 +34,10 @@
         android:text="@string/username"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/profilepic"
-        app:layout_constraintTop_toTopOf="@+id/profilepic" />
+
+        app:layout_constraintStart_toEndOf="@+id/BookCover"
+        app:layout_constraintTop_toTopOf="@+id/BookCover" />
+
 
     <TextView
         android:id="@+id/location"
@@ -87,7 +91,9 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/Author"
-        app:layout_constraintStart_toEndOf="@+id/profilepic"
+
+        app:layout_constraintStart_toEndOf="@+id/BookCover"
+
         app:layout_constraintTop_toTopOf="@+id/bookField" />
 
     <TextView

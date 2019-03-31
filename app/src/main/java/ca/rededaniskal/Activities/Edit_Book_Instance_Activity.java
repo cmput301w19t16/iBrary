@@ -15,6 +15,7 @@ package ca.rededaniskal.Activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -137,11 +138,8 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         String Title = editTitle.getText().toString();
         String Author = editAuthor.getText().toString();
         String ISBN = editISBN.getText().toString();
-//        Bitmap bm=((BitmapDrawable)cover.getDrawable()).getBitmap();
 
-
-//        businessLogic = new ValidateBookLogic(Title,Author,ISBN,bm);
-        businessLogic = new ValidateBookLogic(Title,Author,ISBN);
+        businessLogic = new ValidateBookLogic(Title,Author,ISBN, getApplicationContext());
     }
 
 
@@ -156,7 +154,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             String ISBN = editISBN.getText().toString();
 
             Book_Instance bookInstance =
-                    new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus());
+                    new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus(), null);
             bookInstance.setBookID(book.getBookID());
 
             businessLogic.updateInformation(bookInstance);

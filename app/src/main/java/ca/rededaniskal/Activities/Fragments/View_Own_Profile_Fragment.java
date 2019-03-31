@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -136,6 +137,10 @@ public class View_Own_Profile_Fragment extends Fragment {
         Button viewAllRequests = (Button) v.findViewById(R.id.view_all_requests);
         Button viewAllUsers = (Button) v.findViewById(R.id.viewUsers);
         Button viewAllBooks = (Button) v.findViewById(R.id.viewBooks);
+
+        ImageView viewProfilePic = v.findViewById(R.id.profile_image);
+
+
         Button viewExchanges = v.findViewById(R.id.pendingExchanges);
 
         viewExchanges.setOnClickListener(new View.OnClickListener() {

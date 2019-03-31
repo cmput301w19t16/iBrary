@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.Thread;
 
 import ca.rededaniskal.EntityClasses.Forum;
@@ -46,6 +47,9 @@ public class Forum_Activity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_forum_);
+
+        //TODO: get Forum from DB or something
+        Master_Book b = new Master_Book("Happy Potter","JK Rowling","1234567890", null);
 
 
         forum = new Forum("1234567890"); //For testing
