@@ -69,7 +69,7 @@ public class Barcode_Scanner_Activity extends AppCompatActivity implements View.
         Intent intent = new Intent(this, returnTo);
         intent.putExtra("ISBN", barcode.rawValue);
         Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
-//        mTvResult.setText(barcode.rawValue);
+
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
