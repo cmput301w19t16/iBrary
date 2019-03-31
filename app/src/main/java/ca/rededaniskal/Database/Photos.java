@@ -87,9 +87,7 @@ public class Photos {
                     while(!uri.isComplete());
                     Uri uriURL = uri.getResult();
                     Log.i("FBApp1 URL ", uriURL.toString());
-                    Intent intent = new Intent(view.getContext(), Add_Book_To_Library_Activity.class);
-                    intent.putExtra("URl", uriURL.toString());
-                    view.getContext().startActivity(intent);
+
                     mcbstr.onCallback(uriURL.toString());
                     //bi.setCover(uriURL.toString());
                 /*Toast.makeText(Add_Book_To_Library_Activity.this, "Upload Success, download URL " +

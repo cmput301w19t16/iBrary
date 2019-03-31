@@ -92,16 +92,20 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
+    private static final int UPLOAD_REQUEST_BI = 200;
+    private static final int UPLOAD_REQUEST_MB = 300;
     private Bitmap myCover = null;
     private myCallbackBookInstance mcbi;
     private Title_Author_GoogleBooksAPI asyncTask;
     private Bitmap googleCover;
     private boolean alreadyGotBookInfoAPI = false;
     private boolean personalCover = false;
+    private Book_Instance bi;
     private Uri uri;
     private StorageReference storageReference;
     private StorageReference images;
     private myCallBackString mcbstr;
+    private String coverURLMb;
 //    private View view;
 
     @Override
@@ -165,14 +169,14 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 }
 
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
-                final Book_Instance bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
+                bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
 
-                mcbstr = new myCallBackString() {
+                /*mcbstr = new myCallBackString() {
                     @Override
                     public void onCallback(String url) {
                        bi.setCover(url);
                     }
-                };
+                };*/
 
                 /*
                 Intent i = new Intent(v.getContext(), Photos.class);
@@ -180,18 +184,45 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 startActivity(i);
 
                 String book_instance_url;*/
+                Intent uploadIntent = new Intent(getApplicationContext(),UploadImg.class);
+                uploadIntent.putExtra("Title", Title);
+                uploadIntent.putExtra("ID", bi.getBookID());
+                ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+
                 if (personalCover){
-                     new Photos().BitmapToURLBI(myCover, bi, mcbstr);
+                    myCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
+                    byte[] byteArray = bStream.toByteArray();
+                    uploadIntent.putExtra("Bitmap", byteArray);
+                    uploadIntent.putExtra("Mode", 1);
+                    startActivityForResult(uploadIntent, UPLOAD_REQUEST_BI);
+                     //new Photos().BitmapToURLBI(myCover, bi, mcbstr);
                 }
                 else {
-                     new Photos().BitmapToURLBI(googleCover, bi, mcbstr);
+                    googleCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
+                    byte[] byteArray = bStream.toByteArray();
+                    uploadIntent.putExtra("Bitmap", byteArray);
+                    uploadIntent.putExtra("Mode",  1);
+                    startActivityForResult(uploadIntent, UPLOAD_REQUEST_BI);
+                     //new Photos().BitmapToURLBI(googleCover, bi, mcbstr);
                 }
 
                 //bi.setCover(book_instance_url);
                 //new Photos().BitmapToURLMB(googleCover, Title, ISBN, mcbstr);
 
+                Intent mbCoverIntent = new Intent(getApplicationContext(), UploadImg.class);
+                mbCoverIntent.putExtra("Title", Title);
+                mbCoverIntent.putExtra("ISBN", ISBN);
+
+                ByteArrayOutputStream mbStream = new ByteArrayOutputStream();
+                googleCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
+                byte[] byteArray = mbStream.toByteArray();
+                mbCoverIntent.putExtra("Bitmap", byteArray);
+
+                mbCoverIntent.putExtra("Mode",  2);
+                startActivityForResult(mbCoverIntent, UPLOAD_REQUEST_MB);
+
                 if (businessLogic.isValid().equals("")) {
-                    businessLogic.saveInformation(bi, googleCover);
+                    businessLogic.saveInformation(bi, coverURLMb);
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                     startActivity(intent);
                     finish();
@@ -290,6 +321,15 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
             asyncTask.execute(ISBN);
             alreadyGotBookInfoAPI = true;
             addISBN.setText(ISBN);
+        }
+
+        else if (requestCode == UPLOAD_REQUEST_BI && resultCode == Activity.RESULT_OK){
+            String URL = data.getStringExtra("URL");
+            bi.setCover(URL);
+        }
+
+        else if (requestCode == UPLOAD_REQUEST_MB && resultCode == Activity.RESULT_OK){
+            coverURLMb = data.getStringExtra("URL");
         }
 
     }
