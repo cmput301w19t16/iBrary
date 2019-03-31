@@ -217,6 +217,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 {
                     photos.bitmapToURLBI(googleCover, bi);
                 }
+                String url = photos.BitmapToURLMB(googleCover, Title, ISBN);
               /*
                 if(googleCover != null){
                     Intent mbCoverIntent = new Intent(v.getContext(), Upload_Img_Activity.class);
@@ -234,7 +235,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
 
                 if (businessLogic.isValid().equals("")) {
-                    businessLogic.saveInformation(bi, coverURLMb);
+                    businessLogic.saveInformation(bi, url);
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                     startActivity(intent);
                     finish();

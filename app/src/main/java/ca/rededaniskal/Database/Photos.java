@@ -105,7 +105,7 @@ public class Photos {
         }
     }
 
-    public void BitmapToURLMB(Bitmap cover, String title, String isbn) {
+    public String BitmapToURLMB(Bitmap cover, String title, String isbn) {
         if (cover != null) {
             storageReference = FirebaseStorage.getInstance().getReference();
             images = storageReference.child("images");
@@ -142,9 +142,10 @@ public class Photos {
             Task<Uri> uri = uploadTask.getResult().getStorage().getDownloadUrl();
             while (!uri.isComplete()) ;
             Uri uriURL = uri.getResult();
-            Log.i("FBApp1 URL ", uriURL.toString());
-            bi.setCover(uriURL.toString());
+            Log.i("Masterbook URL ", uriURL.toString());
+            return (uriURL.toString());
         }
+        return "";
     }
 
     /*
