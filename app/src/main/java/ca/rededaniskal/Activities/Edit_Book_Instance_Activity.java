@@ -186,8 +186,9 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             Book_Instance bookInstance =
                     new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus(), null);
 
-            BitmapDrawable drawable = (BitmapDrawable) cover.getDrawable();
-            Bitmap newCover = drawable.getBitmap();
+            Drawable Cover = cover.getDrawable();
+            Bitmap newCover = drawableToBitmap(Cover);
+
             Photos photos = new Photos();
             photos.bitmapToURLBI(newCover, bookInstance);
 
