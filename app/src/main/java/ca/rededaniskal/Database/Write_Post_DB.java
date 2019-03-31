@@ -144,14 +144,11 @@ public class Write_Post_DB {
                         parent.updateAdapter(posts);
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
         }
-
-
     }
 }
