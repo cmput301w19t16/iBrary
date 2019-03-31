@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
-import ca.rededaniskal.BusinessLogic.myCallbackUidList;
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.Post;
 
 import static android.support.constraint.Constraints.TAG;
@@ -26,7 +26,7 @@ public class Write_Post_DB {
     private FirebaseUser user;
     private String UID;
     private ArrayList<String> followers;
-    private myCallbackUidList mcbuid;
+    private myCallbackStringList mcbuid;
     private Follow_DB fdb;
     private DatabaseReference mDatabase;
     private Post post;
@@ -63,7 +63,7 @@ public class Write_Post_DB {
 
     private void getFollowers(){
         Log.d(TAG, "^*^*^*^ In GET FOLLOWERS");
-        mcbuid = new myCallbackUidList() {
+        mcbuid = new myCallbackStringList() {
             @Override
             public void onCallback(ArrayList<String> uidList) {
                 Log.d(TAG, "^*^*^*^ ON CALLBACK");
