@@ -140,8 +140,6 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         String ISBN = editISBN.getText().toString();
 
         businessLogic = new ValidateBookLogic(Title,Author,ISBN, getApplicationContext());
-
-
     }
 
 

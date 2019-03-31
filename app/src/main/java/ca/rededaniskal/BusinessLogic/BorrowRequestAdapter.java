@@ -129,7 +129,9 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             @Override
             public void onCallback(User u) {
                 user = u;
-                fillUserInfo();
+                if(user.getUserName()!=null) {
+                    fillUserInfo();
+                }
             }
         };
         udb.getUser(uid, mcb);

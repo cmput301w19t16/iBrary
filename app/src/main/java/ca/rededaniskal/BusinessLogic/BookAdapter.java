@@ -31,6 +31,8 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
 
+import static android.support.constraint.Constraints.TAG;
+
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder>{
     public Activity mctx;
@@ -68,6 +70,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     public void onBindViewHolder(@NonNull BookViewHolder  bookViewHolder, final int i) {
         final Display_Username display = bookList.get(i);
         final Book_Instance book = display.getBook();
+        Log.d(TAG, "~_~_~ Posessor: " + display.getBorrower());
         //Set the book attributes
         bookViewHolder.bookTitle.setText(book.getTitle());
         bookViewHolder.bookAuthor.setText(book.getAuthor());

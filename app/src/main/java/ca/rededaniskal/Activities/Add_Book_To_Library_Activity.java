@@ -32,6 +32,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+
 import com.google.firebase.storage.StorageReference;
 //import com.squareup.picasso.Picasso;
 
@@ -50,11 +54,13 @@ import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.BusinessLogic.AsyncResponse;
 import ca.rededaniskal.Database.Photos;
 
+import ca.rededaniskal.Database.Write_Post_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 
 
+import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 /**
@@ -191,14 +197,13 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 // view is refreshed
                 getInfo();
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
                 if (alreadyGotBookInfoAPI == false) {
                     asyncTask.execute(ISBN);
                 }
 
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
                 bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
+
 
 
                 String error_m = businessLogic.isValid();
@@ -215,8 +220,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     businessLogic.saveInformation(bi, url);
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                     startActivity(intent);
-
-
                 } else {
                     Toast.makeText(Add_Book_To_Library_Activity.this, error_m, Toast.LENGTH_SHORT);
                     authorHint = businessLogic.getAuthorError();
@@ -226,9 +229,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 }
             }
         };
-
         addBook.setOnClickListener(onClickListener);
-
     }
 
     public void processFinish(Bitmap output) {
