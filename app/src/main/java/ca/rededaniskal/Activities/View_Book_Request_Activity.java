@@ -45,7 +45,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_book_request);
 
-        br = (BorrowRequest) getIntent().getSerializableExtra("request");
+        br = (BorrowRequest) getIntent().getSerializableExtra("requestID");
         uid = br.getsenderUID();
         bookID = br.getBookId();
         followers = 0;
