@@ -32,6 +32,8 @@ import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
+import static android.view.View.GONE;
+
 //Author: Nick
 public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adapter.Notification_View_Holder> {
     private ArrayList<Notification> mDataset;
@@ -83,6 +85,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         // Binds an item to the view
         notification = mDataset.get(position);
         titleText = notification.getRequestID() + " ";
+        removeCard(holder, position);
 
         uid = notification.getUserID();
         udb = new Users_DB();
@@ -99,7 +102,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
 
 
-        if (notification.getSeen()){
+        if (!notification.getSeen()){
             holder.newAlertStar.setRating(1);
         }
         else{
@@ -107,10 +110,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         }
 
         //set the text of the notification based on the type
-
         holder.requestType = notification.getRequestType();
-        titleText = notification.getRequestID();
-        holder.postTitle.setText(titleText);
 
     }
 
@@ -132,11 +132,22 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                             setCardValues(holder, position);
                         }
                     };
+                    addCard(holder, position);
                     udb.getUser(borrowRequest.getsenderUID(), mcbu);
                 }
             };
             brdb.getBookRequest(notification.getRequestID(), mcbr);
         }
+    }
+
+    private void removeCard(Notification_View_Holder holder, int position){
+        holder.newAlertStar.setVisibility(GONE);
+        holder.postTitle.setVisibility(GONE);
+    }
+
+    private void addCard(Notification_View_Holder holder, int position){
+        holder.newAlertStar.setVisibility(View.VISIBLE);
+        holder.postTitle.setVisibility(View.VISIBLE);
     }
 
     private void setCardValues(final Notification_View_Holder holder, final int position){
@@ -181,7 +192,6 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                 }
             });
         }
-
         holder.postTitle.setText(titleText);
     }
 
