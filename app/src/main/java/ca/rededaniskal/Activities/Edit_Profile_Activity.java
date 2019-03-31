@@ -59,7 +59,7 @@ import ca.rededaniskal.Database.editUserDetailsDB;
 public class Edit_Profile_Activity extends AppCompatActivity {
     public static final String GET_TEXTS = "*********----->getTexts";
     Button saveButton;
-    FloatingActionButton editProfilePic;
+    FloatingActionButton editProfilePic, removePic;
     ImageView profilePicture;
     EditText newUsername, newPhone, newEmail, newLocation,
             oldPassword, newPassword, confirmNewPassword;
@@ -98,6 +98,8 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         oldPassword = findViewById(R.id.old_pass);
         newPassword = findViewById(R.id.new_pass);
         confirmNewPassword = findViewById(R.id.confirm_pass);
+        removePic = findViewById(R.id.removePic);
+
         db = new editUserDetailsDB(this);
         if (db.getFailed()){returnToLogin();}
 
@@ -121,6 +123,13 @@ public class Edit_Profile_Activity extends AppCompatActivity {
                     Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
                 }
+            }
+        });
+
+        removePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
