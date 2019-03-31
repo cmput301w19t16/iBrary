@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
+import ca.rededaniskal.Activities.View_Book_Request_Activity;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.Database.Write_Request_DB;
@@ -71,9 +72,14 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         holder = borrowRequestViewHolder;
 
         //Set Fields
-
-        getUserInfo(request.getsenderUID());
-        getBookInfo(request.getsenderUID(), request.getBookId());
+        if (request.getsenderUID() != null) {
+            getUserInfo(request.getsenderUID());
+            getBookInfo(request.getsenderUID(), request.getBookId());
+        }
+        else{
+            borrowRequestViewHolder.requestInfo.setText( request.getsenderUID());
+            holder.bookInfo.setText( request.getBookId() );
+        }
 
 
         //Set onClick listeners
@@ -107,6 +113,11 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         });
     }
 
+    private void viewRequest(){
+        Intent intent = new Intent(mctx, View_Book_Request_Activity.class);
+        intent.putExtra("request", request);
+    }
+
     private void getUserInfo(String uid){
         Users_DB udb = new Users_DB();
         myCallbackUser mcb = new myCallbackUser() {
@@ -136,7 +147,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     }
 
     private void fillBookInfo(){
-        holder.bookInfo.setText( request.getBookId() );
+        holder.bookInfo.setText( bi.getTitle() );
     }
 
     @Override
@@ -167,6 +178,13 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             accept = itemView.findViewById(R.id.accept);
             cancel = itemView.findViewById(R.id.cancel);
             bookInfo = itemView.findViewById(R.id.bookInfo);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewRequest();
+                }
+            });
         }
     }
 

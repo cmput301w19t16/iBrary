@@ -45,6 +45,8 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
+import ca.rededaniskal.BusinessLogic.myCallbackBRList;
+import ca.rededaniskal.Database.Borrow_Req_DB;
 import ca.rededaniskal.Database.Username_For_Book_Details_DB;
 import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
@@ -84,6 +86,7 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     BorrowRequestAdapter requestAdapter;
     ArrayList<BorrowRequest> l;
+    Book_Details_Activity thisone;
 
     private FirebaseAuth mAuth;
     private String uid;
@@ -95,6 +98,8 @@ public class Book_Details_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book__details_);
+
+        thisone = this;
 
         //Set the attributes to their corresponding views
         DisplayTitle = (TextView) findViewById(R.id.DisplayTitle);
@@ -137,17 +142,20 @@ public class Book_Details_Activity extends AppCompatActivity {
             viewRequests.setHasFixedSize(true);
             viewRequests.setLayoutManager(new LinearLayoutManager(this));
 
-            l = new ArrayList<>();
+            Borrow_Req_DB brdb = new Borrow_Req_DB();
+            myCallbackBRList mcbrl = new myCallbackBRList() {
+                @Override
+                public void onCallback(ArrayList<BorrowRequest> borrowRequests) {
+                    requestAdapter = new BorrowRequestAdapter(thisone, borrowRequests);
+                    viewRequests.setAdapter(requestAdapter);
+                    requestAdapter.notifyDataSetChanged();
+                }
+            };
 
-
-            requestAdapter = new BorrowRequestAdapter(this, l);
-            viewRequests.setAdapter(requestAdapter);
-            requestAdapter.notifyDataSetChanged();
-            requestsOnBookDB db = new requestsOnBookDB(this);
-            if (db.getFailed()){returnToLogin();}
+            brdb.getBooksBorrowRequests(book.getBookID(), mcbrl);
 
         }else{
-            viewRequests.setVisibility(viewRequests.INVISIBLE);
+                viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
        BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
 
@@ -251,7 +259,7 @@ public class Book_Details_Activity extends AppCompatActivity {
                 }
 
                 Log.d(TAG, "*********----->" + l);
-                l.add(new BorrowRequest());
+                //l.add(new BorrowRequest());
                 requestAdapter.notifyDataSetChanged();
 
                 Log.d(TAG, "*********----->length" + l.size());
