@@ -72,7 +72,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         //Set the user attributes
         userViewHolder.UserName.setText(user.getUserName());
         userViewHolder.UserLocation.setText(user.getLocation());
-        userViewHolder.UserMutualFriends.setText(globalUser.numberMutualFriends(user).toString());// TODO: Implement global User
+        userViewHolder.UserMutualFriends.setText(Integer.toString(user.getFollowerCount()));// TODO: Implement global User
         //userViewHolder.setUser(user);
 
         //TODO: Set Profile Pic
@@ -115,8 +115,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             super(itemView);
             profilePic = itemView.findViewById(R.id.profilepic); //TODO: Make this display the Users image
             statusIcon = itemView.findViewById(R.id.StatusIcon);
-            UserName = itemView.findViewById(R.id.Title);
-            UserLocation = itemView.findViewById(R.id.location);
+            UserName = itemView.findViewById(R.id.title);
+            UserLocation = itemView.findViewById(R.id.author);
             UserMutualFriends = itemView.findViewById(R.id.UserMutualFriends);
 
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
