@@ -69,7 +69,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     @Override
     public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
         request = list.get(i);
-        final BorrowRequestViewHolder holder = borrowRequestViewHolder;
+        holder = borrowRequestViewHolder;
 
         //Set Fields
         if (request.getsenderUID() != null) {
@@ -141,7 +141,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     }
 
     private void fillBookInfo(){
-        holder.bookInfo.setText( request.getBookId() );
+        holder.bookInfo.setText( bi.getTitle() );
     }
 
     @Override
