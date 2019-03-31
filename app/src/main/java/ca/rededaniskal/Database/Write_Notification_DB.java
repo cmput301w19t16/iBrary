@@ -63,7 +63,7 @@ public class Write_Notification_DB {
     public void getNotificationKey(){
         Log.d(ContentValues.TAG, "*********----->getNotificationKey");
         Query query = FirebaseDatabase.getInstance().getReference("Notifications")
-                .orderByChild("request")
+                .orderByChild("requestID")
                 .equalTo(RequestID);
 
         Log.d(ContentValues.TAG, "*********----->requestID: "+RequestID);

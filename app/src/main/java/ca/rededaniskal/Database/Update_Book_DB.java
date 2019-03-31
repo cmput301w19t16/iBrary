@@ -143,8 +143,12 @@ public class Update_Book_DB {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Exchange exchange = snapshot.getValue(Exchange.class);
                         if (book.getOwner().equals(exchange.getOwner())){
-                            if(exchange.isOwnerScanend()) {
+                            if(exchange.isOwnerScanend() && !exchange.isReturning()) {
                                 isBorrowed = true;
+                            }else if (exchange.isBorrowedScanned() && exchange.isReturning()){
+                                isAccepted = false;
+                                isBorrowed = false;
+                                isRequested = false;
                             }else{
                                 isAccepted = true;
                             }
