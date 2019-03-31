@@ -69,16 +69,16 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     @Override
     public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
         request = list.get(i);
-        holder = borrowRequestViewHolder;
+        final BorrowRequestViewHolder holder = borrowRequestViewHolder;
 
         //Set Fields
-        if (false){//request.getsenderUID() != null) {
+        if (request.getsenderUID() != null) {
             getUserInfo(request.getsenderUID());
             getBookInfo(request.getsenderUID(), request.getBookId());
         }
         else{
-            borrowRequestViewHolder.requestInfo.setText( "HAHA");//request.getsenderUID());
-            holder.bookInfo.setText( "HOHO");//request.getBookId() );
+            borrowRequestViewHolder.requestInfo.setText( request.getsenderUID());
+            holder.bookInfo.setText( request.getBookId() );
         }
 
 

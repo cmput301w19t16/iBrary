@@ -249,7 +249,7 @@ public class Book_Details_Activity extends AppCompatActivity {
                 }
 
                 Log.d(TAG, "*********----->" + l);
-                l.add(new BorrowRequest());
+                //l.add(new BorrowRequest());
                 requestAdapter.notifyDataSetChanged();
 
                 Log.d(TAG, "*********----->length" + l.size());
