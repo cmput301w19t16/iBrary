@@ -212,9 +212,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     }
                     String url = photos.BitmapToURLMB(googleCover, Title, ISBN);
 
-
-                    businessLogic.saveInformation(bi, userID);
+                    businessLogic.saveInformation(bi, url);
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
+                    startActivity(intent);
 
 
                 } else {
