@@ -25,7 +25,9 @@
                     <ImageView
                         android:id="@+id/cover"
                         android:layout_width="100dp"
+
                         android:layout_height="100dp"
+                        android:background="@color/colorPrimaryLight"
                         android:padding="4dp" />
 
 

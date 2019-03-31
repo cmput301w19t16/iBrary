@@ -224,6 +224,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         }
     }
 
+    //https://corochann.com/convert-between-bitmap-and-drawable-313.html
     public static Bitmap drawableToBitmap (Drawable drawable) {
         Bitmap bitmap = null;
 
