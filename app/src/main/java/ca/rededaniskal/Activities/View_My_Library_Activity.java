@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -34,6 +35,7 @@ import ca.rededaniskal.Database.ReadMyBookDB;
 
 public class View_My_Library_Activity extends AppCompatActivity {
 
+    private static final String TAG = "View_My_Library_Activity";
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
     private FloatingActionButton fab;
@@ -66,7 +68,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
         bookAdapter = new BookAdapter(this, BL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
-        ReadMyBookDB db = new ReadMyBookDB(this);
+
 
         filter = findViewById(R.id.filter);
         fab = findViewById(R.id.addBookToLibrary);
@@ -132,7 +134,8 @@ public class View_My_Library_Activity extends AppCompatActivity {
                 mDialog.show();
             }
         });
-
+        Log.d(TAG, "**************---> ABout to call ReadMyBookDB");
+        ReadMyBookDB db = new ReadMyBookDB(this);
     }
 
     //Update the View
@@ -140,11 +143,9 @@ public class View_My_Library_Activity extends AppCompatActivity {
 
         //uses filter book logic to allow users to filter books by status
         if (chosenOptions.size()!=0){
-        Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);
-        bookAdapter = new BookAdapter(this, filter.newBooks());
-        }
-        else {
-
+            Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);
+            bookAdapter = new BookAdapter(this, filter.newBooks());
+        }else {
             bookAdapter = new BookAdapter(this, book_list);
         }
 
