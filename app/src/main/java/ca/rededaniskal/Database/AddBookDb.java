@@ -2,13 +2,6 @@ package ca.rededaniskal.Database;
     /*author Skye*/
 //Interacts with the Firebase when a user adds a book to ther library
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-
-import java.io.ByteArrayOutputStream;
-
-import ca.rededaniskal.Activities.UploadImg;
 import ca.rededaniskal.BusinessLogic.myCallBackMasterBook;
 import ca.rededaniskal.BusinessLogic.myCallBackString;
 import ca.rededaniskal.EntityClasses.Book_Instance;

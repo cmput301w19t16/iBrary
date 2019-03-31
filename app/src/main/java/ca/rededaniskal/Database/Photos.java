@@ -60,7 +60,7 @@ public class Photos {
 
     }
 
-    public void BitmapToURLBI (Bitmap cover, Book_Instance bi, final myCallBackString mcbstr){
+    public void BitmapToURLBI (Bitmap cover, final Book_Instance bi){
         if(cover != null){
             storageReference = FirebaseStorage.getInstance().getReference();
             images = storageReference.child("images");
@@ -87,8 +87,8 @@ public class Photos {
                     while(!uri.isComplete());
                     Uri uriURL = uri.getResult();
                     Log.i("FBApp1 URL ", uriURL.toString());
-
-                    mcbstr.onCallback(uriURL.toString());
+                    bi.setCover(uriURL.toString());
+//                    mcbstr.onCallback(uriURL.toString());
                     //bi.setCover(uriURL.toString());
                 /*Toast.makeText(Add_Book_To_Library_Activity.this, "Upload Success, download URL " +
                         uriURL.toString(), Toast.LENGTH_LONG).show();*/
@@ -97,7 +97,7 @@ public class Photos {
         }
     }
 
-    public void BitmapToURLMB (Bitmap cover, String title, String isbn, final myCallBackString mcbstr){
+    public void BitmapToURLMB (Bitmap cover, String title, String isbn){
         if (cover != null){
             storageReference = FirebaseStorage.getInstance().getReference();
             images = storageReference.child("images");
@@ -126,7 +126,7 @@ public class Photos {
 
                     Log.i("FBApp1 URL ", uriURL.toString());
 
-                    mcbstr.onCallback(uriURL.toString());
+                    //mcbstr.onCallback(uriURL.toString());
 
                 }
             });

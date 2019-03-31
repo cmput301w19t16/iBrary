@@ -135,6 +135,7 @@
     <string name="set__location">Set Location</string>
     <string name="title_activity_view__pickup_">Map</string>
     <string name="title_activity_upload_img">UploadImg</string>
+    <string name="title_activity_test_">Test_Activity</string>
 
 
 </resources>

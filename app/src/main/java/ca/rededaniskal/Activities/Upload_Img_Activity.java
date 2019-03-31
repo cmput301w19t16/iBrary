@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,7 +23,7 @@ import ca.rededaniskal.BusinessLogic.myCallBackString;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
-public class UploadImg extends Activity {
+public class Upload_Img_Activity extends AppCompatActivity {
 
     private StorageReference storageReference;
     private StorageReference images;
@@ -31,6 +32,7 @@ public class UploadImg extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("enter", "enter upload img");
         setContentView(R.layout.activity_upload_img);
 
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -40,11 +42,13 @@ public class UploadImg extends Activity {
         byte[] byteArray = getIntent().getByteArrayExtra("Bitmap");
         cover = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
-        int mode = Integer.parseInt(intent.getStringExtra("Mode"));
+        int mode = getIntent().getIntExtra("Mode", -1);
+        Log.d("mode", Integer.toString(mode));
         String title = getIntent().getStringExtra("Title");
         String newTitle = title.replace(" ", "");
 
         if (mode == 1){
+            Log.i("Int", "Got int extra");
             String id = intent.getStringExtra("ID");
             BitmapToURLBI(cover, newTitle, id);
         }
@@ -55,6 +59,7 @@ public class UploadImg extends Activity {
     }
 
     public void BitmapToURLBI (Bitmap cover, String title, String id ){
+        Log.i("Hi", "in bitmaptoURLBI");
         if(cover != null){
             storageReference = FirebaseStorage.getInstance().getReference();
             images = storageReference.child("images");

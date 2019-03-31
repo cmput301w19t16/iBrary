@@ -17,7 +17,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -32,18 +31,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 //import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
-import java.util.UUID;
 
 
 //import ca.rededaniskal.BusinessLogic.AddBookLogic;
@@ -92,8 +85,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
-    private static final int UPLOAD_REQUEST_BI = 200;
-    private static final int UPLOAD_REQUEST_MB = 300;
+    private static final int UPLOAD_REQUEST_BI = 2000;
+    private static final int UPLOAD_REQUEST_MB = 3000;
+    private static final int TEST_REQUEST = 4000;
+
     private Bitmap myCover = null;
     private myCallbackBookInstance mcbi;
     private Title_Author_GoogleBooksAPI asyncTask;
@@ -184,42 +179,49 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 startActivity(i);
 
                 String book_instance_url;*/
-                Intent uploadIntent = new Intent(getApplicationContext(),UploadImg.class);
+
+                Intent testintent = new Intent(v.getContext(), Test_Activity.class);
+                startActivityForResult(testintent, TEST_REQUEST);
+                Intent uploadIntent = new Intent(v.getContext(), Upload_Img_Activity.class);
                 uploadIntent.putExtra("Title", Title);
                 uploadIntent.putExtra("ID", bi.getBookID());
+                uploadIntent.putExtra("Mode",  1);
                 ByteArrayOutputStream bStream = new ByteArrayOutputStream();
 
                 if (personalCover){
                     myCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
                     byte[] byteArray = bStream.toByteArray();
                     uploadIntent.putExtra("Bitmap", byteArray);
-                    uploadIntent.putExtra("Mode", 1);
+                    Log.i("About to start new activity", "have personal cover");
                     startActivityForResult(uploadIntent, UPLOAD_REQUEST_BI);
-                     //new Photos().BitmapToURLBI(myCover, bi, mcbstr);
+                     new Photos().BitmapToURLBI(myCover, bi);
                 }
                 else {
                     googleCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
                     byte[] byteArray = bStream.toByteArray();
                     uploadIntent.putExtra("Bitmap", byteArray);
-                    uploadIntent.putExtra("Mode",  1);
+
                     startActivityForResult(uploadIntent, UPLOAD_REQUEST_BI);
-                     //new Photos().BitmapToURLBI(googleCover, bi, mcbstr);
+                    new Photos().BitmapToURLBI(googleCover, bi);
                 }
 
                 //bi.setCover(book_instance_url);
                 //new Photos().BitmapToURLMB(googleCover, Title, ISBN, mcbstr);
 
-                Intent mbCoverIntent = new Intent(getApplicationContext(), UploadImg.class);
-                mbCoverIntent.putExtra("Title", Title);
-                mbCoverIntent.putExtra("ISBN", ISBN);
+                if(googleCover != null){
+                    Intent mbCoverIntent = new Intent(v.getContext(), Upload_Img_Activity.class);
+                    mbCoverIntent.putExtra("Title", Title);
+                    mbCoverIntent.putExtra("ISBN", ISBN);
 
-                ByteArrayOutputStream mbStream = new ByteArrayOutputStream();
-                googleCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
-                byte[] byteArray = mbStream.toByteArray();
-                mbCoverIntent.putExtra("Bitmap", byteArray);
+                    ByteArrayOutputStream mbStream = new ByteArrayOutputStream();
+                    googleCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
+                    byte[] byteArray = mbStream.toByteArray();
+                    mbCoverIntent.putExtra("Bitmap", byteArray);
 
-                mbCoverIntent.putExtra("Mode",  2);
-                startActivityForResult(mbCoverIntent, UPLOAD_REQUEST_MB);
+                    mbCoverIntent.putExtra("Mode",  2);
+                    startActivityForResult(mbCoverIntent, UPLOAD_REQUEST_MB);
+                }
+
 
                 if (businessLogic.isValid().equals("")) {
                     businessLogic.saveInformation(bi, coverURLMb);
@@ -330,6 +332,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
         else if (requestCode == UPLOAD_REQUEST_MB && resultCode == Activity.RESULT_OK){
             coverURLMb = data.getStringExtra("URL");
+        }
+        else if (requestCode == TEST_REQUEST && resultCode == Activity.RESULT_OK){
+            Log.i("return test ", "returned from test");
         }
 
     }
