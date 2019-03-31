@@ -32,8 +32,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import ca.rededaniskal.BusinessLogic.LoadImage;
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
+import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
@@ -83,6 +85,11 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         editTitle.setText(book.getTitle());
         editAuthor.setText(book.getAuthor());
         editISBN.setText(book.getISBN());
+
+        if(book.getCover() != null || book.getCover() != ""){
+            LoadImage loader = new LoadImage(cover);
+            loader.execute(book.getCover());
+        }
 
         openScanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +159,11 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
             String Title = editTitle.getText().toString();
             String Author = editAuthor.getText().toString();
             String ISBN = editISBN.getText().toString();
+
+            BitmapDrawable drawable = (BitmapDrawable) cover.getDrawable();
+            Bitmap newCover = drawable.getBitmap();
+            Photos photos = new Photos();
+            photos.bitmapToURLBI(newCover, book);
 
             Book_Instance bookInstance =
                     new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus(), null);
