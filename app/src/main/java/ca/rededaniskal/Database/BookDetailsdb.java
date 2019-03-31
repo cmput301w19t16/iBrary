@@ -29,14 +29,9 @@ public class BookDetailsdb{
 
     public boolean bookInUserRequests(){
 
-
-
        Query requested = requestDb.getReference().orderByChild("bookId").equalTo(this.bookId);
        requested.addListenerForSingleValueEvent(queryRequestListener);
        return bookinuserrequests;
-
-
-
 
     }
 
