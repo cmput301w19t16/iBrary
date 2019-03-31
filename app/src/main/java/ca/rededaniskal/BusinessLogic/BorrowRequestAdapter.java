@@ -20,6 +20,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
@@ -69,12 +73,12 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     @Override
     public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
         request = list.get(i);
-        final BorrowRequestViewHolder holder = borrowRequestViewHolder;
+        holder = borrowRequestViewHolder;
 
         //Set Fields
         if (request.getsenderUID() != null) {
             getUserInfo(request.getsenderUID());
-            getBookInfo(request.getsenderUID(), request.getBookId());
+            getBookInfo(request.getrecipientUID(), request.getBookId());
         }
         else{
             borrowRequestViewHolder.requestInfo.setText( request.getsenderUID());
@@ -89,8 +93,14 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
                 request.setStatus("Accepted");
 
+                /* On accepted, all other requests are deleted except the accepted, which
+                Which is passed to the Establish_Exchange_Details_Activity */
+                list.remove(holder.getAdapterPosition());
+                deleteRemainingRequests();
+
                 Intent intent = new Intent(mctx,Establish_Exchange_Details_Activity.class);
                 intent.putExtra("BorrowRequestObject", request);
+                intent.putExtra("Returning", false);
                 mctx.startActivity(intent);
             }
         });
@@ -110,6 +120,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     private void viewRequest(){
         Intent intent = new Intent(mctx, View_Book_Request_Activity.class);
         intent.putExtra("request", request);
+        mctx.startActivity(intent);
     }
 
     private void getUserInfo(String uid){
@@ -143,7 +154,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     }
 
     private void fillBookInfo(){
-        holder.bookInfo.setText( request.getBookId() );
+        holder.bookInfo.setText( bi.getTitle() );
     }
 
     @Override

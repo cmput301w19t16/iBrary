@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.EntityClasses.User;
 
-public interface myCallbackUidList {
-    void onCallback(ArrayList<String> uidList);
+public interface myCallbackStringList {
+    void onCallback(ArrayList<String> strList);
 }
 

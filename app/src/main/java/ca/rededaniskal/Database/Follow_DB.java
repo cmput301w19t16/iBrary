@@ -16,10 +16,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
-import ca.rededaniskal.BusinessLogic.myCallbackInt;
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
-import ca.rededaniskal.BusinessLogic.myCallbackUidList;
-import ca.rededaniskal.BusinessLogic.myCallbackUserList;
 import ca.rededaniskal.EntityClasses.User;
 
 public class Follow_DB {
@@ -56,7 +54,7 @@ public class Follow_DB {
         });
     }
 
-    public void getLeaders(String follower, final myCallbackUidList mcbul){
+    public void getLeaders(String follower, final myCallbackStringList mcbul){
         Query query = mDatabase.child("followings/" + follower);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -77,7 +75,7 @@ public class Follow_DB {
         });
     }
 
-    public void getFollowers(final String leader, final myCallbackUidList mcbul){
+    public void getFollowers(final String leader, final myCallbackStringList mcbul){
         Query query = mDatabase.child("followings");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

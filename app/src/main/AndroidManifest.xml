@@ -100,7 +100,9 @@
             android:name=".Activities.View_Users_Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
-        <activity android:name=".Activities.View_My_Library_Activity" />
+        <activity
+            android:name=".Activities.View_My_Library_Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.Edit_Book_Instance_Activity" />
         <activity
             android:name=".Activities.Add_Book_To_Library_Activity"
