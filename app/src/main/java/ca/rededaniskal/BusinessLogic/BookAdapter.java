@@ -72,8 +72,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         bookViewHolder.bookISBN.setText(book.getISBN());
         bookViewHolder.bookStatus.setText(book.getStatus());
         bookViewHolder.bookOwner.setText(book.getOwner());
-        if(book.getCover() != null){
-            //new LoadImage(bookViewHolder.bookCover).execute(book.getCover());
+        if(book.getCover() != null || book.getCover() != ""){
+            LoadImage loader = new LoadImage(bookViewHolder.bookCover);
+            loader.execute(book.getCover());
             /*Bitmap bitmap = new Photos(mctx).getBitmapFromURL(book.getCover());
             bookViewHolder.bookCover.setImageBitmap(bitmap);
             Log.v("BookAdapter", "getCover not null");*/
