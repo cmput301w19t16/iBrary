@@ -49,6 +49,7 @@ import ca.rededaniskal.BusinessLogic.myCallBackString;
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.BusinessLogic.AsyncResponse;
 import ca.rededaniskal.Database.Photos;
+
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
@@ -70,11 +71,18 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
 
     //UI stuff
-    private EditText addTitle, addAuthor, addISBN, addDescription;
+    private EditText addTitle, addAuthor, addISBN;
     private Button openScanner, addBook;
     private FloatingActionButton openCamera;
     private ImageView cover;
+
+    private String returnString;
+    private String Title;
+    private String Author;
     private String ISBN;
+    private String titleHint;
+    private String authorHint;
+    private String isbnHint;
 
     private ValidateBookLogic businessLogic;
 
@@ -120,7 +128,36 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
         cover = findViewById(R.id.BookCover);
 
+        addAuthor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    authorHint = "";
+                }
+
+
+            }
+        });
+        addISBN.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    isbnHint = "";
+                }
+
+            }
+        });
+        addTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    titleHint = "";
+                }
+            }
+        });
+
         myProgress = new ProgressDialog(this);
+
 
         openScanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,11 +189,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 // calls addBookInstance() which creates the database object to add the book
                 //Once the book is added, its details are passed to View_My_Library, and the
                 // view is refreshed
-
+                getInfo();
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                String Title = addTitle.getText().toString();
-                String Author = addAuthor.getText().toString();
-                String ISBN = addISBN.getText().toString();
+
+
                 if (alreadyGotBookInfoAPI == false){
                     asyncTask.execute(ISBN);
                 }
@@ -164,112 +200,37 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
                 bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
 
-                /*mcbstr = new myCallBackString() {
-                    @Override
-                    public void onCallback(String url) {
-                       bi.setCover(url);
-                    }
-                };*/
-
-                /*
-                Intent i = new Intent(v.getContext(), Photos.class);
-                i.putExtra("BookInstance", bi);
-                startActivity(i);
-
-                String book_instance_url;*/
-
-                /*Intent uploadIntent = new Intent(v.getContext(), Upload_Img_Activity.class);
-                uploadIntent.putExtra("Title", Title);
-                uploadIntent.putExtra("ID", bi.getBookID());
-                uploadIntent.putExtra("Mode",  1);
-                ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-
-                if (personalCover){
-                    myCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
-                    byte[] byteArray = bStream.toByteArray();
-                    uploadIntent.putExtra("Bitmap", byteArray);
-                    Log.i("About to start new activity", "have personal cover");
-                    startActivityForResult(uploadIntent, UPLOAD_REQUEST_BI);
+           
+                String error_m = businessLogic.isValid();
+                if (error_m.equals("")) {
+                  
                     Photos photos = new Photos();
-                    photos.bitmapToURLBI(myCover, bi);
-                    while (bi.getCover() == null){
-                         //Wait for cover url
-                     }
-                     Log.i("url attribute", bi.getCover());
-                }
-                else {
-                    googleCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
-                    byte[] byteArray = bStream.toByteArray();
-                    uploadIntent.putExtra("Bitmap", byteArray);
-
+                    if(personalCover){
+                        photos.bitmapToURLBI(myCover, bi);
+                    }
+                    else
+                    {
+                        photos.bitmapToURLBI(googleCover, bi);
+                    }
+                    String url = photos.BitmapToURLMB(googleCover, Title, ISBN);
+                  
+                  
+                    businessLogic.saveInformation(userID);
+                    Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                     startActivityForResult(uploadIntent, UPLOAD_REQUEST_BI);
                     new Photos().bitmapToURLBI(googleCover, bi);
-                }*/
-
-                //bi.setCover(book_instance_url);
-                //new Photos().BitmapToURLMB(googleCover, Title, ISBN, mcbstr);
-
-                Photos photos = new Photos();
-                if(personalCover){
-                    photos.bitmapToURLBI(myCover, bi);
-                }
-                else
-                {
-                    photos.bitmapToURLBI(googleCover, bi);
-                }
-                String url = photos.BitmapToURLMB(googleCover, Title, ISBN);
-              /*
-                if(googleCover != null){
-                    Intent mbCoverIntent = new Intent(v.getContext(), Upload_Img_Activity.class);
-                    mbCoverIntent.putExtra("Title", Title);
-                    mbCoverIntent.putExtra("ISBN", ISBN);
-
-                    ByteArrayOutputStream mbStream = new ByteArrayOutputStream();
-                    googleCover.compress(Bitmap.CompressFormat.PNG, 100, bStream);
-                    byte[] byteArray = mbStream.toByteArray();
-                    mbCoverIntent.putExtra("Bitmap", byteArray);
-
-                    mbCoverIntent.putExtra("Mode",  2);
-                    startActivityForResult(mbCoverIntent, UPLOAD_REQUEST_MB);
-                }*/
-
-
-                if (businessLogic.isValid().equals("")) {
-                    businessLogic.saveInformation(bi, url);
-                    Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
-                    startActivity(intent);
-                    finish();
+             
+            
                 } else {
-
+                    Toast.makeText(Add_Book_To_Library_Activity.this, error_m, Toast.LENGTH_SHORT);
+                    authorHint = businessLogic.getAuthorError();
+                    titleHint = businessLogic.getTitleError();
+                    isbnHint = businessLogic.getISBNError();
+                    set_Book_Info_Hints();
 
                 }
+            
 
-/*
-                mcbi = new myCallbackBookInstance() {
-                    @Override
-                    public void onCallback(Book_Instance book_instance) {
-                        if (businessLogic.isValid().equals("")) {
-                            businessLogic.saveInformation(book_instance, getApplicationContext());
-                            Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
-
-
-                            startActivity(intent);
-
-                            finish();
-                        } else {
-
-
-                        }
-                    }
-                };
-                new Photos(getApplicationContext()).getURLFromBitmap(myCover, mcbi, bi);
-
-                Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
-
-
-                startActivity(intent);
-
-                finish();*/
             }
         };
 
@@ -282,28 +243,14 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     }
 
     public void getInfo() {
-        String Title = addTitle.getText().toString();
-        String Author = addAuthor.getText().toString();
-        String ISBN = addISBN.getText().toString();
+        Title = addTitle.getText().toString();
+        Author = addAuthor.getText().toString();
+        ISBN = addISBN.getText().toString();
 
 
     }
 
-    /*
-        public void onCallback(Book_Instance book_instance) {
-            if (businessLogic.isValid().equals("")) {
-                businessLogic.saveInformation(book_instance, getApplicationContext());
-                Intent intent = new Intent(getWindow().getDecorView().getRootView().getContext(), View_My_Library_Activity.class);
-
-
-                startActivity(intent);
-
-                finish();
-            } else {
-
-
-            }
-        }*/
+    
     //Code From https://stackoverflow.com/a/5991757
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -347,63 +294,15 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
     }
 
-/*
-    public void bitmapToURLBI (final Book_Instance bi){
-        storageReference = FirebaseStorage.getInstance().getReference();
-        images = storageReference.child("images");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myCover.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        byte[] dataArray = bytes.toByteArray();
-        String fileName = bi.getTitle()+ bi.getBookID();
-
-        StorageReference imageRef = images.child(fileName + ".jpeg");
-
-        UploadTask uploadTask = imageRef.putBytes(dataArray);
-
-
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                while(!uri.isComplete());
-                Uri uriURL = uri.getResult();
-                bi.setCover(uriURL.toString());
-                /*Toast.makeText(Add_Book_To_Library_Activity.this, "Upload Success, download URL " +
-                        uriURL.toString(), Toast.LENGTH_LONG).show();
-                Log.i("FBApp1 URL ", uriURL.toString());
-            }
-        });
-    }*/
-/*
-    private void UploadImage(){
-        myStorage = FirebaseStorage.getInstance().getReference();
-        StorageReference storageReferencecover = myStorage.child("images/coverbook.jpg");
-
-
-        Bitmap bitmap = ((BitmapDrawable) cover.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-
-        UploadTask uploadTask = storageReferencecover.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-            }
-        });
-    }*/
 }
 
 
+
+        public void set_Book_Info_Hints () {
+            addAuthor.setHint(authorHint);
+            addTitle.setHint(titleHint);
+            addISBN.setHint(isbnHint);
+        }
+
+
+}

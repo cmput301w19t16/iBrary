@@ -31,8 +31,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -68,8 +68,6 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     //For Camera
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
-
-    private final static int PLACE_PICKER_REQUEST = 999;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -113,22 +111,13 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         confirmNewPassword = findViewById(R.id.confirm_pass);
         db = new editUserDetailsDB(this);
         if (db.getFailed()){returnToLogin();}
+
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                try {
-                    // for activty
-                    startActivityForResult(builder.build(Edit_Profile_Activity.this), PLACE_PICKER_REQUEST);
-
-
-                    // for fragment
-                    //startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
-                } catch (GooglePlayServicesRepairableException e) {
-                    e.printStackTrace();
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
-                }
+                User use = getTexts();
+                db.uniqueUserName(use);
             }
         });
 
@@ -147,6 +136,10 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         });
     }
 
+    public void userNameTaken(){
+        EditText u = findViewById(R.id.new_username);
+        u.setError("This username is already taken");
+    }
 
     public User getTexts(){
         Log.d(TAG, "*********----->getTexts");
@@ -182,6 +175,8 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         Log.d(TAG, "*********----->LEAVING setTexts");
     }
 
+
+
     //Code From https://stackoverflow.com/a/5991757
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -198,8 +193,13 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         }
     }
 
+
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));
     }
 
+    public void nextActivity(){
+        startActivity(new Intent(Edit_Profile_Activity.this, View_Own_Profile_Fragment.class));
+        this.finish();
+    }
 }

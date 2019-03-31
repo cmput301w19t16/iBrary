@@ -32,8 +32,6 @@ public class BookInstanceDb extends Entity_Database {
     public DatabaseReference currentUserBooklist(){ return mDatabase.child(getUID());}
 
     public void getBookInstance(String ownerID, String bookID, final myCallbackBookInstance mcbbi){
-
-
         bookRef = mDatabase.child(ownerID).child(bookID);
         bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

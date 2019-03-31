@@ -120,7 +120,6 @@
     <string name="establish_exchange_pick_up">Establish Pick</string>
     <string name="title_activity_take__photo_">Take_Photo_Activity</string>
     <string name="title_activity_view__book__request_">View_Book_Request_Activity</string>
-
     <string name="new_forum_topic">New Forum Topic</string>
     <string name="add_topic">Add forum topic</string>
     <string name="post">Post</string>
@@ -136,6 +135,14 @@
     <string name="title_activity_view__pickup_">Map</string>
     <string name="title_activity_upload_img">UploadImg</string>
     <string name="title_activity_test_">Test_Activity</string>
-
+    <string name="author_space">author</string>
+    <string name="my_followers">My Followers</string>
+    <string name="im_following">Im Following</string>
+    <string name="usersImFollowing">Users I\'M Following</string>
+    <string name="pending_exchanges">Pending Exchanges</string>
+    <string name="borrower">Borrower</string>
+    <string name="posted_on">posted on</string>
+    <string name="topic">topic</string>
+    <string name="text">text</string>
 
 </resources>

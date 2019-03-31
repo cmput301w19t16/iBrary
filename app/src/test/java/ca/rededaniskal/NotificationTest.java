@@ -35,8 +35,8 @@ public class NotificationTest {
 //        Request request = new Request("dlothian", "daniela", "friend");
         String id = "yes";
 //        Notification notification = new Notification();
-//        notification.setRequest(id);
-//        String request1 = notification.getRequest();
+//        notification.setRequestID(id);
+//        String request1 = notification.getRequestID();
 //        assertEquals(id, request1);
     }
 

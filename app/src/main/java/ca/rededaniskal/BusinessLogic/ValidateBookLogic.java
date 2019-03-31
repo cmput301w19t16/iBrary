@@ -14,12 +14,11 @@ package ca.rededaniskal.BusinessLogic;
 
 //import ca.rededaniskal.Database.AddBookDb;
 import android.content.Context;
+import android.util.Log;
 import android.graphics.Bitmap;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.lang.String;
-
 
 import ca.rededaniskal.Database.AddBookDb;
 import ca.rededaniskal.Database.EditBookDb;
@@ -46,90 +45,111 @@ public class ValidateBookLogic {
         this.author = author;
         this.ISBN = ISBN;
         this.context = context;
+        this.cover = cover;
+    }
+
+    public ValidateBookLogic(String title, String author, String ISBN) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
     }
 
     //Validate the title of the new book
-    public void validateTitle() {
+    public boolean validateTitle() {
         if (this.title.isEmpty()) {
             titleError = "Required Field";
+            return false;
         }
         else {
-            String[] words = this.title.split("/s");
+            String[] words = this.title.split("\\s+");
             char[] let = words[0].toCharArray();
             let[0] = Character.toUpperCase(let[0]);
-            words[0] = let.toString();
+            words[0] = new String(let);
 
             for (int i = 1; i < words.length; i++) {
                 String[] joins = {"the", "and", "or", "if", "a", "an", "at"};
                 char[] letters = words[i].toCharArray();
-                if (!contains(joins, words[i])) {
-                    letters[0] = Character.toUpperCase(letters[0]);
-                }
-                words[i] = letters.toString();
+
+
+                letters[0] = Character.toUpperCase(letters[0]);
+
+                words[i] = new String(letters);
 
 
             }
-            title = String.join(" ", words);
+            this.title = String.join(" ", words);
         }
+        titleError = title;
 
+    return true;
 
     }
 
     //Validate the author of the new book
-    public void validateAuthor() {
+    public boolean validateAuthor() {
         if (this.author.isEmpty()) {
             authorError = "Required Field";
+            return false;
         }
 
         else if (!this.author.equals("bell hooks")) {
 
-            String[] words = this.author.split("/s");
+            String[] words = this.author.split("\\s+");
+            Log.d("length author", String.valueOf(words.length)) ;
             for (int i = 0; i < words.length; i++) {
                 char[] letters = words[i].toCharArray();
                 letters[0] = Character.toUpperCase(letters[0]);
-                words[i] = letters.toString();
+                words[i] = new String(letters);
 
             }
             this.author = String.join(" ", words);
         }
+        authorError = author;
+        return true;
 
     }
 
     //Validate the ISBN
-    public void validateISBN() {
+    public boolean validateISBN() {
 
         int how_many=0;
-        int sum;
+        int sum=0;
+        int mult=1;
 
-        String[] nums = ISBN.split("-|/s");
-        int even = 0;
+       ISBN = ISBN.replaceAll("-", "");
+       ISBN = ISBN.replaceAll(" ", "");
+       if (ISBN.length()!=13){ISBNError = "Not a valid 13-digit ISBN";
+       return false;}
 
-        for (String n: nums){
-
-            char[] num = n.toCharArray();
-            how_many+=num.length;
-
-            for (char digit: num){
+            for (char digit: ISBN.toCharArray()){
+                if (how_many%2==1){mult =3;}
+                else{mult=1;}
                 if (!Character.isDigit(digit)){
 
                     this.ISBNError =   "Illegal character '"+digit+"'.";
+                    return false;
                 }
+                sum += Integer.parseInt(String.valueOf(digit))*mult;
+                how_many+=1;
             }
-        }
-        if (how_many!=13 && how_many!=10){
-            this.ISBNError = "Not a valid ISBN";
+            if (sum%10!=0){this.ISBNError = "Not a valid ISBN.";
+            return false;}
+            ISBNError =ISBN;
+            return true;
         }
 
 
-    }
+
+
 
     //Returns Whether the book is valid
     public String isValid() {
         //Currently raises no errors, businessLogic is always Valid
         //TODO: implement this when testing stages are done for basic functionality
-        validateTitle();
-        validateAuthor();
-        validateISBN();
+        if (! (validateTitle()&&validateAuthor()&&validateISBN())){
+            return "Book Not Saved!";
+        }
+
 
         return "";
     }
@@ -139,7 +159,6 @@ public class ValidateBookLogic {
     public void saveInformation(Book_Instance book, String url){
          new AddBookDb(book, url);
 
-
     }
 
     public void updateInformation(Book_Instance book_instance){
@@ -147,7 +166,7 @@ public class ValidateBookLogic {
         db.EditBookData(book_instance);
     }
 
-    public void delete(String bookId, String isbn){
+    public void delete(String bookId){
 
         EditBookDb db = new EditBookDb();
         db.DeleteBook(bookId);
@@ -155,8 +174,15 @@ public class ValidateBookLogic {
 
     }
 
+    public String getTitleError() {
+        return titleError;
+    }
 
+    public String getAuthorError() {
+        return authorError;
+    }
 
-
-
+    public String getISBNError() {
+        return ISBNError;
+    }
 }

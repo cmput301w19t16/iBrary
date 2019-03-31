@@ -39,13 +39,7 @@ public class User_Details_Activity extends AppCompatActivity {
     TextView DisplayPhoneNum;
     TextView DisplayTotalFollowers;
 
-    TextView DisplayFavTitle;
-    TextView DisplayFavAuthor;
-    TextView DisplayFavISBN;
-
-    ImageView BookCover;
     ImageView UserPic;
-
 
     private boolean swapping;
     private FirebaseAuth mAuth;
@@ -77,17 +71,26 @@ public class User_Details_Activity extends AppCompatActivity {
             @Override
             public void onCallback(Boolean value) {
                 isFollowing = value;
+                int followcountchange;
+                if (isFollowing){
+                    followcountchange = -1;
+                }
+                else{
+                    followcountchange = 1;
+                }
                 if (swapping){
                     fdb.swapFollow(currentUser.getUid(), user_received.getUID(), isFollowing);
                     swapping = false;
                     isFollowing = !isFollowing;
+                    user_received.setFollowerCount(user_received.getFollowerCount() + followcountchange);
                 }
                 setFriendText();
+                fillData(user_received);
             }
         };
 
         fdb = new Follow_DB();
-        fdb.isFollowing(currentUser.getUid(), user_received.getUserName(), mcb);
+        fdb.isFollowing(currentUser.getUid(), user_received.getUID(), mcb);
 
         Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,13 +109,8 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayPhoneNum = (TextView) findViewById(R.id.DisplayPhoneNumber);
         DisplayTotalFollowers = (TextView) findViewById(R.id.UserMutualFriends);
 
-        DisplayFavTitle = (TextView) findViewById(R.id.DisplayBookTitle);
-        DisplayFavAuthor = (TextView) findViewById(R.id.DisplayBookAuthor);
-        DisplayFavISBN = (TextView) findViewById(R.id.DisplayBookISBN);
 
         UserPic = (ImageView) findViewById(R.id.BookCover);
-        BookCover = (ImageView) findViewById(R.id.DisplayFavBookCover);
-
 
 
         String username = user.getUserName();
@@ -120,15 +118,11 @@ public class User_Details_Activity extends AppCompatActivity {
         String email = user.getEmail();
         String phone_num = user.getPhoneNumber();
 
-        Integer followers = 0;
-
-
-
         DisplayUsername.setText(username);
         DisplayLocation.setText(location);
         DisplayEmail.setText(email);
         DisplayPhoneNum.setText(phone_num);
-        DisplayTotalFollowers.setText(followers.toString().concat(" followers"));
+        DisplayTotalFollowers.setText(Integer.toString(user_received.getFollowerCount()));
 
     }
 
@@ -149,7 +143,4 @@ public class User_Details_Activity extends AppCompatActivity {
                     .getColor(R.color.acceptGreen, getTheme()));
         }
     }
-
-
-
 }

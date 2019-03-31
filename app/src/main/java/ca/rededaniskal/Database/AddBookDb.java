@@ -2,8 +2,15 @@ package ca.rededaniskal.Database;
     /*author Skye*/
 //Interacts with the Firebase when a user adds a book to ther library
 
+
 import ca.rededaniskal.BusinessLogic.myCallBackMasterBook;
 import ca.rededaniskal.BusinessLogic.myCallBackString;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.provider.FirebaseInitProvider;
+
+import ca.rededaniskal.Activities.Fragments.Search_Fragment;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
@@ -40,24 +47,13 @@ public class AddBookDb {
 
         public void update() {
             addBookToDatabase();
-            if (!masterdb.checkExists(masterdb.getReference().child(book_instance.getISBN()))) {
-                book_instance.setAuthor("Williams");
 
             }
 
             mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
             mb.setGoogleCover(mbCoverURL);
-
-
-            /*mcbstr = new myCallBackString() {
-                @Override
-                public void onCallback(String url) {
-                    mb.setGoogleCover(url);
-                }
-            };
-            new Photos().BitmapToURLMB(bitmap, book_instance.getTitle(), book_instance.getISBN(), mcbstr);
-            //mb.setGoogleCover(url);*/
             masterdb.addMasterBook(mb);
+
         }
 
 
@@ -65,5 +61,10 @@ public class AddBookDb {
             success = instancedb.getStorageId();
             book_instance.setBookID(success);
             bookAdded = instancedb.addBookInstance(book_instance);
+
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
+            String key = book_instance.getBookID();
+            mDatabase.child(key).setValue(book_instance);
+
         }
     }

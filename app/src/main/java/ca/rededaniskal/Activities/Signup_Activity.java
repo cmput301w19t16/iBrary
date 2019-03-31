@@ -189,14 +189,19 @@ public class Signup_Activity extends AppCompatActivity {
             SignUpDB db = new SignUpDB(this);
             String email = emailText.getText().toString();
             String password = passwordText.getText().toString();
+            String username = usernameText.getText().toString();
             lmbl = Login_Manager_BL.getLoginManager();
             lmblHelper = new Login_Manager_Helper_BL(this.getBaseContext());
             lmbl.setUsername(email);
             lmbl.setPassword(password);
             lmblHelper.saveInFile(lmbl);
 
-            db.createUser(email, password);
+            db.uniqueUserName(username, email, password);
             }
+    }
+
+    public void userNameTaken(){
+        usernameText.setError("This username is already taken");
     }
 
 

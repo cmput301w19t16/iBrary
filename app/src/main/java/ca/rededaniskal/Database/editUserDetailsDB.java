@@ -1,5 +1,6 @@
 package ca.rededaniskal.Database;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,12 +53,46 @@ public class editUserDetailsDB{
     public boolean getFailed(){return failed;}
 
 
-    public void saveNewDetails(User user){
+    public void saveNewDetails(User u){
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-        mDatabase.child(key).setValue(user);
+        mDatabase.child(u.getUID()).setValue(u);
+        parent.nextActivity();
 
     }
 
+    public void uniqueUserName(User U){
+        final User use = U;
+        use.setUID(user.getUid());
+        Log.d(TAG, " *(*(*( uid: " + use.getUID());
+
+
+        Query query = FirebaseDatabase.getInstance().getReference("Users")
+                .orderByChild("userName")
+                .equalTo(use.getUserName());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    saveNewDetails(use);
+                }else{
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        User u = snapshot.getValue(User.class);
+                        if(u.getUID().equals(user.getUid())) {
+                            saveNewDetails(use);
+                        }else{
+                            parent.userNameTaken();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     private void getUserDetails(){
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");

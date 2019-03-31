@@ -16,11 +16,11 @@ public class PostTest {
 
         Post post = new Post("this is a post", user.getUserName(), "333", "Friend");
 
-        assertEquals("this is a post", post.getMessage());
+        assertEquals("this is a post", post.getText());
 
-        post.setMessage("this is a changed post");
+        post.setText("this is a changed post");
 
-        assertEquals("this is a changed post", post.getMessage());
+        assertEquals("this is a changed post", post.getText());
     }
 
     @Test
@@ -42,10 +42,10 @@ public class PostTest {
 
         Post post = new Post("this is a post", user.getUserName(), "333", "Friend");
 
-        assertEquals("alex chan", post.getUserName());
+        assertEquals("alex chan", post.getUid());
 
-        post.setUserName("john poop");
-        assertEquals("john poop", post.getUserName());
+        post.setUid("john poop");
+        assertEquals("john poop", post.getUid());
     }
 
 //    @Test
@@ -54,9 +54,9 @@ public class PostTest {
 //
 //        User user2 = new User("bob jones", "bj@bs.ca", "toronton");
 //
-//        Post post = new Post("this is a post", user.getUserName(), "333", "Friend");
+//        Post post = new Post("this is a post", user.getUid(), "333", "Friend");
 //
-//        assertEquals("bob jones", user2.getUserName());
+//        assertEquals("bob jones", user2.getUid());
 //
 //        post.setReplyTarget("james cameron");
 //        assertEquals("james cameron", post.getReplyTarget());

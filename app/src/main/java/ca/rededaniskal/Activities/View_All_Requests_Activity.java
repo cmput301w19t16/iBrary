@@ -69,6 +69,7 @@ public class View_All_Requests_Activity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Requests on My Books");
 
         db = new getAllUserRequests();
     }

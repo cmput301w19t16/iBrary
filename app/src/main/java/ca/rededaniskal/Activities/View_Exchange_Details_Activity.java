@@ -21,12 +21,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
+import ca.rededaniskal.Database.Update_Book_DB;
+import ca.rededaniskal.Database.Write_Exchange_DB;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.R;
 
@@ -35,14 +40,14 @@ import ca.rededaniskal.R;
  * Display details about a book pick up.
  */
 public class View_Exchange_Details_Activity extends  AppCompatActivity  implements OnMapReadyCallback {
-    TextView title, owner, dateTime;
+    TextView title, owner, dateTime, borrower;
 
     Button goToScanner;
     String mode;
 
     private GoogleMap mMap;
 
-    private BorrowRequest  request;
+    private Exchange exchange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,24 +64,26 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
         title = findViewById(R.id.viewtitle);
         owner = findViewById(R.id.viewOwner);
         dateTime = findViewById(R.id.viewDateTime);
+        borrower = findViewById(R.id.viewborrower);
 
 
         goToScanner = findViewById(R.id.ScanBookPickUpButton);
 
         //get the Request object
-        request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
+        exchange = (Exchange) getIntent().getSerializableExtra("exchange");
 
         //Set the views
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Book Exchange Details"); //TODO: change this if we want
 
-        title.setText(request.getBookId()); //TODO: get title from dp
-        owner.setText(request.getrecipientUID());
+        title.setText( exchange.getBookid()); //TODO: get title from dp
+        owner.setText( exchange.getOwner());
+        borrower.setText(exchange.getBorrower());
 
         //Get date in the right format
         SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy HH:mm");
-        String date =formatter.format(request.getTimestamp());
+        String date =formatter.format(exchange.getTime());
         dateTime.setText(date);
 
 
@@ -99,7 +106,39 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
         // check if the request code is same as what is passed  here it is 2
         if(requestCode == 1 && resultCode == Activity.RESULT_OK)
         {
-            //do something with ISBN to change the status of the book
+            // Once the scan is successful, update information about the exchange and book
+            // First, check who just scanned
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                String UID = user.getUid();
+
+                // Update their booleans
+                if(UID.equals(exchange.getOwner())){
+                    exchange.setOwnerScanend(true);
+                    // Once owner is scanned, book can be updated to have new possessor and status.
+                    if(!exchange.isReturning()){
+                        Update_Book_DB db = new Update_Book_DB(exchange.getOwner(), exchange.getBorrower(), exchange.getIsbn());
+                    }
+
+                }else{
+                    exchange.setBorrowedScanned(true);
+                    if(exchange.isReturning()){
+                        Update_Book_DB db = new Update_Book_DB(exchange.getOwner(), exchange.getOwner(), exchange.getIsbn());
+                    }
+                }
+
+                Write_Exchange_DB db = new Write_Exchange_DB();
+
+                // If the book has been scanned by both parties, exchange may be deleted.
+                if(exchange.isBorrowedScanned() && exchange.isOwnerScanend()){
+                    db.removeExchange(exchange);
+
+                // Otherwise, update the exchange object with the new booleans
+                }else{
+                    db.updateExchange(exchange);
+                }
+            }
         }
     }
 
@@ -107,9 +146,7 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // TODO: put marker in the right spot
-
-        LatLng loc = new LatLng(request.getLat(), request.getLng());
+        LatLng loc = new LatLng(exchange.getLat(), exchange.getLng());
         mMap.addMarker(new MarkerOptions().position(loc).title("Meeting place"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 13));

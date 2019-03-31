@@ -2,29 +2,42 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.Date;
 
+
+
 public class Notification {
     private Date timestamp;
     private String userID;
     private String requestID;
     private boolean seen;
     private String requestType;
+    private String sender;
 
     public Notification(){}
 
-    public Notification(String user, String req, boolean s){
+    public Notification(String user, String sender, String req, boolean s){
         timestamp = new Date();
         requestID = req;
         userID = user;
+        this.sender = sender;
         seen = s;
         requestType = "";
     }
 
-    public Notification(String user, String req, String rT){
+    public Notification(String user, String sender, String req, String rT){
         timestamp = new Date();
         requestID = req;
         userID = user;
         seen = false;
         requestType = rT;
+        this.sender = sender;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     public Date getTimestamp() {
@@ -51,11 +64,11 @@ public class Notification {
         this.userID = userID;
     }
 
-    public String getRequest() {
+    public String getRequestID() {
         return requestID;
     }
 
-    public void setRequest(String request) {
+    public void setRequestID(String request) {
         this.requestID = request;
     }
 

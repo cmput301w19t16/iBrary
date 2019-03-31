@@ -15,7 +15,9 @@
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     <ImageView
+
         android:id="@+id/BookCover"
+
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
@@ -26,19 +28,21 @@
 
     <TextView
         android:id="@+id/username"
-        android:layout_width="159dp"
-        android:layout_height="19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="@string/username"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
+
         app:layout_constraintStart_toEndOf="@+id/BookCover"
         app:layout_constraintTop_toTopOf="@+id/BookCover" />
 
+
     <TextView
-        android:id="@+id/Location"
-        android:layout_width="159dp"
-        android:layout_height="19dp"
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Location"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -50,17 +54,16 @@
         android:layout_width="159dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Mutual Friends"
+        android:text="Followers"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintStart_toStartOf="@+id/Location"
-        app:layout_constraintTop_toBottomOf="@+id/Location" />
+        app:layout_constraintStart_toStartOf="@+id/location"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <Button
         android:id="@+id/userField"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/askedField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -79,35 +82,36 @@
         app:layout_constraintTop_toTopOf="@+id/bookField" />
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="159dp"
-        android:layout_height="19dp"
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="Title"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/Author"
+
         app:layout_constraintStart_toEndOf="@+id/BookCover"
+
         app:layout_constraintTop_toTopOf="@+id/bookField" />
 
     <TextView
         android:id="@+id/Author"
-        android:layout_width="159dp"
-        android:layout_height="19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Author"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="@+id/bookField"
-        app:layout_constraintStart_toStartOf="@+id/username"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintStart_toStartOf="@+id/Title"
+        app:layout_constraintTop_toBottomOf="@+id/Title" />
 
 
     <Button
         android:id="@+id/bookField"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/ConfirmButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -20,12 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
-import ca.rededaniskal.BusinessLogic.ThreadAdapter;
-import ca.rededaniskal.EntityClasses.Parent_Thread;
 import ca.rededaniskal.EntityClasses.Thread;
 
 import ca.rededaniskal.EntityClasses.Forum;
-import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.R;
 
 import static java.lang.Boolean.FALSE;
@@ -53,7 +50,8 @@ public class Forum_Activity extends AppCompatActivity {
         //TODO: get Forum from DB or something
         Master_Book b = new Master_Book("Happy Potter","JK Rowling","1234567890", null);
 
-        forum = new Forum(b); //For testing
+
+        forum = new Forum("1234567890"); //For testing
 
         title = findViewById(R.id.Title);
         addTopic = findViewById(R.id.addTopic);
@@ -75,15 +73,9 @@ public class Forum_Activity extends AppCompatActivity {
 
         //Set the Rating bars
 
-        if (!(forum.getBook().getAvgRating() == null)){
-            avgRating.setRating(forum.getBook().getAvgRating());
-        }
+        //TODO: set the rating bars
 
-        if (! (forum.getBook().getUserRating(uid) == null)){
-            myRating.setRating(forum.getBook().getUserRating(uid));
-        }
-
-        title.setText(forum.getBookName());
+        title.setText(forum.getIsbn());
 
         //Set the add topic on Click listener
         addTopic.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +125,7 @@ public class Forum_Activity extends AppCompatActivity {
                             String topicStr  = topic.getText().toString();
 
 
-                            Parent_Thread newThread = new Parent_Thread(uid, textStr, topicStr);
+                            Thread newThread = new Thread(uid, textStr, topicStr);
 
                             forum.addPost(newThread);
 
@@ -155,15 +147,13 @@ public class Forum_Activity extends AppCompatActivity {
 
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 String uid = currentUser.getUid();
-                forum.addRatingToBook(uid, rating);
 
-                avgRating.setRating(forum.getBook().getAvgRating());
+                //TODO: add rating
+                //forum.addRatingToBook(uid, rating);
+                //avgRating.setRating(forum.getBook().getAvgRating());
 
                 return myRating.onTouchEvent(event);
             }
         });
-
-
-
     }
 }

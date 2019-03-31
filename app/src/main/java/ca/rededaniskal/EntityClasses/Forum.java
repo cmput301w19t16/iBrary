@@ -2,38 +2,32 @@ package ca.rededaniskal.EntityClasses;
 
 import java.util.ArrayList;
 
-public class Forum {
+public class  Forum {
 
-    private ArrayList<Parent_Thread> threads = new ArrayList<>();
-    private Master_Book Book;
-    private String forumID;
+    private ArrayList<Thread> threads = new ArrayList<>();
+    private String isbn;
 
-    public Forum(Master_Book book) {
-        Book = book;
-        this.forumID = book.getISBN();
+    public Forum(String isbn) {
+        this.isbn = isbn;
     }
 
-    public void addPost(Parent_Thread newThread) {
+    public void addPost(Thread newThread) {
         threads.add(newThread);
     }
 
-    public ArrayList<Parent_Thread> getThreads(){
+    public ArrayList<Thread> getThreads(){
         return this.threads;
     }
 
-    public String getForumID() {
-        return forumID;
+    public void setThreads(ArrayList<Thread> threads) {
+        this.threads = threads;
     }
 
-    public String getBookName(){
-        return Book.getTitle();
+    public String getIsbn() {
+        return isbn;
     }
 
-    public Master_Book getBook() {
-        return Book;
-    }
-
-    public void addRatingToBook(String uid, float rating){
-        Book.addRating(uid, rating);
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 }

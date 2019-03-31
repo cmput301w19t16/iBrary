@@ -9,8 +9,9 @@
  *
  */
 package ca.rededaniskal.Activities.Fragments;
-import ca.rededaniskal.Activities.Set_Location_Activity;
 import ca.rededaniskal.Activities.View_All_Requests_Activity;
+import ca.rededaniskal.Activities.View_Pending_Exchanges_Activity;
+import ca.rededaniskal.Activities.View_Users_Activity;
 import ca.rededaniskal.BusinessLogic.Login_Manager_BL;
 import ca.rededaniskal.BusinessLogic.Login_Manager_Helper_BL;
 import ca.rededaniskal.Database.currentUserDetailsDB;
@@ -35,7 +36,6 @@ import ca.rededaniskal.Activities.Login_Activity;
 import ca.rededaniskal.Activities.View_All_Books_Activity;
 import ca.rededaniskal.Activities.View_All_Users_Activity;
 import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
-import ca.rededaniskal.Activities.View_Friends_Activity;
 import ca.rededaniskal.Activities.View_My_Library_Activity;
 import ca.rededaniskal.R;
 
@@ -131,13 +131,25 @@ public class View_Own_Profile_Fragment extends Fragment {
         Button editButton = v.findViewById(R.id.edit_user);
         Button viewLibrary = (Button) v.findViewById(R.id.my_library);
         Button viewBorrowedRequested = (Button) v.findViewById(R.id.borrowed_requested_books);
-        Button viewFriends = (Button) v.findViewById(R.id.friends_listbutton);
+        Button viewFollowers = (Button) v.findViewById(R.id.myFollowers);
+        Button viewFollowed = (Button) v.findViewById(R.id.ImFollowing);
         Button logout = (Button) v.findViewById(R.id.logout);
         Button viewAllRequests = (Button) v.findViewById(R.id.view_all_requests);
         Button viewAllUsers = (Button) v.findViewById(R.id.viewUsers);
         Button viewAllBooks = (Button) v.findViewById(R.id.viewBooks);
+
         ImageView viewProfilePic = v.findViewById(R.id.profile_image);
 
+
+        Button viewExchanges = v.findViewById(R.id.pendingExchanges);
+
+        viewExchanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), View_Pending_Exchanges_Activity.class);
+                startActivity(intent);
+            }
+        });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,10 +175,20 @@ public class View_Own_Profile_Fragment extends Fragment {
             }
         });
 
-        viewFriends.setOnClickListener(new View.OnClickListener() {
+        viewFollowers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), View_Friends_Activity.class);
+                Intent intent = new Intent(getActivity(), View_Users_Activity.class);
+                intent.putExtra("mode", "followers");
+                startActivity(intent);
+            }
+        });
+
+        viewFollowed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), View_Users_Activity.class);
+                intent.putExtra("mode", "following");
                 startActivity(intent);
             }
         });
@@ -175,7 +197,6 @@ public class View_Own_Profile_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), View_All_Requests_Activity.class);
-                //Intent intent = new Intent(getActivity(), Set_Location_Activity.class);
                 startActivity(intent);
 
             }
@@ -233,10 +254,4 @@ public class View_Own_Profile_Fragment extends Fragment {
     private void returnToLogin() {
         startActivity(new Intent(getActivity(), Login_Activity.class));
     }
-
-
-
-
-
-
 }

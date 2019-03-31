@@ -8,135 +8,102 @@
  */
 package ca.rededaniskal.BusinessLogic;
 
-import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
-import ca.rededaniskal.Activities.View_Rating_Post_Activity;
-import ca.rededaniskal.Activities.View_Text_Post_Activity;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
-//Author: Nick
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
-    private ArrayList<Post> mDataset;
-    public Post_Feed_Fragment fragment;
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>{
+    public Post_Feed_Fragment mctx;
+    private ArrayList<Post> posts;
 
-    public class PostViewHolder extends RecyclerView.ViewHolder{
-        public TextView postTitle;
-        public TextView postBodyText;
-        public String postType;
-        public String postID;
-        public View view;
-
-        public PostViewHolder(View v){
-            super(v);
-            view = v;
-            postTitle = v.findViewById(R.id.post_title);
-            postBodyText = v.findViewById(R.id.post_body_text);
-        }
+    /**
+     * Instantiates a new Entry adapter.
+     */
+    public PostAdapter(Post_Feed_Fragment ctx, ArrayList<Post> posts) {
+        this.mctx = ctx;
+        this.posts = posts;
     }
 
-
-    public PostAdapter(ArrayList<Post> postList, Post_Feed_Fragment frag){
-        this.fragment = frag;
-        this.mDataset = postList;
-    }
-
-
+    /**
+     * When View Holder is created
+     *
+     */
+    @NonNull
     @Override
-    public PostAdapter.PostViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
-        //Set the Layout
-        View itemView = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.post_card_layout, parent, false);
-
-        PostViewHolder vh = new PostViewHolder(itemView);
-        return vh;
+    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //Set the layout
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        View view = inflater.inflate(R.layout.post_card_layout, viewGroup, false);
+        PostViewHolder holder = new PostViewHolder(view);
+        return holder;
     }
 
-
+    /**
+     * Binds an Entry to a view holder.
+     *
+     * @param postViewHolder      the the view to be bound to
+     * @param i                 position of Entry in list
+     */
     @Override
-    public void onBindViewHolder(final PostViewHolder holder, int position){
-        //Bind a post to the view
-        Post post = mDataset.get(position);
-        String titleText = post.getUserName();
-        String bodyText = "";
+    public void onBindViewHolder(@NonNull PostViewHolder  postViewHolder, final int i) {
+        final Post post = posts.get(i);
 
-        //Set the body text based on post type
-        switch (post.getType()){
-            case "Rating_Post":
-                titleText += " just reviewed " + post.getISBN();
-                bodyText += post.getMessage();
-                break;
-            case "Text_Post":
-                titleText += " made a post about " + post.getISBN();
-                bodyText += post.getMessage();
-                break;
-            case "alert":
-                titleText = post.getMessage();
-        }
+        //Set the book attributes
+        postViewHolder.user.setText(post.getUid());
+        postViewHolder.title.setText(post.getISBN());
+        postViewHolder.topic.setText(post.getTopic());
+        postViewHolder.text.setText(post.getText());
 
-        holder.postTitle.setText(titleText);
-        holder.postBodyText.setText(bodyText);
-        holder.postType = post.getType();
-        holder.postID = post.getID();
-
-        holder.view.setOnClickListener(new View.OnClickListener() {
+        //if User clicks on a Book, will start the book details Activity
+        postViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                switch (holder.postType){
-                    case "Text_Post":
-                        intent = new Intent(fragment.getContext(), View_Text_Post_Activity.class);
-                        fragment.startActivity(intent);
-                        break;
-                    case "Rating_Post":
-                        intent = new Intent(fragment.getContext(), View_Rating_Post_Activity.class);
-                        fragment.startActivity(intent);
-                        break;
-                    default:
-                        Toast.makeText(fragment.getActivity(), "All out of posts. " +
-                                "Refresh for more!", Toast.LENGTH_LONG).show();
-                        break;
+              //TODO
             }
-        }
-    });
-
+        });
     }
 
+    /**
+     * returns the size of the Entry list
+     *
+     * @return  EntryList.size()
+     */
     @Override
-    public int getItemCount(){
-        return mDataset.size();
-    }
-
-
-    public void clear() {
-        mDataset.clear();
-        this.checkEmpty();
-        this.notifyDataSetChanged();
-    }
-
-
-    // Add a list of items -- change to type used
-    public void addAll(List<Post> list) {
-        mDataset.addAll(list);
-        this.notifyDataSetChanged();
-    }
-
-
-    public void checkEmpty(){
-        if (mDataset.size() == 0){
-            mDataset.add(new Post("Looks like there are no more posts",
-                    "system", "None", "Display"));
+    public int getItemCount() {
+        if (posts == null){
+            return 0;
         }
-        return;
+        return posts.size();
+    }
+
+    /**
+     * The type Entry view holder, the object to actually hold an entry
+     */
+    class PostViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView imageView;
+        TextView user, title, topic, text;
+        /**
+         * Instantiates a new Entry view holder.
+         */
+        public PostViewHolder(@NonNull View itemView) {
+            super(itemView);
+            //imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
+
+            user = itemView.findViewById(R.id.user);
+            title = itemView.findViewById(R.id.Title);
+            topic = itemView.findViewById(R.id.topic);
+            text = itemView.findViewById(R.id.text);
+        }
     }
 }
