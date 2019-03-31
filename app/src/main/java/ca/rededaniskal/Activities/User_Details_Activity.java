@@ -109,6 +109,10 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayPhoneNum = (TextView) findViewById(R.id.DisplayPhoneNumber);
         DisplayTotalFollowers = (TextView) findViewById(R.id.UserMutualFriends);
 
+
+        UserPic = (ImageView) findViewById(R.id.BookCover);
+
+
         String username = user.getUserName();
         String location = user.getLocation();
         String email = user.getEmail();
