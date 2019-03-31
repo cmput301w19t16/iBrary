@@ -12,8 +12,6 @@
 //https://www.youtube.com/redirect?q=https%3A%2F%2Fgithub.com%2Fcodingdemos%2FMultichoiceTutorial&redir_token=zWJM5OoUtOrwMvfLlGWm1qv4-B98MTU1MjE5NTgxMEAxNTUyMTA5NDEw&event=video_description&v=wfADRuyul04
 package ca.rededaniskal.Activities.Fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,24 +25,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.zip.Inflater;
 
-import ca.rededaniskal.Activities.Filter_My_Books_Logic;
-import ca.rededaniskal.BusinessLogic.BookAdapter;
-import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.BusinessLogic.Master_BookAdapter;
-import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.BusinessLogic.Search_Logic;
-import ca.rededaniskal.Database.Search_Books_Db;
-import ca.rededaniskal.EntityClasses.Book_List;
 import ca.rededaniskal.EntityClasses.Master_Book;
-import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 /**
