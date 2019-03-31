@@ -52,6 +52,13 @@ public class ValidateBookLogic {
         this.cover = cover;
 
     }
+    public ValidateBookLogic(String title, String author, String ISBN) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+
+
+    }
 
     //Validate the title of the new book
     public boolean validateTitle() {

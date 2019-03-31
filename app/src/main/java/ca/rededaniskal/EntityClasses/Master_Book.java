@@ -1,5 +1,7 @@
 package ca.rededaniskal.EntityClasses;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -10,7 +12,8 @@ public class Master_Book extends Book implements Serializable {
     private Float avgRating;
     private Integer totalNumRating;
     private Float sumRatings;
-    private HashMap<String, Float>mapUsersRating;
+    private HashMap<String, Float> mapUsersRating;
+
 
     public  Master_Book(){}
 
@@ -37,18 +40,34 @@ public class Master_Book extends Book implements Serializable {
                 avgRating = sumRatings / totalNumRating;
                 return avgRating;
             }
-            else return null;
+
+            else{
+                Log.d("null", "total ratings 0");
+                return null;}
         }
         else{
+            Log.d("null", "mapUserRatings null");
             return null;
         }
     }
 
     public Float getUserRating(String username){
-        return mapUsersRating.getOrDefault(username, null);
+        if( mapUsersRating!=null)
+        {return mapUsersRating.getOrDefault(username, null);}
+        return null;
+
     }
     public void deleteUserRating(String username){
-        mapUsersRating.remove(username);
+        if (mapUsersRating!=null){
+        mapUsersRating.remove(username);}
+
     }
 
+    public void setMapUsersRating(HashMap<String, Float> mapUsersRating) {
+        this.mapUsersRating = mapUsersRating;
+    }
+
+    public HashMap<String, Float> getMapUsersRating() {
+        return mapUsersRating;
+    }
 }

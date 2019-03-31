@@ -243,7 +243,10 @@ public class Search_Fragment extends Fragment {
                 viewBookList.clear();
                 Log.d("Searchlog", "**************Onrefresh");
 
-                new Search_Logic(search_fragment, chosenOptions, queryString );
+                if (queryString!=null&&chosenOptions!=null) {
+                    new Search_Logic(search_fragment, chosenOptions, queryString);
+                }
+
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         // Stop animation (This will be after 3 seconds)

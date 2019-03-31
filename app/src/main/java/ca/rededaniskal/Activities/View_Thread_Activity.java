@@ -53,6 +53,9 @@ public class View_Thread_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         parent = (Thread)  intent.getSerializableExtra("thread");
         children = parent.getComments();
+        if (children==null){
+            children = new ArrayList<>();
+        }
 
 
 

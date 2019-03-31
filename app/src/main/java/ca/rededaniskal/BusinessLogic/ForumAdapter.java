@@ -52,9 +52,10 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
         forumViewHolder.text.setText(child_thread.getText());
         forumViewHolder.name.setText(child_thread.getCreator());
         forumViewHolder.topic.setText(child_thread.getTopic());
+        if (child_thread.getComments()!=null){
         Integer numreplies = child_thread.getComments().size();
 
-        forumViewHolder.replies.setText(Integer.toString(numreplies).concat(" replies"));
+        forumViewHolder.replies.setText(Integer.toString(numreplies).concat(" replies"));}
 
         //Set the onClickListeners
         forumViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

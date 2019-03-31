@@ -7,10 +7,12 @@ import com.google.android.gms.common.util.ArrayUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.Activities.Forum_Activity;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
 
@@ -18,6 +20,8 @@ public class MasterBookDb extends Entity_Database {
     DatabaseReference mainRef = db.getReference(References.MASTERBOOK.reference());
     DatabaseReference authorindexRef = db.getReference(References.INDICESAUTHOR.reference());
     DatabaseReference titleindexRef = db.getReference(References.INDICESTITLE.reference());
+    Master_Book mb;
+
 
 
 
@@ -69,6 +73,33 @@ public class MasterBookDb extends Entity_Database {
 
             index.child(key).setValue(isbn);
         }
+
+    }
+
+    public void addRatingToDB(final float rating, String isbn){
+
+        mainRef.child(isbn).child("mapUsersRating").child(getUID()).setValue(rating);
+
+
+    }
+    public void get_Masterbook_for_Forum(Forum_Activity fa, String isbn){
+        final Forum_Activity forum_activity = fa;
+        mainRef.child(isbn).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    mb = dataSnapshot .getValue(Master_Book.class);
+
+                forum_activity.setMasterBook(mb, getUID());
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

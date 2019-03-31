@@ -212,7 +212,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
                 getInfo();
 
-                businessLogic = new ValidateBookLogic(Title, Author, ISBN);
+                businessLogic = new ValidateBookLogic(   Title, Author, ISBN);
               
               //                bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
@@ -281,15 +281,14 @@ else{
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             cover.setImageBitmap(photo);
             new Photos(this.getClass(), getApplicationContext()).uploadImage(photo, Add_Book_To_Library_Activity.class);
+        } else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            String ISBN = data.getStringExtra("ISBN");
+            new UseGoogleBooksAPI(this, addTitle, addAuthor, cover).execute(ISBN);
+            addISBN.setText(ISBN);
         }
-        else if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-                String ISBN = data.getStringExtra("ISBN");
-                new UseGoogleBooksAPI(this, addTitle, addAuthor, cover).execute(ISBN);
-                addISBN.setText(ISBN);
-        }
 
 
-
+    }
 
 
 public void set_Book_Info_Hints(){

@@ -11,6 +11,9 @@ public class Thread implements Serializable {
     private String creator;
     ArrayList<Comment> comments;
 
+    //required no argument constructor
+    public Thread(){}
+
     public Thread(String creator, String text, String topic){
         this.text = text;
         this.creator = creator;
@@ -19,6 +22,10 @@ public class Thread implements Serializable {
     }
 
     public void addComment(Comment newComment){
+        if (comments ==null){
+            comments = new ArrayList<>();
+        }
+
         comments.add(newComment);
     }
 
@@ -55,6 +62,8 @@ public class Thread implements Serializable {
     }
 
     public Integer numComments(){
-        return comments.size();
+       if (comments!=null){
+        return comments.size();}
+        return 0;
     }
 }
