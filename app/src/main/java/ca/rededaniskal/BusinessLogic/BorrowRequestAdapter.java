@@ -117,7 +117,6 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         Intent intent = new Intent(mctx, View_Book_Request_Activity.class);
         intent.putExtra("request", request);
         mctx.startActivity(intent);
-        
     }
 
     private void getUserInfo(String uid){
