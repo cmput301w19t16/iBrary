@@ -74,8 +74,6 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
         request = list.get(i);
         holder = borrowRequestViewHolder;
-        //FirebaseUser fbu = FirebaseAuth.getInstance().getCurrentUser();
-        //String fbuid = fbu.getUid();
 
         //Set Fields
         if (request.getsenderUID() != null) {
@@ -123,7 +121,6 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         Intent intent = new Intent(mctx, View_Book_Request_Activity.class);
         intent.putExtra("request", request);
         mctx.startActivity(intent);
-        
     }
 
     private void getUserInfo(String uid){
