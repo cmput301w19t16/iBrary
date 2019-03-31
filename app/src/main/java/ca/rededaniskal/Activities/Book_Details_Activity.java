@@ -49,6 +49,7 @@ import ca.rededaniskal.Database.Username_For_Book_Details_DB;
 import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -207,7 +208,6 @@ public class Book_Details_Activity extends AppCompatActivity {
                 }else if(canReturn){
                     //TODO: DB
                     BorrowRequest request = new BorrowRequest( book.getOwner() , uid, book.getISBN(), book.getBookID() );
-
                     Intent intent = new Intent(v.getContext(), Establish_Exchange_Details_Activity.class);
                     intent.putExtra("BorrowRequestObject", request);
                     v.getContext().startActivity(intent);

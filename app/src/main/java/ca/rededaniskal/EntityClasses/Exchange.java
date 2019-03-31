@@ -7,6 +7,7 @@ public class Exchange extends Book_Exchange implements Serializable {
     private boolean ownerScanend;
     private boolean borrowedScanned;
     private String exchangeID;
+    private boolean returning;
     public Exchange(String owner, String borrower, String isbn, String bookid, Double lat,
                     Double lng, Date time) {
 
@@ -19,6 +20,14 @@ public class Exchange extends Book_Exchange implements Serializable {
 
     public String getExchangeID() {
         return exchangeID;
+    }
+
+    public boolean isReturning() {
+        return returning;
+    }
+
+    public void setReturning(boolean returning) {
+        this.returning = returning;
     }
 
     public void setExchangeID(String exchangeID) {

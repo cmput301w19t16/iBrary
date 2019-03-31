@@ -17,6 +17,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -157,6 +160,16 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                         Exchange exchange = new Exchange(request.getrecipientUID(),
                                 request.getsenderUID(), request.getIsbn(), request.getBookId(), request.getLat(), request.getLng(), request.getTimestamp() ) ;
 
+                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            String UID = user.getUid();
+                            if(exchange.getOwner().equals(UID)){
+                                exchange.setReturning(false);
+                            }else{
+                                exchange.setReturning(true);
+                            }
+                        }
                         Write_Exchange_DB exchange_db = new Write_Exchange_DB();
                         exchange_db.addExchange(exchange);
 

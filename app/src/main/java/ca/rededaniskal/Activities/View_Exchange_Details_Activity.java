@@ -117,9 +117,15 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
                 if(UID.equals(exchange.getOwner())){
                     exchange.setOwnerScanend(true);
                     // Once owner is scanned, book can be updated to have new possessor and status.
-                    Update_Book_DB db = new Update_Book_DB(exchange.getOwner(), exchange.getBorrower(), exchange.getIsbn());
+                    if(!exchange.isReturning()){
+                        Update_Book_DB db = new Update_Book_DB(exchange.getOwner(), exchange.getBorrower(), exchange.getIsbn());
+                    }
+
                 }else{
                     exchange.setBorrowedScanned(true);
+                    if(exchange.isReturning()){
+                        Update_Book_DB db = new Update_Book_DB(exchange.getOwner(), exchange.getOwner(), exchange.getIsbn());
+                    }
                 }
 
                 Write_Exchange_DB db = new Write_Exchange_DB();
