@@ -99,7 +99,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
 
     //UI stuff
-    private EditText addTitle, addAuthor, addISBN, addDescription;
+    private EditText addTitle, addAuthor, addISBN;
     private Button openScanner, addBook;
     private FloatingActionButton openCamera;
     private ImageView cover;
