@@ -167,10 +167,12 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                 titleText += " asked to borrow your book.";
                 intent = new Intent(fragment.getActivity(), View_Book_Request_Activity.class);
                 intent.putExtra("request", borrowRequest);
+                intent.putExtra("Returning", false);
                 break;
             case "Return_Request":
                 titleText += " wants to return your book.";
                 intent = new Intent(fragment.getActivity(), View_Book_Request_Activity.class);
+
                 break;
             default:
                 titleText = "This notification is not displaying correctly.";
