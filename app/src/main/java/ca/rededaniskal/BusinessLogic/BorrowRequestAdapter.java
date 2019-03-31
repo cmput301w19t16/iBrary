@@ -20,6 +20,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
@@ -70,11 +74,13 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
         request = list.get(i);
         holder = borrowRequestViewHolder;
+        //FirebaseUser fbu = FirebaseAuth.getInstance().getCurrentUser();
+        //String fbuid = fbu.getUid();
 
         //Set Fields
         if (request.getsenderUID() != null) {
             getUserInfo(request.getsenderUID());
-            getBookInfo(request.getsenderUID(), request.getBookId());
+            getBookInfo(request.getrecipientUID(), request.getBookId());
         }
         else{
             borrowRequestViewHolder.requestInfo.setText( request.getsenderUID());
@@ -110,6 +116,8 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     private void viewRequest(){
         Intent intent = new Intent(mctx, View_Book_Request_Activity.class);
         intent.putExtra("request", request);
+        mctx.startActivity(intent);
+        mctx.
     }
 
     private void getUserInfo(String uid){
