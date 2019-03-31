@@ -1,16 +1,19 @@
 package ca.rededaniskal.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Users_DB;
+import ca.rededaniskal.Database.Write_Request_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.User;
@@ -63,11 +66,12 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         bidb = new BookInstanceDb();
         currentUID = bidb.getUID();
 
-        nameField = findViewById(R.id.userField);
+        //nameField = findViewById(R.id.userField);
         nameField = findViewById(R.id.username);
         locationField = findViewById(R.id.location);
         followersField = findViewById(R.id.followers);
         userField = findViewById(R.id.userField);
+        userField.setBackgroundColor(Color.TRANSPARENT);
 
         title = findViewById(R.id.Title);
         author = findViewById(R.id.Author);
@@ -96,6 +100,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         //author.setText(bookID);
 
         bookField = findViewById(R.id.bookField);
+        bookField.setBackgroundColor(Color.TRANSPARENT);
         bookField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,12 +145,18 @@ public class View_Book_Request_Activity extends AppCompatActivity {
 
     //TODO
     private void acceptRequest(){
-
+        br.setStatus("Accepted");
+        Intent intent = new Intent(this, Establish_Exchange_Details_Activity.class);
+        intent.putExtra("BorrowRequestObject", br);
+        startActivity(intent);
+        this.finish();
     }
 
     //TODO
     private void denyRequest(){
-
+        br.setStatus("Denied");
+        Write_Request_DB db = new Write_Request_DB(br, true);
+        this.finish();
     }
 
     private void viewBook(){

@@ -23,9 +23,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
+import ca.rededaniskal.Database.BookInstanceDb;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.Database.Write_Request_DB;
 
+import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
@@ -33,6 +37,10 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     public Context mctx;
     private ArrayList<BorrowRequest> list; //List of Requests
     private Write_Request_DB db;
+    private User user;
+    private Book_Instance bi;
+    private BorrowRequest request;
+    private BorrowRequestViewHolder holder;
 
     /**
      * Instantiates a new Entry adapter.
@@ -58,12 +66,15 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
 
     @Override
-    public void onBindViewHolder(@NonNull final BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
-        final BorrowRequest request = list.get(i);
+    public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
+        request = list.get(i);
+        holder = borrowRequestViewHolder;
 
         //Set Fields
-        borrowRequestViewHolder.requestInfo.setText( request.getsenderUID());
-        borrowRequestViewHolder.bookInfo.setText( request.getBookId() );
+
+        getUserInfo(request.getsenderUID());
+        getBookInfo(request.getsenderUID(), request.getBookId());
+
 
         //Set onClick listeners
         borrowRequestViewHolder.accept.setOnClickListener(new View.OnClickListener() {
@@ -83,11 +94,43 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             public void onClick(View v) {
                 request.setStatus("Denied");
                 Write_Request_DB db = new Write_Request_DB(request, true);
-                list.remove(borrowRequestViewHolder.getAdapterPosition());
-                notifyItemRemoved(borrowRequestViewHolder.getAdapterPosition());
-                notifyItemRangeChanged(borrowRequestViewHolder.getAdapterPosition(), list.size());
+                list.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(), list.size());
             }
         });
+    }
+
+    private void getUserInfo(String uid){
+        Users_DB udb = new Users_DB();
+        myCallbackUser mcb = new myCallbackUser() {
+            @Override
+            public void onCallback(User u) {
+                user = u;
+                fillUserInfo();
+            }
+        };
+        udb.getUser(uid, mcb);
+    }
+
+    private void fillUserInfo(){
+        holder.requestInfo.setText( user.getUserName());
+    }
+
+    private void getBookInfo(String ownerId, String bid){
+        BookInstanceDb bidb = new BookInstanceDb();
+        myCallbackBookInstance mcbi = new myCallbackBookInstance() {
+            @Override
+            public void onCallback(Book_Instance bins) {
+                bi = bins;
+                fillBookInfo();
+            }
+        };
+        bidb.getBookInstance(ownerId, bid, mcbi);
+    }
+
+    private void fillBookInfo(){
+        holder.bookInfo.setText( request.getBookId() );
     }
 
     @Override
