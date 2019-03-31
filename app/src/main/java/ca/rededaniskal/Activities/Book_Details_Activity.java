@@ -76,7 +76,7 @@ public class Book_Details_Activity extends AppCompatActivity {
     TextView DisplayISBN;
     TextView DisplayOwner;
     TextView DisplayStatus;
-    TextView DisplayDescription;
+    TextView DisplayPosessor;
     private Book_Details_Logic logic;
 
     ImageView DisplayBookCover;
@@ -111,7 +111,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayISBN = (TextView) findViewById(R.id.DisplayISBN);
         DisplayOwner = (TextView) findViewById(R.id.DisplayOwner);
         DisplayStatus = (TextView) findViewById(R.id.DisplayStatus);
-        DisplayDescription = (TextView) findViewById(R.id.editDescription);
+        DisplayPosessor = findViewById(R.id.viewPosessor);
 
         DisplayBookCover = (ImageView) findViewById(R.id.BookCover);
 
@@ -134,13 +134,13 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayISBN.setText(book.getISBN());
         DisplayOwner.setText(book.getOwner());
         DisplayStatus.setText(book.getStatus());
+        DisplayPosessor.setText(book.getPossessor());
+
         if(book.getCover() != null || book.getCover() != ""){
             LoadImage loader = new LoadImage(DisplayBookCover);
             loader.execute(book.getCover());
         }
-        //DisplayDescription.setText(book.get); TODO: Descriptions?
 
-        //TODO: Make this the actual user
         String globalUser = FirebaseAuth.getInstance().getUid();
 
         //Set the visibility of Edit + cardView
@@ -169,15 +169,19 @@ public class Book_Details_Activity extends AppCompatActivity {
 
        isRequested = db.bookInUserRequests();
 
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
 
         //Set appropriate text for the button at the bottom
         if (book.getStatus().equals("Requested") && isRequested) {
+            //If I Requested the book
             Request_Cancel.setText(R.string.cancel_request);
 
-        }else if (book.getPossessor().equals(uid)){
+        }else if (book.getStatus().equals("Borrowed")){
+            //If book is borroed by someone other than myself
+            Request_Cancel.setVisibility(View.INVISIBLE);
+
+        } else if (book.getPossessor().equals(uid)){
             //If i am the one in possession of book but not the owner
 
             Request_Cancel.setText("Return This Book");
@@ -241,16 +245,6 @@ public class Book_Details_Activity extends AppCompatActivity {
         });
 
     }
-    /*private void displayImg(){
-
-        Uri uri = Uri.parse(photoUrl);
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(picUri.getPath());
-
-        // Load the image using Glide
-        Glide.with(this.getApplicationContext())
-                .load(storageReference)
-                .into(BookCover);
-    }*/
 
     ValueEventListener valueEventListener2 = new ValueEventListener() {
         @Override

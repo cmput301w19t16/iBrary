@@ -6,231 +6,276 @@
     android:layout_height="match_parent"
     tools:context=".Activities.Book_Details_Activity">
 
-    <ImageView
-        android:id="@+id/BookCover"
-        android:layout_width="122dp"
-        android:layout_height="128dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_book_black_24dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TableLayout
-        android:id="@+id/tableLayout2"
-        android:layout_width="353dp"
-        android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BookCover">
-
-
-        <TableRow
-            android:id="@+id/row1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/Title"
-                android:layout_width="66dp"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorBackgroundFloating"
-                android:padding="1dip"
-                android:text="@string/book_title"
-                android:textColor="#000"
-                android:textSize="12dp" />
-
-            <TextView
-
-                android:id="@+id/DisplayTitle"
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:background="@android:color/background_light"
-                android:padding="1dip"
-                android:text="Book title here"
-                android:textColor="#000"
-                android:textSize="14dp" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/row2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="@string/author"
-                android:textColor="#000"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/DisplayAuthor"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="Book Author Here"
-                android:textColor="#000"
-                android:textSize="14dp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/row3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/ISBN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="@string/isbn"
-                android:textColor="#000"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/DisplayISBN"
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="123456789"
-                android:textColor="#000"
-                android:textSize="14dp" />
-
-        </TableRow>
-
-
-        <TableRow
-            android:id="@+id/row4"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/Owner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="@string/owner"
-                android:textColor="#000"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/DisplayOwner"
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="Book Owner"
-                android:textColor="#000"
-                android:textSize="14dp" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/row5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/Status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="@string/status"
-                android:textColor="#000"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/DisplayStatus"
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="1dip"
-                android:text="Book Status Here"
-                android:textColor="#000"
-                android:textSize="14dp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/row6"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/GoToForum"
+            <TableLayout
+                android:id="@+id/tableLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_span="2"
-                android:gravity="center"
-                android:text="@string/go_to_forum"
-                android:textAlignment="center" />
 
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/row7"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/request_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_span="2"
-                android:text="Request or Cancel Request" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
-        </TableRow>
+                <TableRow
 
-        <TableRow
-            android:id="@+id/row8"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/Edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_span="2"
-                android:text="@string/Edit_book"
+                    <ImageView
+                        android:id="@+id/BookCover"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_span="2"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_book_black_24dp" />
 
-                android:visibility="invisible" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/DisplayTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_span="2"
+                        android:layout_weight="1"
+                        android:background="@android:color/background_light"
+                        android:padding="1dip"
+
+                        android:text="Book title here"
+                        android:textColor="#000"
+                        android:textSize="24sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryLight">
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="@string/author"
+                        android:textColor="#000"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/DisplayAuthor"
+                        android:layout_width="290dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="Book Author Here"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/ISBN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="@string/isbn"
+                        android:textColor="#000"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/DisplayISBN"
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="123456789"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+
+                </TableRow>
 
 
+                <TableRow
+                    android:id="@+id/row4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
 
-        </TableRow>
+                    <TextView
+                        android:id="@+id/Owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="@string/owner"
+                        android:textColor="#000"
+                        android:textSize="12dp" />
 
-    </TableLayout>
+                    <TextView
+                        android:id="@+id/DisplayOwner"
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="Book Owner"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </TableRow>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/viewRequests"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout2"
-        app:layout_constraintVertical_bias="0.036" />
+                <TableRow
 
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/possesor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="@string/in_posession_of"
+                        android:textColor="#000"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/viewPosessor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="Posessor"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/row5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/Status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="@string/status"
+                        android:textColor="#000"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/DisplayStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:padding="1dip"
+                        android:text="Book Status Here"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/row6"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/GoToForum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="2"
+                        android:layout_weight="1"
+
+                        android:text="@string/go_to_forum"
+                        android:textAlignment="center" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/request_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="2"
+
+                        android:layout_weight="1"
+                        android:text="Request or Cancel Request" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/Edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="2"
+                        android:layout_weight="1"
+                        android:text="@string/Edit_book"
+                        android:visibility="invisible" />
+
+
+                </TableRow>
+
+            </TableLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/viewRequests"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout2"
+                app:layout_constraintVertical_bias="0.036" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
