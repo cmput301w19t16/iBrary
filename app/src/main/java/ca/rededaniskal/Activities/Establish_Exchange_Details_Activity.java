@@ -17,6 +17,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +47,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
     private String dayMonthYear;
     private String timePicked;
     private BorrowRequest request;
+    private boolean returning;
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -63,6 +67,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
         logic = new Establish_Exchange_Logic();
 
         request = (BorrowRequest) getIntent().getSerializableExtra("BorrowRequestObject");
+        returning = (boolean) getIntent().getSerializableExtra("Returning");
         mode = request.getStatus();
 
         //Set toolbar stuff
@@ -70,6 +75,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Book Exchange Details");
 
+        // Assign buttons and edittexts of UI
         btnDatePicker = (Button) findViewById(R.id.ExchangeDateButton);
         btnTimePicker = (Button) findViewById(R.id.ExchangeTimeButton);
         confirmDetails = (Button) findViewById(R.id.ConfirmExchangeButton);
@@ -153,8 +159,16 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                         timeStamp = simpleDateFormat.parse(timeStr);
                         request.setTimestamp(timeStamp);
 
-                        Exchange exchange = new Exchange(request.getrecipientUID(),
-                                request.getsenderUID(), request.getIsbn(), request.getBookId(), request.getLat(), request.getLng(), request.getTimestamp() ) ;
+                        Exchange exchange;
+                        if(returning){
+                            exchange = new Exchange(request.getsenderUID(), request.getrecipientUID(),
+                                    request.getIsbn(), request.getBookId(), request.getLat(), request.getLng(), request.getTimestamp() ) ;
+                            exchange.setReturning(true);
+                        }else{
+                            exchange = new Exchange(request.getrecipientUID(),
+                                    request.getsenderUID(), request.getIsbn(), request.getBookId(), request.getLat(), request.getLng(), request.getTimestamp() ) ;
+                            exchange.setReturning(false);
+                        }
 
                         Write_Exchange_DB exchange_db = new Write_Exchange_DB();
                         exchange_db.addExchange(exchange);

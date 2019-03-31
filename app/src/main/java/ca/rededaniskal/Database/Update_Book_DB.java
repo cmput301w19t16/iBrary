@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Exchange;
 
 public class Update_Book_DB {
     private BorrowRequest request;
@@ -24,6 +25,7 @@ public class Update_Book_DB {
     private String owner;
     private String isbn;
     private String book_key;
+    private String possesor;
 
     public Update_Book_DB(Book_Instance book) {
         this.book = book;
@@ -32,10 +34,11 @@ public class Update_Book_DB {
         this.isBorrowed = false;
         this.book_key = book.getBookID();
 
-        bookStatus();
+        bookStatusByRequest();
     }
 
-    public Update_Book_DB(String owner, String isbn){
+    public Update_Book_DB(String owner, String possesor, String isbn){
+        this.possesor = possesor;
         this.owner = owner;
         this.isbn = isbn;
         readBook();
@@ -55,7 +58,8 @@ public class Update_Book_DB {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         book = snapshot.getValue(Book_Instance.class);
                         if(book.getOwner().equals(owner)) {
-                            bookStatus();
+                            book.setPossessor(possesor);
+                            bookStatusByRequest();
                         }
                     }
                 }
@@ -98,9 +102,7 @@ public class Update_Book_DB {
 
 
 
-
-
-    public void bookStatus(){
+    public void bookStatusByRequest(){
         Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
                 .orderByChild("isbn")
                 .equalTo(book.getISBN());
@@ -112,17 +114,13 @@ public class Update_Book_DB {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         BorrowRequest borrowRequest = snapshot.getValue(BorrowRequest.class);
                         if (book.getOwner().equals(borrowRequest.getrecipientUID())){
-                            if(borrowRequest.getStatus().equals("Pending")){
+                            if(borrowRequest.getStatus().equals("Pending")) {
                                 isRequested = true;
-                            }else if(borrowRequest.getStatus().equals("Accepted")){
-                                isAccepted = true;
-                            }else if(borrowRequest.getStatus().equals("Borrowed")){
-                                isBorrowed = true;
                             }
                         }
                     }
                 }
-                updateBookStatus();
+                bookStatusByExchange();
 
             }
 
@@ -133,8 +131,44 @@ public class Update_Book_DB {
         });
     }
 
+    public void bookStatusByExchange(){
+        Query query = FirebaseDatabase.getInstance().getReference("Exchanges")
+                .orderByChild("isbn")
+                .equalTo(book.getISBN());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.d(ContentValues.TAG, "*********----->exists");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Exchange exchange = snapshot.getValue(Exchange.class);
+                        if (book.getOwner().equals(exchange.getOwner())){
+                            if(exchange.isOwnerScanend() && !exchange.isReturning()) {
+                                isBorrowed = true;
+                            }else if (exchange.isBorrowedScanned() && exchange.isReturning()){
+                                isAccepted = false;
+                                isBorrowed = false;
+                                isRequested = false;
+                            }else{
+                                isAccepted = true;
+                            }
+                        }
+                    }
+                }
+                updateBookStatus();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     public void updateBookStatus(){
+        if(!book.getOwner().equals(book.getPossessor())){
+            book.setStatus("Borrowed");
+        }
         if(isRequested){
             book.setStatus("Requested");
         }

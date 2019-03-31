@@ -17,19 +17,7 @@ public class ForumDb extends Entity_Database {
         return db.getReference(References.FORUM.reference());
     }
 
-    public void addForum(Forum forum){
+    public void addForum(Forum forum){}
 
-
-
-
-    }
-
-    public void addParentThread(){
-
-    }
-
-
-
-
-
+    public void addParentThread(){}
 }

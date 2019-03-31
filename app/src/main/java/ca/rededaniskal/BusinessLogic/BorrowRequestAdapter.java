@@ -83,8 +83,14 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
                 request.setStatus("Accepted");
 
+                /* On accepted, all other requests are deleted except the accepted, which
+                Which is passed to the Establish_Exchange_Details_Activity */
+                list.remove(borrowRequestViewHolder.getAdapterPosition());
+                deleteRemainingRequests();
+
                 Intent intent = new Intent(mctx,Establish_Exchange_Details_Activity.class);
                 intent.putExtra("BorrowRequestObject", request);
+                intent.putExtra("Returning", false);
                 mctx.startActivity(intent);
             }
         });

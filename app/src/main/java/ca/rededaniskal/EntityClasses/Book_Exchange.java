@@ -24,6 +24,8 @@ public abstract class Book_Exchange implements Serializable {
         this.time = time;
     }
 
+    public Book_Exchange(){}
+
 
     public Date getTime() {
         return time;
