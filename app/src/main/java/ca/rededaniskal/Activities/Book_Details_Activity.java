@@ -207,9 +207,11 @@ public class Book_Details_Activity extends AppCompatActivity {
 
                 }else if(canReturn){
                     //TODO: DB
+
                     BorrowRequest request = new BorrowRequest( book.getOwner() , uid, book.getISBN(), book.getBookID() );
                     Intent intent = new Intent(v.getContext(), Establish_Exchange_Details_Activity.class);
                     intent.putExtra("BorrowRequestObject", request);
+                    intent.putExtra("Returning", true);
                     v.getContext().startActivity(intent);
                 }
 

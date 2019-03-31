@@ -79,6 +79,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
                 Intent intent = new Intent(mctx,Establish_Exchange_Details_Activity.class);
                 intent.putExtra("BorrowRequestObject", request);
+                intent.putExtra("Returning", false);
                 mctx.startActivity(intent);
             }
         });

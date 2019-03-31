@@ -39,6 +39,7 @@ public class Write_Exchange_DB {
         mDatabase = FirebaseDatabase.getInstance().getReference("Exchanges");
         String key = exchange.getExchangeID();
         mDatabase.child(key).removeValue();
+        getNotificationKey(key);
     }
 
     public void updateExchange(Exchange exchange){
@@ -50,7 +51,7 @@ public class Write_Exchange_DB {
     public void getNotificationKey(String key){
         Log.d(ContentValues.TAG, "*********----->getNotificationKey");
         Query query = FirebaseDatabase.getInstance().getReference("Notifications")
-                .orderByChild("requestID")
+                .orderByChild("request")
                 .equalTo(key);
 
         query.addListenerForSingleValueEvent(valueEventListener);
