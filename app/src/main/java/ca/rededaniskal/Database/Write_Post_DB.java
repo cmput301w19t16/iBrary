@@ -1,5 +1,7 @@
 package ca.rededaniskal.Database;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.myCallbackUidList;
 import ca.rededaniskal.EntityClasses.Post;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class Write_Post_DB {
     private FirebaseAuth mAuth;
@@ -25,6 +29,8 @@ public class Write_Post_DB {
     }
 
     public void addPostToFollowersFeed(){
+        fdb = new Follow_DB();
+        followers = new ArrayList<>();
         getCurrentUID();
     }
 
@@ -33,26 +39,33 @@ public class Write_Post_DB {
         user = mAuth.getCurrentUser();
         if (user != null) {
             UID = user.getUid();
+            Log.d(TAG, "^*^*^*^ GOT UID: " + UID);
             getFollowers();
 
         }
     }
 
-    public void getFollowers(){
-        fdb.getFollowers(UID, mcbuid);
+    private void getFollowers(){
+        Log.d(TAG, "^*^*^*^ In GET FOLLOWERS");
         mcbuid = new myCallbackUidList() {
             @Override
             public void onCallback(ArrayList<String> uidList) {
-                followers = uidList;
-                addPostToFeeds();
+                Log.d(TAG, "^*^*^*^ ON CALLBACK");
+                if (uidList!= null) {
+                    Log.d(TAG, "^*^*^*^ FOLLOWER LIST: " + uidList);
+                    followers = uidList;
+                    addPostToFeeds();
+                }
             }
         };
+        fdb.getFollowers(UID, mcbuid);
     }
 
-    public void addPostToFeeds(){
+    private void addPostToFeeds(){
         for(int i = 0; i < followers.size(); i++) {
             String follower = followers.get(i);
-            mDatabase = FirebaseDatabase.getInstance().getReference("home-feeds")
+            Log.d(TAG, "^*^*^*^ Adding to follower: " + follower);
+            mDatabase = FirebaseDatabase.getInstance().getReference("home-feed")
                     .child(follower);
             String key = mDatabase.push().getKey();
             mDatabase.child(key).setValue(post);

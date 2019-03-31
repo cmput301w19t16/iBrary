@@ -225,7 +225,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     Post post = new Post("Posted a new book", uid, ISBN, "New Book");
                     Write_Post_DB db = new Write_Post_DB(post);
-                    db.addPostToFeeds();
+                    db.addPostToFollowersFeed();
 
                     businessLogic.saveInformation(userID);
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
