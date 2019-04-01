@@ -65,6 +65,9 @@ public class Borrow_Req_DB {
                             mcbrl.onCallback(brl);
 
                         }
+                        else{
+                            mcbrl.onCallback(new ArrayList<BorrowRequest>());
+                        }
                     }
 
                     @Override
