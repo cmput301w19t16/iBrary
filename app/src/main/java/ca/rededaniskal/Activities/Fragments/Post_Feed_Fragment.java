@@ -113,7 +113,6 @@ public class Post_Feed_Fragment extends Fragment {
 
         swipeContainer = view.findViewById(R.id.swipeContainer);
 
-
         recyclerView = view.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
         final ArrayList<Display_Post> postList = new ArrayList<Display_Post>();
