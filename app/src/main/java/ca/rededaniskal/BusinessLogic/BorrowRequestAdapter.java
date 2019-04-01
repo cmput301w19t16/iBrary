@@ -64,7 +64,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     public BorrowRequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         //Set the Layout
         LayoutInflater inflater = LayoutInflater.from(mctx);
-        View view = inflater.inflate(R.layout.request_card, null);
+        View view = inflater.inflate(R.layout.request_card, viewGroup, false);
         BorrowRequestViewHolder holder = new BorrowRequestViewHolder(view);
         return holder;
     }

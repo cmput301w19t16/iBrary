@@ -61,8 +61,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
      * @param i                 position of Entry in list
      */
     @Override
-
-    public void onBindViewHolder(@NonNull PostViewHolder  postViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final PostViewHolder postViewHolder, final int i) {
         final Display_Post display = posts.get(i);
         final Post post = display.getPost();
 

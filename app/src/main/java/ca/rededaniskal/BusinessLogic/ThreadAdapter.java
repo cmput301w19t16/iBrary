@@ -25,9 +25,7 @@ import java.util.ArrayList;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Comment;
-
 import ca.rededaniskal.EntityClasses.User;
-
 import ca.rededaniskal.EntityClasses.Display_Comment;
 
 import ca.rededaniskal.R;
@@ -59,7 +57,8 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
 
     @Override
 
-    public void onBindViewHolder(@NonNull ThreadViewHolder ThreadViewHolder, final int i) {
+
+    public void onBindViewHolder(@NonNull final ThreadViewHolder ThreadViewHolder, final int i) {
         final Comment comment = comments.get(i).getComment();
         final String userName = comments.get(i).getDisplayName();
 
