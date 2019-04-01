@@ -20,10 +20,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profilePic"
                     android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_margin="10dp"
+                    android:layout_height="100dp"
+
+                    android:src="@drawable/ic_person_black_24dp"
+                    android:layout_marginRight="10dp"
+                    app:civ_border_color="#FF000000" />
 
                 <TableLayout
                     android:layout_width="match_parent"

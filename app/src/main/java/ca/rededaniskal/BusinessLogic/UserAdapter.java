@@ -26,7 +26,9 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.User_Details_Activity;
+import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Follow_DB;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -65,7 +67,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
      * @param i                 position of Entry in list
      */
     @Override
-    public void onBindViewHolder(@NonNull UserViewHolder  userViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final UserViewHolder  userViewHolder, final int i) {
         User user = users.get(i);
         userViewHolder.setUser(user);
 
@@ -77,8 +79,21 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         //TODO: Set Profile Pic
 
-        //if User clicks on another User, will start the user details Activity
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(userViewHolder.profilePic);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
 
+        Users_DB usersDb = new Users_DB();
+
+        String uid = user.getUID();
+        usersDb.getUser(uid, myCallbackUser);
     }
 
 
@@ -114,9 +129,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            profilePic = itemView.findViewById(R.id.BookCover); //TODO: Make this display the Users image
+            profilePic = itemView.findViewById(R.id.profilePic); //TODO: Make this display the Users image
 
-            statusIcon = itemView.findViewById(R.id.StatusIcon);
             UserName = itemView.findViewById(R.id.title);
             UserLocation = itemView.findViewById(R.id.author);
             UserMutualFriends = itemView.findViewById(R.id.UserMutualFriends);
@@ -204,7 +218,5 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             user = u;
             fdb.isFollowing(currentUser.getUid(), user.getUID(), mcb);
         }
-
-
     }
 }

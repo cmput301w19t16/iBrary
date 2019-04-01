@@ -43,9 +43,11 @@ public class Write_Exchange_DB {
     }
 
     public void updateExchange(Exchange exchange){
+        Log.d(ContentValues.TAG, "**********************************----->updateExchange");
         mDatabase = FirebaseDatabase.getInstance().getReference("Exchanges");
         String key = exchange.getExchangeID();
         mDatabase.child(key).setValue(exchange);
+        Log.d("updateExchange", "KEY: "+key);
     }
 
     public void getNotificationKey(String key){

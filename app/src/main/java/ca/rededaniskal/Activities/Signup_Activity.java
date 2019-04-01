@@ -171,14 +171,16 @@ public class Signup_Activity extends AppCompatActivity {
         confirmText = findViewById(R.id.input_confirm_password);
         emailText = findViewById(R.id.input_email);
         phoneText = findViewById(R.id.input_phone);
+        locationText = findViewById(R.id.location);
 
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
         String confirm = confirmText.getText().toString();
         String email = emailText.getText().toString();
         String phone = phoneText.getText().toString();
+        String location = locationText.getText().toString();
 
-        user = new User(username, email, phone, "");
+        user = new User(username, email, phone, location);
         businessLogic = new SignUpLogic(username, password, confirm, email, phone);
 
     }
