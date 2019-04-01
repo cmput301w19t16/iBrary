@@ -63,7 +63,7 @@ public class View_All_Requests_Activity extends AppCompatActivity {
         //Testing purposes
         requestList.add(new BorrowRequest("Daniela", "Nick", "9780590353427", "123456"));
 
-        adapter = new BorrowRequestAdapter(this, requestList);
+//        adapter = new BorrowRequestAdapter(this, requestList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

@@ -34,13 +34,14 @@ import ca.rededaniskal.Database.Write_Request_DB;
 
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Display_BorrowRequest;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdapter.BorrowRequestViewHolder>{
     public Context mctx;
-    private ArrayList<BorrowRequest> list; //List of Requests
+    private ArrayList<Display_BorrowRequest> list; //List of Requests
     private Write_Request_DB db;
     private User user;
     private Book_Instance bi;
@@ -50,7 +51,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     /**
      * Instantiates a new Entry adapter.
      */
-    public BorrowRequestAdapter(Context mctx,  ArrayList<BorrowRequest> list) {
+    public BorrowRequestAdapter(Context mctx,  ArrayList<Display_BorrowRequest> list) {
         this.mctx = mctx;
         this.list = list;
     }
@@ -72,10 +73,19 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
     @Override
     public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
-        request = list.get(i);
+        Display_BorrowRequest display = list.get(i);
+        request = display.getRequest();
+        user = display.getUser();
+        String urlProfilePic = user.getProfilePic();
+
         holder = borrowRequestViewHolder;
+        if(urlProfilePic != null){
+            LoadImage loader = new LoadImage(holder.bookCover);
+            loader.execute(urlProfilePic);
+        }
 
         //Set Fields
+        
         if (request.getsenderUID() != null) {
             getUserInfo(request.getsenderUID());
             getBookInfo(request.getrecipientUID(), request.getBookId());
@@ -164,7 +174,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
     public void deleteRemainingRequests(){
         for(int i = 0; i < list.size(); i++){
-            Write_Request_DB db = new Write_Request_DB(list.get(i), true);
+            Write_Request_DB db = new Write_Request_DB(list.get(i).getRequest(), true);
         }
     }
 
