@@ -14,9 +14,10 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Forum_Activity;
 import ca.rededaniskal.Activities.View_Thread_Activity;
-import ca.rededaniskal.BusinessLogic.myCallbackUidList;
 
 
+import ca.rededaniskal.BusinessLogic.myCallBackString;
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.Comment;
 import ca.rededaniskal.EntityClasses.Display_Comment;
 import ca.rededaniskal.EntityClasses.Display_Thread;
@@ -31,7 +32,7 @@ public class ForumDb extends Entity_Database  {
     private ArrayList<Display_Thread> display_threads;
     private ArrayList<Display_Comment> display_comments;
     private Thread T;
-    private myCallbackUidList muidList;
+    private myCallbackStringList muidList;
     private String ISBN;
     private Comment c;
 
@@ -74,7 +75,7 @@ public class ForumDb extends Entity_Database  {
 
 
 
-        muidList = new myCallbackUidList() {
+        muidList = new myCallbackStringList() {
             @Override
             public void onCallback(ArrayList<String> uidList) {
                 updateFollowers(uidList);
@@ -145,7 +146,7 @@ public class ForumDb extends Entity_Database  {
                 .child("comments")
                 .child(String.valueOf(comment.getPos()))
                 .setValue(comment);
-        muidList = new myCallbackUidList() {
+        muidList = new myCallbackStringList() {
             @Override
             public void onCallback(ArrayList<String> uidList) {
                 updateFollowers(uidList);

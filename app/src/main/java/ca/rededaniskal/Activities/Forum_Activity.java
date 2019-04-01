@@ -192,20 +192,23 @@ public class Forum_Activity extends AppCompatActivity {
     }
 
     public void setMasterBook(Master_Book master_book, String UID){
-        title.setText(master_book.getTitle());
+        if (master_book!=null) {
+            title.setText(master_book.getTitle());
 
-        Float avg = master_book.getAvgRating();
-        Float uRate = master_book.getUserRating(UID);
-
-
-        if (avg!=null){
-            Log.d("null", "average from master null");
-            avgRating.setRating(avg);}
-        if (uRate!=null){
-            Log.d("null", "user rating from master null");
-            myRating.setRating(uRate);}
+            Float avg = master_book.getAvgRating();
+            Float uRate = master_book.getUserRating(UID);
 
 
+            if (avg != null) {
+                Log.d("null", "average from master null");
+                avgRating.setRating(avg);
+            }
+            if (uRate != null) {
+                Log.d("null", "user rating from master null");
+                myRating.setRating(uRate);
+            }
+
+        }
 
     }
     public void loadThreads(ArrayList<Display_Thread> threadArrayList){
