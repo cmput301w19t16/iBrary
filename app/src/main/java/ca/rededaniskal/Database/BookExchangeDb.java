@@ -14,12 +14,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
-import ca.rededaniskal.BusinessLogic.myCallbackBookExchange;
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
+import ca.rededaniskal.BusinessLogic.myCallbackExchange;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.EntityClasses.Book_Exchange;
+import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.User;
 
@@ -30,13 +30,13 @@ public class BookExchangeDb{
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    public void getBookExchange(String exId, final myCallbackBookExchange mcbbe){
+    public void getBookExchange(String exId, final myCallbackExchange mcbbe){
         Query query = mDatabase.child("Exchanges/" + exId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    mcbbe.onCallback(dataSnapshot.getValue(Book_Exchange.class));
+                    mcbbe.onCallback(dataSnapshot.getValue(Exchange.class));
                 }
             }
 

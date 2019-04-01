@@ -152,7 +152,6 @@ public class Notifications_Fragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                notiList.remove(0);
                 updateRV(recyclerView);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -161,7 +160,6 @@ public class Notifications_Fragment extends Fragment {
                         swipeContainer.setRefreshing(false);
                     }
                 }, 300); // Delay in millis
-
             }
         });
 
@@ -189,7 +187,7 @@ public class Notifications_Fragment extends Fragment {
     }
 
     public void addAndUpdate(ArrayList<Notification> notification){
-        final Notification_Adapter notiAdapter = new Notification_Adapter(notification, Notifications_Fragment.this);
+        Notification_Adapter notiAdapter = new Notification_Adapter(notification, Notifications_Fragment.this);
         recyclerView.setAdapter(notiAdapter);
         notiAdapter.notifyDataSetChanged();
     }
