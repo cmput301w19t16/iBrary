@@ -14,6 +14,10 @@ import ca.rededaniskal.BusinessLogic.myCallbackBookRequest;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.User;
 
+/**
+ * Used to get borrow request from the database
+ */
+
 public class BorrowRequestDb extends Entity_Database {
     public BorrowRequestDb() {
         super();

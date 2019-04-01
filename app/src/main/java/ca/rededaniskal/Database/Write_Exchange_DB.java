@@ -21,6 +21,8 @@ public class Write_Exchange_DB {
 
     public Write_Exchange_DB(){}
 
+    // Creates a new exchange based on the type of request (return request or book request)
+    // and adds it to the database
     public void addExchange(Exchange exchange){
         mDatabase = FirebaseDatabase.getInstance().getReference("Exchanges");
         String key = mDatabase.push().getKey();
@@ -35,6 +37,7 @@ public class Write_Exchange_DB {
         }
     }
 
+    // Deletes the exchange from database
     public void removeExchange(Exchange exchange){
         mDatabase = FirebaseDatabase.getInstance().getReference("Exchanges");
         String key = exchange.getExchangeID();
@@ -50,6 +53,7 @@ public class Write_Exchange_DB {
         Log.d("updateExchange", "KEY: "+key);
     }
 
+    // Gets exchange request based on a key passed from a notification
     public void getNotificationKey(String key){
         Log.d(ContentValues.TAG, "*********----->getNotificationKey");
         Query query = FirebaseDatabase.getInstance().getReference("Notifications")

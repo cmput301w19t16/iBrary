@@ -30,6 +30,13 @@ import ca.rededaniskal.EntityClasses.Display_Comment;
 
 import ca.rededaniskal.R;
 
+/**
+ * This is an adapter that is used for getting values of a thread
+ *
+ * @since 2019-03-22
+ * @author Revan
+ */
+
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadViewHolder>{
 

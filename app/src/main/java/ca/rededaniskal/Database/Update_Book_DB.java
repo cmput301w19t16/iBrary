@@ -15,6 +15,10 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Exchange;
 
+/**
+ * Updates the status of the books in the database based on what the request type is
+ */
+
 public class Update_Book_DB {
     private BorrowRequest request;
     private Book_Instance book;

@@ -33,6 +33,11 @@ import java.util.UUID;
 
 import ca.rededaniskal.R;
 
+/**
+ * This activity is allows the user to access their camera and take a picture. The image will
+ * then be saved to cloud
+ */
+
 public class Take_Photo_Activity extends AppCompatActivity {
 
     private static final String TAG = "CapturePicture";

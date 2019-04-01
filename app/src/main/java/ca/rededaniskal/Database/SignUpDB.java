@@ -49,6 +49,7 @@ public class  SignUpDB {
     public void setSuccess(boolean success) {this.success = success;
     }
 
+    // Ensure the username is unique first, if it is then create the username
     public void uniqueUserName(String username, String Email, String Password){
         final String email = Email;
         final String password = Password;

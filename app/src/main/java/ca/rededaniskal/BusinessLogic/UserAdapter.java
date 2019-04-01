@@ -32,6 +32,11 @@ import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
+/**
+ * This is an adapter that is used to get information related to followers and has logic related
+ * to following and unfollowing a user from their profile page
+ */
+
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
     private User globalUser = new User("username", "email", "location");
@@ -76,8 +81,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         userViewHolder.UserLocation.setText(user.getLocation());
         userViewHolder.UserMutualFriends.setText(Integer.toString(user.getFollowerCount()));// TODO: Implement global User
         //userViewHolder.setUser(user);
-
-        //TODO: Set Profile Pic
 
         myCallbackUser myCallbackUser = new myCallbackUser() {
             @Override

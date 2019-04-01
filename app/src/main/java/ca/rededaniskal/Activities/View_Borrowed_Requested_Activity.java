@@ -39,7 +39,14 @@ import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.R;
 
-//Author: Revan, Skye
+/**
+ * This activity allows the user to view all the books that they had borrowed or requested.
+ * The activity allows the user to toggle which activities they wish to see by using the switches
+ * at the top of the activity which will filter the books displayed based on their status.
+ *
+ * @author Revan, Skye
+ */
+
 public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
     private RecyclerView recyclerView;

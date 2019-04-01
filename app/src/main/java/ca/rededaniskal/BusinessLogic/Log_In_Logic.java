@@ -14,6 +14,13 @@ Created by Delaney Lothian 09/03/2019
 
  */
 
+/**
+ * This is all the logic related to login
+ *
+ * @since 2019-03-09
+ * @author Delaney
+ */
+
 public class Log_In_Logic {
     private String email;
     private String password;

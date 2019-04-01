@@ -17,6 +17,12 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+/**
+ * Represents all the methods that are used to ensure valid data is entered in the sign up page
+ *
+ * @author Alex
+ */
+
 public class SignUpLogic {
 
     private boolean valid;
@@ -89,7 +95,7 @@ public class SignUpLogic {
         return errorMessage;
     }
 
-
+    // Validate confirm password Field, ensure it is the same as the password
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public String validateConfirm(){
 
@@ -106,7 +112,7 @@ public class SignUpLogic {
     }
 
 
-    //Validate the email Field
+    //Validate the email Field, ensure it is in the valid format of an email
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public String validateEmail() {

@@ -24,6 +24,10 @@ import ca.rededaniskal.EntityClasses.User;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Displays all the borrow requests from the database
+ */
+
 public class Display_Borrow_Req_DB {
     private DatabaseReference mDatabase;
     private ArrayList<Display_BorrowRequest> dbrl;

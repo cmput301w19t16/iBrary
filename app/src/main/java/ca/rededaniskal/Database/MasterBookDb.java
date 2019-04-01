@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import ca.rededaniskal.Activities.Forum_Activity;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
+/**
+ * Gets relevant information for master book from the database and applies any changes made
+ * to the author, title, rating, etc.
+ */
 
 public class MasterBookDb extends Entity_Database {
     DatabaseReference mainRef = db.getReference(References.MASTERBOOK.reference());

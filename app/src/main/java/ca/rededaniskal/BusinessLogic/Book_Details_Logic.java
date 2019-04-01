@@ -7,6 +7,10 @@ import ca.rededaniskal.Database.Write_Request_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 
+/**
+ * This is responsible for creating a new book request
+ */
+
 public class Book_Details_Logic {
     private Book_Instance book;
     private boolean is_requested;

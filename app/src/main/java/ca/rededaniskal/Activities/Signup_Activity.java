@@ -61,6 +61,10 @@ import java.util.Locale;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
+/**
+ * This activity allows the user to input their information required to sign up to the app such as
+ * username, password, etc.
+ */
 
 public class Signup_Activity extends AppCompatActivity {
 
@@ -89,7 +93,6 @@ public class Signup_Activity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: DB add user to database
                 getInfo();
                 validateFields();
                 finalPass();
@@ -107,7 +110,6 @@ public class Signup_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Get the user location and set the relevant fields
-
                 if (ActivityCompat.checkSelfPermission(Signup_Activity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
@@ -124,6 +126,7 @@ public class Signup_Activity extends AppCompatActivity {
         });
     }
 
+    // Get the city and province of the current location of the user
     private String getAddressName(double lat, double lon) {
         String address = "";
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -186,6 +189,7 @@ public class Signup_Activity extends AppCompatActivity {
     }
 
 
+    // Call all business logic to ensure all fields are filled in properly
     public void finalPass(){
         if (businessLogic.isValid()){
             SignUpDB db = new SignUpDB(this);

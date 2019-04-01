@@ -14,6 +14,12 @@ import ca.rededaniskal.Activities.Fragments.Search_Fragment;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
+/**
+ * Used to add or update books in the database
+ *
+ * @author Skye
+ */
+
 public class AddBookDb {
         public final String TAG = "AddBookDb";
         private MasterBookDb masterdb;
@@ -41,16 +47,21 @@ public class AddBookDb {
             update();
         }
 
-
-        public void update() {
+    /**
+     * Updates the book with new information into the database
+     */
+    public void update() {
             addBookToDatabase();
             mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
             mb.setGoogleCover(mbCoverURL);
             masterdb.addMasterBook(mb);
         }
 
-
-        public void addBookToDatabase() throws NullPointerException {
+    /**
+     * Adds a new book to the database
+     * @throws NullPointerException
+     */
+    public void addBookToDatabase() throws NullPointerException {
             success = instancedb.getStorageId();
             book_instance.setBookID(success);
             bookAdded = instancedb.addBookInstance(book_instance);

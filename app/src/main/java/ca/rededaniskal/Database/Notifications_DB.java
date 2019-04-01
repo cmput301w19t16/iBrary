@@ -17,6 +17,10 @@ import ca.rededaniskal.BusinessLogic.myCallbackNotiList;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.Notification;
 
+/**
+ * Gets, deletes, and stores the notification
+ */
+
 public class Notifications_DB {
     private DatabaseReference mDatabase;
 

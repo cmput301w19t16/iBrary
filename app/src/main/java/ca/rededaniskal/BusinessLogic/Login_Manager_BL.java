@@ -12,6 +12,10 @@ import java.io.Serializable;
 
 import ca.rededaniskal.EntityClasses.User;
 
+/**
+ * Getters and setters for the login section
+ */
+
 public class Login_Manager_BL implements Serializable {
     private String username = "";
     private String password = "";

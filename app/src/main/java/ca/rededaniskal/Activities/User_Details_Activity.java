@@ -30,6 +30,9 @@ import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 /**
+ * This activity displays all the details of a user, such as profile picture and username, and
+ * contains a button that allows the user to follow them
+ *
  * @author Daniela, Revan
  */
 

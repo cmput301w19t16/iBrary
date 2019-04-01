@@ -31,7 +31,10 @@ import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
 import ca.rededaniskal.Database.ReadMyBookDB;
 
-
+/**
+ * This activity displays all the books the user owns using a recycler view. The user is allowed
+ * to click on a book to see it's details
+ */
 
 public class View_My_Library_Activity extends AppCompatActivity {
 

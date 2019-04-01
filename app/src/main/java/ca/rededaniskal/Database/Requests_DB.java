@@ -48,6 +48,7 @@ public class Requests_DB {
         getAllThisBooksRequests(bookID, mcbsl);
     }
 
+    // Get all requests for the book
     public void getAllThisBooksRequests(String bookID, final myCallbackStringList mcbrl){
         Query query = mDatabase.child("BorrowRequests").orderByChild("bookId").equalTo(bookID);
         query.addListenerForSingleValueEvent(new ValueEventListener() {

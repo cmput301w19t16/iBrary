@@ -32,6 +32,14 @@ import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
+/**
+ * This activity displays a list of users in a recycler view. Depending on which button was
+ * selected, the recycler view can either display the user's followers, or people who follow
+ * the user.
+ *
+ * @author Revan
+ */
+
 //Author: Revan
 public class View_Users_Activity extends AppCompatActivity {
     private RecyclerView recyclerView;

@@ -95,7 +95,7 @@ public class Login_Activity extends AppCompatActivity {
 
     }
 
-
+    // Ensure the email and password are valid and entered correctly
     private void validateFields(){
         String em = email.getText().toString();
         String pass = password.getText().toString();

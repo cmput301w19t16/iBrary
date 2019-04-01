@@ -42,8 +42,10 @@ import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 /**
+ * This activity displays the information regarding an exchange. It displays all details regarding
+ * the exchange such as location and the date of the exchange.
+ *
  * @author Daniela
- * Display details about a book pick up.
  */
 public class View_Exchange_Details_Activity extends  AppCompatActivity  implements OnMapReadyCallback {
     TextView title, owner, dateTime, borrower;

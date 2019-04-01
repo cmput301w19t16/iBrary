@@ -1,5 +1,4 @@
 package ca.rededaniskal.BusinessLogic;
-//Created by Revan on 2019-03-29
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +20,13 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
+
+/**
+ * This is an adapter that is used to return all the information relevant to a book exchange
+ *
+ * @since 2019-03-29
+ * @author Revan
+ */
 
 public class Book_ExchangeAdapter extends RecyclerView.Adapter<Book_ExchangeAdapter.Book_ExchangeViewHolder>{
 

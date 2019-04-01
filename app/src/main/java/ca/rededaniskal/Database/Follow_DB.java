@@ -21,6 +21,10 @@ import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.User;
 
+/**
+ * Used to get followers from the database
+ */
+
 public class Follow_DB {
 
     private DatabaseReference mDatabase;
@@ -100,7 +104,13 @@ public class Follow_DB {
         });
     }
 
-
+    /**
+     * Switches the following status of two users
+     *
+     * @param follower      The person the user is following or wishes to follow
+     * @param leader        The user in question
+     * @param isFollowed    Whether or not the user is following or wishes to follow
+     */
     public void swapFollow(String follower, String leader, boolean isFollowed){
         if (isFollowed){
             unfollow(follower, leader);
@@ -110,6 +120,13 @@ public class Follow_DB {
         }
     }
 
+    /**
+     * Removes the follower from the leader's list of followers and decrements the follower's
+     * followers by 1
+     *
+     * @param follower      The person the user is currently following
+     * @param leader        The user in question
+     */
     private void unfollow(String follower, String leader){
         mDatabase.child("followings/" + follower + "/" + leader).removeValue();
         //mDatabase.removeValue();
@@ -118,6 +135,13 @@ public class Follow_DB {
         nb.deleteNotification(follower + "/" + leader);
     }
 
+    /**
+     * Adds the follower to the leader's list of followers and increments the follower's followers
+     * by 1
+     *
+     * @param follower      The person the user is currently following
+     * @param leader        The user in question
+     */
     private void follow(String follower, String leader){
         mDatabase.child("followings/" + follower).child(leader).setValue(leader);
         //mDatabase.child(leader).setValue(leader);

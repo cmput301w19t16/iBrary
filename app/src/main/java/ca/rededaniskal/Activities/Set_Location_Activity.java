@@ -29,6 +29,12 @@ import ca.rededaniskal.R;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 // Code adapted from https://stackoverflow.com/a/28389578
 
+/**
+ * This is a google maps activity that allows the user to drag and drop a marker to the their
+ * desired location. The user is able to center on their location on the map, create a marker
+ * and drag it to wherever they want their meeting place to be
+ */
+
 public class Set_Location_Activity extends Activity implements OnMapReadyCallback,
         GoogleMap.OnInfoWindowClickListener,
         GoogleMap.OnMarkerDragListener {
@@ -56,9 +62,11 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
 
         client = LocationServices.getFusedLocationProviderClient(this);
 
+        // Center the map on the user's location and place a marker there
         findme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Assert all permissions are okay
                 if (ActivityCompat.checkSelfPermission(Set_Location_Activity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
@@ -69,7 +77,7 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
                             Location location = task.getResult();
                             position =  new LatLng(location.getLatitude(), location.getLongitude());
 
-
+                            // If there is no marker, create one and place it at the user's location
                             if (marker == null){
                                 marker =   mMap.addMarker(new MarkerOptions()
                                         .title("Shop")
@@ -83,7 +91,6 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
                             }
 
 
-
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 13));
                             CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
                             mMap.animateCamera(zoom);
@@ -92,7 +99,6 @@ public class Set_Location_Activity extends Activity implements OnMapReadyCallbac
                 });
             }
         });
-
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override

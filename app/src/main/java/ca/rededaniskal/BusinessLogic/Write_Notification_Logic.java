@@ -8,6 +8,10 @@ import ca.rededaniskal.EntityClasses.Notification;
 
 import static android.support.constraint.Constraints.TAG;
 
+/**
+ * Represents the logic related creating and removing notifications
+ */
+
 public class Write_Notification_Logic {
 
     private Write_Notification_DB db;

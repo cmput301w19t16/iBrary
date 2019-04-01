@@ -34,6 +34,12 @@ import ca.rededaniskal.EntityClasses.Display_BorrowRequest;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
+/**
+ * This is an adapter that is used to set the information about a borrow request
+ *
+ * @author Daniela, Revan
+ */
+
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdapter.BorrowRequestViewHolder>{
     public Context mctx;

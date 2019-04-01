@@ -15,6 +15,10 @@ import ca.rededaniskal.Activities.Book_Details_Activity;
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 
+/**
+ * Used to add a book to a borrow request
+ */
+
 public class BookDetailsdb{
     Book_Details_Activity parent;
     BorrowRequestDb requestDb;

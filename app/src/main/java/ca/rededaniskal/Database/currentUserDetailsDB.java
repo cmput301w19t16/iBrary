@@ -20,6 +20,10 @@ import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Used to get the current information about a user such as their email and location
+ */
+
 public class currentUserDetailsDB{
     private FirebaseAuth mAuth;
     private String email;

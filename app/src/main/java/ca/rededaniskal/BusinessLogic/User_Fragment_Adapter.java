@@ -32,6 +32,13 @@ import ca.rededaniskal.Database.Follow_DB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
+/**
+ * This is an adapter that is used to get values related to followers and has logic related to
+ * following or unfollowing a user from the recycler view of followers
+ *
+ * @since 2019-03-03
+ * @author Revan
+ */
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Adapter.UserViewHolder>{
@@ -174,6 +181,9 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
             fdb.isFollowing(currentUser.getUid(), user.getUID(), mcb);
         }
 
+        /**
+         * Changes the text of the button depending on the status of the user in question
+         */
         public void setFriendText(){
             if (isFollowing) {
                 Log.d("", "");
@@ -190,6 +200,13 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
 
 
         }
+
+        /**
+         * Changes whether or not a user is followed or unfollowed and updates the
+         * number of followers that user has
+         *
+         * @param u     a user that is currently being followed or unfollowed
+         */
         public void setUser(User u){
             user = u;
             Log.d("User_Frag_Ad", "mcb");
@@ -217,6 +234,9 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
             fdb.isFollowing(currentUser.getUid(), user.getUID(), mcb);
         }
 
+        /**
+         * Sets number of followers a user has
+         */
         private void setFollowers(){
             UserMutualFriends.setText("Followers:   " + Integer.toString(user.getFollowerCount()));
         }
