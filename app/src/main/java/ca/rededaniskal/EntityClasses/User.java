@@ -16,6 +16,7 @@ public class User implements Serializable {
     private Book_List requestedBooks;
     private ArrayList<User> blockedUsers;
     private int followerCount;
+    private String urlProfilePic;
 
     private Master_Book favBook;
 

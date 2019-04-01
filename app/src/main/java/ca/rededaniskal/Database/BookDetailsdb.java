@@ -9,6 +9,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import ca.rededaniskal.Activities.Book_Details_Activity;
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 
 public class BookDetailsdb{
@@ -27,37 +28,29 @@ public class BookDetailsdb{
 
 
 
-    public boolean bookInUserRequests(){
-
-
+    public void bookInUserRequests(final myCallbackBool mcbb){
 
        Query requested = requestDb.getReference().orderByChild("bookId").equalTo(this.bookId);
-       requested.addListenerForSingleValueEvent(queryRequestListener);
-       return bookinuserrequests;
-
-
-
-
-    }
-
-    ValueEventListener queryRequestListener =new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            String user = requestDb.getUID();
-            for (DataSnapshot d:dataSnapshot.getChildren()){
-               BorrowRequest b = d.getValue(BorrowRequest.class);
-               if (b.getsenderUID().equals(user)){
-                   bookinuserrequests =true;
+       requested.addListenerForSingleValueEvent(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               String user = requestDb.getUID();
+               bookinuserrequests = false;
+               for (DataSnapshot d : dataSnapshot.getChildren()) {
+                   BorrowRequest b = d.getValue(BorrowRequest.class);
+                   if (b.getsenderUID().equals(user)) {
+                       bookinuserrequests = true;
+                   }
                }
+               mcbb.onCallback(bookinuserrequests);
+           }
 
-            }
-        }
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    };
+           }
+       });
+    }
 
 
     public boolean getFailed(){return failed;}
@@ -77,7 +70,4 @@ public class BookDetailsdb{
 
         }
     };
-
-
-
 }

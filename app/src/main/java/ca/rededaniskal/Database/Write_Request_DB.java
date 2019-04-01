@@ -43,6 +43,7 @@ public class Write_Request_DB {
         this.delete = true;
         this.sender_UID = sender_UID;
         this.book = book;
+        this.request = null;
         Log.d(TAG, "*********------> Write_Request_DB");
         Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
                 .orderByChild("isbn")
@@ -70,8 +71,16 @@ public class Write_Request_DB {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     BorrowRequest req = snapshot.getValue(BorrowRequest.class);
-                    if(req.getsenderUID().equals(request.getsenderUID())) {
-                        key = snapshot.getKey();
+                    if(request != null) {
+                        if (req.getsenderUID().equals(request.getsenderUID())) {
+                            key = snapshot.getKey();
+                        }
+                    }else if(sender_UID!=null){
+                        if(req.getsenderUID().equals(sender_UID)){
+                            key = snapshot.getKey();
+                            request = req;
+                        }
+
                     }
                 }
                 if(delete) {

@@ -23,9 +23,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -34,28 +31,27 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import ca.rededaniskal.Database.Photos;
-
 
 /**
  * Received ISBN from Barcode Scanner. Send to GoogleBooks to obtain book information.
+ *
  * @author Daniela, modified https://stackoverflow.com/questions/14571478/using-google-books-api-in-android
  */
-public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
+public class Title_Author_GoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
 
     private Context context;
     private TextView myTitle;
     private TextView myAuthor;
+
     private Bitmap googleCover;
-    private ImageView cover;
+    public AsyncResponse delegate;
+    //private Class fromClass;
     private ConnectivityManager myConnectivityManager;
 
-    public UseGoogleBooksAPI(Context context, TextView title, TextView author, ImageView cover) {
+    public Title_Author_GoogleBooksAPI(Context context, TextView title, TextView author) {
         this.context = context;
         this.myTitle = title;
         this.myAuthor = author;
-        this.cover = cover;
-
     }
 
     @Override
@@ -102,18 +98,6 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
             // Read data from response.
             StringBuilder builder = new StringBuilder();
             BufferedReader responseReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            /*
-            //get thumbnail image (book cover) from Google Books
-            try{
-                InputStream thumbIn = connection.getInputStream();
-                BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
-                //googleCover = BitmapFactory.decodeStream(thumbBuff);
-                //thumbBuff.close();
-                //thumbIn.close();
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }*/
 
             String line = responseReader.readLine();
             while (line != null) {
@@ -143,59 +127,58 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject responseJson) {
         if (!isCancelled() && responseJson != null) {
-            String title= null;
+            String title = null;
             JSONArray authors = null;
-            try {
 
+            if (responseJson.has("imageLinks")) {
+                try {
+                    JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
+                    String thumbURLs = imageInfo.getString("smallThumbnail");
+                    URL thumbURL = new URL(thumbURLs);
+                    URLConnection thumbConn = thumbURL.openConnection();
+                    thumbConn.connect();
 
-                // Get appropriate fields out of JSON object.
-                JSONObject imageInfo = responseJson.getJSONObject("imageLinks");
-                new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
+                    InputStream thumbIn = thumbConn.getInputStream();
+                    BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
 
-                JSONArray itemsArray = responseJson.getJSONArray("items");
-                JSONObject book = itemsArray.getJSONObject(0);
-                JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+                    googleCover = BitmapFactory.decodeStream(thumbBuff);
 
-
-                String imgThmbnail = imageInfo.getString("smallThumbnail");
-
-
-                title = volumeInfo.getString("title");
-                authors = volumeInfo.getJSONArray("authors");
-
-                // If both are found, display the result.
-                if (title != null && authors != null) {
-                    for(int i = 0; i < authors.length(); i++){
-                        myAuthor.append(authors.get(i).toString());
-                    }
-                    myTitle.setText(title);
-                } /*else {
-
-                title = volumeInfo.getString("title");
-                authors = volumeInfo.getJSONArray("authors");
-
-            // If both are found, display the result.
-            if (title != null && authors != null) {
-                for(int i = 0; i < authors.length(); i++){
-                    myAuthor.append(authors.get(i).toString());
+                    thumbBuff.close();
+                    thumbIn.close();
                 }
-                myTitle.setText(title);
-            } /*else {
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (responseJson.has("items")){
+                try {
+                    // Get appropriate fields out of JSON object.
+                    JSONArray itemsArray = responseJson.getJSONArray("items");
+                    JSONObject book = itemsArray.getJSONObject(0);
+                    JSONObject volumeInfo = book.getJSONObject("volumeInfo");
 
-                // If none are found, update the UI to show failed results.
-                myTitle.setText("NoResult");
-                myAuthor.setText("NoResult");
-            }*/
+                    title = volumeInfo.getString("title");
+                    authors = volumeInfo.getJSONArray("authors");
 
-            } catch(Exception e){
-                cover.setImageBitmap(null);
-                // If onPostExecute does not receive a proper JSON string
-                e.printStackTrace();
+                    // If both are found, display the result.
+                    if (title != null && authors != null) {
+                        for (int i = 0; i < authors.length(); i++) {
+                            myAuthor.append(authors.get(i).toString());
+                        }
+                        myTitle.setText(title);
+                    }
+
+
+                    //delegate.processFinish(googleCover);
+                } catch (Exception e) {
+                    // If onPostExecute does not receive a proper JSON string
+                    Log.d("Reach exception in onPostExecute", e.toString());
+                    e.printStackTrace();
+                    //delegate.processFinish(null);
+                }
             }
         }
-        else {
-            return;
-        }
+        delegate.processFinish(googleCover);
     }
 
     protected boolean isNetworkConnected() {
@@ -211,37 +194,6 @@ public class UseGoogleBooksAPI extends AsyncTask<String, Object, JSONObject> {
         } else {
             return false;
         }
-    }
-
-    private class GetBookThumb extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... thumbURLs) {
-        //attempt to download image
-            try{
-                URL thumbURL = new URL(thumbURLs[0]);
-                URLConnection thumbConn = thumbURL.openConnection();
-                thumbConn.connect();
-
-                InputStream thumbIn = thumbConn.getInputStream();
-                BufferedInputStream thumbBuff = new BufferedInputStream(thumbIn);
-
-                googleCover = BitmapFactory.decodeStream(thumbBuff);
-
-                thumbBuff.close();
-                thumbIn.close();
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
-            return "";
-        }
-        protected void onPostExecute(String result) {
-            if (cover == null){
-                cover.setImageBitmap(googleCover);
-            }
-            //new Photos(context, )
-        }
-
     }
 }
 

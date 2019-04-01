@@ -13,8 +13,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_edit__profile_" />
 
+
+    <include layout="@layout/content_edit__profile_" />
 
 
 </android.support.design.widget.CoordinatorLayout>

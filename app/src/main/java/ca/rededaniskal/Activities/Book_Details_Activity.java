@@ -45,11 +45,15 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
+
+import ca.rededaniskal.BusinessLogic.LoadImage;
+
 import ca.rededaniskal.BusinessLogic.myCallbackBRList;
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Borrow_Req_DB;
 import ca.rededaniskal.Database.Username_For_Book_Details_DB;
+
 import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -75,10 +79,10 @@ public class Book_Details_Activity extends AppCompatActivity {
     TextView DisplayISBN;
     TextView DisplayOwner;
     TextView DisplayStatus;
-    TextView DisplayDescription;
+    TextView DisplayPosessor;
     private Book_Details_Logic logic;
 
-    ImageView BookCover;
+    ImageView DisplayBookCover;
 
     Button GoToForum;
     Button Request_Cancel;
@@ -110,9 +114,9 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayISBN = (TextView) findViewById(R.id.DisplayISBN);
         DisplayOwner = (TextView) findViewById(R.id.DisplayOwner);
         DisplayStatus = (TextView) findViewById(R.id.DisplayStatus);
-        DisplayDescription = (TextView) findViewById(R.id.editDescription);
+        DisplayPosessor = findViewById(R.id.viewPosessor);
 
-        BookCover = (ImageView) findViewById(R.id.BookCover);
+        DisplayBookCover = (ImageView) findViewById(R.id.BookCover);
 
         GoToForum = (Button) findViewById(R.id.GoToForum); //TODO: GO TO ACTIVITy
         Request_Cancel = (Button) findViewById(R.id.request_cancel);
@@ -133,9 +137,13 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayISBN.setText(book.getISBN());
         DisplayOwner.setText(book.getOwner());
         DisplayStatus.setText(book.getStatus());
-        //DisplayDescription.setText(book.get); TODO: Descriptions?
+        DisplayPosessor.setText(book.getPossessor());
 
-        //TODO: Make this the actual user
+        if(book.getCover() != null || book.getCover() != ""){
+            LoadImage loader = new LoadImage(DisplayBookCover);
+            loader.execute(book.getCover());
+        }
+
         String globalUser = FirebaseAuth.getInstance().getUid();
 
         //Set the visibility of Edit + cardView
@@ -160,7 +168,11 @@ public class Book_Details_Activity extends AppCompatActivity {
         } else {
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
+
         BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        uid = currentUser.getUid();
+        Borrow_Req_DB brdb = new Borrow_Req_DB();
 
         //isRequested = db.bookInUserRequests();
         myCallbackBool mcbb = new myCallbackBool() {
@@ -170,10 +182,12 @@ public class Book_Details_Activity extends AppCompatActivity {
                 continueCreating();
             }
         };
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        uid = currentUser.getUid();
-        Borrow_Req_DB brdb = new Borrow_Req_DB();
-        brdb.requestExists(book.getBookID(), uid, mcbb);
+
+       db.bookInUserRequests(mcbb);
+
+
+        //brdb.requestExists(book.getBookID(), uid, mcbb);
+        //continueCreating();
     }
 
     private void continueCreating(){
@@ -181,9 +195,14 @@ public class Book_Details_Activity extends AppCompatActivity {
 
         //Set appropriate text for the button at the bottom
         if (book.getStatus().equals("Requested") && isRequested) {
+            //If I Requested the book
             Request_Cancel.setText(R.string.cancel_request);
 
-        }else if (book.getPossessor().equals(uid)){
+        }else if (book.getStatus().equals("Borrowed")){
+            //If book is borroed by someone other than myself
+            Request_Cancel.setVisibility(View.INVISIBLE);
+
+        } else if (book.getPossessor().equals(uid)){
             //If i am the one in possession of book but not the owner
 
             Request_Cancel.setText("Return This Book");
@@ -226,8 +245,8 @@ public class Book_Details_Activity extends AppCompatActivity {
                 if (isRequested){
                     Request_Cancel.setText(R.string.request_book);
                     isRequested = false;
-                    Borrow_Req_DB brdb = new Borrow_Req_DB();
-                    brdb.removeBorrowRequest(book.getBookID(), uid);
+                    /*Borrow_Req_DB brdb = new Borrow_Req_DB();
+                    brdb.removeBorrowRequest(book.getBookID(), uid);*/
                     //BorrowRequest request = new BorrowRequest(uid, book.getOwner(), book.getISBN(),book.getBookID());
                     //Notification notification = new Notification(book.)
                     //brdb.createBorrowRequest(request, notification);
@@ -241,28 +260,18 @@ public class Book_Details_Activity extends AppCompatActivity {
                     intent.putExtra("BorrowRequestObject", request);
                     intent.putExtra("Returning", true);
                     v.getContext().startActivity(intent);
-                    logic = new Book_Details_Logic(book, isRequested);
+                    //logic = new Book_Details_Logic(book, isRequested);
                 }else{
                     //Case Request book
                     Request_Cancel.setText(R.string.cancel_request);
                     isRequested = true;
-                    logic = new Book_Details_Logic(book, isRequested);
+                    //logic = new Book_Details_Logic(book, isRequested);
                 }
-                //logic = new Book_Details_Logic(book, isRequested);
+                logic = new Book_Details_Logic(book, isRequested);
             }
         });
 
     }
-    /*private void displayImg(){
-
-        Uri uri = Uri.parse(photoUrl);
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(picUri.getPath());
-
-        // Load the image using Glide
-        Glide.with(this.getApplicationContext())
-                .load(storageReference)
-                .into(BookCover);
-    }*/
 
     ValueEventListener valueEventListener2 = new ValueEventListener() {
         @Override

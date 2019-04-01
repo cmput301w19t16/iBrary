@@ -19,17 +19,18 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
+import ca.rededaniskal.EntityClasses.Display_Post;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>{
     public Post_Feed_Fragment mctx;
-    private ArrayList<Post> posts;
+    private ArrayList<Display_Post> posts;
 
     /**
      * Instantiates a new Entry adapter.
      */
-    public PostAdapter(Post_Feed_Fragment ctx, ArrayList<Post> posts) {
+    public PostAdapter(Post_Feed_Fragment ctx, ArrayList<Display_Post> posts) {
         this.mctx = ctx;
         this.posts = posts;
     }
@@ -56,11 +57,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
      */
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder  postViewHolder, final int i) {
-        final Post post = posts.get(i);
-
+        final Display_Post display = posts.get(i);
+        final Post post = display.getPost();
         //Set the book attributes
-        postViewHolder.user.setText(post.getUid());
-        postViewHolder.title.setText(post.getISBN());
+        postViewHolder.user.setText(display.getPoster());
+        postViewHolder.title.setText(display.getTitle());
         postViewHolder.topic.setText(post.getTopic());
         postViewHolder.text.setText(post.getText());
 
