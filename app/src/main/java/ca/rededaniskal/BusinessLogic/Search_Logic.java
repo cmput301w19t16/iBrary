@@ -35,21 +35,21 @@ public class Search_Logic {
         userList = new ArrayList<>();
         isbns = new HashSet<>();
 
+
         for (int i : chosen) {
-            setOrderby(i);
-            if(orderby.equals("friend")){
+
+            if(i==3){
                 Log.d("Searchlog", "**************Firned");
                     Search_Users_DB dbu = new Search_Users_DB(parent, search_string);
                     dbu.getUserMatches();
-                }else {
-                    db = new Search_Books_Db(parent, orderby, search_string);
-                    db.queryData();
                 }
             }
 
+
         String[] each = search_string.split("\\s+");
-        for(String s: each){
-            s=s.toLowerCase();
+        for(String s1: each){
+            String s=s1.toLowerCase();
+
             if (chosen.contains(0)||chosen.isEmpty()){
                new Search_Books_Db(parent, s).queryAuthorData();
             }
@@ -62,25 +62,7 @@ public class Search_Logic {
         }
     }
 
-public void setOrderby(int i){
 
-    switch (i) {
-        case 0:
-            orderby = "author";
-
-            break;
-        case 1:
-            orderby = "title";
-            break;
-        case 2:
-            orderby = "isbn";
-            break;
-        case 3:
-            orderby = "friend";
-            break;
-    }
-
-}
 
 }
 

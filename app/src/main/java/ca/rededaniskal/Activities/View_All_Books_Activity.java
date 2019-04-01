@@ -10,54 +10,49 @@
  */
 package ca.rededaniskal.Activities;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.Button;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.BusinessLogic.Filter_My_Books_Logic;
 import ca.rededaniskal.Database.getAllBooks;
-import ca.rededaniskal.EntityClasses.Book_Instance;
-import ca.rededaniskal.EntityClasses.Book_List;
+
 import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.EntityClasses.Master_Book;
-import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
-import static android.content.ContentValues.TAG;
+
 
 public class View_All_Books_Activity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
     private ArrayList<Display_Username> BL;
+    private String ISBN;
+    private ArrayList<Integer> AvOrRe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__all__books_);
+        AvOrRe =new ArrayList<>();
+        AvOrRe.add(0);
+        AvOrRe.add(1);
 
         Intent intent = getIntent();
 
         if (intent.getExtras() != null) {
             Master_Book mb = (Master_Book) intent.getSerializableExtra("master_book"); //Get the book
-            //TODO: get related books for the database
+           ISBN = mb.getISBN();
         }
+        else{ISBN="";}
 
         BL = new ArrayList<>(); //Initiatize books to be displayed
 
@@ -70,11 +65,14 @@ public class View_All_Books_Activity extends AppCompatActivity {
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
 
-        getAllBooks db = new getAllBooks(this);
+        new getAllBooks(this, ISBN);
     }
 
     public void addBook(ArrayList<Display_Username> book_list){
-        bookAdapter = new BookAdapter(this, book_list);
+        ArrayList<Display_Username> newBL = new Filter_My_Books_Logic(AvOrRe, book_list).newBooks();
+
+
+        bookAdapter = new BookAdapter(this, newBL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
     }
