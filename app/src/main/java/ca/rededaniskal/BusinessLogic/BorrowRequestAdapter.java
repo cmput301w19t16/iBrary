@@ -20,10 +20,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
@@ -196,7 +192,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             cancel = itemView.findViewById(R.id.cancel);
             bookInfo = itemView.findViewById(R.id.bookInfo);
 
-            bookCover = itemView.findViewById(R.id.BookCover);
+            bookCover = itemView.findViewById(R.id.pic);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

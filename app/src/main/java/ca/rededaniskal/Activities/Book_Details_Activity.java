@@ -13,13 +13,9 @@
  */
 package ca.rededaniskal.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,34 +29,24 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
 
 import ca.rededaniskal.BusinessLogic.LoadImage;
 
-import ca.rededaniskal.BusinessLogic.myCallbackBRList;
 import ca.rededaniskal.BusinessLogic.myCallbackDBRList;
-import ca.rededaniskal.Database.Borrow_Req_DB;
 import ca.rededaniskal.Database.Display_Borrow_Req_DB;
 import ca.rededaniskal.Database.Username_For_Book_Details_DB;
 
-import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Display_BorrowRequest;
-import ca.rededaniskal.EntityClasses.Exchange;
-import ca.rededaniskal.EntityClasses.Request;
-import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
@@ -116,7 +102,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayStatus = (TextView) findViewById(R.id.DisplayStatus);
         DisplayPosessor = findViewById(R.id.viewPosessor);
 
-        DisplayBookCover = (ImageView) findViewById(R.id.BookCover);
+        DisplayBookCover = (ImageView) findViewById(R.id.pic);
 
         GoToForum = (Button) findViewById(R.id.GoToForum); //TODO: GO TO ACTIVITy
         Request_Cancel = (Button) findViewById(R.id.request_cancel);

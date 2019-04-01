@@ -24,12 +24,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-  <ImageView
-        android:id="@+id/BookCover"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
 
-        app:srcCompat="@drawable/ic_person_black_24dp" />
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pic"
+                android:layout_width="150dp"
+
+                android:layout_weight="1"
+                android:layout_span="2"
+
+                android:layout_height="150dp"
+
+                android:src="@drawable/ic_person_black_24dp"
+                android:layout_marginRight="10dp"
+                app:civ_border_color="#FF000000" />
+
+
         </TableRow>
 
         <TableRow
@@ -55,7 +64,7 @@
                 android:background="@android:color/background_light"
                 android:text="User Name Here"
                 android:textColor="#000"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
@@ -83,7 +92,7 @@
                 android:padding="1dip"
                 android:text="User Location Here"
                 android:textColor="#000"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
         </TableRow>
 
         <TableRow
@@ -110,7 +119,7 @@
                 android:padding="1dip"
                 android:text="example@exmaple.ca"
                 android:textColor="#000"
-                android:textSize="14dp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
@@ -139,7 +148,7 @@
                 android:padding="1dip"
                 android:text="780-000-0000"
                 android:textColor="#000"
-                android:textSize="14dp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
@@ -167,7 +176,23 @@
                 android:background="#FFFFFF"
                 android:padding="1dip"
                 android:text="Number of Followers:"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/ViewBooks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_span="2"
+                android:layout_weight="1"
+                android:text="@string/view_library"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
         </TableRow>
 
