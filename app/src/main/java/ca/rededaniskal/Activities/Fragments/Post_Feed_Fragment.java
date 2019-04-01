@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import ca.rededaniskal.Database.Write_Post_DB;
 import ca.rededaniskal.EntityClasses.Display_Post;
@@ -30,6 +32,7 @@ import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.R;
 
 import static android.support.constraint.Constraints.TAG;
+import static java.util.Collections.reverse;
 
 /**
  * This fragment is to view the activities of your friends. It ties very closely with our "wow"
@@ -143,6 +146,7 @@ public class Post_Feed_Fragment extends Fragment {
 
     public void updateAdapter(ArrayList<Display_Post> postList){
         Log.d(TAG, "*(*(*( IN UPDATE ADAPTER");
+        Collections.reverse(postList);
         final PostAdapter postAdapter = new PostAdapter(Post_Feed_Fragment.this, postList);
         recyclerView.setAdapter(postAdapter);
         postAdapter.notifyDataSetChanged();
