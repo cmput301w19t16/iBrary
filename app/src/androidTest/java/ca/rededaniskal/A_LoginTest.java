@@ -27,11 +27,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class LoginTest extends ActivityTestRule<Login_Activity>{
+public class A_LoginTest extends ActivityTestRule<Login_Activity>{
 
     private Solo solo;
 
-    public LoginTest() {
+    public A_LoginTest() {
         super(Login_Activity.class);
     }
 

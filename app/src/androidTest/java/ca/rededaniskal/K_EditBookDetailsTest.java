@@ -21,11 +21,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class EditBookDetailsTest extends ActivityTestRule<Edit_Book_Instance_Activity> {
+public class K_EditBookDetailsTest extends ActivityTestRule<Edit_Book_Instance_Activity> {
 
     private Solo solo;
 
-    public EditBookDetailsTest() {
+    public K_EditBookDetailsTest() {
         super(Edit_Book_Instance_Activity.class);
     }
 

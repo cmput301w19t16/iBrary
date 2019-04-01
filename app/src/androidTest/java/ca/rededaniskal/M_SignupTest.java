@@ -25,11 +25,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class SignupTest extends ActivityTestRule<Signup_Activity>{
+public class M_SignupTest extends ActivityTestRule<Signup_Activity>{
 
     private Solo solo;
 
-    public SignupTest() {
+    public M_SignupTest() {
         super(Signup_Activity.class);
     }
 

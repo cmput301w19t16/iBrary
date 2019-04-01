@@ -24,11 +24,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class AddBookToLibraryTest extends ActivityTestRule<Add_Book_To_Library_Activity> {
+public class J_AddBookToLibraryTest extends ActivityTestRule<Add_Book_To_Library_Activity> {
 
     private Solo solo;
 
-    public AddBookToLibraryTest() {
+    public J_AddBookToLibraryTest() {
         super(Add_Book_To_Library_Activity.class);
     }
 

@@ -1,10 +1,8 @@
 package ca.rededaniskal;
 
-
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.widget.EditText;
 
 import com.robotium.solo.Solo;
 
@@ -13,8 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ca.rededaniskal.Activities.Edit_Profile_Activity;
 import ca.rededaniskal.Activities.Main_Activity;
+import ca.rededaniskal.Activities.User_Details_Activity;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static junit.framework.TestCase.assertTrue;
@@ -22,20 +20,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class EditProfileTest extends ActivityTestRule<Edit_Profile_Activity>{
+public class D_AlertTest extends ActivityTestRule<Main_Activity> {
 
     private Solo solo;
 
-    public EditProfileTest() {
-        super(Edit_Profile_Activity.class);
+    public D_AlertTest() {
+        super(Main_Activity.class);
     }
 
     @Rule
-    public ActivityTestRule<Edit_Profile_Activity> rule =
-            new ActivityTestRule<>(Edit_Profile_Activity.class, true, true);
+    public ActivityTestRule<Main_Activity> rule =
+            new ActivityTestRule<>(Main_Activity.class, true, true);
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
 
         solo = new Solo(getInstrumentation(), rule.getActivity());
     }
@@ -46,12 +44,10 @@ public class EditProfileTest extends ActivityTestRule<Edit_Profile_Activity>{
     }
 
     @Test
-    public void TestEdit() {
-        solo.assertCurrentActivity("Wrong activity", Edit_Profile_Activity.class);
-        solo.enterText((EditText) solo.getView(R.id.new_username), "James Bond");
-        solo.enterText((EditText) solo.getView(R.id.new_phone), "5555555555");
-        solo.enterText((EditText) solo.getView(R.id.new_location), "Edmonton, Alberta");
-        solo.clickOnButton("Save");
+    public void checkAlert() {
         solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
+        solo.clickOnText("Alerts");
+        solo.clickOnText("Revan is now following you");
+        solo.assertCurrentActivity("Wrong activity", User_Details_Activity.class);
     }
 }
