@@ -275,12 +275,11 @@ public class Search_Fragment extends Fragment {
     }
 
     public void addBookToAdapter(Master_Book m){
-
+        Log.d("AddBookToAdapter", "HeERe");
         viewBookList.add(m);
 
         LinkedHashSet<Master_Book> remove = new LinkedHashSet<>(viewBookList);
         viewBookList = new ArrayList<>(remove);
-        Log.d("AddBookToAdapter", "Book List: "+ viewBookList);
         update_books(viewBookList);
     }
   
