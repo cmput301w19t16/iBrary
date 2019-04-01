@@ -28,7 +28,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -210,12 +210,13 @@ public class Book_Details_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Forum_Activity.class);
+                intent.putExtra("isbn", book.getISBN());
                 startActivity(intent);
             }
         });
 
 
-        final Book_Details_Activity thisone = this;
+        //final Book_Details_Activity thisone = this;
 
         Request_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override

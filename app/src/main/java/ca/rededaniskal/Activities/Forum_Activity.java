@@ -1,10 +1,12 @@
 package ca.rededaniskal.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,11 +21,17 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
-import ca.rededaniskal.EntityClasses.Master_Book;
+
+import ca.rededaniskal.Database.ForumDb;
+import ca.rededaniskal.Database.MasterBookDb;
+import ca.rededaniskal.EntityClasses.Display_Thread;
 import ca.rededaniskal.EntityClasses.Thread;
 
-import ca.rededaniskal.EntityClasses.Forum;
+import ca.rededaniskal.EntityClasses.Master_Book;
+
 import ca.rededaniskal.R;
 
 import static java.lang.Boolean.FALSE;
@@ -33,11 +41,16 @@ public class Forum_Activity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ForumAdapter forumAdapter;
-    private Forum forum;
+    //private Forum forum;
     private TextView title;
     private FloatingActionButton addTopic;
     private FirebaseAuth mAuth;
     private RatingBar myRating, avgRating;
+    private String ISBN;
+    private ArrayList<Display_Thread> threads;
+    private ForumDb fdb;
+    private MasterBookDb mbdb;
+
 
 
 
@@ -47,36 +60,52 @@ public class Forum_Activity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_forum_);
+        threads = new ArrayList<>();
 
         //TODO: get Forum from DB or something
         Master_Book b = new Master_Book("Happy Potter","JK Rowling","1234567890", null);
 
 
-        forum = new Forum("1234567890"); //For testing
+       // forum = new Forum("1234567890"); //For testing
 
         title = findViewById(R.id.Title);
         addTopic = findViewById(R.id.addTopic);
         myRating = findViewById(R.id.rating2);
         avgRating = findViewById(R.id.rating);
 
+
+
+
+
+
+        Intent intent = getIntent();
+        ISBN = intent.getStringExtra("isbn");
         //Set the recycler view
         recyclerView = findViewById(R.id.ViewThreads);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        forumAdapter = new ForumAdapter(this, forum.getThreads());
+        forumAdapter = new ForumAdapter(this, threads,ISBN );
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
-        //GetAllUsersDB db = new GetAllUsersDB(this); TODO something with this
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        String uid = currentUser.getUid();
+        mbdb = new MasterBookDb();
+        mbdb.get_Masterbook_for_Forum(this, ISBN);
+
+        fdb = new ForumDb(this, ISBN);
+        fdb.getThreads();
+
+
+
+
+        forumAdapter.notifyDataSetChanged();
+        //GetAllUsersDB db = new GetAllUsersDB(this); TODO something with this
 
         //Set the Rating bars
 
         //TODO: set the rating bars
 
-        title.setText(forum.getIsbn());
+
+        //title.setText(forum.getIsbn());
 
         //Set the add topic on Click listener
         addTopic.setOnClickListener(new View.OnClickListener() {
@@ -128,9 +157,12 @@ public class Forum_Activity extends AppCompatActivity {
 
                             Thread newThread = new Thread(uid, textStr, topicStr);
 
-                            forum.addPost(newThread);
 
-                            forumAdapter.notifyDataSetChanged();
+                           fdb.addParentThread(newThread);
+
+
+
+                           // forumAdapter.notifyDataSetChanged();
                             popupWindow.dismiss();
                         }
                     }
@@ -146,15 +178,48 @@ public class Forum_Activity extends AppCompatActivity {
 
                 float rating = myRating.getRating();
 
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-                String uid = currentUser.getUid();
+                //FirebaseUser currentUser = mAuth.getCurrentUser();
+               // String uid = currentUser.getUid();
 
                 //TODO: add rating
-                //forum.addRatingToBook(uid, rating);
-                //avgRating.setRating(forum.getBook().getAvgRating());
+                mbdb.addRatingToDB(rating, ISBN);
+                mbdb.get_Masterbook_for_Forum(Forum_Activity.this, ISBN);
+
 
                 return myRating.onTouchEvent(event);
             }
         });
     }
+
+    public void setMasterBook(Master_Book master_book, String UID){
+        title.setText(master_book.getTitle());
+
+        Float avg = master_book.getAvgRating();
+        Float uRate = master_book.getUserRating(UID);
+
+
+        if (avg!=null){
+            Log.d("null", "average from master null");
+            avgRating.setRating(avg);}
+        if (uRate!=null){
+            Log.d("null", "user rating from master null");
+            myRating.setRating(uRate);}
+
+
+
+    }
+    public void loadThreads(ArrayList<Display_Thread> threadArrayList){
+
+        if (threadArrayList!=null){threads = threadArrayList;}
+       forumAdapter = new ForumAdapter(this, threads,ISBN );
+        recyclerView.setAdapter(forumAdapter);
+        forumAdapter.notifyDataSetChanged();
+
+    }
+   /* public void refresh(Thread thread){
+
+        threads.add(0,thread);
+        forumAdapter.notifyDataSetChanged();
+}
+*/
 }

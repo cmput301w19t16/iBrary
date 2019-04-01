@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.rededaniskal.EntityClasses.Comment;
+import ca.rededaniskal.EntityClasses.Display_Comment;
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
@@ -30,9 +31,9 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
 
     public static final String REPLIED = "replied";
     public Context mctx;
-    private ArrayList<Comment> comments;
+    private ArrayList<Display_Comment> comments;
 
-    public ThreadAdapter(Context mctx, ArrayList<Comment> comments) {
+    public ThreadAdapter(Context mctx, ArrayList<Display_Comment> comments) {
         this.mctx = mctx;
         this.comments = comments;
     }
@@ -52,12 +53,13 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
 
     @Override
     public void onBindViewHolder(@NonNull ThreadViewHolder ThreadViewHolder, final int i) {
-        final Comment comment = comments.get(i);
+        final Comment comment = comments.get(i).getComment();
+        final String userName = comments.get(i).getDisplayName();
 
         //TODO: Set profile pictures
         //profilePicture = itemView.findViewById(R.id.profilePicture);
         ThreadViewHolder.text.setText(comment.getText());
-        ThreadViewHolder.name.setText(comment.getCreator());
+        ThreadViewHolder.name.setText(userName);
     }
 
 
