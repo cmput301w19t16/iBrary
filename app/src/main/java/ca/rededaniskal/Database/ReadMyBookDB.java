@@ -85,7 +85,6 @@ public class ReadMyBookDB {
                             User user = snapshot.getValue(User.class);
                             display.setOwner(user.getUserName());
                             book_list.set(j, display);
-
                         }
                         getBorrowerUsername();
                     }

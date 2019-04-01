@@ -1,9 +1,7 @@
 package ca.rededaniskal.Database;
 
 import android.content.ContentValues;
-
 import android.support.annotation.NonNull;
-
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -15,13 +13,63 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.Activities.Fragments.Notifications_Fragment;
+import ca.rededaniskal.BusinessLogic.myCallbackBRList;
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
-import ca.rededaniskal.EntityClasses.Notification;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.EntityClasses.User;
 
-public class Follow_DB {
+public class Requests_DB {
+    private DatabaseReference mDatabase;
+
+    public Requests_DB(){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public void denyRequest(String reqID){
+        Notifications_DB ndb = new Notifications_DB();
+        ndb.deleteNotification(reqID);
+        mDatabase.child("BorrowRequests/" + reqID).removeValue();
+    }
+
+    public void acceptRequest(String bookID){
+        myCallbackStringList mcbsl = new myCallbackStringList() {
+            @Override
+            public void onCallback(ArrayList<String> strList) {
+                for (String str : strList){
+                    denyRequest(str);
+                }
+            }
+        };
+
+        getAllThisBooksRequests(bookID, mcbsl);
+    }
+
+    public void getAllThisBooksRequests(String bookID, final myCallbackStringList mcbrl){
+        Query query = mDatabase.child("BorrowRequests").orderByChild("bookId").equalTo(bookID);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ArrayList<String> strlist = new ArrayList<>();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        strlist.add(snapshot.getKey());
+                    }
+                    mcbrl.onCallback(strlist);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(ContentValues.TAG, "WE GOOFED UP BUDDY");
+            }
+        });
+    }
+}
+/*
 
     private DatabaseReference mDatabase;
 
@@ -47,7 +95,6 @@ public class Follow_DB {
                     myCallback.onCallback(false);
                 }
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -114,17 +161,12 @@ public class Follow_DB {
         mDatabase.child("followings/" + follower + "/" + leader).removeValue();
         //mDatabase.removeValue();
         changeFollowCount(-1, leader);
-        Notifications_DB nb = new Notifications_DB();
-        nb.deleteNotification(follower + "/" + leader);
     }
 
     private void follow(String follower, String leader){
         mDatabase.child("followings/" + follower).child(leader).setValue(leader);
         //mDatabase.child(leader).setValue(leader);
         changeFollowCount(1, leader);
-        Notification notification = new Notification(leader, follower, follower + "/" + leader, "Friend Request");
-        Notifications_DB nb = new Notifications_DB();
-        nb.storeNotification(notification);
     }
 
     private void changeFollowCount(final int i, String leader){
@@ -144,4 +186,4 @@ public class Follow_DB {
         int followcount = i + u.getFollowerCount();
         ref.child("followerCount").setValue(followcount);
     }
-}
+}*/

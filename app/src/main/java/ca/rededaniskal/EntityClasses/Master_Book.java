@@ -1,6 +1,10 @@
 package ca.rededaniskal.EntityClasses;
 
+
+import android.util.Log;
+
 import android.graphics.Bitmap;
+
 
 import java.io.Serializable;
 import java.net.URL;
@@ -13,8 +17,10 @@ public class Master_Book extends Book implements Serializable {
     private Float avgRating;
     private Integer totalNumRating;
     private Float sumRatings;
+
     private HashMap<String, Float>mapUsersRating;
     private String googleCover;
+
 
     public  Master_Book(){}
 
@@ -48,18 +54,35 @@ public class Master_Book extends Book implements Serializable {
                 avgRating = sumRatings / totalNumRating;
                 return avgRating;
             }
-            else return null;
+
+            else{
+                Log.d("null", "total ratings 0");
+                return null;}
         }
         else{
+            Log.d("null", "mapUserRatings null");
             return null;
         }
     }
 
     public Float getUserRating(String username){
-        return mapUsersRating.getOrDefault(username, null);
+        if( mapUsersRating!=null)
+        {return mapUsersRating.getOrDefault(username, null);}
+        return null;
+
     }
     public void deleteUserRating(String username){
-        mapUsersRating.remove(username);
+        if (mapUsersRating!=null){
+        mapUsersRating.remove(username);}
+
+    }
+
+    public void setMapUsersRating(HashMap<String, Float> mapUsersRating) {
+        this.mapUsersRating = mapUsersRating;
+    }
+
+    public HashMap<String, Float> getMapUsersRating() {
+        return mapUsersRating;
     }
 
     public void setGoogleCover(String newCover){

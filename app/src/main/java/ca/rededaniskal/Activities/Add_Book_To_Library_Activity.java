@@ -206,6 +206,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
 
 
+
                 String error_m = businessLogic.isValid();
                 if (error_m.equals("")) {
 
@@ -264,6 +265,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+
             myCover = (Bitmap) data.getExtras().get("data");
             personalCover = true;
             cover.setImageBitmap(myCover);
@@ -279,6 +281,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         } else if (requestCode == UPLOAD_REQUEST_MB && resultCode == Activity.RESULT_OK) {
             coverURLMb = data.getStringExtra("URL");
         }
+
 
     }
 
