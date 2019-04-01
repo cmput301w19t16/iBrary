@@ -83,6 +83,8 @@ public class Search_Fragment extends Fragment {
     private String queryString;
     private ArrayList<Master_Book> viewBookList;
     private ArrayList<User> viewUserList;
+    private LinkedHashSet<String> AdapterIsbns;
+
 
     public Search_Fragment() {
         // Required empty public constructor
@@ -121,6 +123,7 @@ public class Search_Fragment extends Fragment {
 
         this.inflater = inflater;
         this.container = container;
+
         view = inflater.inflate(R.layout.fragment_search, container, false);
         swipeContainer = view.findViewById(R.id.swipeContainersearch);
 
@@ -133,17 +136,22 @@ public class Search_Fragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 viewBookList.clear();
+                update_books(viewBookList);
                 Log.d("Searchlog", "**************querylisten");
 
-                Search_Logic logic = new Search_Logic(search_fragment, chosenOptions, query);
+
+
                 queryString = query;
                 searchString.clearFocus();
+                new Search_Logic(search_fragment, chosenOptions, query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 viewBookList.clear();
+                update_books(viewBookList);
                 queryString = newText;
 
                 return false;
@@ -182,7 +190,13 @@ public class Search_Fragment extends Fragment {
                                 item = item + ", ";
                             }
                         }
+
                         viewBookList.clear();
+                        searchString.clearFocus();
+                        update_books(viewBookList);
+                        if (queryString!=null&&chosenOptions!=null) {
+                            new Search_Logic(search_fragment, chosenOptions, queryString);
+                        }
                     }
                 });
 
@@ -201,6 +215,9 @@ public class Search_Fragment extends Fragment {
                             chosenOptions.clear();
                             //mItemSelected.setText("");
                         }
+                        viewBookList.clear();
+                        update_books(viewBookList);
+
                     }
                 });
 
@@ -215,6 +232,7 @@ public class Search_Fragment extends Fragment {
             @Override
             public void onRefresh() {
                 viewBookList.clear();
+                update_books(viewBookList);
                 Log.d("Searchlog", "**************Onrefresh");
 
                 if (queryString!=null&&chosenOptions!=null) {
@@ -238,11 +256,12 @@ public class Search_Fragment extends Fragment {
     public void update_books(ArrayList<Master_Book> master_books){
         viewBookList = master_books;
 
+
         display = dbView.findViewById(R.id.display);
         display.setHasFixedSize(true);
         display.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        MB_adapter = new Master_BookAdapter(Search_Fragment.this, master_books);
+        MB_adapter = new Master_BookAdapter(Search_Fragment.this,viewBookList);
         display.setAdapter(MB_adapter);
     }
 
@@ -257,14 +276,20 @@ public class Search_Fragment extends Fragment {
     }
 
     public void addBookToAdapter(Master_Book m){
+
         viewBookList.add(m);
+
         LinkedHashSet<Master_Book> remove = new LinkedHashSet<>(viewBookList);
         viewBookList = new ArrayList<>(remove);
+
+
+
+
         update_books(viewBookList);
     }
   
-    public void addBookToAdapter(ArrayList<Master_Book> m){
-        viewBookList.addAll(m);
-        update_books(viewBookList);
+    public void addAllIsbn(ArrayList<String> Isbn){
+        AdapterIsbns.addAll(Isbn);
+
     }
 }
