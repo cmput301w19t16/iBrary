@@ -36,7 +36,7 @@ public class MasterBookDb extends Entity_Database {
         IllegalString.add("]");
         IllegalString.add(".");
         IllegalString.add("$");
-        IllegalString.add("[");
+       
 
     }
 
