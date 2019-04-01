@@ -27,11 +27,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class LoginTest extends ActivityTestRule<Login_Activity>{
+public class A_LoginTest extends ActivityTestRule<Login_Activity>{
 
     private Solo solo;
 
-    public LoginTest() {
+    public A_LoginTest() {
         super(Login_Activity.class);
     }
 
@@ -53,7 +53,7 @@ public class LoginTest extends ActivityTestRule<Login_Activity>{
     @Test
     public void testLogin() {
         solo.assertCurrentActivity("Wrong activity", Login_Activity.class);
-        solo.enterText((EditText) solo.getView(R.id.editText5), "bob@123.ca");
+        solo.enterText((EditText) solo.getView(R.id.editText5), "alex.chan@gmail.com");
         solo.enterText((EditText) solo.getView(R.id.editText6), "password");
 
         solo.clickOnButton("Login");

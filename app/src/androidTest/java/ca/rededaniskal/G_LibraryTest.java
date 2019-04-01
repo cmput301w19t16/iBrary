@@ -21,11 +21,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class LibraryTest extends ActivityTestRule<View_My_Library_Activity> {
+public class G_LibraryTest extends ActivityTestRule<View_My_Library_Activity> {
 
     private Solo solo;
 
-    public LibraryTest() {
+    public G_LibraryTest() {
         super(View_My_Library_Activity.class);
     }
 
@@ -54,9 +54,17 @@ public class LibraryTest extends ActivityTestRule<View_My_Library_Activity> {
     @Test
     public void checkBook() {
         solo.assertCurrentActivity("Wrong activity", View_My_Library_Activity.class);
-        solo.clickOnText("HappyPotter");
+        solo.clickOnText("Introduction");
         solo.assertCurrentActivity("Wrong activity", Book_Details_Activity.class);
     }
 
+    @Test
+    public void filterTest() {
+        solo.assertCurrentActivity("Wrong activity", View_My_Library_Activity.class);
+        solo.clickOnButton("Filter By");
+        solo.clickOnText("Requested");
+        solo.clickOnText("OK");
+        assertFalse(solo.waitForText("Introduction"));
+    }
 
 }

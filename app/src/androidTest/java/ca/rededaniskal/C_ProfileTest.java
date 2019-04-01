@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import ca.rededaniskal.Activities.Edit_Profile_Activity;
 import ca.rededaniskal.Activities.Main_Activity;
 import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
+import ca.rededaniskal.Activities.View_Pending_Exchanges_Activity;
 import ca.rededaniskal.Activities.View_Users_Activity;
 import ca.rededaniskal.Activities.View_My_Library_Activity;
 
@@ -23,11 +24,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class ProfileTest extends ActivityTestRule<Main_Activity>{
+public class C_ProfileTest extends ActivityTestRule<Main_Activity>{
 
     private Solo solo;
 
-    public ProfileTest() {
+    public C_ProfileTest() {
         super(Main_Activity.class);
     }
 
@@ -55,11 +56,20 @@ public class ProfileTest extends ActivityTestRule<Main_Activity>{
     }
 
     @Test
-    public void TestFriendList() {
+    public void TestMyFollowers() {
         solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
         solo.clickOnText("Profile");
-        solo.clickOnButton("Friends list");
+        solo.clickOnButton("My Followers");
         solo.assertCurrentActivity("Wrong activity", View_Users_Activity.class);
+    }
+
+    @Test
+    public void TestUsersImFollowing() {
+        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
+        solo.clickOnText("Profile");
+        solo.clickOnButton("Users I'M Following");
+        solo.assertCurrentActivity("Wrong activity", View_Users_Activity.class);
+
     }
 
     @Test
@@ -71,20 +81,19 @@ public class ProfileTest extends ActivityTestRule<Main_Activity>{
     }
 
     @Test
-    public void TestAllBookRequests() {
-        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
-        solo.clickOnText("Profile");
-        solo.clickOnButton("All Book Requests");
-        solo.assertCurrentActivity("Wrong activity", View_Borrowed_Requested_Activity.class);
-
-    }
-
-    @Test
     public void TestLibrary() {
         solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
         solo.clickOnText("Profile");
         solo.clickOnButton("My Library");
         solo.assertCurrentActivity("Wrong activity", View_My_Library_Activity.class);
+    }
+
+    @Test
+    public void testPendingExchange() {
+        solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
+        solo.clickOnText("Profile");
+        solo.clickOnButton("Pending Exchanges");
+        solo.assertCurrentActivity("Wrong activity", View_Pending_Exchanges_Activity.class);
     }
 
 //    @Test

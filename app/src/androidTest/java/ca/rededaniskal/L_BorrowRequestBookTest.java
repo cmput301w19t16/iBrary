@@ -20,11 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class BorrowRequestBookTest extends ActivityTestRule<View_Borrowed_Requested_Activity>{
+public class L_BorrowRequestBookTest extends ActivityTestRule<View_Borrowed_Requested_Activity>{
 
     private Solo solo;
 
-    public BorrowRequestBookTest() {
+    public L_BorrowRequestBookTest() {
         super(View_Borrowed_Requested_Activity.class);
     }
 
