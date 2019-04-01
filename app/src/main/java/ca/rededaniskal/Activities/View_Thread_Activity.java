@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.BusinessLogic.LoadImage;
@@ -176,8 +177,13 @@ public class View_Thread_Activity extends AppCompatActivity {
     }
 
     public void getThreadComments(ArrayList<Display_Comment> comments){
-        adapterChildren = new ThreadAdapter(this, comments );
+
+        children.clear();
         viewChildren.setAdapter(adapterChildren);
+        children=comments;
+        adapterChildren = new ThreadAdapter(this, children);
+        Collections.reverse(comments);
+
         adapterChildren.notifyDataSetChanged();
 
 
