@@ -21,6 +21,14 @@ import ca.rededaniskal.EntityClasses.Thread;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
+/**
+ * Used to return information about a forum which includes the title of the book, number of
+ * threads, etc.
+ *
+ * @since 2019-03-24
+ * @Revan
+ */
+
 public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHolder>{
 
     public static final String REPLIED = "replied";

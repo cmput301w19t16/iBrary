@@ -8,7 +8,6 @@
  * Display images from DB
  */
 package ca.rededaniskal.BusinessLogic;
-// Created by Revan on 2019-03-03
 
 import android.app.Activity;
 import android.content.Intent;
@@ -32,6 +31,10 @@ import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
 
 import static android.support.constraint.Constraints.TAG;
+
+/**
+ * This is an adapter used to set book information
+ */
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder>{

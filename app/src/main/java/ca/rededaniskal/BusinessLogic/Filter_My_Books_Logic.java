@@ -15,6 +15,8 @@ import ca.rededaniskal.EntityClasses.Display_Username;
 
 /**
  * This class takes care of filtering books based on different qualifiers.
+ *
+ * @author Skye
  */
 
 public class Filter_My_Books_Logic {

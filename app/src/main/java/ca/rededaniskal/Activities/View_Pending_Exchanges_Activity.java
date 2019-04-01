@@ -22,7 +22,7 @@ import ca.rededaniskal.R;
 import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
- * This activity displays 
+ * This activity displays all exchanges that have not been completed.
  */
 
 public class View_Pending_Exchanges_Activity extends AppCompatActivity {

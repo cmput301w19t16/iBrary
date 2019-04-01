@@ -17,6 +17,13 @@ import ca.rededaniskal.Activities.View_All_Books_Activity;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.R;
 
+/**
+ * This is an adapter used to return information about master book
+ *
+ * @since 2019-03-25
+ * @author Revan
+ */
+
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class Master_BookAdapter extends RecyclerView.Adapter<Master_BookAdapter.Master_BookViewHolder>{
     public Search_Fragment fragment;

@@ -24,6 +24,10 @@ import ca.rededaniskal.R;
 
 import static android.support.constraint.Constraints.TAG;
 
+/**
+ * This is an adapter that is used to
+ */
+
 public class brAdapter extends RecyclerView.Adapter<brAdapter.brViewHolder> {
         private ArrayList<Book_Instance>  finalList;
         public Activity mctx;

@@ -37,14 +37,16 @@ import ca.rededaniskal.R;
 
 import static android.view.View.GONE;
 
-//Author: Nick
+/**
+ * This is an adapter that gets the required notification values from the database and creates
+ * different notifications based on the notification type
+ *
+ * @author Nick
+ */
+
 public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adapter.Notification_View_Holder> {
     private ArrayList<Notification> mDataset;
     public Notifications_Fragment fragment;
-
-    //private String titleText;
-
-
 
     public class Notification_View_Holder extends RecyclerView.ViewHolder{
         private Intent intent;
@@ -178,6 +180,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         holder.postTitle.setVisibility(View.VISIBLE);
     }
 
+    // Sets the different types of notifications
     private void setCardValues(final Notification_View_Holder holder, final int position){
         String titleText = holder.user.getUserName();
 

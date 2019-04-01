@@ -28,6 +28,10 @@ import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
+/**
+ * This is an adapter that gets the values of the posts from the database
+ */
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>{
     public Post_Feed_Fragment mctx;
     private ArrayList<Display_Post> posts;

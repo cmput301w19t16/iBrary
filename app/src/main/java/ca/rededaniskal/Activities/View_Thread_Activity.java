@@ -38,6 +38,10 @@ import ca.rededaniskal.R;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
+/**
+ * This activity displays all the threads/replies associated with a forum post
+ */
+
 public class View_Thread_Activity extends AppCompatActivity {
 
     private ArrayList<Thread> displayParent;

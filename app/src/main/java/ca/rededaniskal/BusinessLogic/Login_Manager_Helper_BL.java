@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Allows the user login to the app without needing to retype username and password
+ */
+
 public class Login_Manager_Helper_BL {
     private String FILE_SAV = "file.sav";
     private Context ctx;

@@ -16,6 +16,10 @@ import ca.rededaniskal.Database.Search_Users_DB;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 
+/**
+ * This is the logic that determines which books or users will be displayed in the
+ * recycler view
+ */
 
 public class Search_Logic {
 
@@ -28,7 +32,13 @@ public class Search_Logic {
     private ArrayList<User> userList;
     HashSet<String> isbns;
 
-
+    /**
+     * Determines whether or not to get list from books or users, and if the list is of books,
+     * queries them based on author, title or ISBN
+     * @param p
+     * @param chosen
+     * @param search_string
+     */
 
     public Search_Logic(Search_Fragment p, ArrayList<Integer> chosen, String search_string) {
         Log.d("Searchlog", "**************In search Logic");
@@ -66,6 +76,11 @@ public class Search_Logic {
             }
         }
     }
+
+    /**
+     * Determines the order in which the recycler view will be displayed
+     * @param i
+     */
 
 public void setOrderby(int i){
 

@@ -9,6 +9,10 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
+/**
+ * Used to load an image from the url
+ */
+
 public class LoadImage extends AsyncTask<String, Void, Bitmap> {
     ImageView bmImage;
 

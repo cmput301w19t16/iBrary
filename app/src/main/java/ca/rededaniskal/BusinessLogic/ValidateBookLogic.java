@@ -12,6 +12,10 @@ package ca.rededaniskal.BusinessLogic;
 
 //TODO: validate book id, validate against master, validate 10-digit and 13-digit isbn
 
+/**
+ * Represents the logic related to validating the fields of a book
+ */
+
 //import ca.rededaniskal.Database.AddBookDb;
 import android.content.Context;
 import android.util.Log;
@@ -58,7 +62,7 @@ public class ValidateBookLogic {
     }
 
 
-    //Validate the title of the new book
+    //Validate the title of the new book, ensures
     public boolean validateTitle() {
         if (this.title.isEmpty()) {
             titleError = "Required Field";
@@ -158,7 +162,11 @@ public class ValidateBookLogic {
         return "";
     }
 
-
+    /**
+     * Saves the information to the database
+     * @param book      Represents the book
+     * @param url       Represents the url
+     */
 
     public void saveInformation(Book_Instance book, String url){
         new AddBookDb(book, url);
