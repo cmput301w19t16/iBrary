@@ -64,12 +64,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onBindViewHolder(@NonNull final PostViewHolder postViewHolder, final int i) {
         final Display_Post display = posts.get(i);
         final Post post = display.getPost();
-
+        final PostViewHolder holder = postViewHolder;
         //Set the book attributes
-        postViewHolder.user.setText(display.getPoster());
-        postViewHolder.title.setText(display.getTitle());
-        postViewHolder.topic.setText(post.getTopic());
-        postViewHolder.text.setText(post.getText());
+        holder.user.setText(display.getPoster());
+        holder.title.setText(display.getTitle());
+        holder.topic.setText(post.getTopic());
+        holder.text.setText(post.getText());
 
         Users_DB usersDb = new Users_DB();
 
@@ -78,7 +78,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             public void onCallback(User user) {
                 String urlProfilePic = user.getProfilePic();
                 if(urlProfilePic != null){
-                    LoadImage loader = new LoadImage(postViewHolder.userPic);
+                    LoadImage loader = new LoadImage(holder.userPic);
                     loader.execute(urlProfilePic);
                 }
             }
@@ -89,7 +89,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         usersDb.getUser(uid, myCallbackUser);
 
         //if User clicks on a Book, will start the book details Activity
-        postViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               //TODO

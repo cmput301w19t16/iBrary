@@ -22,7 +22,9 @@ import java.lang.String;
 
 import ca.rededaniskal.Database.AddBookDb;
 import ca.rededaniskal.Database.EditBookDb;
+import ca.rededaniskal.Database.Write_Post_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.Post;
 
 import static com.google.android.gms.common.util.ArrayUtils.contains;
 
@@ -159,8 +161,10 @@ public class ValidateBookLogic {
 
 
     public void saveInformation(Book_Instance book, String url){
-         new AddBookDb(book, url);
-
+        new AddBookDb(book, url);
+        Post post = new Post("Posted a new book", book.getOwner(), ISBN, "New Book");
+        Write_Post_DB db = new Write_Post_DB(post);
+        db.addPostToFollowersFeed();
     }
 
     public void updateInformation(Book_Instance book_instance){

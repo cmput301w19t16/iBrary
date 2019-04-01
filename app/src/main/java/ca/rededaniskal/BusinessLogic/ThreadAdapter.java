@@ -58,12 +58,11 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
     @Override
 
 
-    public void onBindViewHolder(@NonNull final ThreadViewHolder ThreadViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final ThreadViewHolder holder, final int i) {
         final Comment comment = comments.get(i).getComment();
         final String userName = comments.get(i).getDisplayName();
-
-        ThreadViewHolder.text.setText(comment.getText());
-
+        
+        holder.text.setText(comment.getText());
         Users_DB usersDb = new Users_DB();
 
         myCallbackUser myCallbackUser = new myCallbackUser() {
@@ -71,7 +70,7 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
             public void onCallback(User user) {
                 String urlProfilePic = user.getProfilePic();
                 if(urlProfilePic != null){
-                    LoadImage loader = new LoadImage(ThreadViewHolder.profilePicture);
+                    LoadImage loader = new LoadImage(holder.profilePicture);
                     loader.execute(urlProfilePic);
                 }
             }
@@ -81,7 +80,7 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
         String uid = bookInstanceDb.getUID();
         usersDb.getUser(uid, myCallbackUser);
 
-        ThreadViewHolder.name.setText(userName);
+        holder.name.setText(userName);
 
     }
 
