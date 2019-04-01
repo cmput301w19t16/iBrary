@@ -19,9 +19,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,8 +36,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import ca.rededaniskal.BusinessLogic.LoadImage;
 import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
+import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
@@ -51,7 +57,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
     //UI stuff
     private EditText editTitle, editAuthor, editISBN, editDescription;
     private Button openScanner, save, delete;
-    private FloatingActionButton openCamera;
+    private FloatingActionButton openCamera, removeCover;
     private ImageView cover;
 
     private ValidateBookLogic businessLogic;
@@ -59,6 +65,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
     //For Camera
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +84,18 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         openCamera = findViewById(R.id.openCamera);
         save = findViewById(R.id.save);
         delete = findViewById(R.id.delete);
+        removeCover = findViewById(R.id.removePic);
 
         cover = findViewById(R.id.BookCover);
 
         editTitle.setText(book.getTitle());
         editAuthor.setText(book.getAuthor());
         editISBN.setText(book.getISBN());
+
+        if(book.getCover() != null || book.getCover() != ""){
+            LoadImage loader = new LoadImage(cover);
+            loader.execute(book.getCover());
+        }
 
         openScanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +144,18 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
                 finish();
             }
         });
+        removeCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Drawable book_icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_book_black_24dp, null);
+                cover.setImageDrawable(book_icon);
+
+                Bitmap newCover = drawableToBitmap(book_icon);
+
+                Photos photos = new Photos();
+                photos.bitmapToURLBI(newCover, book);
+            }
+        });
     }
 
     public void getInfo() {
@@ -138,6 +163,11 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         String Title = editTitle.getText().toString();
         String Author = editAuthor.getText().toString();
         String ISBN = editISBN.getText().toString();
+
+       /* BitmapDrawable drawable = (BitmapDrawable) cover.getDrawable();
+        Bitmap newCover = drawable.getBitmap();
+        Photos photos = new Photos();
+        photos.bitmapToURLBI(newCover, book);*/
 
         businessLogic = new ValidateBookLogic(Title,Author,ISBN, getApplicationContext());
     }
@@ -155,6 +185,13 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
 
             Book_Instance bookInstance =
                     new Book_Instance(Title, Author, ISBN, userID,book.getPossessor(), book.getCondition(), book.getStatus(), null);
+
+            Drawable Cover = cover.getDrawable();
+            Bitmap newCover = drawableToBitmap(Cover);
+
+            Photos photos = new Photos();
+            photos.bitmapToURLBI(newCover, bookInstance);
+
             bookInstance.setBookID(book.getBookID());
 
             businessLogic.updateInformation(bookInstance);
@@ -187,6 +224,28 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         }
     }
 
+    //https://corochann.com/convert-between-bitmap-and-drawable-313.html
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if(bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
 
 
 

@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
+import ca.rededaniskal.BusinessLogic.LoadImage;
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.Database.BookInstanceDb;
@@ -22,8 +25,6 @@ import ca.rededaniskal.R;
 public class View_Book_Request_Activity extends AppCompatActivity {
 
     private TextView nameField;
-    private TextView locationField;
-    private TextView followersField;
     private User user;
     private Users_DB udb;
     private String uid;
@@ -42,7 +43,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
     private String currentUID;
     private boolean returning;
 
-
+    private ImageView profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,27 +68,16 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         bidb = new BookInstanceDb();
         currentUID = bidb.getUID();
 
-        //nameField = findViewById(R.id.userField);
         nameField = findViewById(R.id.username);
-        locationField = findViewById(R.id.location);
-        followersField = findViewById(R.id.followers);
-        userField = findViewById(R.id.userField);
-        userField.setBackgroundColor(Color.TRANSPARENT);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("View Request");
 
         title = findViewById(R.id.Title);
         author = findViewById(R.id.Author);
-
-
-
-
-        userField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewUser();
-            }
-        });
-
-        //author = findViewById(R.id.author);
+        denyButton = findViewById(R.id.DenyButton);
+        confirmButton = findViewById(R.id.ConfirmButton);
 
         myCallbackBookInstance mcbbi = new myCallbackBookInstance() {
             @Override
@@ -97,23 +87,30 @@ public class View_Book_Request_Activity extends AppCompatActivity {
             }
         };
         bidb.getBookInstance(currentUID, bookID, mcbbi);
-        //title.setText(currentUID);
-        //author.setText(bookID);
-
-        bookField = findViewById(R.id.bookField);
-        bookField.setBackgroundColor(Color.TRANSPARENT);
-        bookField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewBook();
-            }
-        });
-
         askField = findViewById(R.id.askedField);
         askField.setText("Asked to borrow your copy of ");
 
-        confirmButton = findViewById(R.id.ConfirmButton);
-        confirmButton.setBackgroundColor(getResources().getColor(R.color.acceptGreen, getTheme()));
+
+        //Set the Picture
+        profilePic = findViewById(R.id.profilePic);
+        String uid = br.getsenderUID();
+        Users_DB usersDb = new Users_DB();
+
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(profilePic);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
+
+        usersDb.getUser(uid, myCallbackUser);
+
+
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,26 +118,21 @@ public class View_Book_Request_Activity extends AppCompatActivity {
             }
         });
 
-        denyButton = findViewById(R.id.DenyButton);
-        denyButton.setBackgroundColor(getResources().getColor(R.color.denyRed, getTheme()));
+
         denyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 denyRequest();
             }
         });
-
-
     }
 
     private void fillUserField(){
         nameField.setText(user.getUserName());
-        locationField.setText("get the location"); //TODO: put user location into user properly (user.getlocation());
-        followersField.setText(Integer.toString(user.getFollowerCount()) + " followers");
     }
 
     private void fillBookField(){
-        title.setText("Title: " + book.getTitle());
+        title.setText(book.getTitle());
         author.setText("Author: " + book.getAuthor());
     }
 
@@ -173,5 +165,4 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         intent.putExtra("user", user);
         startActivity(intent);
     }
-
 }

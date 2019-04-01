@@ -145,5 +145,6 @@
     <string name="topic">topic</string>
     <string name="text">text</string>
     <string name="in_posession_of">In posession of</string>
+    <string name="go_home">Go Home</string>
 
 </resources>

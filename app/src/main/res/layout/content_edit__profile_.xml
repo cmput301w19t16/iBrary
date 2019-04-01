@@ -31,7 +31,6 @@
                         android:layout_height="100dp"
                         android:src="@drawable/ic_person_black_24dp"
                         app:civ_border_color="#FF000000"
-                        app:civ_border_width="2dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -269,6 +268,22 @@
                         android:layout_weight="1"
                         android:text="@string/save"
                         />
+
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_span="2"
+                        android:layout_weight="1"
+                        android:text="@string/go_home" />
 
                 </TableRow>
 

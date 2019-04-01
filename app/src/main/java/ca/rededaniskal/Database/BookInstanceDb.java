@@ -1,7 +1,9 @@
 package ca.rededaniskal.Database;
 
 
+import android.content.ContentValues;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,9 +13,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.util.ArrayList;
+
+import ca.rededaniskal.BusinessLogic.myCallbackBIList;
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.EntityClasses.Book;
 import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
 
 public class BookInstanceDb extends Entity_Database {
     private DatabaseReference mDatabase;
@@ -44,6 +50,27 @@ public class BookInstanceDb extends Entity_Database {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    public void getListOfBooks(final ArrayList<String> bookIdList, final myCallbackBIList mcbl){
+        Query query = FirebaseDatabase.getInstance().getReference("all-books");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ArrayList<Book_Instance> instanceList = new ArrayList<>();
+                    for (String br : bookIdList){
+                        instanceList.add(dataSnapshot.child(br).getValue(Book_Instance.class));
+                    }
+                    mcbl.onCallback(instanceList);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(ContentValues.TAG, "WE GOOFED UP BUDDY");
             }
         });
     }

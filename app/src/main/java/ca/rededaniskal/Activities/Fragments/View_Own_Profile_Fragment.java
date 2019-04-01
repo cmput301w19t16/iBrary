@@ -12,8 +12,12 @@ package ca.rededaniskal.Activities.Fragments;
 import ca.rededaniskal.Activities.View_All_Requests_Activity;
 import ca.rededaniskal.Activities.View_Pending_Exchanges_Activity;
 import ca.rededaniskal.Activities.View_Users_Activity;
+import ca.rededaniskal.BusinessLogic.LoadImage;
 import ca.rededaniskal.BusinessLogic.Login_Manager_BL;
 import ca.rededaniskal.BusinessLogic.Login_Manager_Helper_BL;
+import ca.rededaniskal.BusinessLogic.myCallbackUser;
+import ca.rededaniskal.Database.BookInstanceDb;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.Database.currentUserDetailsDB;
 
 import android.app.Activity;
@@ -37,6 +41,7 @@ import ca.rededaniskal.Activities.View_All_Books_Activity;
 import ca.rededaniskal.Activities.View_All_Users_Activity;
 import ca.rededaniskal.Activities.View_Borrowed_Requested_Activity;
 import ca.rededaniskal.Activities.View_My_Library_Activity;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
@@ -134,12 +139,24 @@ public class View_Own_Profile_Fragment extends Fragment {
         Button viewFollowers = (Button) v.findViewById(R.id.myFollowers);
         Button viewFollowed = (Button) v.findViewById(R.id.ImFollowing);
         Button logout = (Button) v.findViewById(R.id.logout);
-        Button viewAllRequests = (Button) v.findViewById(R.id.view_all_requests);
-        Button viewAllUsers = (Button) v.findViewById(R.id.viewUsers);
-        Button viewAllBooks = (Button) v.findViewById(R.id.viewBooks);
 
-        ImageView viewProfilePic = v.findViewById(R.id.profile_image);
 
+        final ImageView viewProfilePic = v.findViewById(R.id.profile_image);
+        Users_DB usersDb = new Users_DB();
+
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(viewProfilePic);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
+        BookInstanceDb bookInstanceDb = new BookInstanceDb();
+        String uid = bookInstanceDb.getUID();
+        usersDb.getUser(uid, myCallbackUser);
 
         Button viewExchanges = v.findViewById(R.id.pendingExchanges);
 
@@ -193,14 +210,6 @@ public class View_Own_Profile_Fragment extends Fragment {
             }
         });
 
-        viewAllRequests.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), View_All_Requests_Activity.class);
-                startActivity(intent);
-
-            }
-        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,21 +226,21 @@ public class View_Own_Profile_Fragment extends Fragment {
             }
         });
 
-        viewAllUsers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), View_All_Users_Activity.class);
-                startActivity(intent);
-            }
-        });
-
-        viewAllBooks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), View_All_Books_Activity.class);
-                startActivity(intent);
-            }
-        });
+//        viewAllUsers.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), View_All_Users_Activity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        viewAllBooks.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), View_All_Books_Activity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         return v;
     }

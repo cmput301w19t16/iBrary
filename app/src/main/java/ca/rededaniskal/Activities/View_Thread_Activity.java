@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -22,11 +23,16 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
+import ca.rededaniskal.BusinessLogic.LoadImage;
 import ca.rededaniskal.BusinessLogic.ThreadAdapter;
+import ca.rededaniskal.BusinessLogic.myCallbackUser;
+import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.ForumDb;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Comment;
 import ca.rededaniskal.EntityClasses.Display_Comment;
 import ca.rededaniskal.EntityClasses.Thread;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 import static java.lang.Boolean.FALSE;
@@ -45,6 +51,7 @@ public class View_Thread_Activity extends AppCompatActivity {
 
     private TextView name, topic, text, replies;
     private String ISBN;
+    private ImageView pic;
 
    ForumDb db;
 
@@ -56,7 +63,7 @@ public class View_Thread_Activity extends AppCompatActivity {
         parent = (Thread)  intent.getSerializableExtra("thread");
         ISBN = intent.getStringExtra("isbn");
         db = new ForumDb(View_Thread_Activity.this, ISBN);
-       db.getCommentsForThread(parent.getThreadId());
+        db.getCommentsForThread(parent.getThreadId());
 
 
         if (children==null){
@@ -65,12 +72,6 @@ public class View_Thread_Activity extends AppCompatActivity {
 
         threadDisplayName = intent.getStringExtra("display");
 
-
-
-
-
-
-
         addTopic = findViewById(R.id.add);
 
         //Set the views for the Parent
@@ -78,13 +79,13 @@ public class View_Thread_Activity extends AppCompatActivity {
         topic = findViewById(R.id.topic);
         text = findViewById(R.id.text);
         replies = findViewById(R.id.replies);
+        pic = findViewById(R.id.profilePicture);
 
         name.setText(threadDisplayName);
         topic.setText(parent.getTopic());
         text.setText(parent.getText());
 
         replies.setText(Integer.toString(parent.numComments()).concat(" replies")  );
-
 
         //Set the recycler view for the Children
         viewChildren = findViewById(R.id.ViewThreads);
@@ -93,6 +94,23 @@ public class View_Thread_Activity extends AppCompatActivity {
         adapterChildren = new ThreadAdapter(this, children);
         viewChildren.setAdapter(adapterChildren);
         adapterChildren.notifyDataSetChanged();
+
+        String uid = parent.getCreator();
+
+        Users_DB usersDb = new Users_DB();
+
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(pic);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
+
+        usersDb.getUser(uid, myCallbackUser);
 
         //Set the add on click listener
         addTopic.setOnClickListener(new View.OnClickListener() {
@@ -161,8 +179,6 @@ public class View_Thread_Activity extends AppCompatActivity {
         adapterChildren = new ThreadAdapter(this, children);
         viewChildren.setAdapter(adapterChildren);
         adapterChildren.notifyDataSetChanged();
-
-
 
     }
 }

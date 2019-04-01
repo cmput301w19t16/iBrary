@@ -39,6 +39,7 @@ import ca.rededaniskal.BusinessLogic.myCallBackString;
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
+import ca.rededaniskal.EntityClasses.User;
 
 
 public class Photos {
@@ -146,6 +147,30 @@ public class Photos {
             return (uriURL.toString());
         }
         return "";
+    }
+
+    public void bitmapToURLUser(Bitmap pic, final User user) {
+        if (pic != null) {
+            storageReference = FirebaseStorage.getInstance().getReference();
+            images = storageReference.child("images");
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            pic.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            byte[] dataArray = bytes.toByteArray();
+            String username = user.getUserName().replace(" ", "");
+
+            String fileName = username;
+
+            StorageReference imageRef = images.child(fileName + ".jpeg");
+
+            UploadTask uploadTask = imageRef.putBytes(dataArray);
+
+            while (!uploadTask.isComplete()) ;
+            Task<Uri> uri = uploadTask.getResult().getStorage().getDownloadUrl();
+            while (!uri.isComplete()) ;
+            Uri uriURL = uri.getResult();
+            Log.i("FBApp1 URL ", uriURL.toString());
+            user.setProfilePic(uriURL.toString());
+        }
     }
 
     /*
