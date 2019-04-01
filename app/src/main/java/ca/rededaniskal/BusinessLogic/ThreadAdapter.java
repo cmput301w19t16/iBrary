@@ -27,6 +27,7 @@ import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Comment;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.EntityClasses.Display_Comment;
+
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
@@ -56,13 +57,16 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
 
     @Override
 
+
     public void onBindViewHolder(@NonNull final ThreadViewHolder ThreadViewHolder, final int i) {
         final Comment comment = comments.get(i).getComment();
         final String userName = comments.get(i).getDisplayName();
 
+
         //TODO: Set profile pictures
         //profilePicture = itemView.findViewById(R.id.profilePicture);
         ThreadViewHolder.text.setText(comment.getText());
+
 
         Users_DB usersDb = new Users_DB();
 
@@ -80,7 +84,9 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
         BookInstanceDb bookInstanceDb = new BookInstanceDb();
         String uid = bookInstanceDb.getUID();
         usersDb.getUser(uid, myCallbackUser);
+
         ThreadViewHolder.name.setText(userName);
+
     }
 
 

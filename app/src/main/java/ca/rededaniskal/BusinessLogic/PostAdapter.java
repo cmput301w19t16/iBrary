@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Users_DB;
+
 import ca.rededaniskal.EntityClasses.Display_Post;
+
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -62,6 +64,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onBindViewHolder(@NonNull final PostViewHolder postViewHolder, final int i) {
         final Display_Post display = posts.get(i);
         final Post post = display.getPost();
+
         //Set the book attributes
         postViewHolder.user.setText(display.getPoster());
         postViewHolder.title.setText(display.getTitle());
