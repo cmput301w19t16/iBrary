@@ -24,13 +24,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
-import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
-import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.BusinessLogic.UserAdapter;
-import ca.rededaniskal.BusinessLogic.myCallbackUidList;
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.BusinessLogic.myCallbackUserList;
 import ca.rededaniskal.Database.Follow_DB;
-import ca.rededaniskal.Database.Search_Books_Db;
 import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -45,7 +42,7 @@ public class View_Users_Activity extends AppCompatActivity {
     private Users_DB udb;
     private myCallbackUserList mcbul;
     private ArrayList<User> Friends;
-    private myCallbackUidList mcbuid;
+    private myCallbackStringList mcbuid;
     SwipeRefreshLayout swipeContainer;
 
     private FirebaseUser user;
@@ -91,11 +88,11 @@ public class View_Users_Activity extends AppCompatActivity {
             }
         };
 
-        mcbuid = new myCallbackUidList() {
+        mcbuid = new myCallbackStringList() {
             @Override
-            public void onCallback(ArrayList<String> uidList) {
+            public void onCallback(ArrayList<String> strList) {
                 Users_DB udb = new Users_DB();
-                udb.getListOfUsers(uidList, mcbul);
+                udb.getListOfUsers(strList, mcbul);
             }
         };
 

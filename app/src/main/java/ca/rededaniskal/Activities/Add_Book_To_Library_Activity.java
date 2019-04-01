@@ -49,6 +49,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -78,11 +79,13 @@ import ca.rededaniskal.BusinessLogic.ValidateBookLogic;
 
 import ca.rededaniskal.Database.Photos;
 
+import ca.rededaniskal.Database.Write_Post_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 
 
+import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 /**
@@ -211,10 +214,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 // view is refreshed
 
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
                 getInfo();
-
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN);
+
 
                 //                bookCoverGoogle = ((BitmapDrawable)cover.getDrawable()).getBitmap();
 //                businessLogic = new AddBookLogic(Title, Author, ISBN, bookCoverGoogle);
@@ -224,11 +226,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String error_m = businessLogic.isValid();
                 if (error_m.equals("")) {
                     businessLogic.saveInformation(userID);
-
-
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
-
-
                     startActivity(intent);
                     finish();
                 } else {
@@ -237,13 +235,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     titleHint = businessLogic.getTitleError();
                     isbnHint = businessLogic.getISBNError();
                     set_Book_Info_Hints();
-
                 }
             }
         };
-
         addBook.setOnClickListener(onClickListener);
-
     }
 
     public void getInfo() {

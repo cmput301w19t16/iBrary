@@ -89,7 +89,7 @@ public class SignUpLogic {
         return errorMessage;
     }
 
-
+    // Ensure the confirm password is the same as the other one
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public String validateConfirm(){
 

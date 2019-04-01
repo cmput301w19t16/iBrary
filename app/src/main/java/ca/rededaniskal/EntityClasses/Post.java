@@ -14,6 +14,7 @@ public class Post {
         this.topic = topic;
     }
 
+    public Post() {}
 
     public String getText() {
         return text;
