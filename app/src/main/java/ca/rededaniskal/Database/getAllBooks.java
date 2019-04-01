@@ -32,9 +32,11 @@ public class getAllBooks {
         getUserQuery(isbn);
     }
 
-    private void getUserQuery(String ISBN) {
-        Query q = FirebaseDatabase.getInstance().getReference("all-books").orderByChild("isbn").equalTo(ISBN);
-        q.addListenerForSingleValueEvent(valueEventListener);
+
+    private void getUserQuery(String isbn) {
+        Query query = FirebaseDatabase.getInstance().getReference("all-books").orderByChild("isbn").equalTo(isbn);
+        query.addListenerForSingleValueEvent(valueEventListener);
+
     }
 
 

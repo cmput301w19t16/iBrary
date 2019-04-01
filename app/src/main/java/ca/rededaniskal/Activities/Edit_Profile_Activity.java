@@ -157,6 +157,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent intent = new Intent(Edit_Profile_Activity.this, Main_Activity.class );
                 startActivity(intent);
             }
