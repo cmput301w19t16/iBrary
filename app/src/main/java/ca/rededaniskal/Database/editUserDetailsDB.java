@@ -18,6 +18,7 @@ import java.util.List;
 
 import ca.rededaniskal.Activities.Edit_Profile_Activity;
 import ca.rededaniskal.Activities.View_My_Library_Activity;
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.EntityClasses.User;
 
 import static android.content.ContentValues.TAG;
@@ -62,11 +63,9 @@ public class editUserDetailsDB{
 
     }
 
-    public void uniqueUserName(User U){
+    public void uniqueUserName(User U, final myCallbackBool mcbb){
         final User use = U;
         use.setUID(user.getUid());
-        Log.d(TAG, " *(*(*( uid: " + use.getUID());
-
 
         Query query = FirebaseDatabase.getInstance().getReference("Users")
                 .orderByChild("userName")
@@ -76,13 +75,16 @@ public class editUserDetailsDB{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
                     saveNewDetails(use);
+                    mcbb.onCallback(true);
                 }else{
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         User u = snapshot.getValue(User.class);
                         if(u.getUID().equals(user.getUid())) {
                             saveNewDetails(use);
+                            mcbb.onCallback(true);
                         }else{
+                            mcbb.onCallback(false);
                             parent.userNameTaken();
                         }
                     }
