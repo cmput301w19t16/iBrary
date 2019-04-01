@@ -78,6 +78,7 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder  userViewHolder, final int i) {
         User user = users.get(i);
+        Log.d("onBindViewHolder", "setUserCalled");
         userViewHolder.setUser(user);
 
         //Set the user attributes
@@ -124,9 +125,10 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
          */
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            Log.d("UserViewHolder", "Created User View Holder");
+            mctx = fragment.getActivity().getApplicationContext();
             profilePic = itemView.findViewById(R.id.BookCover); //TODO: Make this display the Users image
-
+            Follow_or_unfollow = itemView.findViewById(R.id.fufButton);
             statusIcon = itemView.findViewById(R.id.StatusIcon);
             UserName = itemView.findViewById(R.id.title);
             UserLocation = itemView.findViewById(R.id.author);
@@ -147,29 +149,9 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
 
             fdb = new Follow_DB();
 
-            mcb = new myCallbackBool() {
-                @Override
-                public void onCallback(Boolean value) {
-                    isFollowing = value;
-                    int followcountchange;
-                    if (isFollowing){
-                        followcountchange = -1;
-                    }
-                    else{
-                        followcountchange = 1;
-                    }
-                    if (swapping){
-                        fdb.swapFollow(currentUser.getUid(), user.getUID(), isFollowing);
-                        swapping = false;
-                        isFollowing = !isFollowing;
-                        user.setFollowerCount(user.getFollowerCount() + followcountchange);
-                    }
-                    setFriendText();
-                    setFollowers();
-                }
-            };
 
-            Follow_or_unfollow = itemView.findViewById(R.id.fufButton);
+
+
             Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -182,7 +164,7 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
                 public void onClick(View v) {
                     Intent intent = new Intent(mctx, User_Details_Activity.class); // TODO: change the name of this for the
                     intent.putExtra("user", user);
-                    mctx.startActivity(intent);
+                    fragment.getActivity().startActivity(intent);
                 }
             });
         }
@@ -193,12 +175,14 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
         }
 
         public void setFriendText(){
-            if (isFollowing){
+            if (isFollowing) {
+                Log.d("", "");
                 Follow_or_unfollow.setText("Unfollow");
                 Follow_or_unfollow.setBackgroundColor(mctx.getResources()
                         .getColor(R.color.denyRed, mctx.getTheme()));
             }
             else{
+                Log.d("", "");
                 Follow_or_unfollow.setText("Follow");
                 Follow_or_unfollow.setBackgroundColor(mctx.getResources()
                         .getColor(R.color.acceptGreen, mctx.getTheme()));
@@ -206,15 +190,38 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
 
 
         }
+        public void setUser(User u){
+            user = u;
+            Log.d("User_Frag_Ad", "mcb");
+
+            mcb = new myCallbackBool() {
+                @Override
+                public void onCallback(Boolean value) {
+                    isFollowing = value;
+                    int followcountchange;
+                    if (isFollowing) {
+                        followcountchange = -1;
+                    } else {
+                        followcountchange = 1;
+                    }
+                    if (swapping) {
+                        fdb.swapFollow(currentUser.getUid(), user.getUID(), isFollowing);
+                        swapping = false;
+                        isFollowing = !isFollowing;
+                        user.setFollowerCount(user.getFollowerCount() + followcountchange);
+                    }
+                    setFriendText();
+                    setFollowers();
+                }
+            };
+            fdb.isFollowing(currentUser.getUid(), user.getUID(), mcb);
+        }
 
         private void setFollowers(){
             UserMutualFriends.setText("Followers:   " + Integer.toString(user.getFollowerCount()));
         }
 
-        public void setUser(User u){
-            user = u;
-            fdb.isFollowing(currentUser.getUid(), user.getUID(), mcb);
-        }
+
 
 
     }

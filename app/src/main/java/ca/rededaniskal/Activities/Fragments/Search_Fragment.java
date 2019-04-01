@@ -252,7 +252,6 @@ public class Search_Fragment extends Fragment {
         display = dbView.findViewById(R.id.display);
         display.setHasFixedSize(true);
         display.setLayoutManager(new LinearLayoutManager(getContext()));
-        Log.d("Update_users", "hair we are" + getActivity());
         User_Fragment_Adapter User_adapter = new User_Fragment_Adapter(Search_Fragment.this, users);
         display.setAdapter(User_adapter);
     }
