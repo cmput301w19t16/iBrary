@@ -27,6 +27,7 @@ import ca.rededaniskal.EntityClasses.Display_Comment;
 import ca.rededaniskal.EntityClasses.Display_Thread;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.EntityClasses.Thread;
+import java.util.*;
 
 
 public class ForumDb extends Entity_Database  {
@@ -208,6 +209,7 @@ public void getThreadDisplayName(ArrayList<Thread> threds) {
                         display_threads.add(dt);
                     }
                 }
+                Collections.reverse(Arrays.asList(display_threads));
                 parent.loadThreads(display_threads);
             }
 
