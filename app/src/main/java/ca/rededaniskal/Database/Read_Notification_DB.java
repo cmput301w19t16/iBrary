@@ -13,6 +13,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import ca.rededaniskal.Activities.Fragments.Notifications_Fragment;
 import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.User;
@@ -28,6 +31,8 @@ public class Read_Notification_DB {
     private String key;
     private String RequestID;
     private Notifications_Fragment parent;
+    private ArrayList<Notification> notiList;
+
 
 
     public Read_Notification_DB(Notifications_Fragment parent) {
@@ -52,11 +57,13 @@ public class Read_Notification_DB {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    notiList = new ArrayList<>();
                     Log.d(ContentValues.TAG, "*********----->exists");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Notification notification = snapshot.getValue(Notification.class);
-                        parent.addAndUpdate(notification);
+                        notiList.add(notification);
                     }
+                    parent.addAndUpdate(notiList);
                 }
             }
 

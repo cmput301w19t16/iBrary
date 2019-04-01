@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ca.rededaniskal.BusinessLogic.Establish_Exchange_Logic;
+import ca.rededaniskal.Database.Requests_DB;
 import ca.rededaniskal.Database.Write_Exchange_DB;
 import ca.rededaniskal.Database.Write_Request_DB;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -168,12 +169,14 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                             exchange = new Exchange(request.getrecipientUID(),
                                     request.getsenderUID(), request.getIsbn(), request.getBookId(), request.getLat(), request.getLng(), request.getTimestamp() ) ;
                             exchange.setReturning(false);
+                            Requests_DB rdb = new Requests_DB();
+                            rdb.acceptRequest(request.getBookId());
                         }
 
                         Write_Exchange_DB exchange_db = new Write_Exchange_DB();
                         exchange_db.addExchange(exchange);
 
-                        Write_Request_DB db = new Write_Request_DB(request, true);
+                        //Write_Request_DB db = new Write_Request_DB(request, true);
 
                         Intent intent = new Intent(getApplicationContext(), View_Exchange_Details_Activity.class);
                         intent.putExtra("exchange", exchange);

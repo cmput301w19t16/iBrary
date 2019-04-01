@@ -40,6 +40,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
     private BookInstanceDb bidb;
     private String bookID;
     private String currentUID;
+    private boolean returning;
 
 
 
@@ -48,7 +49,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_book_request);
 
-        br = (BorrowRequest) getIntent().getSerializableExtra("requestID");
+        br = (BorrowRequest) getIntent().getSerializableExtra("request");
         uid = br.getsenderUID();
         bookID = br.getBookId();
         followers = 0;
@@ -148,6 +149,8 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         br.setStatus("Accepted");
         Intent intent = new Intent(this, Establish_Exchange_Details_Activity.class);
         intent.putExtra("BorrowRequestObject", br);
+        intent.putExtra("Returning", false);
+
         startActivity(intent);
         this.finish();
     }

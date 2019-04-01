@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Database.Write_Post_DB;
+import ca.rededaniskal.EntityClasses.Display_Post;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.R;
@@ -115,7 +116,7 @@ public class Post_Feed_Fragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
-        final ArrayList<Post> postList = new ArrayList<Post>();
+        final ArrayList<Display_Post> postList = new ArrayList<Display_Post>();
 
 //        postList.add(new Post("Loved this Book!", "Nick", "Happy Potter", "Thoughts on Book"));
 //        postList.add(new Post("Can I borrow this from anyone?", "Revan", "Oxford English Dictionary", "Looking to lend this"));
@@ -129,15 +130,13 @@ public class Post_Feed_Fragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                postList.add(new Post("This post should now show up",
-                        "blank", "blank", "Display"));
-                recyclerView.setAdapter(new PostAdapter(Post_Feed_Fragment.this, postList));
+
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         // Stop animation (This will be after 3 seconds)
-                        swipeContainer.setRefreshing(false);
+                        swipeContainer.setRefreshing(true);
                     }
-                }, 300); // Delay in millis
+                }, 0); // Delay in millis
 
             }
         });
@@ -145,7 +144,7 @@ public class Post_Feed_Fragment extends Fragment {
         return swipeContainer;
     }
 
-    public void updateAdapter(ArrayList<Post> postList){
+    public void updateAdapter(ArrayList<Display_Post> postList){
         Log.d(TAG, "*(*(*( IN UPDATE ADAPTER");
         final PostAdapter postAdapter = new PostAdapter(Post_Feed_Fragment.this, postList);
         recyclerView.setAdapter(postAdapter);
