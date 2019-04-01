@@ -49,10 +49,11 @@ public class Search_Logic {
 
         String[] each = search_string.split("\\s+");
         for(String s: each){
-            if (chosen.contains(0)){
+            s=s.toLowerCase();
+            if (chosen.contains(0)||chosen.isEmpty()){
                new Search_Books_Db(parent, s).queryAuthorData();
             }
-            if (chosen.contains(1)){
+            if (chosen.contains(1)||chosen.isEmpty()){
                 Log.d("Searchlog", "*************-----> Calling query title");
                 new Search_Books_Db(parent, s).queryTitleData();
 
