@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
 
@@ -84,6 +85,7 @@ public class Forum_Activity extends AppCompatActivity {
         recyclerView = findViewById(R.id.ViewThreads);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        threads.clear();
         forumAdapter = new ForumAdapter(this, threads,ISBN );
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
@@ -97,7 +99,7 @@ public class Forum_Activity extends AppCompatActivity {
 
 
 
-        forumAdapter.notifyDataSetChanged();
+//        forumAdapter.notifyDataSetChanged();
         //GetAllUsersDB db = new GetAllUsersDB(this); TODO something with this
 
         //Set the Rating bars
@@ -164,6 +166,12 @@ public class Forum_Activity extends AppCompatActivity {
 
                            // forumAdapter.notifyDataSetChanged();
                             popupWindow.dismiss();
+
+                            Intent intent = new Intent(v.getContext(), Forum_Activity.class);
+                            intent.putExtra("isbn", ISBN);
+                            startActivity(intent);
+                            finish();
+
                         }
                     }
                 });
@@ -212,9 +220,23 @@ public class Forum_Activity extends AppCompatActivity {
 
     }
     public void loadThreads(ArrayList<Display_Thread> threadArrayList){
+        threads.clear();
+        forumAdapter = new ForumAdapter(this, threads,ISBN );
+        recyclerView.setAdapter(forumAdapter);
+        forumAdapter.notifyDataSetChanged();
 
         if (threadArrayList!=null){threads = threadArrayList;}
-       forumAdapter = new ForumAdapter(this, threads,ISBN );
+        LinkedHashSet<Display_Thread> remove = new LinkedHashSet<>(threads);
+        threads = new ArrayList<>(remove);
+
+        Log.d("loadThreads", "threads hash: " + threads);
+
+
+        for(int i = 0; i <threads.size();i++){
+            Log.d("loadThreads", ": " + threads.get(i).getThread().getThreadId());
+        }
+
+        forumAdapter = new ForumAdapter(this, threads,ISBN );
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
 
