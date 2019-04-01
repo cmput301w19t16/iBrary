@@ -46,6 +46,7 @@ import java.util.List;
 
 import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
 import ca.rededaniskal.BusinessLogic.LoadImage;
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Photos;
@@ -115,7 +116,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
 
         Users_DB usersDb = new Users_DB();
 
-        myCallbackUser myCallbackUser = new myCallbackUser() {
+        final myCallbackUser myCallbackUser = new myCallbackUser() {
             @Override
             public void onCallback(User user) {
                 String urlProfilePic = user.getProfilePic();
@@ -134,7 +135,21 @@ public class Edit_Profile_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 User use = getTexts();
-                db.uniqueUserName(use);
+                myCallbackBool mcbb = new myCallbackBool() {
+                    @Override
+                    public void onCallback(Boolean value) {
+                        String toast;
+                        if (value){
+                            toast = "User account updated.";
+                        }
+                        else{
+                            toast = "Sorry, that username is taken.";
+                        }
+                        Toast.makeText(getApplicationContext(),toast,Toast.LENGTH_SHORT).show();
+
+                    }
+                };
+                db.uniqueUserName(use, mcbb);
 
             }
         });
