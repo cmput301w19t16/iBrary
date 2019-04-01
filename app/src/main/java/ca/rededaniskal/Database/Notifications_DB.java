@@ -48,7 +48,7 @@ public class Notifications_DB {
 
     //deletes all notifications with request == reqID
     public void deleteNotification(String reqID){
-        Query query = mDatabase.child("Notifications").orderByChild("request").equalTo(reqID);
+        Query query = mDatabase.child("Notifications").orderByChild("requestID").equalTo(reqID);
         final myCallbackStringList mcbsl = new myCallbackStringList() {
             @Override
             public void onCallback(ArrayList<String> strList) {
