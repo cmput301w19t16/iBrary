@@ -31,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.Database.BookInstanceDb;
+import ca.rededaniskal.Database.Get_All_Books_Data;
 import ca.rededaniskal.Database.getAllBooks;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
@@ -46,6 +48,8 @@ public class View_All_Books_Activity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
     private ArrayList<Display_Username> BL;
+    private  String ISBN;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +60,14 @@ public class View_All_Books_Activity extends AppCompatActivity {
 
         if (intent.getExtras() != null) {
             Master_Book mb = (Master_Book) intent.getSerializableExtra("master_book"); //Get the book
-            //TODO: get related books for the database
+            ISBN =mb.getISBN();
+
         }
+        else{ISBN = "";}
+
+        getAllBooks db = new getAllBooks(this, ISBN);
+
+
 
         BL = new ArrayList<>(); //Initiatize books to be displayed
 
@@ -70,7 +80,7 @@ public class View_All_Books_Activity extends AppCompatActivity {
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
 
-        getAllBooks db = new getAllBooks(this);
+
     }
 
     public void addBook(ArrayList<Display_Username> book_list){

@@ -55,6 +55,7 @@ public class BookInstanceDb extends Entity_Database {
         });
     }
 
+
     public void getListOfBooks(final ArrayList<String> bookIdList, final myCallbackBIList mcbl){
         Query query = FirebaseDatabase.getInstance().getReference("all-books");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
