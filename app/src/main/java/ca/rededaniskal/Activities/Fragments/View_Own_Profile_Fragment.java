@@ -140,7 +140,6 @@ public class View_Own_Profile_Fragment extends Fragment {
         Button viewFollowed = (Button) v.findViewById(R.id.ImFollowing);
         Button logout = (Button) v.findViewById(R.id.logout);
 
-
         final ImageView viewProfilePic = v.findViewById(R.id.profile_image);
         Users_DB usersDb = new Users_DB();
 
@@ -211,6 +210,7 @@ public class View_Own_Profile_Fragment extends Fragment {
         });
 
 
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,22 +225,6 @@ public class View_Own_Profile_Fragment extends Fragment {
 
             }
         });
-
-//        viewAllUsers.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), View_All_Users_Activity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        viewAllBooks.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), View_All_Books_Activity.class);
-//                startActivity(intent);
-//            }
-//        });
 
         return v;
     }
