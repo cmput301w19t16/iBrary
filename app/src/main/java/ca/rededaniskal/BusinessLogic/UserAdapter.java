@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -31,8 +29,6 @@ import ca.rededaniskal.Activities.User_Details_Activity;
 import ca.rededaniskal.Database.Follow_DB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
-
-import static android.support.constraint.Constraints.TAG;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
@@ -76,7 +72,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         //Set the user attributes
         userViewHolder.UserName.setText(user.getUserName());
         userViewHolder.UserLocation.setText(user.getLocation());
-        userViewHolder.UserMutualFriends.setText(globalUser.numberMutualFriends(user).toString());// TODO: Implement global User
+        userViewHolder.UserMutualFriends.setText(Integer.toString(user.getFollowerCount()));// TODO: Implement global User
         //userViewHolder.setUser(user);
 
         //TODO: Set Profile Pic
@@ -117,7 +113,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
          */
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
-            profilePic = itemView.findViewById(R.id.Cover); //TODO: Make this display the Users image
+
+            profilePic = itemView.findViewById(R.id.BookCover); //TODO: Make this display the Users image
+
             statusIcon = itemView.findViewById(R.id.StatusIcon);
             UserName = itemView.findViewById(R.id.title);
             UserLocation = itemView.findViewById(R.id.author);

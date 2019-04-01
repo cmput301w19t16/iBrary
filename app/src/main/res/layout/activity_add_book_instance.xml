@@ -18,8 +18,8 @@
 
     <TableLayout
         android:id="@+id/tableLayout2"
-        android:layout_width="372dp"
-        android:layout_height="179dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -38,7 +38,7 @@
                 android:id="@+id/Title"
                 android:layout_width="66dp"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorBackgroundFloating"
+
                 android:padding="1dip"
                 android:text="@string/book_title"
                 android:textColor="#000"
@@ -48,6 +48,7 @@
                 android:id="@+id/addTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
@@ -60,10 +61,10 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/author"
+                android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+
                 android:padding="1dip"
                 android:text="@string/author"
                 android:textColor="#000"
@@ -73,6 +74,7 @@
                 android:id="@+id/addAuthor"
                 android:layout_width="305dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
@@ -88,7 +90,7 @@
                 android:id="@+id/ISBN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+
                 android:padding="1dip"
                 android:text="@string/isbn"
                 android:textColor="#000"
@@ -99,6 +101,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:layout_weight="1"
                 android:inputType="textPersonName" />
 
         </TableRow>
@@ -112,7 +115,6 @@
                 android:id="@+id/scan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
                 android:padding="1dip"
                 android:text="@string/take_scan"
                 android:textColor="#000"
@@ -123,29 +125,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/open_scanner"
-                tools:layout_editor_absoluteX="205dp"
-                tools:layout_editor_absoluteY="383dp" />
+                android:layout_weight="1" />
 
 
         </TableRow>
 
 
     </TableLayout>
-
-    <EditText
-        android:id="@+id/editDescription"
-        style="@style/Widget.AppCompat.AutoCompleteTextView"
-        android:layout_width="380dp"
-        android:layout_height="118dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/transparent"
-        android:hint="@string/add_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/openCamera"
@@ -178,12 +164,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="@string/add_book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -69,6 +70,15 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            profilePicture.setImageBitmap(photo);
+        }
+    }
 
 
     @Override
@@ -79,7 +89,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         profilePicture = findViewById(R.id.profile_image);
 
         saveButton = (Button) findViewById(R.id.saveButton);
-        //editProfilePic = findViewById(R.id.editProfilePic);
+        editProfilePic = findViewById(R.id.editProfilePic);
 
         newUsername = findViewById(R.id.new_username);
         newPhone = findViewById(R.id.new_phone);
@@ -98,22 +108,24 @@ public class Edit_Profile_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 User use = getTexts();
                 db.uniqueUserName(use);
+                Intent i = new Intent(Edit_Profile_Activity.this, Main_Activity.class);
+                startActivity(i);
             }
         });
 
-//        editProfilePic.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (checkSelfPermission(Manifest.permission.CAMERA)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//                    requestPermissions(new String[]{Manifest.permission.CAMERA},
-//                            MY_CAMERA_PERMISSION_CODE);
-//                } else {
-//                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
-//                }
-//            }
-//        });
+        editProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+           public void onClick(View v) {
+               if (checkSelfPermission(Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                   requestPermissions(new String[]{Manifest.permission.CAMERA},
+                          MY_CAMERA_PERMISSION_CODE);
+               } else {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                   startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
+            }
+        });
     }
 
     public void userNameTaken(){
@@ -174,20 +186,11 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     }
 
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            profilePicture.setImageBitmap(photo);
-        }
-    }
-
-
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));
     }
 
     public void nextActivity(){
-        startActivity(new Intent(Edit_Profile_Activity.this, View_Own_Profile_Fragment.class));
         this.finish();
     }
 }

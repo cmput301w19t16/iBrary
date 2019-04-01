@@ -24,12 +24,14 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
+
 import ca.rededaniskal.Database.ForumDb;
 import ca.rededaniskal.Database.MasterBookDb;
 import ca.rededaniskal.EntityClasses.Display_Thread;
 import ca.rededaniskal.EntityClasses.Thread;
 
 import ca.rededaniskal.EntityClasses.Master_Book;
+
 import ca.rededaniskal.R;
 
 import static java.lang.Boolean.FALSE;
@@ -59,6 +61,9 @@ public class Forum_Activity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_forum_);
         threads = new ArrayList<>();
+
+        //TODO: get Forum from DB or something
+        Master_Book b = new Master_Book("Happy Potter","JK Rowling","1234567890", null);
 
 
        // forum = new Forum("1234567890"); //For testing

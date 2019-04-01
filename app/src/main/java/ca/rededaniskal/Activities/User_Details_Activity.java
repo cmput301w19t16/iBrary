@@ -39,13 +39,7 @@ public class User_Details_Activity extends AppCompatActivity {
     TextView DisplayPhoneNum;
     TextView DisplayTotalFollowers;
 
-    TextView DisplayFavTitle;
-    TextView DisplayFavAuthor;
-    TextView DisplayFavISBN;
-
-    ImageView BookCover;
     ImageView UserPic;
-
 
     private boolean swapping;
     private FirebaseAuth mAuth;
@@ -96,7 +90,7 @@ public class User_Details_Activity extends AppCompatActivity {
         };
 
         fdb = new Follow_DB();
-        fdb.isFollowing(currentUser.getUid(), user_received.getUserName(), mcb);
+        fdb.isFollowing(currentUser.getUid(), user_received.getUID(), mcb);
 
         Follow_or_unfollow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,13 +109,8 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayPhoneNum = (TextView) findViewById(R.id.DisplayPhoneNumber);
         DisplayTotalFollowers = (TextView) findViewById(R.id.UserMutualFriends);
 
-        DisplayFavTitle = (TextView) findViewById(R.id.DisplayBookTitle);
-        DisplayFavAuthor = (TextView) findViewById(R.id.DisplayBookAuthor);
-        DisplayFavISBN = (TextView) findViewById(R.id.DisplayBookISBN);
 
-        UserPic = (ImageView) findViewById(R.id.Cover);
-        BookCover = (ImageView) findViewById(R.id.DisplayFavBookCover);
-
+        UserPic = (ImageView) findViewById(R.id.BookCover);
 
 
         String username = user.getUserName();
@@ -129,14 +118,11 @@ public class User_Details_Activity extends AppCompatActivity {
         String email = user.getEmail();
         String phone_num = user.getPhoneNumber();
 
-
-
-
         DisplayUsername.setText(username);
         DisplayLocation.setText(location);
         DisplayEmail.setText(email);
         DisplayPhoneNum.setText(phone_num);
-        DisplayTotalFollowers.setText("Followers:    " + Integer.toString(user_received.getFollowerCount()));
+        DisplayTotalFollowers.setText(Integer.toString(user_received.getFollowerCount()));
 
     }
 
@@ -157,7 +143,4 @@ public class User_Details_Activity extends AppCompatActivity {
                     .getColor(R.color.acceptGreen, getTheme()));
         }
     }
-
-
-
 }

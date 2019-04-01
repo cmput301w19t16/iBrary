@@ -12,7 +12,6 @@ package ca.rededaniskal.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,18 +23,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
-import ca.rededaniskal.EntityClasses.Book_Instance;
-import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.BusinessLogic.Filter_My_Books_Logic;
 import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.R;
 import ca.rededaniskal.Database.ReadMyBookDB;
@@ -44,6 +35,7 @@ import ca.rededaniskal.Database.ReadMyBookDB;
 
 public class View_My_Library_Activity extends AppCompatActivity {
 
+    private static final String TAG = "View_My_Library_Activity";
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
     private FloatingActionButton fab;
@@ -61,6 +53,10 @@ public class View_My_Library_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__my__library_);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("My Library");
+
         filterOptions = getResources().getStringArray(R.array.filter_my_library);
         selectedOptions = new boolean[filterOptions.length];
 
@@ -72,7 +68,7 @@ public class View_My_Library_Activity extends AppCompatActivity {
         bookAdapter = new BookAdapter(this, BL);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
-        ReadMyBookDB db = new ReadMyBookDB(this);
+
 
         filter = findViewById(R.id.filter);
         fab = findViewById(R.id.addBookToLibrary);
@@ -138,7 +134,8 @@ public class View_My_Library_Activity extends AppCompatActivity {
                 mDialog.show();
             }
         });
-
+        Log.d(TAG, "**************---> ABout to call ReadMyBookDB");
+        ReadMyBookDB db = new ReadMyBookDB(this);
     }
 
     //Update the View
@@ -146,11 +143,9 @@ public class View_My_Library_Activity extends AppCompatActivity {
 
         //uses filter book logic to allow users to filter books by status
         if (chosenOptions.size()!=0){
-        Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);
-        bookAdapter = new BookAdapter(this, filter.newBooks());
-        }
-        else {
-
+            Filter_My_Books_Logic filter = new Filter_My_Books_Logic(chosenOptions, book_list);
+            bookAdapter = new BookAdapter(this, filter.newBooks());
+        }else {
             bookAdapter = new BookAdapter(this, book_list);
         }
 

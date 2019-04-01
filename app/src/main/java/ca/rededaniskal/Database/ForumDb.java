@@ -16,6 +16,7 @@ import ca.rededaniskal.Activities.Forum_Activity;
 import ca.rededaniskal.Activities.View_Thread_Activity;
 import ca.rededaniskal.BusinessLogic.myCallbackUidList;
 
+
 import ca.rededaniskal.EntityClasses.Comment;
 import ca.rededaniskal.EntityClasses.Display_Comment;
 import ca.rededaniskal.EntityClasses.Display_Thread;
@@ -33,6 +34,7 @@ public class ForumDb extends Entity_Database  {
     private myCallbackUidList muidList;
     private String ISBN;
     private Comment c;
+
 
 
     public ForumDb(View_Thread_Activity kid, String isbn) {
@@ -59,6 +61,7 @@ public class ForumDb extends Entity_Database  {
     public DatabaseReference getReference() {
         return db.getReference(References.FORUM.reference());
     }
+
 
 
 
@@ -241,4 +244,6 @@ public void getThreadDisplayName(ArrayList<Thread> threds) {
     }
 
 
+
+    public void addParentThread(){}
 }

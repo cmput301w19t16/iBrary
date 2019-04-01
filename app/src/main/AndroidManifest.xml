@@ -15,6 +15,7 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <permission
         android:name="ca.rededaniskal.iBrary.permission.MAPS_RECEIVE"
@@ -35,12 +36,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Activities.Upload_Img_Activity"
+            android:label="@string/title_activity_upload_img" />
+  
         <activity android:name=".Activities.View_Pending_Exchanges_Activity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
-
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -100,7 +104,9 @@
             android:name=".Activities.View_Users_Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.View_Borrowed_Requested_Activity" />
-        <activity android:name=".Activities.View_My_Library_Activity" />
+        <activity
+            android:name=".Activities.View_My_Library_Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.Edit_Book_Instance_Activity" />
         <activity
             android:name=".Activities.Add_Book_To_Library_Activity"

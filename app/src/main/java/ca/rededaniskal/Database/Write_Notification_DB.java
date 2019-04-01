@@ -12,8 +12,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.List;
-
 import ca.rededaniskal.EntityClasses.Notification;
 
 import static android.support.constraint.Constraints.TAG;
@@ -36,8 +34,9 @@ public class Write_Notification_DB {
     public Write_Notification_DB(String RequestID) {
         Log.d(TAG, "*!*!* In Write_Notification_DB");
         this.RequestID = RequestID;
-        getNotificationKey();
         this.delete = true;
+        getNotificationKey();
+
     }
 
     public Write_Notification_DB(){
@@ -56,13 +55,14 @@ public class Write_Notification_DB {
     private void addNotification(){
         mDatabase = FirebaseDatabase.getInstance().getReference("Notifications");
         String k = mDatabase.push().getKey();
+        //notification.setRequestID(k);
         mDatabase.child(k).setValue(notification);
     }
 
     public void getNotificationKey(){
         Log.d(ContentValues.TAG, "*********----->getNotificationKey");
         Query query = FirebaseDatabase.getInstance().getReference("Notifications")
-                .orderByChild("request")
+                .orderByChild("requestID")
                 .equalTo(RequestID);
 
         Log.d(ContentValues.TAG, "*********----->requestID: "+RequestID);

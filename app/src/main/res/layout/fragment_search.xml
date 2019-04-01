@@ -16,7 +16,6 @@
 
 
 
-
             <TableLayout
                 android:id="@+id/tableLayout"
                 android:layout_width="match_parent"

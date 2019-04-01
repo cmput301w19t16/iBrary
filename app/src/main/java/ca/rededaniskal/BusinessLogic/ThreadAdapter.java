@@ -45,7 +45,7 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
         //Set the layout
         LayoutInflater inflater = LayoutInflater.from(mctx);
 
-        View view = inflater.inflate(R.layout.thread_card, null);
+        View view = inflater.inflate(R.layout.thread_card, viewGroup, false);
         ThreadViewHolder holder = new ThreadViewHolder(view);
         return holder;
     }

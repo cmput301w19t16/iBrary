@@ -45,10 +45,17 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
+
+import ca.rededaniskal.BusinessLogic.LoadImage;
+
+import ca.rededaniskal.BusinessLogic.myCallbackBRList;
+import ca.rededaniskal.Database.Borrow_Req_DB;
 import ca.rededaniskal.Database.Username_For_Book_Details_DB;
+
 import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.Request;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -69,10 +76,10 @@ public class Book_Details_Activity extends AppCompatActivity {
     TextView DisplayISBN;
     TextView DisplayOwner;
     TextView DisplayStatus;
-    TextView DisplayDescription;
+    TextView DisplayPosessor;
     private Book_Details_Logic logic;
 
-    ImageView BookCover;
+    ImageView DisplayBookCover;
 
     Button GoToForum;
     Button Request_Cancel;
@@ -83,6 +90,7 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     BorrowRequestAdapter requestAdapter;
     ArrayList<BorrowRequest> l;
+    Book_Details_Activity thisone;
 
     private FirebaseAuth mAuth;
     private String uid;
@@ -95,15 +103,17 @@ public class Book_Details_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book__details_);
 
+        thisone = this;
+
         //Set the attributes to their corresponding views
         DisplayTitle = (TextView) findViewById(R.id.DisplayTitle);
         DisplayAuthor = (TextView) findViewById(R.id.DisplayAuthor);
         DisplayISBN = (TextView) findViewById(R.id.DisplayISBN);
         DisplayOwner = (TextView) findViewById(R.id.DisplayOwner);
         DisplayStatus = (TextView) findViewById(R.id.DisplayStatus);
-        DisplayDescription = (TextView) findViewById(R.id.editDescription);
+        DisplayPosessor = findViewById(R.id.viewPosessor);
 
-        BookCover = (ImageView) findViewById(R.id.BookCover);
+        DisplayBookCover = (ImageView) findViewById(R.id.BookCover);
 
         GoToForum = (Button) findViewById(R.id.GoToForum); //TODO: GO TO ACTIVITy
         Request_Cancel = (Button) findViewById(R.id.request_cancel);
@@ -124,9 +134,13 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayISBN.setText(book.getISBN());
         DisplayOwner.setText(book.getOwner());
         DisplayStatus.setText(book.getStatus());
-        //DisplayDescription.setText(book.get); TODO: Descriptions?
+        DisplayPosessor.setText(book.getPossessor());
 
-        //TODO: Make this the actual user
+        if(book.getCover() != null || book.getCover() != ""){
+            LoadImage loader = new LoadImage(DisplayBookCover);
+            loader.execute(book.getCover());
+        }
+
         String globalUser = FirebaseAuth.getInstance().getUid();
 
         //Set the visibility of Edit + cardView
@@ -136,31 +150,38 @@ public class Book_Details_Activity extends AppCompatActivity {
             viewRequests.setHasFixedSize(true);
             viewRequests.setLayoutManager(new LinearLayoutManager(this));
 
-            l = new ArrayList<>();
+            Borrow_Req_DB brdb = new Borrow_Req_DB();
+            myCallbackBRList mcbrl = new myCallbackBRList() {
+                @Override
+                public void onCallback(ArrayList<BorrowRequest> borrowRequests) {
+                    requestAdapter = new BorrowRequestAdapter(thisone, borrowRequests);
+                    viewRequests.setAdapter(requestAdapter);
+                    requestAdapter.notifyDataSetChanged();
+                }
+            };
 
-
-            requestAdapter = new BorrowRequestAdapter(this, l);
-            viewRequests.setAdapter(requestAdapter);
-            requestAdapter.notifyDataSetChanged();
-            requestsOnBookDB db = new requestsOnBookDB(this);
-            if (db.getFailed()){returnToLogin();}
+            brdb.getBooksBorrowRequests(book.getBookID(), mcbrl);
 
         }else{
-            viewRequests.setVisibility(viewRequests.INVISIBLE);
+                viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
        BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
 
        isRequested = db.bookInUserRequests();
-
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
 
         //Set appropriate text for the button at the bottom
         if (book.getStatus().equals("Requested") && isRequested) {
+            //If I Requested the book
             Request_Cancel.setText(R.string.cancel_request);
 
-        }else if (book.getPossessor().equals(uid)){
+        }else if (book.getStatus().equals("Borrowed")){
+            //If book is borroed by someone other than myself
+            Request_Cancel.setVisibility(View.INVISIBLE);
+
+        } else if (book.getPossessor().equals(uid)){
             //If i am the one in possession of book but not the owner
 
             Request_Cancel.setText("Return This Book");
@@ -207,10 +228,11 @@ public class Book_Details_Activity extends AppCompatActivity {
 
                 }else if(canReturn){
                     //TODO: DB
-                    BorrowRequest request = new BorrowRequest( book.getOwner() , uid, book.getISBN(), book.getBookID() );
 
+                    BorrowRequest request = new BorrowRequest( book.getOwner() , uid, book.getISBN(), book.getBookID() );
                     Intent intent = new Intent(v.getContext(), Establish_Exchange_Details_Activity.class);
                     intent.putExtra("BorrowRequestObject", request);
+                    intent.putExtra("Returning", true);
                     v.getContext().startActivity(intent);
                 }
 
@@ -224,16 +246,6 @@ public class Book_Details_Activity extends AppCompatActivity {
         });
 
     }
-    /*private void displayImg(){
-
-        Uri uri = Uri.parse(photoUrl);
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(picUri.getPath());
-
-        // Load the image using Glide
-        Glide.with(this.getApplicationContext())
-                .load(storageReference)
-                .into(BookCover);
-    }*/
 
     ValueEventListener valueEventListener2 = new ValueEventListener() {
         @Override
@@ -250,7 +262,7 @@ public class Book_Details_Activity extends AppCompatActivity {
                 }
 
                 Log.d(TAG, "*********----->" + l);
-                l.add(new BorrowRequest());
+                //l.add(new BorrowRequest());
                 requestAdapter.notifyDataSetChanged();
 
                 Log.d(TAG, "*********----->length" + l.size());
@@ -272,6 +284,10 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     public void setUsername(String username){
         DisplayOwner.setText(username);
+    }
+
+    public void setUsernameBorrower(String username){
+        DisplayPosessor.setText(username);
     }
 
     public String getBookISBN(){return book.getISBN();}

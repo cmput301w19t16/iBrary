@@ -15,24 +15,41 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.rededaniskal.Activities.Fragments.Notifications_Fragment;
-import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
-import ca.rededaniskal.Activities.View_Rating_Post_Activity;
-import ca.rededaniskal.Activities.View_Text_Post_Activity;
+import ca.rededaniskal.Activities.User_Details_Activity;
+import ca.rededaniskal.Activities.View_Book_Request_Activity;
+import ca.rededaniskal.Activities.View_Exchange_Details_Activity;
+import ca.rededaniskal.Database.BorrowRequestDb;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.Database.Write_Notification_DB;
+import ca.rededaniskal.EntityClasses.Book_Exchange;
+import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Notification;
-import ca.rededaniskal.EntityClasses.Post;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
+
+import static android.view.View.GONE;
 
 //Author: Nick
 public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adapter.Notification_View_Holder> {
     private ArrayList<Notification> mDataset;
     public Notifications_Fragment fragment;
+    private Notification notification;
+    private String titleText;
+    private Intent intent;
+    private Book_Exchange book_exchange;
+    private BorrowRequest borrowRequest;
+
+    private User user;
+    private User currentUser;
+    private String uid;
+    private Users_DB udb;
+    private myCallbackUser mcbu;
+
 
     public class Notification_View_Holder extends RecyclerView.ViewHolder{
         public TextView postTitle;
@@ -66,10 +83,26 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     @Override
     public void onBindViewHolder(final Notification_View_Holder holder, final int position){
         // Binds an item to the view
-        Notification notification = mDataset.get(position);
-        String titleText = notification.getSender() + " ";
+        notification = mDataset.get(position);
+        titleText = notification.getRequestID() + " ";
+        removeCard(holder, position);
 
-        if (notification.getSeen()){
+        uid = notification.getUserID();
+        udb = new Users_DB();
+
+        mcbu = new myCallbackUser() {
+            @Override
+            public void onCallback(User u) {
+                currentUser = u;
+                getCardValues(holder, position);
+            }
+        };
+
+        udb.getUser(uid, mcbu);
+
+
+
+        if (!notification.getSeen()){
             holder.newAlertStar.setRating(1);
         }
         else{
@@ -77,39 +110,91 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         }
 
         //set the text of the notification based on the type
+        holder.requestType = notification.getRequestType();
+
+    }
+
+    private void getCardValues(final Notification_View_Holder holder, final int position){
+        String ntype = notification.getRequestType();
+        if (ntype.equals("Book Request Accepted") || ntype.equals("Return_Request")) {
+            //TODO: get book exchange from db.
+        }
+        else if (ntype.equals("Book Requested")){
+            BorrowRequestDb brdb = new BorrowRequestDb();
+            myCallbackBookRequest mcbr = new myCallbackBookRequest() {
+                @Override
+                public void onCallback(BorrowRequest br) {
+                    borrowRequest = br;
+                    myCallbackUser mcbu = new myCallbackUser() {
+                        @Override
+                        public void onCallback(User u) {
+                            user = u;
+                            setCardValues(holder, position);
+                        }
+                    };
+                    addCard(holder, position);
+                    udb.getUser(borrowRequest.getsenderUID(), mcbu);
+                }
+            };
+            brdb.getBookRequest(notification.getRequestID(), mcbr);
+        }
+    }
+
+    private void removeCard(Notification_View_Holder holder, int position){
+        holder.newAlertStar.setVisibility(GONE);
+        holder.postTitle.setVisibility(GONE);
+    }
+
+    private void addCard(Notification_View_Holder holder, int position){
+        holder.newAlertStar.setVisibility(View.VISIBLE);
+        holder.postTitle.setVisibility(View.VISIBLE);
+    }
+
+    private void setCardValues(final Notification_View_Holder holder, final int position){
+        titleText = user.getUserName();
         switch (notification.getRequestType()){
             case "Book Request Accepted":
                 titleText += " accepted your book request.";
+                intent = new Intent(fragment.getActivity(), View_Exchange_Details_Activity.class);
+                //intent.putExtra()
+                break;
             case "Friend Request":
                 titleText += " is now following you.";
+                intent = new Intent(fragment.getActivity(), User_Details_Activity.class);
+                intent.putExtra("user", user);
                 break;
             case "Book Requested":
                 titleText += " asked to borrow your book.";
+                intent = new Intent(fragment.getActivity(), View_Book_Request_Activity.class);
+                intent.putExtra("request", borrowRequest);
+                intent.putExtra("Returning", false);
                 break;
             case "Return_Request":
                 titleText += " wants to return your book.";
+                intent = new Intent(fragment.getActivity(), View_Book_Request_Activity.class);
+
                 break;
             default:
                 titleText = "This notification is not displaying correctly.";
                 break;
         }
 
-        holder.postTitle.setText(titleText);
-        holder.requestType = notification.getRequestType();
-
         //Set the on click listener (for when users click on a notification to silence it)
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.newAlertStar.setRating(0);
-                mDataset.get(position).setSeen(true);
-                Write_Notification_DB db = new Write_Notification_DB();
-                db.setRequestID(mDataset.get(position).getRequest());
-                db.setNotification(mDataset.get(position));
-                db.getNotificationKey();
-            }
-        });
-
+        if (titleText != "This notification is not displaying correctly.") {
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.newAlertStar.setRating(0);
+                    mDataset.get(position).setSeen(true);
+                    Write_Notification_DB db = new Write_Notification_DB();
+                    db.setRequestID(mDataset.get(position).getRequestID());
+                    db.setNotification(mDataset.get(position));
+                    db.getNotificationKey();
+                    fragment.getActivity().startActivity(intent);
+                }
+            });
+        }
+        holder.postTitle.setText(titleText);
     }
 
     @Override

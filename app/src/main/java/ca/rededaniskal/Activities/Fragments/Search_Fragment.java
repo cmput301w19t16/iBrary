@@ -12,8 +12,6 @@
 //https://www.youtube.com/redirect?q=https%3A%2F%2Fgithub.com%2Fcodingdemos%2FMultichoiceTutorial&redir_token=zWJM5OoUtOrwMvfLlGWm1qv4-B98MTU1MjE5NTgxMEAxNTUyMTA5NDEw&event=video_description&v=wfADRuyul04
 package ca.rededaniskal.Activities.Fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,24 +25,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.zip.Inflater;
 
-import ca.rededaniskal.Activities.Filter_My_Books_Logic;
-import ca.rededaniskal.BusinessLogic.BookAdapter;
-import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.BusinessLogic.Master_BookAdapter;
-import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.BusinessLogic.Search_Logic;
-import ca.rededaniskal.Database.Search_Books_Db;
-import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.BusinessLogic.UserAdapter;
 import ca.rededaniskal.EntityClasses.Master_Book;
-import ca.rededaniskal.EntityClasses.Post;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 /**
@@ -83,6 +73,7 @@ public class Search_Fragment extends Fragment {
 
     private RecyclerView display;
     private Master_BookAdapter MB_adapter;
+    private UserAdapter User_adapter;
     private LayoutInflater inflater;
     private ViewGroup container;
     private View dbView;
@@ -91,8 +82,7 @@ public class Search_Fragment extends Fragment {
     private View view;
     private String queryString;
     private ArrayList<Master_Book> viewBookList;
-
-
+    private ArrayList<User> viewUserList;
 
     public Search_Fragment() {
         // Required empty public constructor
@@ -136,14 +126,7 @@ public class Search_Fragment extends Fragment {
 
         dbView = view;
         viewBookList = new ArrayList<>();
-
-
-
-
-
-
-
-        //master_books.add(new Master_Book("Invisible", "sdf", "sdfds"));
+        viewUserList = new ArrayList<>();
 
         searchString = view.findViewById(R.id.fragmentSearchView);
         searchString.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -170,13 +153,6 @@ public class Search_Fragment extends Fragment {
         searchBy = (Button) view.findViewById(R.id.FilterSearchFragmentButton);
         filterOptions = getResources().getStringArray(R.array.filter_search_options);
         selectedOptions = new boolean[filterOptions.length];
-
-        //Adapter stuff
-
-
-
-
-
 
 
         searchBy.setOnClickListener(new View.OnClickListener() {
@@ -234,8 +210,6 @@ public class Search_Fragment extends Fragment {
         });
 
 
-
-
         // Inflate the layout for this fragment
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -260,38 +234,37 @@ public class Search_Fragment extends Fragment {
         return view;
     }
 
-public void update_books(ArrayList<Master_Book> master_books){
-        viewBookList = master_books;
 
+    public void update_books(ArrayList<Master_Book> master_books){
+        viewBookList = master_books;
 
         display = dbView.findViewById(R.id.display);
         display.setHasFixedSize(true);
         display.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        MB_adapter = new Master_BookAdapter( Search_Fragment.this, master_books);
-        display.setAdapter( MB_adapter );
-        //MB_adapter.notifyDataSetChanged();
-
+        MB_adapter = new Master_BookAdapter(Search_Fragment.this, master_books);
+        display.setAdapter(MB_adapter);
     }
-    public  void addBookToAdapter(Master_Book m){
+
+
+    public void update_users(ArrayList<User> users){
+        display = dbView.findViewById(R.id.display);
+        display.setHasFixedSize(true);
+        display.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        User_adapter = new UserAdapter(getActivity(), users);
+        display.setAdapter(MB_adapter);
+    }
+
+    public void addBookToAdapter(Master_Book m){
         viewBookList.add(m);
         LinkedHashSet<Master_Book> remove = new LinkedHashSet<>(viewBookList);
         viewBookList = new ArrayList<>(remove);
         update_books(viewBookList);
-
-
-
-
     }
-    public  void addBookToAdapter(ArrayList<Master_Book> m){
+  
+    public void addBookToAdapter(ArrayList<Master_Book> m){
         viewBookList.addAll(m);
         update_books(viewBookList);
-
-
-
     }
-
-
-
 }

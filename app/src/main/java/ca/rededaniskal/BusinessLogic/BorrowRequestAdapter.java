@@ -20,12 +20,21 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
+import ca.rededaniskal.Activities.View_Book_Request_Activity;
+import ca.rededaniskal.Database.BookInstanceDb;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.Database.Write_Request_DB;
 
+import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
@@ -33,6 +42,10 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     public Context mctx;
     private ArrayList<BorrowRequest> list; //List of Requests
     private Write_Request_DB db;
+    private User user;
+    private Book_Instance bi;
+    private BorrowRequest request;
+    private BorrowRequestViewHolder holder;
 
     /**
      * Instantiates a new Entry adapter.
@@ -58,12 +71,20 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
 
     @Override
-    public void onBindViewHolder(@NonNull final BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
-        final BorrowRequest request = list.get(i);
+    public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
+        request = list.get(i);
+        holder = borrowRequestViewHolder;
 
         //Set Fields
-        borrowRequestViewHolder.requestInfo.setText( request.getsenderUID());
-        borrowRequestViewHolder.bookInfo.setText( request.getBookId() );
+        if (request.getsenderUID() != null) {
+            getUserInfo(request.getsenderUID());
+            getBookInfo(request.getrecipientUID(), request.getBookId());
+        }
+        else{
+            borrowRequestViewHolder.requestInfo.setText( request.getsenderUID());
+            holder.bookInfo.setText( request.getBookId() );
+        }
+
 
         //Set onClick listeners
         borrowRequestViewHolder.accept.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +93,14 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
                 request.setStatus("Accepted");
 
+                /* On accepted, all other requests are deleted except the accepted, which
+                Which is passed to the Establish_Exchange_Details_Activity */
+                list.remove(holder.getAdapterPosition());
+                deleteRemainingRequests();
+
                 Intent intent = new Intent(mctx,Establish_Exchange_Details_Activity.class);
                 intent.putExtra("BorrowRequestObject", request);
+                intent.putExtra("Returning", false);
                 mctx.startActivity(intent);
             }
         });
@@ -83,11 +110,51 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             public void onClick(View v) {
                 request.setStatus("Denied");
                 Write_Request_DB db = new Write_Request_DB(request, true);
-                list.remove(borrowRequestViewHolder.getAdapterPosition());
-                notifyItemRemoved(borrowRequestViewHolder.getAdapterPosition());
-                notifyItemRangeChanged(borrowRequestViewHolder.getAdapterPosition(), list.size());
+                list.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(), list.size());
             }
         });
+    }
+
+    private void viewRequest(){
+        Intent intent = new Intent(mctx, View_Book_Request_Activity.class);
+        intent.putExtra("request", request);
+        mctx.startActivity(intent);
+    }
+
+    private void getUserInfo(String uid){
+        Users_DB udb = new Users_DB();
+        myCallbackUser mcb = new myCallbackUser() {
+            @Override
+            public void onCallback(User u) {
+                user = u;
+                if(user.getUserName()!=null) {
+                    fillUserInfo();
+                }
+            }
+        };
+        udb.getUser(uid, mcb);
+    }
+
+    private void fillUserInfo(){
+        holder.requestInfo.setText( user.getUserName());
+    }
+
+    private void getBookInfo(String ownerId, String bid){
+        BookInstanceDb bidb = new BookInstanceDb();
+        myCallbackBookInstance mcbi = new myCallbackBookInstance() {
+            @Override
+            public void onCallback(Book_Instance bins) {
+                bi = bins;
+                fillBookInfo();
+            }
+        };
+        bidb.getBookInstance(ownerId, bid, mcbi);
+    }
+
+    private void fillBookInfo(){
+        holder.bookInfo.setText( bi.getTitle() );
     }
 
     @Override
@@ -106,7 +173,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
      */
     class BorrowRequestViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView profilePic;
+        ImageView bookCover;
         TextView requestInfo;
         TextView bookInfo;
         ImageButton accept, cancel;
@@ -114,10 +181,21 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         public BorrowRequestViewHolder(@NonNull View itemView) {
             //TODO: profile pic
             super(itemView);
-            requestInfo = itemView.findViewById(R.id.title);
+            requestInfo = itemView.findViewById(R.id.Title);
             accept = itemView.findViewById(R.id.accept);
             cancel = itemView.findViewById(R.id.cancel);
             bookInfo = itemView.findViewById(R.id.bookInfo);
+
+            bookCover = itemView.findViewById(R.id.BookCover);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewRequest();
+                }
+            });
+
         }
     }
 

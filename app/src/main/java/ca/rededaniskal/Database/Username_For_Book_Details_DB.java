@@ -23,6 +23,7 @@ public class Username_For_Book_Details_DB {
         this.parent = parent;
         this.book = book;
         getUsernameOwner();
+        getUsernameBorrower();
     }
 
     private void getUsernameOwner() {
@@ -40,6 +41,33 @@ public class Username_For_Book_Details_DB {
                         User user = snapshot.getValue(User.class);
                         String username = user.getUserName();
                         parent.setUsername(username);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void getUsernameBorrower() {
+        String UID = book.getPossessor();
+        Query query = FirebaseDatabase.getInstance().getReference("Users")
+                .orderByChild("uid")
+                .equalTo(UID);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(ContentValues.TAG, "*********----->onDataChange");
+                if (dataSnapshot.exists()) {
+                    Log.d(ContentValues.TAG, "*********----->exists");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User user = snapshot.getValue(User.class);
+                        String username = user.getUserName();
+                        parent.setUsernameBorrower(username);
                     }
                 }
             }

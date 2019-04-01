@@ -14,12 +14,13 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/relativeLayout"
-            android:layout_width="407dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/Cover"
+                android:id="@+id/BookCover"
+
                 android:layout_width="68dp"
                 android:layout_height="61dp"
                 android:layout_marginTop="8dp"
@@ -31,14 +32,14 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/Title"
                 android:layout_width="143dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/username"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/Cover"
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -48,8 +49,9 @@
                 android:text="@string/requests2"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/Cover"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
+                app:layout_constraintTop_toBottomOf="@+id/username" />
+
 
             <TextView
                 android:id="@+id/bookInfo"
@@ -59,8 +61,10 @@
                 android:text="@string/requests2"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/Cover"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+                app:layout_constraintStart_toEndOf="@+id/BookCover"
+                app:layout_constraintTop_toBottomOf="@+id/username" />
+
 
             <ImageButton
                 android:id="@+id/cancel"
@@ -71,7 +75,7 @@
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="@color/danger"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/accept"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_clear_24dp" />
 
@@ -79,13 +83,16 @@
                 android:id="@+id/accept"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cancel"
+                app:layout_constraintStart_toEndOf="@+id/Title"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.473"
                 app:srcCompat="@drawable/ic_check_circle_white_24dp" />
 
 

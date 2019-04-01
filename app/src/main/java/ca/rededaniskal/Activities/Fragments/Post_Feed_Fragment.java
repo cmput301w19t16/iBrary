@@ -16,15 +16,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.Database.Write_Post_DB;
+import ca.rededaniskal.EntityClasses.Display_Post;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.R;
+
+import static android.support.constraint.Constraints.TAG;
 
 /**
  * This fragment is to view the activities of your friends. It ties very closely with our "wow"
@@ -61,6 +66,7 @@ public class Post_Feed_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView recyclerView;
 
     //OnFragmentInteractionListener mListener;
 
@@ -108,35 +114,40 @@ public class Post_Feed_Fragment extends Fragment {
         swipeContainer = view.findViewById(R.id.swipeContainer);
 
 
-        final RecyclerView recyclerView = view.findViewById(R.id.feedRV);
+        recyclerView = view.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
-        final ArrayList<Post> postList = new ArrayList<Post>();
+        final ArrayList<Display_Post> postList = new ArrayList<Display_Post>();
 
-        postList.add(new Post("Loved this Book!", "Nick", "Happy Potter", "Thoughts on Book"));
-        postList.add(new Post("Can I borrow this from anyone?", "Revan", "Oxford English Dictionary", "Looking to lend this"));
-        postList.add(new Post("Luminous!", "Skype", "Happy Potter", "Thoughts on Book"));
+//        postList.add(new Post("Loved this Book!", "Nick", "Happy Potter", "Thoughts on Book"));
+//        postList.add(new Post("Can I borrow this from anyone?", "Revan", "Oxford English Dictionary", "Looking to lend this"));
+//        postList.add(new Post("Luminous!", "Skype", "Happy Potter", "Thoughts on Book"));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         final PostAdapter postAdapter = new PostAdapter(Post_Feed_Fragment.this, postList);
         recyclerView.setAdapter(postAdapter);
-
+        Write_Post_DB db = new Write_Post_DB(this);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                postList.add(new Post("This post should now show up",
-                        "blank", "blank", "Display"));
-                recyclerView.setAdapter(new PostAdapter(Post_Feed_Fragment.this, postList));
+
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         // Stop animation (This will be after 3 seconds)
-                        swipeContainer.setRefreshing(false);
+                        swipeContainer.setRefreshing(true);
                     }
-                }, 300); // Delay in millis
+                }, 0); // Delay in millis
 
             }
         });
 
         return swipeContainer;
+    }
+
+    public void updateAdapter(ArrayList<Display_Post> postList){
+        Log.d(TAG, "*(*(*( IN UPDATE ADAPTER");
+        final PostAdapter postAdapter = new PostAdapter(Post_Feed_Fragment.this, postList);
+        recyclerView.setAdapter(postAdapter);
+        postAdapter.notifyDataSetChanged();
     }
 }

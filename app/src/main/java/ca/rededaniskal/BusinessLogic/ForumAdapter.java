@@ -39,7 +39,7 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
         //Set the layout
         LayoutInflater inflater = LayoutInflater.from(mctx);
 
-        View view = inflater.inflate(R.layout.forum_card, null);
+        View view = inflater.inflate(R.layout.forum_card, viewGroup, false);
         ForumViewHolder holder = new ForumViewHolder(view);
         return holder;
     }
