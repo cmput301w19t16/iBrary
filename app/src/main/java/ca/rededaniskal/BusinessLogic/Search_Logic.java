@@ -33,7 +33,7 @@ public class Search_Logic {
     public Search_Logic(Search_Fragment p, ArrayList<Integer> chosen, String search_string) {
         Log.d("Searchlog", "**************In search Logic");
         parent = p;
-        bookList = new ArrayList<>();252F
+        bookList = new ArrayList<>();
         userList = new ArrayList<>();
 
 

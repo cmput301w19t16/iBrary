@@ -57,13 +57,13 @@ public class View_All_Books_Activity extends AppCompatActivity {
 
         if (intent.getExtras() != null) {
             Master_Book mb = (Master_Book) intent.getSerializableExtra("master_book"); //Get the book
-            ISBN =mb.getISBN();
+            ISBN = mb.getISBN();
 
+        } else {
+            ISBN = "";
         }
-        else{ISBN = "";}
 
         getAllBooks db = new getAllBooks(this, ISBN);
-
 
 
         BL = new ArrayList<>(); //Initiatize books to be displayed
@@ -78,7 +78,7 @@ public class View_All_Books_Activity extends AppCompatActivity {
         bookAdapter.notifyDataSetChanged();
 
 
-   
+    }
 
     public void addBook(ArrayList<Display_Username> book_List){
 
