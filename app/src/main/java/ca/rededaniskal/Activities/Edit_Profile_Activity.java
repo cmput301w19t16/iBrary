@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -107,6 +108,8 @@ public class Edit_Profile_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 User use = getTexts();
                 db.uniqueUserName(use);
+                Intent i = new Intent(Edit_Profile_Activity.this, Main_Activity.class);
+                startActivity(i);
             }
         });
 
@@ -188,7 +191,6 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     }
 
     public void nextActivity(){
-        startActivity(new Intent(Edit_Profile_Activity.this, View_Own_Profile_Fragment.class));
         this.finish();
     }
 }
