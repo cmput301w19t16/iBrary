@@ -283,8 +283,12 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     }
 
     public void set_Book_Info_Hints() {
-        addAuthor.setError(authorHint);
-        addTitle.setError(titleHint);
+        if (addAuthor.getText().toString().isEmpty()) {
+            addAuthor.setError(authorHint);
+        }
+        if (addTitle.getText().toString().isEmpty()) {
+            addTitle.setError(titleHint);
+        }
         addISBN.setError(isbnHint);
     }
 }
