@@ -139,9 +139,6 @@ public class View_Own_Profile_Fragment extends Fragment {
         Button viewFollowers = (Button) v.findViewById(R.id.myFollowers);
         Button viewFollowed = (Button) v.findViewById(R.id.ImFollowing);
         Button logout = (Button) v.findViewById(R.id.logout);
-        Button viewAllRequests = (Button) v.findViewById(R.id.view_all_requests);
-        Button viewAllUsers = (Button) v.findViewById(R.id.viewUsers);
-        Button viewAllBooks = (Button) v.findViewById(R.id.viewBooks);
 
         final ImageView viewProfilePic = v.findViewById(R.id.profile_image);
         Users_DB usersDb = new Users_DB();
@@ -212,14 +209,7 @@ public class View_Own_Profile_Fragment extends Fragment {
             }
         });
 
-        viewAllRequests.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), View_All_Requests_Activity.class);
-                startActivity(intent);
 
-            }
-        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,22 +223,6 @@ public class View_Own_Profile_Fragment extends Fragment {
                 parent.finish();
 
 
-            }
-        });
-
-        viewAllUsers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), View_All_Users_Activity.class);
-                startActivity(intent);
-            }
-        });
-
-        viewAllBooks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), View_All_Books_Activity.class);
-                startActivity(intent);
             }
         });
 

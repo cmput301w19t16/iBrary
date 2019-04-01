@@ -20,10 +20,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Establish_Exchange_Details_Activity;
@@ -34,13 +30,14 @@ import ca.rededaniskal.Database.Write_Request_DB;
 
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Display_BorrowRequest;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdapter.BorrowRequestViewHolder>{
     public Context mctx;
-    private ArrayList<BorrowRequest> list; //List of Requests
+    private ArrayList<Display_BorrowRequest> list; //List of Requests
     private Write_Request_DB db;
     private User user;
     private Book_Instance bi;
@@ -50,7 +47,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
     /**
      * Instantiates a new Entry adapter.
      */
-    public BorrowRequestAdapter(Context mctx,  ArrayList<BorrowRequest> list) {
+    public BorrowRequestAdapter(Context mctx,  ArrayList<Display_BorrowRequest> list) {
         this.mctx = mctx;
         this.list = list;
     }
@@ -72,10 +69,19 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
     @Override
     public void onBindViewHolder(@NonNull BorrowRequestViewHolder borrowRequestViewHolder, final int i) {
-        request = list.get(i);
+        Display_BorrowRequest display = list.get(i);
+        request = display.getRequest();
+        user = display.getUser();
+        String urlProfilePic = user.getProfilePic();
+
         holder = borrowRequestViewHolder;
+        if(urlProfilePic != null){
+            LoadImage loader = new LoadImage(holder.bookCover);
+            loader.execute(urlProfilePic);
+        }
 
         //Set Fields
+        
         if (request.getsenderUID() != null) {
             getUserInfo(request.getsenderUID());
             getBookInfo(request.getrecipientUID(), request.getBookId());
@@ -95,7 +101,6 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
                 /* On accepted, all other requests are deleted except the accepted, which
                 Which is passed to the Establish_Exchange_Details_Activity */
-                list.remove(holder.getAdapterPosition());
                 deleteRemainingRequests();
 
                 Intent intent = new Intent(mctx,Establish_Exchange_Details_Activity.class);
@@ -164,7 +169,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
     public void deleteRemainingRequests(){
         for(int i = 0; i < list.size(); i++){
-            Write_Request_DB db = new Write_Request_DB(list.get(i), true);
+            Write_Request_DB db = new Write_Request_DB(list.get(i).getRequest(), true);
         }
     }
 
@@ -186,13 +191,13 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             cancel = itemView.findViewById(R.id.cancel);
             bookInfo = itemView.findViewById(R.id.bookInfo);
 
-            bookCover = itemView.findViewById(R.id.BookCover);
+            bookCover = itemView.findViewById(R.id.pic);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    viewRequest();
+                    //viewRequest();
                 }
             });
 

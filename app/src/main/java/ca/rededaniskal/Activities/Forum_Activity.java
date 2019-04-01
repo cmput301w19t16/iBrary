@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
 
@@ -52,8 +53,6 @@ public class Forum_Activity extends AppCompatActivity {
     private MasterBookDb mbdb;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,20 +61,10 @@ public class Forum_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_forum_);
         threads = new ArrayList<>();
 
-        //TODO: get Forum from DB or something
-        Master_Book b = new Master_Book("Happy Potter","JK Rowling","1234567890", null);
-
-
-       // forum = new Forum("1234567890"); //For testing
-
         title = findViewById(R.id.Title);
         addTopic = findViewById(R.id.addTopic);
         myRating = findViewById(R.id.rating2);
         avgRating = findViewById(R.id.rating);
-
-
-
-
 
 
         Intent intent = getIntent();
@@ -84,6 +73,7 @@ public class Forum_Activity extends AppCompatActivity {
         recyclerView = findViewById(R.id.ViewThreads);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        threads.clear();
         forumAdapter = new ForumAdapter(this, threads,ISBN );
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
@@ -95,17 +85,8 @@ public class Forum_Activity extends AppCompatActivity {
         fdb.getThreads();
 
 
-
-
-        forumAdapter.notifyDataSetChanged();
-        //GetAllUsersDB db = new GetAllUsersDB(this); TODO something with this
-
         //Set the Rating bars
 
-        //TODO: set the rating bars
-
-
-        //title.setText(forum.getIsbn());
 
         //Set the add topic on Click listener
         addTopic.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +145,12 @@ public class Forum_Activity extends AppCompatActivity {
 
                            // forumAdapter.notifyDataSetChanged();
                             popupWindow.dismiss();
+
+                            Intent intent = new Intent(v.getContext(), Forum_Activity.class);
+                            intent.putExtra("isbn", ISBN);
+                            startActivity(intent);
+                            finish();
+
                         }
                     }
                 });
@@ -178,13 +165,10 @@ public class Forum_Activity extends AppCompatActivity {
 
                 float rating = myRating.getRating();
 
-                //FirebaseUser currentUser = mAuth.getCurrentUser();
-               // String uid = currentUser.getUid();
 
                 //TODO: add rating
                 mbdb.addRatingToDB(rating, ISBN);
                 mbdb.get_Masterbook_for_Forum(Forum_Activity.this, ISBN);
-
 
                 return myRating.onTouchEvent(event);
             }
@@ -192,34 +176,55 @@ public class Forum_Activity extends AppCompatActivity {
     }
 
     public void setMasterBook(Master_Book master_book, String UID){
-        title.setText(master_book.getTitle());
+        if (master_book!=null) {
+            title.setText(master_book.getTitle());
 
-        Float avg = master_book.getAvgRating();
-        Float uRate = master_book.getUserRating(UID);
-
-
-        if (avg!=null){
-            Log.d("null", "average from master null");
-            avgRating.setRating(avg);}
-        if (uRate!=null){
-            Log.d("null", "user rating from master null");
-            myRating.setRating(uRate);}
+            Float avg = master_book.getAvgRating();
+            Float uRate = master_book.getUserRating(UID);
 
 
+            if (avg != null) {
+                Log.d("null", "average from master null");
+                avgRating.setRating(avg);
+            }
+            if (uRate != null) {
+                Log.d("null", "user rating from master null");
+                myRating.setRating(uRate);
+            }
+
+        }
 
     }
     public void loadThreads(ArrayList<Display_Thread> threadArrayList){
-
-        if (threadArrayList!=null){threads = threadArrayList;}
-       forumAdapter = new ForumAdapter(this, threads,ISBN );
+        threads.clear();
+        forumAdapter = new ForumAdapter(this, threads,ISBN );
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
 
-    }
-   /* public void refresh(Thread thread){
+        if (threadArrayList!=null){threads = threadArrayList;}
+    
+        LinkedHashSet<Display_Thread> remove = new LinkedHashSet<>(threads);
+        threads = new ArrayList<>(remove);
 
-        threads.add(0,thread);
+        Log.d("loadThreads", "threads hash: " + threads);
+
+
+        for(int i = 0; i <threads.size();i++){
+            Log.d("loadThreads", ": " + threads.get(i).getThread().getThreadId());
+        }
+
+        forumAdapter = new ForumAdapter(this, threads,ISBN );
+
+        recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
-}
-*/
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        forumAdapter.notifyDataSetChanged();
+
+    }
+
 }

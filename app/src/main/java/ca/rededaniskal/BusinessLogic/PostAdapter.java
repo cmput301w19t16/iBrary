@@ -87,7 +87,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         };
 
         BookInstanceDb bookInstanceDb = new BookInstanceDb();
-        String uid = bookInstanceDb.getUID();
+        String uid = post.getUid();
+        Log.d("UID", uid);
         usersDb.getUser(uid, myCallbackUser);
 
         //if User clicks on a Book, will start the book details Activity
@@ -124,7 +125,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
          */
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
-            //imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
 
             user = itemView.findViewById(R.id.user);
             title = itemView.findViewById(R.id.Title);

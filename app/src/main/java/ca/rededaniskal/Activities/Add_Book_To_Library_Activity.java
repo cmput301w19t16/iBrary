@@ -23,7 +23,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,9 +31,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 
 import com.google.firebase.storage.StorageReference;
 //import com.squareup.picasso.Picasso;
@@ -54,13 +50,11 @@ import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
 import ca.rededaniskal.BusinessLogic.AsyncResponse;
 import ca.rededaniskal.Database.Photos;
 
-import ca.rededaniskal.Database.Write_Post_DB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
 
 
-import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.R;
 
 /**
@@ -132,7 +126,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         openCamera = findViewById(R.id.openCamera);
         addBook = findViewById(R.id.addBook);
 
-        cover = findViewById(R.id.BookCover);
+        cover = findViewById(R.id.pic);
 
         addAuthor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -199,6 +193,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
+
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
 
 
@@ -222,7 +217,9 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     startActivity(intent);
                 } else {
 
+
                     Toast.makeText(Add_Book_To_Library_Activity.this, error_m, Toast.LENGTH_SHORT);
+
                     authorHint = businessLogic.getAuthorError();
                     titleHint = businessLogic.getTitleError();
                     isbnHint = businessLogic.getISBNError();

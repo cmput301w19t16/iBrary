@@ -127,7 +127,7 @@ public class User_Fragment_Adapter extends RecyclerView.Adapter<User_Fragment_Ad
             super(itemView);
             Log.d("UserViewHolder", "Created User View Holder");
             mctx = fragment.getActivity().getApplicationContext();
-            profilePic = itemView.findViewById(R.id.BookCover); //TODO: Make this display the Users image
+            profilePic = itemView.findViewById(R.id.pic); //TODO: Make this display the Users image
             Follow_or_unfollow = itemView.findViewById(R.id.fufButton);
             statusIcon = itemView.findViewById(R.id.StatusIcon);
             UserName = itemView.findViewById(R.id.title);

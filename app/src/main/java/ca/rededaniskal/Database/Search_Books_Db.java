@@ -1,5 +1,6 @@
 package ca.rededaniskal.Database;
 
+import android.os.CancellationSignal;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -15,7 +16,9 @@ import ca.rededaniskal.Activities.Fragments.Search_Fragment;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
 public class Search_Books_Db {
+
     private Search_Fragment parent;
+
 
     private String Equal;
     private Query query;
@@ -32,6 +35,8 @@ public class Search_Books_Db {
     }
 
 
+    
+
     public void queryTitleData() {
         query = masterBookDb.getTitleindexRef().orderByKey().equalTo(Equal);
 
@@ -44,11 +49,10 @@ public class Search_Books_Db {
 
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         isbn = d.getValue(String.class);
-                        break;
 
 
                     }
-                    Log.d("isbn", "*********----->Got this Title book: " + isbn);
+                    Log.d("isbn", "*********----->Got this Titl book: "+ isbn);
                     queryISBNData(isbn);
 
                 }
@@ -73,13 +77,13 @@ public class Search_Books_Db {
                 if (dataSnapshot.exists()) {
 
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
-                        isbn = d.getValue(String.class);
-                        break;
 
-
+                       isbn = d.getValue(String.class);
+                       break;
                     }
-                    Log.d("isbn", "*********----->Got this Author book: " + isbn);
-                    queryISBNData(isbn);
+                    Log.d("isbn", "*********----->Got this Author book: "+isbn);
+                   queryISBNData(isbn);
+
                 }
             }
 
@@ -95,9 +99,6 @@ public class Search_Books_Db {
         Log.d("EqualVal", "***********------> " + ISBN);
         query = masterBookDb.getReference().orderByKey().equalTo(ISBN);
 
-
-        //query = masterBookDb.getReference().orderByChild(Order).equalTo(Equal);
-
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -105,11 +106,8 @@ public class Search_Books_Db {
 
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         mb = d.getValue(Master_Book.class);
-
-
-                    }
+  }
                     parent.addBookToAdapter(mb);
-
                 }
 
             }
@@ -122,4 +120,24 @@ public class Search_Books_Db {
 
     }
 
+
+
+    public void getSingleMasterBook(){
+        masterBookDb.getReference().child(Equal).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                parent.addBookToAdapter(dataSnapshot.getValue(Master_Book.class));}
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }
 }
+

@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".Activities.User_Details_Activity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -17,19 +35,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.546"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-  <ImageView
-        android:id="@+id/BookCover"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
 
-        app:srcCompat="@drawable/ic_person_black_24dp" />
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pic"
+                android:layout_width="150dp"
+
+                android:layout_height="150dp"
+                android:layout_marginRight="10dp"
+
+                android:layout_span="2"
+
+                android:layout_weight="1"
+                android:src="@drawable/ic_person_black_24dp"
+                app:civ_border_color="#FF000000" />
+
+
         </TableRow>
 
         <TableRow
@@ -55,7 +82,7 @@
                 android:background="@android:color/background_light"
                 android:text="User Name Here"
                 android:textColor="#000"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
@@ -83,7 +110,7 @@
                 android:padding="1dip"
                 android:text="User Location Here"
                 android:textColor="#000"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
         </TableRow>
 
         <TableRow
@@ -110,7 +137,7 @@
                 android:padding="1dip"
                 android:text="example@exmaple.ca"
                 android:textColor="#000"
-                android:textSize="14dp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
@@ -139,7 +166,7 @@
                 android:padding="1dip"
                 android:text="780-000-0000"
                 android:textColor="#000"
-                android:textSize="14dp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
@@ -167,7 +194,23 @@
                 android:background="#FFFFFF"
                 android:padding="1dip"
                 android:text="Number of Followers:"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/ViewBooks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_span="2"
+                android:layout_weight="1"
+                android:text="@string/view_library"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
         </TableRow>
 

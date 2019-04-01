@@ -13,13 +13,9 @@
  */
 package ca.rededaniskal.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,31 +29,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-import ca.rededaniskal.BusinessLogic.BookAdapter;
 import ca.rededaniskal.BusinessLogic.Book_Details_Logic;
 import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
 
 import ca.rededaniskal.BusinessLogic.LoadImage;
 
-import ca.rededaniskal.BusinessLogic.myCallbackBRList;
-import ca.rededaniskal.Database.Borrow_Req_DB;
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
+import ca.rededaniskal.BusinessLogic.myCallbackDBRList;
+import ca.rededaniskal.Database.Display_Borrow_Req_DB;
 import ca.rededaniskal.Database.Username_For_Book_Details_DB;
 
-import ca.rededaniskal.Database.requestsOnBookDB;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
-import ca.rededaniskal.EntityClasses.Exchange;
-import ca.rededaniskal.EntityClasses.Request;
-import ca.rededaniskal.EntityClasses.User;
+import ca.rededaniskal.EntityClasses.Display_BorrowRequest;
 import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
@@ -89,7 +79,7 @@ public class Book_Details_Activity extends AppCompatActivity {
     private Book_Instance book;
 
     BorrowRequestAdapter requestAdapter;
-    ArrayList<BorrowRequest> l;
+    ArrayList<Display_BorrowRequest> l;
     Book_Details_Activity thisone;
 
     private FirebaseAuth mAuth;
@@ -113,7 +103,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayStatus = (TextView) findViewById(R.id.DisplayStatus);
         DisplayPosessor = findViewById(R.id.viewPosessor);
 
-        DisplayBookCover = (ImageView) findViewById(R.id.BookCover);
+        DisplayBookCover = (ImageView) findViewById(R.id.pic);
 
         GoToForum = (Button) findViewById(R.id.GoToForum); //TODO: GO TO ACTIVITy
         Request_Cancel = (Button) findViewById(R.id.request_cancel);
@@ -136,7 +126,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayStatus.setText(book.getStatus());
         DisplayPosessor.setText(book.getPossessor());
 
-        if(book.getCover() != null || book.getCover() != ""){
+        if (book.getCover() != null || book.getCover() != "") {
             LoadImage loader = new LoadImage(DisplayBookCover);
             loader.execute(book.getCover());
         }
@@ -150,10 +140,10 @@ public class Book_Details_Activity extends AppCompatActivity {
             viewRequests.setHasFixedSize(true);
             viewRequests.setLayoutManager(new LinearLayoutManager(this));
 
-            Borrow_Req_DB brdb = new Borrow_Req_DB();
-            myCallbackBRList mcbrl = new myCallbackBRList() {
+            Display_Borrow_Req_DB brdb = new Display_Borrow_Req_DB();
+            myCallbackDBRList mcbrl = new myCallbackDBRList() {
                 @Override
-                public void onCallback(ArrayList<BorrowRequest> borrowRequests) {
+                public void onCallback(ArrayList<Display_BorrowRequest> borrowRequests) {
                     requestAdapter = new BorrowRequestAdapter(thisone, borrowRequests);
                     viewRequests.setAdapter(requestAdapter);
                     requestAdapter.notifyDataSetChanged();
@@ -162,38 +152,50 @@ public class Book_Details_Activity extends AppCompatActivity {
 
             brdb.getBooksBorrowRequests(book.getBookID(), mcbrl);
 
-        }else{
+        } else {
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
-        BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
 
-        isRequested = db.bookInUserRequests();
+        myCallbackBool mcbb = new myCallbackBool() {
+            @Override
+            public void onCallback(Boolean value) {
+                isRequested = value;
+                continueWorking();
+
+            }
+        };
+
+        BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
+        db.bookInUserRequests(mcbb, book.getBookID());
+
+    }
+
+    public void continueWorking() {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
 
         //Set appropriate text for the button at the bottom
-        if (book.getStatus().equals("Requested") && isRequested) {
+        if (isRequested) {
             //If I Requested the book
             Request_Cancel.setText(R.string.cancel_request);
+
+        }else if (book.getPossessor().equals(uid) && !(book.getOwner().equals(uid))){
+            //If i am the one in possession of book but not the owner
+            Request_Cancel.setVisibility(View.VISIBLE);
+            Request_Cancel.setText("Return This Book");
+            canReturn = true;
 
         }else if (book.getStatus().equals("Borrowed")){
             //If book is borroed by someone other than myself
             Request_Cancel.setVisibility(View.INVISIBLE);
 
-        } else if (book.getPossessor().equals(uid)){
-            //If i am the one in possession of book but not the owner
-
-            Request_Cancel.setText("Return This Book");
-            canReturn = true;
-
-        } else {
+        }else {
             Request_Cancel.setText(R.string.request_book);
 
         }
 
         //Set On-Click listeners
-
         Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,8 +205,6 @@ public class Book_Details_Activity extends AppCompatActivity {
                 finish();
             }
         });
-
-        //TODO: Make this go to forum
 
         GoToForum.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,8 +216,6 @@ public class Book_Details_Activity extends AppCompatActivity {
         });
 
 
-        //final Book_Details_Activity thisone = this;
-
         Request_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,8 +225,6 @@ public class Book_Details_Activity extends AppCompatActivity {
                     isRequested = false;
 
                 }else if(canReturn){
-                    //TODO: DB
-
                     BorrowRequest request = new BorrowRequest( book.getOwner() , uid, book.getISBN(), book.getBookID() );
                     Intent intent = new Intent(v.getContext(), Establish_Exchange_Details_Activity.class);
                     intent.putExtra("BorrowRequestObject", request);
@@ -247,36 +243,33 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     }
 
-    ValueEventListener valueEventListener2 = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d(TAG, "*********----->onDataChange2");
-//            l.clear();
-            if (dataSnapshot.exists()) {
-                Log.d(TAG, "*********----->exists");
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+    public void getRequest(String UID, String isbn){
+     Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests")
+        .orderByChild("isbn")
+        .equalTo(isbn);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "*********----->onDataChange2");
+                if (dataSnapshot.exists()) {
+                    Log.d(TAG, "*********----->exists");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        BorrowRequest request = snapshot.getValue(BorrowRequest.class);
+                        Display_BorrowRequest display = new Display_BorrowRequest(request);
+                        l.add(display);
 
-                    BorrowRequest request = snapshot.getValue(BorrowRequest.class);
-                    l.add(request);
-
+                    }
                 }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                Log.d(TAG, "*********----->" + l);
-                //l.add(new BorrowRequest());
-                requestAdapter.notifyDataSetChanged();
-
-                Log.d(TAG, "*********----->length" + l.size());
-//                    requestAdapter.notifyDataSetChanged();
             }
 
-        }
+        });
+    }
 
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    };
     public void setTrue() {
         this.isRequested = true;
 
@@ -294,12 +287,11 @@ public class Book_Details_Activity extends AppCompatActivity {
 
     public void listClear(){l.clear(); return;}
 
-    public void append(BorrowRequest r){l.add(r);return;}
+    public void append(Display_BorrowRequest r){l.add(r);return;}
 
     public int getLSize(){return l.size();}
 
     public void notifyRequest(){requestAdapter.notifyDataSetChanged();}
-
 
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));

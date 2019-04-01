@@ -22,9 +22,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="ca.rededaniskal.iBrary.permission.MAPS_RECEIVE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -36,18 +34,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Activities.View_Users_Library_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".Activities.Upload_Img_Activity"
             android:label="@string/title_activity_upload_img" />
-  
-        <activity android:name=".Activities.View_Pending_Exchanges_Activity"
+        <activity
+            android:name=".Activities.View_Pending_Exchanges_Activity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
              (See the file "res/values/google_maps_api.xml").
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
@@ -81,12 +82,9 @@
         <activity
             android:name=".Activities.Forum_Activity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity
             android:name=".Activities.View_Thread_Activity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Activities.Establish_Exchange_Details_Activity"
             android:label="@string/title_activity_establish_location"
@@ -112,7 +110,12 @@
             android:name=".Activities.Add_Book_To_Library_Activity"
             android:label="AddBookInstance"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.User_Details_Activity" />
+        <activity
+            android:name=".Activities.User_Details_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
         <activity android:name=".Activities.Book_Details_Activity" />
         <activity
             android:name=".Activities.Login_Activity"
