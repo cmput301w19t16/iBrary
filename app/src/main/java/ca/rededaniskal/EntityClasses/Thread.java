@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Thread implements Serializable {
+    private String threadId;
 
     private String topic;
     private String text;
@@ -65,5 +66,13 @@ public class Thread implements Serializable {
        if (comments!=null){
         return comments.size();}
         return 0;
+    }
+
+    public String getThreadId() {
+        return threadId;
+    }
+
+    public void setThreadId(String threadId) {
+        this.threadId = threadId;
     }
 }

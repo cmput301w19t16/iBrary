@@ -14,6 +14,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.View_Thread_Activity;
+import ca.rededaniskal.Database.ForumDb;
+import ca.rededaniskal.EntityClasses.Display_Thread;
 import ca.rededaniskal.EntityClasses.Thread;
 import ca.rededaniskal.R;
 
@@ -21,11 +23,13 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
 
     public static final String REPLIED = "replied";
     public Context mctx;
-    private ArrayList<Thread> threads;
+    private ArrayList<Display_Thread> threads;
+    private String ISBN;
 
-    public ForumAdapter(Context mctx, ArrayList<Thread> threads) {
+    public ForumAdapter(Context mctx, ArrayList<Display_Thread> threads, String ISBN) {
         this.mctx = mctx;
         this.threads = threads;
+        this.ISBN = ISBN;
     }
 
 
@@ -43,14 +47,18 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ForumViewHolder forumViewHolder, final int i) {
-        final Thread child_thread = threads.get(i);
+        final Display_Thread thread = threads.get(i);
+        final Thread child_thread = thread.getThread();
+        final String display_name = thread.getUsername();
 
 
         //TODO: Set profile pictures
         //profilePicture = itemView.findViewById(R.id.profilePicture);
 
+
+
         forumViewHolder.text.setText(child_thread.getText());
-        forumViewHolder.name.setText(child_thread.getCreator());
+        forumViewHolder.name.setText(display_name);
         forumViewHolder.topic.setText(child_thread.getTopic());
         if (child_thread.getComments()!=null){
         Integer numreplies = child_thread.getComments().size();
@@ -62,7 +70,8 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mctx, View_Thread_Activity.class); // TODO: change the name of this for the
-
+                intent.putExtra("isbn",ISBN);
+                intent.putExtra("display", display_name);
                 intent.putExtra("thread", child_thread);
                 mctx.startActivity(intent);
             }
@@ -90,4 +99,8 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
 
         }
     }
+
+
+
+
 }

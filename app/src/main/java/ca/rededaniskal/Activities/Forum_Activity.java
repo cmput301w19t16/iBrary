@@ -26,9 +26,9 @@ import java.util.ArrayList;
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.Database.ForumDb;
 import ca.rededaniskal.Database.MasterBookDb;
+import ca.rededaniskal.EntityClasses.Display_Thread;
 import ca.rededaniskal.EntityClasses.Thread;
 
-import ca.rededaniskal.EntityClasses.Forum;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.R;
 
@@ -45,7 +45,7 @@ public class Forum_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private RatingBar myRating, avgRating;
     private String ISBN;
-    private ArrayList<Thread> threads;
+    private ArrayList<Display_Thread> threads;
     private ForumDb fdb;
     private MasterBookDb mbdb;
 
@@ -68,13 +68,6 @@ public class Forum_Activity extends AppCompatActivity {
         myRating = findViewById(R.id.rating2);
         avgRating = findViewById(R.id.rating);
 
-        //Set the recycler view
-        recyclerView = findViewById(R.id.ViewThreads);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        forumAdapter = new ForumAdapter(this, threads);
-        recyclerView.setAdapter(forumAdapter);
-        forumAdapter.notifyDataSetChanged();
 
 
 
@@ -82,14 +75,24 @@ public class Forum_Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
         ISBN = intent.getStringExtra("isbn");
+        //Set the recycler view
+        recyclerView = findViewById(R.id.ViewThreads);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        forumAdapter = new ForumAdapter(this, threads,ISBN );
+        recyclerView.setAdapter(forumAdapter);
+        forumAdapter.notifyDataSetChanged();
+
         mbdb = new MasterBookDb();
         mbdb.get_Masterbook_for_Forum(this, ISBN);
+
         fdb = new ForumDb(this, ISBN);
-        fdb.getThreads(ISBN );
+        fdb.getThreads();
 
 
 
-        //forumAdapter.notifyDataSetChanged();
+
+        forumAdapter.notifyDataSetChanged();
         //GetAllUsersDB db = new GetAllUsersDB(this); TODO something with this
 
         //Set the Rating bars
@@ -150,8 +153,8 @@ public class Forum_Activity extends AppCompatActivity {
                             Thread newThread = new Thread(uid, textStr, topicStr);
 
 
-                           fdb.addParentThread(newThread, ISBN);
-                           fdb.syncData(ISBN);
+                           fdb.addParentThread(newThread);
+
 
 
                            // forumAdapter.notifyDataSetChanged();
@@ -175,6 +178,7 @@ public class Forum_Activity extends AppCompatActivity {
 
                 //TODO: add rating
                 mbdb.addRatingToDB(rating, ISBN);
+                mbdb.get_Masterbook_for_Forum(Forum_Activity.this, ISBN);
 
 
                 return myRating.onTouchEvent(event);
@@ -184,6 +188,7 @@ public class Forum_Activity extends AppCompatActivity {
 
     public void setMasterBook(Master_Book master_book, String UID){
         title.setText(master_book.getTitle());
+
         Float avg = master_book.getAvgRating();
         Float uRate = master_book.getUserRating(UID);
 
@@ -198,17 +203,18 @@ public class Forum_Activity extends AppCompatActivity {
 
 
     }
-    public void loadThreads(ArrayList<Thread> T){
+    public void loadThreads(ArrayList<Display_Thread> threadArrayList){
 
-        if (T!=null){threads = T;}
-        forumAdapter = new ForumAdapter(this, threads);
+        if (threadArrayList!=null){threads = threadArrayList;}
+       forumAdapter = new ForumAdapter(this, threads,ISBN );
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
 
     }
-    public void refresh(Thread thread){
-        threads.clear(); 
-        threads.add(thread);
+   /* public void refresh(Thread thread){
+
+        threads.add(0,thread);
         forumAdapter.notifyDataSetChanged();
-    }
+}
+*/
 }
