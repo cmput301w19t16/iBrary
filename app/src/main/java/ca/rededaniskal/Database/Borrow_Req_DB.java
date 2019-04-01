@@ -92,6 +92,9 @@ public class Borrow_Req_DB {
                     }
                     mcbsl.onCallback(al);
                 }
+                else{
+                    mcbsl.onCallback(new ArrayList<String>());
+                }
             }
 
             @Override

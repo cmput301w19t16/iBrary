@@ -36,7 +36,6 @@ public class BookDetailsdb{
         //Query requested = requestDb.getReference().orderByChild("bookId").equalTo(this.bookId);
         Query requested = FirebaseDatabase.getInstance().getReference("BorrowRequests")
                 .orderByChild("bookId").equalTo(bookStr);
-        Log.d("Bookstring == ", bookStr);
         requested.addListenerForSingleValueEvent(queryRequestListener);
     }
 

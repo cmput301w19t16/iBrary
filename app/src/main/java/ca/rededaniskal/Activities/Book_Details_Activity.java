@@ -72,6 +72,7 @@ public class Book_Details_Activity extends AppCompatActivity {
     TextView DisplayPosessor;
     private Book_Details_Logic logic;
     private int reqcount;
+    private boolean origReq;
 
     ImageView DisplayBookCover;
 
@@ -124,8 +125,16 @@ public class Book_Details_Activity extends AppCompatActivity {
         myCallbackBRList mcbr = new myCallbackBRList() {
             @Override
             public void onCallback(ArrayList<BorrowRequest> borrowRequests) {
-                reqcount = borrowRequests.size();
-                keepGoing();
+                //if (borrowRequests.isEmpty()) {
+                    reqcount = borrowRequests.size();
+                Log.d("Steptest 0: ", "Made it here!");
+                    keepGoing();
+
+                /*}
+                else{
+                    reqcount = 0;
+                }
+                keepGoing();*/
             }
         };
         Borrow_Req_DB brdb = new Borrow_Req_DB();
@@ -180,6 +189,7 @@ public class Book_Details_Activity extends AppCompatActivity {
                 isRequested = value;
                 continueWorking();
 
+
             }
         };
 
@@ -191,6 +201,7 @@ public class Book_Details_Activity extends AppCompatActivity {
     public void continueWorking() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
+        origReq = isRequested;
 
         //Set appropriate text for the button at the bottom
         if (isRequested) {
@@ -204,12 +215,11 @@ public class Book_Details_Activity extends AppCompatActivity {
             canReturn = true;
 
         }else if (book.getStatus().equals("Borrowed")){
-            //If book is borroed by someone other than myself
+            //If book is borrowed by someone other than myself
             Request_Cancel.setVisibility(View.INVISIBLE);
 
         }else {
             Request_Cancel.setText(R.string.request_book);
-
         }
 
         //Set On-Click listeners
@@ -240,7 +250,7 @@ public class Book_Details_Activity extends AppCompatActivity {
                 if (isRequested){
                     Request_Cancel.setText(R.string.request_book);
                     isRequested = false;
-                    if (reqcount < 2){
+                    if (reqcount < 2 && origReq){
                         DisplayStatus.setText("Available");
                     }
 
