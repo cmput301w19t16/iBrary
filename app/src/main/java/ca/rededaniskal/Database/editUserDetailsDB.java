@@ -1,5 +1,6 @@
 package ca.rededaniskal.Database;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.rededaniskal.Activities.Edit_Profile_Activity;
+import ca.rededaniskal.Activities.View_My_Library_Activity;
 import ca.rededaniskal.EntityClasses.User;
 
 import static android.content.ContentValues.TAG;
