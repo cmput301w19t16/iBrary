@@ -35,9 +35,6 @@ public class Search_Books_Db {
         masterBookDb = new MasterBookDb();
         searchlist = new ArrayList<>();
 
-
-
-
     }
 
     public Search_Books_Db(Search_Fragment p, String e) {
@@ -48,34 +45,8 @@ public class Search_Books_Db {
         masterBookDb = new MasterBookDb();
         searchlist = new ArrayList<>();
 
-
     }
-/*
-    public void setParentView() {
-        query = masterBookDb.getReference().limitToFirst(100);
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-
-                    for (DataSnapshot d : dataSnapshot.getChildren()) {
-                        searchlist.add(d.getValue(Master_Book.class));
-
-
-                    }
-                    parent.update_books(searchlist);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-    */
     public void queryData() {
 
 

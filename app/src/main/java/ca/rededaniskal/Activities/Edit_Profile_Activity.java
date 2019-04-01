@@ -50,6 +50,8 @@ import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Photos;
 import ca.rededaniskal.Database.Users_DB;
+import ca.rededaniskal.EntityClasses.Master_Book;
+
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -131,7 +133,9 @@ public class Edit_Profile_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 User use = getTexts();
                 db.uniqueUserName(use);
-                finish();
+
+                Intent i = new Intent(Edit_Profile_Activity.this, Main_Activity.class);
+                startActivity(i);
             }
         });
 
@@ -221,6 +225,10 @@ public class Edit_Profile_Activity extends AppCompatActivity {
 
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));
+    }
+
+    public void nextActivity(){
+        this.finish();
     }
 
 }

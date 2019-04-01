@@ -38,7 +38,7 @@
                 android:id="@+id/Title"
                 android:layout_width="66dp"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorBackgroundFloating"
+
                 android:padding="1dip"
                 android:text="@string/book_title"
                 android:textColor="#000"
@@ -64,7 +64,7 @@
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+
                 android:padding="1dip"
                 android:text="@string/author"
                 android:textColor="#000"
@@ -90,7 +90,7 @@
                 android:id="@+id/ISBN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+
                 android:padding="1dip"
                 android:text="@string/isbn"
                 android:textColor="#000"
@@ -115,7 +115,6 @@
                 android:id="@+id/scan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
                 android:padding="1dip"
                 android:text="@string/take_scan"
                 android:textColor="#000"

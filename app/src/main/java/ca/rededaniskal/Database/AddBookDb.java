@@ -39,7 +39,6 @@ public class AddBookDb {
             this.instancedb = new BookInstanceDb();
             this.mbCoverURL = url;
             update();
-
         }
 
 
@@ -48,7 +47,6 @@ public class AddBookDb {
             mb = new Master_Book(book_instance.getTitle(), book_instance.getAuthor(), book_instance.getISBN());
             mb.setGoogleCover(mbCoverURL);
             masterdb.addMasterBook(mb);
-
         }
 
 
@@ -60,6 +58,5 @@ public class AddBookDb {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
             String key = book_instance.getBookID();
             mDatabase.child(key).setValue(book_instance);
-
         }
-    }
+}

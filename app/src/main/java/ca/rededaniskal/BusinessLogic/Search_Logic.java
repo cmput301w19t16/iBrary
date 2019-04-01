@@ -20,31 +20,22 @@ public class Search_Logic {
 
     String orderby;
 
-
     Search_Books_Db db;
     ArrayList<Master_Book> bookList;
     HashSet<String> isbns;
 
 
-
-
-
     public Search_Logic(Search_Fragment p, ArrayList<Integer> chosen, String search_string) {
         parent = p;
         bookList = new ArrayList<>();
-        isbns =new HashSet<>();
+        isbns = new HashSet<>();
 
-
-
-
-
-        //equalArray = search_string.split("[\\p{Punct}\\s]+");
-        //for (String s : equalArray) {
         for (int i : chosen) {
             setOrderby(i);
             db = new Search_Books_Db(parent,orderby, search_string );
             db.queryData();
             }
+
         String[] each = search_string.split("\\s+");
         for(String s: each){
             if (chosen.contains(0)){
@@ -57,10 +48,6 @@ public class Search_Logic {
 
             }
         }
-
-
-
-
     }
 
 public void setOrderby(int i){
@@ -79,8 +66,6 @@ public void setOrderby(int i){
         case 3:
             orderby = "owner";
             break;
-
-
     }
 
 }
