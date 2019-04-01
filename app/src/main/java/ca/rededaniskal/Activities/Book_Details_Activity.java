@@ -285,6 +285,10 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayOwner.setText(username);
     }
 
+    public void setUsernameBorrower(String username){
+        DisplayPosessor.setText(username);
+    }
+
     public String getBookISBN(){return book.getISBN();}
 
     public void listClear(){l.clear(); return;}
