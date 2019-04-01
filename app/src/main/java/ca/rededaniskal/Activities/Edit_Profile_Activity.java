@@ -45,7 +45,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
+import ca.rededaniskal.BusinessLogic.LoadImage;
+import ca.rededaniskal.BusinessLogic.myCallbackUser;
+import ca.rededaniskal.Database.BookInstanceDb;
+import ca.rededaniskal.Database.Photos;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Master_Book;
+
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -65,6 +71,7 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     EditText newUsername, newPhone, newEmail, newLocation,
             oldPassword, newPassword, confirmNewPassword;
     private editUserDetailsDB db;
+    private Bitmap myBitCover;
 
     //For Camera
     private static final int CAMERA_REQUEST = 1888;
@@ -75,8 +82,8 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            profilePicture.setImageBitmap(photo);
+           myBitCover = (Bitmap) data.getExtras().get("data");
+            profilePicture.setImageBitmap(myBitCover);
         }
     }
 
@@ -99,15 +106,34 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         oldPassword = findViewById(R.id.old_pass);
         newPassword = findViewById(R.id.new_pass);
         confirmNewPassword = findViewById(R.id.confirm_pass);
+        //removePic = findViewById(R.id.removePic);
+
         db = new editUserDetailsDB(this);
         if (db.getFailed()){returnToLogin();}
 
+        Users_DB usersDb = new Users_DB();
+
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(profilePicture);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
+
+        BookInstanceDb bookInstanceDb = new BookInstanceDb();
+        String uid = bookInstanceDb.getUID();
+        usersDb.getUser(uid, myCallbackUser);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User use = getTexts();
                 db.uniqueUserName(use);
+
                 Intent i = new Intent(Edit_Profile_Activity.this, Main_Activity.class);
                 startActivity(i);
             }
@@ -126,6 +152,13 @@ public class Edit_Profile_Activity extends AppCompatActivity {
                 }
             }
         });
+
+        /*removePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
     }
 
     public void userNameTaken(){
@@ -144,9 +177,13 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         String phone = p.getText().toString();
         String location = l.getText().toString();
         String username = u.getText().toString();
+
         Log.d(TAG, "*********----->LEAVING getTexts");
 
         User user = new User(username, email, phone, location);
+
+        Photos photos = new Photos();
+        photos.bitmapToURLUser(myBitCover, user);
 
         return user;
 
@@ -193,4 +230,5 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     public void nextActivity(){
         this.finish();
     }
+
 }

@@ -16,7 +16,6 @@ public class User implements Serializable {
     private Book_List requestedBooks;
     private ArrayList<User> blockedUsers;
     private int followerCount;
-    private String urlProfilePic;
 
     private Master_Book favBook;
 
@@ -31,6 +30,7 @@ public class User implements Serializable {
         this.email = email;
         this.location = location;
         this.phoneNumber = "Not Provided";
+
 
         this.friends = new ArrayList<User>();
         this.ownedBooks = new Book_List();

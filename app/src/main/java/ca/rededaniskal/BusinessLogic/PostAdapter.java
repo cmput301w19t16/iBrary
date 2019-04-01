@@ -19,7 +19,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
+import ca.rededaniskal.Database.BookInstanceDb;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Post;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>{
@@ -55,7 +58,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
      * @param i                 position of Entry in list
      */
     @Override
-    public void onBindViewHolder(@NonNull PostViewHolder  postViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final PostViewHolder  postViewHolder, final int i) {
         final Post post = posts.get(i);
 
         //Set the book attributes
@@ -63,6 +66,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         postViewHolder.title.setText(post.getISBN());
         postViewHolder.topic.setText(post.getTopic());
         postViewHolder.text.setText(post.getText());
+
+        Users_DB usersDb = new Users_DB();
+
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(postViewHolder.userPic);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
+
+        BookInstanceDb bookInstanceDb = new BookInstanceDb();
+        String uid = bookInstanceDb.getUID();
+        usersDb.getUser(uid, myCallbackUser);
 
         //if User clicks on a Book, will start the book details Activity
         postViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +111,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
      */
     class PostViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        ImageView userPic;
         TextView user, title, topic, text;
         /**
          * Instantiates a new Entry view holder.
@@ -104,6 +124,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             title = itemView.findViewById(R.id.Title);
             topic = itemView.findViewById(R.id.topic);
             text = itemView.findViewById(R.id.text);
+            userPic = itemView.findViewById(R.id.PostPic);
         }
     }
 }
