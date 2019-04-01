@@ -61,6 +61,7 @@ public class Read_Notification_DB {
                     Log.d(ContentValues.TAG, "*********----->exists");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Notification notification = snapshot.getValue(Notification.class);
+                        Log.d(ContentValues.TAG, "*********----->notification: "+ notification.getSender());
                         notiList.add(notification);
                     }
                     parent.addAndUpdate(notiList);

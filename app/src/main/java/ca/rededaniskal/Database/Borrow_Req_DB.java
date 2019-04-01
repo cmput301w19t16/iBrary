@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.myCallbackBRList;
@@ -202,5 +203,29 @@ public class Borrow_Req_DB {
             }
         };
         getBRKeys(bookId, senderId, mcbsl);
+    }
+
+    public void getUsersSentRequests(String uid, final myCallbackBRList mcbr){
+        Query query = mDatabase.child("BorrowRequests").orderByChild("senderUID").equalTo(uid);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ArrayList<BorrowRequest> brl = new ArrayList<>();
+                    for (DataSnapshot snap : dataSnapshot.getChildren()){
+                        brl.add(snap.getValue(BorrowRequest.class));
+                    }
+                    mcbr.onCallback(brl);
+                }
+                else{
+                    mcbr.onCallback(new ArrayList<BorrowRequest>());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(ContentValues.TAG, "WE GOOFED UP BUDDY");
+            }
+        });
     }
 }
