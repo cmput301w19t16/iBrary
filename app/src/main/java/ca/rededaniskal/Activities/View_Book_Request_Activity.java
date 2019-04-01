@@ -44,6 +44,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
     private String currentUID;
     private boolean returning;
     private TableRow userPicRow, userNameRow,bookCoverRow,titleRow, authorRow;
+    private ImageView bookPic;
 
     private ImageView profilePic;
 
@@ -93,6 +94,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         titleRow.setOnClickListener(bookListener);
         authorRow.setOnClickListener(bookListener);
         bookCoverRow.setOnClickListener(bookListener);
+        bookPic = findViewById(R.id.BookCover);
 
 
         userNameRow = findViewById(R.id.userNameRow);
@@ -114,6 +116,10 @@ public class View_Book_Request_Activity extends AppCompatActivity {
             public void onCallback(Book_Instance book_instance) {
                 book = book_instance;
                 fillBookField();
+                if(book.getCover() != null || book.getCover() != ""){
+                    LoadImage loader = new LoadImage(bookPic);
+                    loader.execute(book.getCover());
+                }
             }
         };
         bidb.getBookInstance(currentUID, bookID, mcbbi);
@@ -138,6 +144,8 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         };
 
         usersDb.getUser(uid, myCallbackUser);
+
+
 
 
 
