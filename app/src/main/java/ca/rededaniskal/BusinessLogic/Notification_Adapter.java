@@ -23,6 +23,7 @@ import ca.rededaniskal.Activities.Fragments.Notifications_Fragment;
 import ca.rededaniskal.Activities.User_Details_Activity;
 import ca.rededaniskal.Activities.View_Book_Request_Activity;
 import ca.rededaniskal.Activities.View_Exchange_Details_Activity;
+import ca.rededaniskal.Database.BookExchangeDb;
 import ca.rededaniskal.Database.BorrowRequestDb;
 import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.Database.Write_Notification_DB;
@@ -127,6 +128,17 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         if (ntype.equals("Book Request Accepted") || ntype.equals("Return_Request")) {
             //TODO: get book exchange from db.
             //given a notification, retrieve the bookexchange
+            BookExchangeDb bedb = new BookExchangeDb();
+            myCallbackBookExchange mcbbe = new myCallbackBookExchange() {
+                @Override
+                public void onCallback(Book_Exchange be) {
+                    book_exchange = be;
+                    addCard(holder, position);
+                    setCardValues(holder, position);
+                }
+            };
+
+            bedb.getBookExchange(notification.getRequestID(), mcbbe);
 
         }
         else if (ntype.equals("Book Requested")){
