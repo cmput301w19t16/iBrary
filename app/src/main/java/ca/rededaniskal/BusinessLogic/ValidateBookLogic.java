@@ -61,6 +61,23 @@ public class ValidateBookLogic {
 
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+
+
+    public String getAuthor() {
+        return author;
+    }
+
+
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+
 
     //Validate the title of the new book, ensures
     public boolean validateTitle() {

@@ -191,18 +191,18 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 // view is refreshed
                 getInfo();
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                if (alreadyGotBookInfoAPI == false && asyncTask.isCancelled()) {
-                    asyncTask.execute(ISBN);
-                }
+
+
 
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
-                bi = new Book_Instance(Title, Author, ISBN, userID, userID, "Good", "Available");
-
 
 
 
                 String error_m = businessLogic.isValid();
                 if (error_m.equals("")) {
+                    bi = new Book_Instance(businessLogic.getTitle(), businessLogic.getAuthor(), businessLogic.getISBN(), userID, userID, "Good", "Available");
+
+
 
                     Photos photos = new Photos();
                     if (personalCover) {
@@ -216,8 +216,10 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(Add_Book_To_Library_Activity.this, error_m, Toast.LENGTH_SHORT).show();
-                    asyncTask.cancel(true);
+
+
+                    Toast.makeText(Add_Book_To_Library_Activity.this, error_m, Toast.LENGTH_SHORT);
+
                     authorHint = businessLogic.getAuthorError();
                     titleHint = businessLogic.getTitleError();
                     isbnHint = businessLogic.getISBNError();

@@ -83,6 +83,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             public void onCallback(User user) {
                 String urlProfilePic = user.getProfilePic();
                 if(urlProfilePic != null){
+                    Log.d("USER PROFILE PICTURE", "WE ARE HERE");
                     LoadImage loader = new LoadImage(holder.userPic);
                     loader.execute(urlProfilePic);
                 }

@@ -70,6 +70,9 @@ public class Borrow_Req_DB {
                             mcbrl.onCallback(brl);
 
                         }
+                        else{
+                            mcbrl.onCallback(new ArrayList<BorrowRequest>());
+                        }
                     }
 
                     @Override
@@ -93,6 +96,9 @@ public class Borrow_Req_DB {
                         al.add(snapshot.getKey());
                     }
                     mcbsl.onCallback(al);
+                }
+                else{
+                    mcbsl.onCallback(new ArrayList<String>());
                 }
             }
 
