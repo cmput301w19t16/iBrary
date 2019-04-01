@@ -18,7 +18,8 @@ public class EditBookDb {
     }
 
     public boolean EditBookData(Book_Instance bookInstance) throws NullPointerException{
-
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
+        mDatabase.child(bookInstance.getBookID()).setValue(bookInstance);
         return bookInstanceDb.currentUserBooklist()
                 .child(bookInstance.getBookID())
                 .setValue(bookInstance)
