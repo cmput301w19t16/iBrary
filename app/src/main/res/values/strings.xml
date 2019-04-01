@@ -146,5 +146,6 @@
     <string name="text">text</string>
     <string name="in_posession_of">In posession of</string>
     <string name="go_home">Go Home</string>
+    <string name="view_library">View Library</string>
 
 </resources>

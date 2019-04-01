@@ -15,11 +15,9 @@ package ca.rededaniskal.Activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -86,7 +84,7 @@ public class Edit_Book_Instance_Activity extends AppCompatActivity {
         delete = findViewById(R.id.delete);
         removeCover = findViewById(R.id.removePic);
 
-        cover = findViewById(R.id.BookCover);
+        cover = findViewById(R.id.pic);
 
         editTitle.setText(book.getTitle());
         editAuthor.setText(book.getAuthor());

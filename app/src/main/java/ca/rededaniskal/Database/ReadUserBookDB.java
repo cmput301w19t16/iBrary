@@ -1,9 +1,12 @@
 package ca.rededaniskal.Database;
+//Created by Revan on 2019-04-01
+
 
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,60 +16,66 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import ca.rededaniskal.Activities.View_All_Books_Activity;
+import ca.rededaniskal.Activities.View_Users_Library_Activity;
 import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.Book_List;
+import ca.rededaniskal.Activities.View_My_Library_Activity;
 import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.EntityClasses.User;
 
-import static android.content.ContentValues.TAG;
+public class ReadUserBookDB {
 
-public class getAllBooks {
-    private View_All_Books_Activity parent;
-
+    private BookInstanceDb bookInstanceDb;
+    private String TAG;
+    private String uid;
+    private View_Users_Library_Activity parent;
     private Display_Username display;
     private ArrayList<Display_Username> book_list;
 
-    public getAllBooks(View_All_Books_Activity parent, String ISBN) {
-        Log.d(TAG, "*********----->AllBooks");
-        this.parent = parent;
-        getUserQuery(ISBN);
+    public ReadUserBookDB(View_Users_Library_Activity p, String uid){
+        Log.d(TAG, "**************---> In ReadMyBookDB");
+        parent = p;
+        this.uid = uid;
+        bookInstanceDb =new BookInstanceDb();
+        update();
+
     }
 
-    private void getUserQuery(String ISBN) {
-        Query q = FirebaseDatabase.getInstance().getReference("all-books").orderByChild("isbn").equalTo(ISBN);
-        q.addListenerForSingleValueEvent(valueEventListener);
+    public void update(){
+        Log.d(TAG, "**************---> In update");
+        bookInstanceDb.getReference().child(uid).addListenerForSingleValueEvent(valueEventListener);
     }
 
 
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d(TAG, "*********----->All Books Data change");
-            if (dataSnapshot.exists()) {
-                Log.d(TAG, "*********----->exists");
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            Log.d(TAG, "**************---> In OnDataChange");
+            if (dataSnapshot.exists()){
                 book_list = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Book_Instance book = snapshot.getValue(Book_Instance.class);
-                    Log.d(TAG, "*********----->Got this book: " + book.getTitle());
-                    display = new Display_Username(book);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Book_Instance book_instance = snapshot.getValue(Book_Instance.class);
+                    Log.d(TAG, "**************--->"+book_instance.getOwner());
+                    display = new Display_Username(book_instance);
                     book_list.add(display);
                 }
                 getUsernameOwner();
+
             }
         }
 
 
         @Override
-        public void onCancelled(DatabaseError databaseError) {
-
+        public void onCancelled(@NonNull DatabaseError databaseError) {
         }
     };
 
-    private void getUsernameOwner() {
-        for (int i = 0; i < book_list.size(); i++) {
+    private void getUsernameOwner(){
+        Log.d(TAG, "**************---> In getUsernameOwner");
+        for(int i = 0; i < book_list.size();i++) {
             final int j = i;
-            final Display_Username dis = book_list.get(i);
-            final Book_Instance bk = dis.getBook();
+            final Display_Username display = book_list.get(i);
+            final Book_Instance bk = display.getBook();
             String UID = bk.getOwner();
             Query query = FirebaseDatabase.getInstance().getReference("Users")
                     .orderByChild("uid")
@@ -79,10 +88,10 @@ public class getAllBooks {
                         Log.d(ContentValues.TAG, "*********----->exists");
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             User user = snapshot.getValue(User.class);
-                            dis.setOwner(user.getUserName());
-                            book_list.set(j, dis);
-
+                            display.setOwner(user.getUserName());
+                            book_list.set(j, display);
                         }
+                        getBorrowerUsername();
                     }
                 }
 
@@ -91,16 +100,16 @@ public class getAllBooks {
 
                 }
             });
-
         }
-        getBorrowerUsername();
+
     }
 
-    private void getBorrowerUsername() {
-        for (int i = 0; i < book_list.size(); i++) {
+    private void getBorrowerUsername(){
+        Log.d(TAG, "**************---> In getBorrowerUsername");
+        for(int i = 0; i < book_list.size();i++) {
             final int j = i;
-            final Display_Username dis = book_list.get(i);
-            final Book_Instance bk = dis.getBook();
+            final Display_Username display = book_list.get(i);
+            final Book_Instance bk = display.getBook();
             String UID = bk.getPossessor();
             Query query = FirebaseDatabase.getInstance().getReference("Users")
                     .orderByChild("uid")
@@ -113,10 +122,11 @@ public class getAllBooks {
                         Log.d(ContentValues.TAG, "*********----->exists");
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             User user = snapshot.getValue(User.class);
-                            dis.setBorrower(user.getUserName());
-                            book_list.set(j, dis);
+                            display.setBorrower(user.getUserName());
+                            book_list.set(j, display);
                         }
-                        parent.addBook(book_list);
+                        Log.d(TAG, "BOOKLIST OWNER: "+ book_list.get(0).getOwner());
+                        parent.updateBookView(book_list);
                     }
                 }
 
@@ -126,5 +136,6 @@ public class getAllBooks {
                 }
             });
         }
+
     }
 }

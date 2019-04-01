@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.myCallbackBIList;
 import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.Book;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
@@ -54,6 +55,7 @@ public class BookInstanceDb extends Entity_Database {
         });
     }
 
+
     public void getListOfBooks(final ArrayList<String> bookIdList, final myCallbackBIList mcbl){
         Query query = FirebaseDatabase.getInstance().getReference("all-books");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -65,6 +67,39 @@ public class BookInstanceDb extends Entity_Database {
                         instanceList.add(dataSnapshot.child(br).getValue(Book_Instance.class));
                     }
                     mcbl.onCallback(instanceList);
+                }
+                else{
+                    mcbl.onCallback(new ArrayList<Book_Instance>());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(ContentValues.TAG, "WE GOOFED UP BUDDY");
+            }
+        });
+    }
+
+    public void getUsersBorrowedBooks(final String uid, final myCallbackBIList mcbi){
+        Query query = FirebaseDatabase.getInstance().getReference("all-books")
+                .orderByChild("possessor").equalTo(uid);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.d( "onDataChange: ", "datasnapshot exists!");
+                    ArrayList<Book_Instance> instanceList = new ArrayList<>();
+                    for (DataSnapshot snap : dataSnapshot.getChildren()){
+                        if (!(uid.equals(snap.child("owner").getValue(String.class)))){
+                            instanceList.add(snap.getValue(Book_Instance.class));
+                        }
+                    }
+
+                    mcbi.onCallback(instanceList);
+                }
+                else{
+                    Log.d( "onDataChange: ", "datasnapshot does not exist!");
+                    mcbi.onCallback(new ArrayList<Book_Instance>());
                 }
             }
 

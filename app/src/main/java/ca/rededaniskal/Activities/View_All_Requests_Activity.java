@@ -52,9 +52,6 @@ public class View_All_Requests_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //TODO: DB load the libary of requested books for the current user
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__all__requests_);
 
@@ -62,10 +59,7 @@ public class View_All_Requests_Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Testing purposes
-        requestList.add(new BorrowRequest("Daniela", "Nick", "9780590353427", "123456"));
 
-//        adapter = new BorrowRequestAdapter(this, requestList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

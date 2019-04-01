@@ -12,6 +12,7 @@
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,8 +21,11 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import ca.rededaniskal.BusinessLogic.LoadImage;
+import ca.rededaniskal.BusinessLogic.myCallbackUser;
 import ca.rededaniskal.Database.Follow_DB;
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -50,6 +54,8 @@ public class User_Details_Activity extends AppCompatActivity {
     private Follow_DB fdb;
     private boolean isFollowing;
 
+    private Button viewBooks;
+
     private Button Follow_or_unfollow;
     private myCallbackBool mcb;
 
@@ -66,9 +72,31 @@ public class User_Details_Activity extends AppCompatActivity {
         user_received = (User) intent.getSerializableExtra("user");
         fillData(user_received);
 
+        viewBooks = findViewById(R.id.ViewBooks);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(user_received.getUserName());
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         swapping = false;
+
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(UserPic);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
+
+        Users_DB usersDb = new Users_DB();
+
+        String uid =  user_received .getUID();
+        usersDb.getUser(uid, myCallbackUser);
 
         mcb = new myCallbackBool() {
             @Override
@@ -102,6 +130,15 @@ public class User_Details_Activity extends AppCompatActivity {
             }
         });
 
+        viewBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(User_Details_Activity.this, View_Users_Library_Activity.class);
+                intent.putExtra("user", user_received);
+                startActivity(intent);
+            }
+        });
+
     }
 
         public void fillData(User user) {
@@ -113,7 +150,7 @@ public class User_Details_Activity extends AppCompatActivity {
         DisplayTotalFollowers = (TextView) findViewById(R.id.UserMutualFriends);
 
 
-        UserPic = (ImageView) findViewById(R.id.BookCover);
+        UserPic = (ImageView) findViewById(R.id.pic);
 
 
         String username = user.getUserName();
