@@ -15,9 +15,13 @@ import java.util.LinkedHashSet;
 
 import ca.rededaniskal.Activities.Forum_Activity;
 import ca.rededaniskal.Activities.View_Thread_Activity;
+
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 
 
+
+import ca.rededaniskal.BusinessLogic.myCallBackString;
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.Comment;
 import ca.rededaniskal.EntityClasses.Display_Comment;
 import ca.rededaniskal.EntityClasses.Display_Thread;
@@ -85,7 +89,6 @@ public class ForumDb extends Entity_Database  {
 
         Follow_DB follow_db = new Follow_DB();
         follow_db.getFollowers(thread.getCreator(),muidList);
-        getThreads();
 
 
     }
@@ -120,7 +123,7 @@ public class ForumDb extends Entity_Database  {
                 for (DataSnapshot d: dataSnapshot.getChildren()){
                     Thread thread =   d.getValue(Thread.class);
 
-                    getReference().child(ISBN).child(d.getKey()).keepSynced(true);
+
                     threads.add(thread);
                 }
 

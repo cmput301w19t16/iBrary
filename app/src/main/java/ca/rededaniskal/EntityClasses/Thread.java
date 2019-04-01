@@ -3,6 +3,7 @@ package ca.rededaniskal.EntityClasses;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Thread implements Serializable {
     private String threadId;
@@ -14,6 +15,23 @@ public class Thread implements Serializable {
 
     //required no argument constructor
     public Thread(){}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Thread thread = (Thread) o;
+        return Objects.equals(threadId, thread.threadId) &&
+                Objects.equals(topic, thread.topic) &&
+                Objects.equals(text, thread.text) &&
+                Objects.equals(creator, thread.creator) &&
+                Objects.equals(comments, thread.comments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(threadId);
+    }
 
     public Thread(String creator, String text, String topic){
         this.text = text;
