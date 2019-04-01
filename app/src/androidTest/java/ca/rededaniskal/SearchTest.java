@@ -3,6 +3,8 @@ package ca.rededaniskal;
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
+import android.widget.EditText;
 
 import com.robotium.solo.Solo;
 
@@ -11,8 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import ca.rededaniskal.Activities.Add_Book_To_Library_Activity;
 import ca.rededaniskal.Activities.Main_Activity;
-import ca.rededaniskal.Activities.User_Details_Activity;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static junit.framework.TestCase.assertTrue;
@@ -20,11 +22,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class AlertTest extends ActivityTestRule<Main_Activity> {
+public class SearchTest extends ActivityTestRule<Main_Activity> {
 
     private Solo solo;
 
-    public AlertTest() {
+    public SearchTest() {
         super(Main_Activity.class);
     }
 
@@ -44,10 +46,14 @@ public class AlertTest extends ActivityTestRule<Main_Activity> {
     }
 
     @Test
-    public void checkAlert() {
+    public void testSearch() {
         solo.assertCurrentActivity("Wrong activity", Main_Activity.class);
-        solo.clickOnText("Alerts");
-        solo.clickOnText("Revan");
-        solo.assertCurrentActivity("Wrong activity", User_Details_Activity.class);
+        solo.clickOnText("Search");
+        solo.clickOnButton("Search By");
+        solo.clickOnText("Title");
+        solo.clickOnText("OK");
+        View searchBtn = solo.getView(R.id.fragmentSearchView);
+        solo.clickOnView(searchBtn);
+
     }
 }

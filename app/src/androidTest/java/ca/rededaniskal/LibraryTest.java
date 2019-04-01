@@ -54,9 +54,17 @@ public class LibraryTest extends ActivityTestRule<View_My_Library_Activity> {
     @Test
     public void checkBook() {
         solo.assertCurrentActivity("Wrong activity", View_My_Library_Activity.class);
-        solo.clickOnText("HappyPotter");
+        solo.clickOnText("Introduction");
         solo.assertCurrentActivity("Wrong activity", Book_Details_Activity.class);
     }
 
+    @Test
+    public void filterTest() {
+        solo.assertCurrentActivity("Wrong activity", View_My_Library_Activity.class);
+        solo.clickOnButton("Filter By");
+        solo.clickOnText("Requested");
+        solo.clickOnText("OK");
+        assertFalse(solo.waitForText("Introduction"));
+    }
 
 }
