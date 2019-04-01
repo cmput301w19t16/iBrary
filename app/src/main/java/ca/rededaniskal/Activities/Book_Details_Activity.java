@@ -181,9 +181,9 @@ public class Book_Details_Activity extends AppCompatActivity {
             //If book is borroed by someone other than myself
             Request_Cancel.setVisibility(View.INVISIBLE);
 
-        } else if (book.getPossessor().equals(uid)){
+        } if (book.getPossessor().equals(uid) && !book.getOwner().equals(uid)){
             //If i am the one in possession of book but not the owner
-
+            Request_Cancel.setVisibility(View.VISIBLE);
             Request_Cancel.setText("Return This Book");
             canReturn = true;
 

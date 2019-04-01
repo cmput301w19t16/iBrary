@@ -95,7 +95,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
 
                 /* On accepted, all other requests are deleted except the accepted, which
                 Which is passed to the Establish_Exchange_Details_Activity */
-                list.remove(holder.getAdapterPosition());
+                list.remove(i);
                 deleteRemainingRequests();
 
                 Intent intent = new Intent(mctx,Establish_Exchange_Details_Activity.class);
