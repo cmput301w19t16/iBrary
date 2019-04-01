@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
@@ -212,9 +213,8 @@ public class Forum_Activity extends AppCompatActivity {
         for(int i = 0; i <threads.size();i++){
             Log.d("loadThreads", ": " + threads.get(i).getThread().getThreadId());
         }
-
+        Collections.reverse(threads);
         forumAdapter = new ForumAdapter(this, threads,ISBN );
-
         recyclerView.setAdapter(forumAdapter);
         forumAdapter.notifyDataSetChanged();
     }
