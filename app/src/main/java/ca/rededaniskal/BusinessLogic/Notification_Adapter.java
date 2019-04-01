@@ -10,6 +10,7 @@ package ca.rededaniskal.BusinessLogic;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ import static android.view.View.GONE;
 public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adapter.Notification_View_Holder> {
     private ArrayList<Notification> mDataset;
     public Notifications_Fragment fragment;
-    private Notification notification;
+
     //private String titleText;
 
 
@@ -49,6 +50,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         private Intent intent;
         private Exchange book_exchange;
         private BorrowRequest borrowRequest;
+        private Notification notification;
 
         private User user;
         private User currentUser;
@@ -86,10 +88,10 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     @Override
     public void onBindViewHolder(final Notification_View_Holder holder, final int position){
         // Binds an item to the view
-        notification = mDataset.get(position);
+        holder.notification = mDataset.get(position);
         removeCard(holder, position);
 
-        holder.uid = notification.getUserID();
+        holder.uid = holder.notification.getUserID();
         holder.udb = new Users_DB();
 
         holder.mcbu = new myCallbackUser() {
@@ -102,7 +104,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
         holder.udb.getUser(holder.uid, holder.mcbu);
 
-        if (!notification.getSeen()){
+        if (!holder.notification.getSeen()){
             holder.newAlertStar.setRating(1);
         }
         else{
@@ -110,7 +112,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         }
 
         //set the text of the notification based on the type
-        holder.requestType = notification.getRequestType();
+        holder.requestType = holder.notification.getRequestType();
     }
 
     private void getSenderUser(final Notification_View_Holder holder, final int position) {
@@ -122,11 +124,12 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                 getCardValues(holder, position);
             }
         };
-        udb.getUser(notification.getSender(), mcbu);
+        udb.getUser(holder.notification.getSender(), mcbu);
     }
 
     private void getCardValues(final Notification_View_Holder holder, final int position){
-        String ntype = notification.getRequestType();
+        String ntype = holder.notification.getRequestType();
+        Log.d("This notification's id is: ", holder.notification.getRequestID());
         if (ntype.equals("Book Request Accepted") || ntype.equals("Return_Request")) {
             //TODO: get book exchange from db.
             //given a notification, retrieve the bookexchange
@@ -140,7 +143,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                 }
             };
 
-            bedb.getBookExchange(notification.getRequestID(), mcbbe);
+            bedb.getBookExchange(holder.notification.getRequestID(), mcbbe);
         }
         else if (ntype.equals("Book Requested")){
             BorrowRequestDb brdb = new BorrowRequestDb();
@@ -152,7 +155,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                     setCardValues(holder, position);
                 }
             };
-            brdb.getBookRequest(notification.getRequestID(), mcbr);
+            brdb.getBookRequest(holder.notification.getRequestID(), mcbr);
         }
         else if (ntype.equals("Friend Request")){
             addCard(holder, position);
@@ -173,7 +176,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     private void setCardValues(final Notification_View_Holder holder, final int position){
         String titleText = holder.user.getUserName();
 
-        switch (notification.getRequestType()){
+        switch (holder.notification.getRequestType()){
             case "Book Request Accepted":
                 titleText += " accepted your book request.";
                 holder.intent = new Intent(fragment.getActivity(), View_Exchange_Details_Activity.class);

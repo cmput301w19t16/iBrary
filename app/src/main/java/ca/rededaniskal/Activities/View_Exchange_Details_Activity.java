@@ -154,9 +154,7 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
 
 
     private void setBookInfo(){
-        title.setText( book.getBookID()); //TODO: get title from dp
-
-        borrower.setText(exchange.getBorrower());
+        title.setText( book.getTitle());
     }
 
     @Override
