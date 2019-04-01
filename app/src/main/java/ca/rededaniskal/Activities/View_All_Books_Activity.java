@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.BookAdapter;
+import ca.rededaniskal.BusinessLogic.Filter_My_Books_Logic;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Get_All_Books_Data;
 import ca.rededaniskal.Database.getAllBooks;
@@ -49,12 +50,16 @@ public class View_All_Books_Activity extends AppCompatActivity {
     private BookAdapter bookAdapter;
     private ArrayList<Display_Username> BL;
     private  String ISBN;
+    private ArrayList<Integer> AvOrRe;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__all__books_);
+        AvOrRe = new ArrayList<>();
+        AvOrRe.add(1);
+        AvOrRe.add(0);
 
         Intent intent = getIntent();
 
@@ -83,7 +88,10 @@ public class View_All_Books_Activity extends AppCompatActivity {
 
     }
 
-    public void addBook(ArrayList<Display_Username> book_list){
+    public void addBook(ArrayList<Display_Username> book_List){
+
+
+        ArrayList <Display_Username> book_list =new Filter_My_Books_Logic(AvOrRe, book_List).newBooks();
         bookAdapter = new BookAdapter(this, book_list);
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
