@@ -17,10 +17,11 @@ import ca.rededaniskal.EntityClasses.Master_Book;
 
 
 public class MasterBookDb extends Entity_Database {
-    DatabaseReference mainRef = db.getReference(References.MASTERBOOK.reference());
-    DatabaseReference authorindexRef = db.getReference(References.INDICESAUTHOR.reference());
-    DatabaseReference titleindexRef = db.getReference(References.INDICESTITLE.reference());
-    Master_Book mb;
+    private DatabaseReference mainRef = db.getReference(References.MASTERBOOK.reference());
+    private DatabaseReference authorindexRef = db.getReference(References.INDICESAUTHOR.reference());
+    private DatabaseReference titleindexRef = db.getReference(References.INDICESTITLE.reference());
+    private Master_Book mb;
+    private ArrayList<String> IllegalString;
 
 
 
@@ -28,6 +29,12 @@ public class MasterBookDb extends Entity_Database {
 
     public MasterBookDb() {
         super();
+        IllegalString.add("#");
+        IllegalString.add("]");
+        IllegalString.add(".");
+        IllegalString.add("$");
+        IllegalString.add("[");
+
     }
 
     @Override
@@ -60,8 +67,11 @@ public class MasterBookDb extends Entity_Database {
 
 
         DatabaseReference index = db.getReference(References.INDICESAUTHOR.reference());
-        for (String key: keywords){
-            key = key.toLowerCase();
+        for (String key1: keywords){
+            String key = key1.toLowerCase();
+            for (String item: IllegalString){
+                key.replaceAll(item, "");
+            }
 
                     index.child(key).setValue(isbn);
             }
@@ -70,8 +80,11 @@ public class MasterBookDb extends Entity_Database {
 
     public void update_title_index(ArrayList<String> keywords, String isbn){
         DatabaseReference index = db.getReference(References.INDICESTITLE.reference());
-        for (String key: keywords){
-            key = key.toLowerCase();
+        for (String key1: keywords){
+            String key = key1.toLowerCase();
+            for (String item: IllegalString){
+                key.replaceAll(item, "");
+            }
 
             index.child(key).setValue(isbn);
         }
