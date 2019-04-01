@@ -49,7 +49,9 @@ import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
 import ca.rededaniskal.BusinessLogic.LoadImage;
 
 import ca.rededaniskal.BusinessLogic.myCallbackBRList;
+import ca.rededaniskal.BusinessLogic.myCallbackDBRList;
 import ca.rededaniskal.Database.Borrow_Req_DB;
+import ca.rededaniskal.Database.Display_Borrow_Req_DB;
 import ca.rededaniskal.Database.Username_For_Book_Details_DB;
 
 import ca.rededaniskal.Database.requestsOnBookDB;
@@ -151,8 +153,8 @@ public class Book_Details_Activity extends AppCompatActivity {
             viewRequests.setHasFixedSize(true);
             viewRequests.setLayoutManager(new LinearLayoutManager(this));
 
-            Borrow_Req_DB brdb = new Borrow_Req_DB();
-            myCallbackBRList mcbrl = new myCallbackBRList() {
+            Display_Borrow_Req_DB brdb = new Display_Borrow_Req_DB();
+            myCallbackDBRList mcbrl = new myCallbackDBRList() {
                 @Override
                 public void onCallback(ArrayList<Display_BorrowRequest> borrowRequests) {
                     requestAdapter = new BorrowRequestAdapter(thisone, borrowRequests);

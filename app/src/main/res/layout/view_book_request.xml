@@ -35,6 +35,7 @@
 
 
             <TableRow
+                android:id="@+id/userPicRow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -51,6 +52,7 @@
 
 
             <TableRow
+                android:id="@+id/userNameRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -91,6 +93,7 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/bookCoverRow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -102,6 +105,7 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/titleRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -119,6 +123,7 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/authorRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
