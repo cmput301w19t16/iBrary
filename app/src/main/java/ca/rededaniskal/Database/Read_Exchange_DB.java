@@ -23,6 +23,9 @@ import ca.rededaniskal.EntityClasses.Exchange;
 
 import static android.support.v4.content.ContextCompat.startActivity;
 
+/**
+ * Returns the owner and borrower in the exchange process
+ */
 
 public class Read_Exchange_DB {
     private View_Pending_Exchanges_Activity parent;

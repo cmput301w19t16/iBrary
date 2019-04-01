@@ -25,6 +25,10 @@ import ca.rededaniskal.EntityClasses.User;
 
 import static android.support.constraint.Constraints.TAG;
 
+/**
+ * Creates a post in a forum and displays that post to everyone who is following the user
+ */
+
 public class Write_Post_DB {
     private FirebaseAuth mAuth;
     private FirebaseUser user;

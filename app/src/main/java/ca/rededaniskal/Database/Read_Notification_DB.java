@@ -22,6 +22,10 @@ import ca.rededaniskal.EntityClasses.User;
 
 import static android.support.constraint.Constraints.TAG;
 
+/**
+ * Creates a list of all the user's notifications
+ */
+
 public class Read_Notification_DB {
     private FirebaseAuth mAuth;
     private FirebaseUser user;

@@ -15,6 +15,10 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Display_Username;
 import ca.rededaniskal.EntityClasses.User;
 
+/**
+ * Gets the username of the owner of a book and also the borrower of the book
+ */
+
 public class Username_For_Book_Details_DB {
     private Book_Details_Activity parent;
     private Book_Instance book;

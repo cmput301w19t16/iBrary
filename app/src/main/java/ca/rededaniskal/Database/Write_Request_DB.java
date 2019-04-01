@@ -19,6 +19,10 @@ import ca.rededaniskal.EntityClasses.User;
 
 import static android.support.constraint.Constraints.TAG;
 
+/**
+ * Creates, deletes, and updates the request database
+ */
+
 public class Write_Request_DB {
 
 

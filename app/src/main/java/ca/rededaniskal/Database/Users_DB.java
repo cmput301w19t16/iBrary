@@ -64,6 +64,7 @@ public class Users_DB {
         });
     }
 
+    // Gets a list of all users in the app
     public void getListOfUsers(ArrayList<String> uidList, final myCallbackUserList mcbul){
         userArrayList = new ArrayList<>();
         for (String uid : uidList){

@@ -21,6 +21,11 @@ import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Notification;
 
+/**
+ * Represents all the functions related to borrow requests such as getting book request ids
+ * and getting user requests
+ */
+
 public class Borrow_Req_DB {
     private DatabaseReference mDatabase;
 

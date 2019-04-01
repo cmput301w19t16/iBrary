@@ -22,6 +22,10 @@ import ca.rededaniskal.EntityClasses.User;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Used to save all the edits made the user details into the database
+ */
+
 public class editUserDetailsDB{
     private FirebaseAuth mAuth;
     private String email;
@@ -62,6 +66,10 @@ public class editUserDetailsDB{
 
     }
 
+    /**
+     * Ensures that the username is unique among all users
+     * @param U     The user
+     */
     public void uniqueUserName(User U){
         final User use = U;
         use.setUID(user.getUid());
@@ -96,6 +104,9 @@ public class editUserDetailsDB{
         });
     }
 
+    /**
+     * Gets all the users details
+     */
     private void getUserDetails(){
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         Query query = FirebaseDatabase.getInstance().getReference("Users")

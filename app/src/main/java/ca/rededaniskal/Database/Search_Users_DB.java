@@ -23,6 +23,7 @@ public class Search_Users_DB {
         this.search_string = search_string;
     }
 
+    // Returns all users that have a matching username in the database to that which was searched
     public void getUserMatches(){
         Log.d("getUserMatches", "**************In it");
         Query query = FirebaseDatabase.getInstance().getReference("Users")

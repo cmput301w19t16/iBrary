@@ -1,7 +1,5 @@
 package ca.rededaniskal.Database;
 
-
-
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -24,6 +22,10 @@ import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.User;
+
+/**
+ * Used to add a book exchange to the database
+ */
 
 public class BookExchangeDb{
     DatabaseReference mDatabase;

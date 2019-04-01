@@ -41,6 +41,9 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 
+/**
+ * Adds the photo to the database
+ */
 
 public class Photos {
 

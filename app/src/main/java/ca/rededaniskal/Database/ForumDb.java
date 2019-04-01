@@ -28,6 +28,9 @@ import ca.rededaniskal.EntityClasses.Display_Thread;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.EntityClasses.Thread;
 
+/**
+ * Used to get all information relevant to the forum
+ */
 
 public class ForumDb extends Entity_Database  {
     private Forum_Activity parent;
@@ -67,10 +70,7 @@ public class ForumDb extends Entity_Database  {
         return db.getReference(References.FORUM.reference());
     }
 
-
-
-
-
+    // Creates the initial parent thread which is the first post
     public void addParentThread(Thread thread){
         T = thread;
         String threadId = getReference().child(ISBN).push().getKey();
@@ -90,9 +90,9 @@ public class ForumDb extends Entity_Database  {
         Follow_DB follow_db = new Follow_DB();
         follow_db.getFollowers(thread.getCreator(),muidList);
 
-
     }
 
+    // Updates the list of followers for the thread
     public void updateFollowers(ArrayList<String> followers){
         if (T!=null){
         Post p = new Post(T.getText(), T.getCreator(), ISBN, T.getTopic());
@@ -141,7 +141,7 @@ public class ForumDb extends Entity_Database  {
 
     }
 
-
+    // Gets the comment
     public void comment(String threadID, Comment comment){
         c = comment;
 
@@ -162,7 +162,6 @@ public class ForumDb extends Entity_Database  {
 
 
     }
-
 
 
 public void getCommentsForThread(String threadID){

@@ -14,6 +14,10 @@ import com.google.firebase.database.ValueEventListener;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Book_List;
 
+/**
+ * Gets all the books available
+ */
+
 public class Get_All_Books_Data {
     boolean continuous ;
     Book_List all_books_data;
@@ -26,6 +30,7 @@ public class Get_All_Books_Data {
 
     }
 
+    // Adds all books to a list
     public void synchronizeBooks(){
         final Book_List loaded_books = new Book_List();
 

@@ -43,6 +43,7 @@ public class signInDB {
         this.success = success;
     }
 
+    // Adds the users data to the database upon a successful sign in
     public void signInUser(String email, String password){
 
         Log.d(TAG, "*********-----> IN signInUser");

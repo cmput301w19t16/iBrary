@@ -15,7 +15,7 @@ import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Master_Book;
 
 /**
- * Used to add books to the database
+ * Used to add or update books in the database
  *
  * @author Skye
  */

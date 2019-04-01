@@ -22,6 +22,11 @@ import ca.rededaniskal.EntityClasses.Book;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 
+/**
+ * All functions related to book instance and databases such as getting a book instance,
+ * or getting a list of books
+ */
+
 public class BookInstanceDb extends Entity_Database {
     private DatabaseReference mDatabase;
     private DatabaseReference bookRef;
