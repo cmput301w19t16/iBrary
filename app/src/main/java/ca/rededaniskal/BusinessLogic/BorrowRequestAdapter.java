@@ -76,7 +76,13 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         Display_BorrowRequest display = list.get(i);
         request = display.getRequest();
         user = display.getUser();
+        String urlProfilePic = user.getProfilePic();
+
         holder = borrowRequestViewHolder;
+        if(urlProfilePic != null){
+            LoadImage loader = new LoadImage(holder.bookCover);
+            loader.execute(urlProfilePic);
+        }
 
         //Set Fields
         
