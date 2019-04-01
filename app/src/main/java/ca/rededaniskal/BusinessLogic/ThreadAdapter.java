@@ -61,8 +61,9 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
     public void onBindViewHolder(@NonNull final ThreadViewHolder holder, final int i) {
         final Comment comment = comments.get(i).getComment();
         final String userName = comments.get(i).getDisplayName();
-        
+
         holder.text.setText(comment.getText());
+
         Users_DB usersDb = new Users_DB();
 
         myCallbackUser myCallbackUser = new myCallbackUser() {
