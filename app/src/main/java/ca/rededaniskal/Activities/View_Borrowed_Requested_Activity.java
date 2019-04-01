@@ -29,6 +29,7 @@ import ca.rededaniskal.BusinessLogic.brAdapter;
 import ca.rededaniskal.BusinessLogic.myCallbackBIList;
 import ca.rededaniskal.BusinessLogic.myCallbackBRList;
 import ca.rededaniskal.BusinessLogic.myCallbackExchangeList;
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.Database.BookExchangeDb;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Borrow_Req_DB;
@@ -41,15 +42,12 @@ import ca.rededaniskal.R;
 //Author: Revan, Skye
 public class View_Borrowed_Requested_Activity extends AppCompatActivity {
 
-    private ArrayList<Display_Username> BL;
     private RecyclerView recyclerView;
-    private BookAdapter bookAdapter;
     private Switch toggleRequested;
     private Switch toggleBorrowed;
     private String uid;
     private ArrayList<Book_Instance> borrowedBooks, requestedBooks;
     private ArrayList<BorrowRequest> bookRequests;
-    private ArrayList<Exchange> bookExchanges;
     private Boolean borrowedReady, requestedReady, borrowedWanted, requestedWanted;
     private brAdapter Adapter;
     private Activity act;
@@ -84,7 +82,7 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         toggleBorrowed.setOnClickListener(onclick);
 
         getBookRequests();
-        getBorrowedBooksExchanges();
+        getBorrowedBookIDs();
     }
 
     private void getSwitchValues(){
@@ -116,7 +114,8 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
             @Override
             public void onCallback(ArrayList<Book_Instance> biList) {
                 requestedBooks = biList;
-                borrowedReady = true;
+                requestedReady = true;
+                tryFillData();
             }
         };
         ArrayList<String> reqStrings = new ArrayList<>();
@@ -127,36 +126,17 @@ public class View_Borrowed_Requested_Activity extends AppCompatActivity {
         bidb.getListOfBooks(reqStrings, mcbi);
     }
 
-    //Exchanges for books the user has borrowed
-    private void getBorrowedBooksExchanges(){
-        BookExchangeDb bedb = new BookExchangeDb();
-        myCallbackExchangeList mcbi = new myCallbackExchangeList() {
-            @Override
-            public void onCallback(ArrayList<Exchange> exList) {
-                bookExchanges = exList;
-                getBorrowedBooks();
-                tryFillData();
-            }
-        };
-        bedb.getUsersBorrowedBooks(uid, mcbi);
-    }
-
-    //Books the user has borrowed
-    private void getBorrowedBooks(){
+    private void getBorrowedBookIDs() {
         BookInstanceDb bidb = new BookInstanceDb();
         myCallbackBIList mcbi = new myCallbackBIList() {
             @Override
             public void onCallback(ArrayList<Book_Instance> biList) {
                 borrowedBooks = biList;
-                requestedReady = true;
+                borrowedReady = true;
                 tryFillData();
             }
         };
-        ArrayList<String> exchangeStrings = new ArrayList<>();
-        for (Exchange exchange : bookExchanges){
-            exchangeStrings.add(exchange.getBookid());
-        }
-        bidb.getListOfBooks(exchangeStrings, mcbi);
+        bidb.getUsersBorrowedBooks(uid, mcbi);
     }
 
     private void tryFillData(){
