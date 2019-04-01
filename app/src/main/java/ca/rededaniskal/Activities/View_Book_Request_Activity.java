@@ -94,7 +94,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         titleRow.setOnClickListener(bookListener);
         authorRow.setOnClickListener(bookListener);
         bookCoverRow.setOnClickListener(bookListener);
-        bookPic = findViewById(R.id.BookCover);
+        bookPic = findViewById(R.id.profilePic);
 
 
         userNameRow = findViewById(R.id.userNameRow);
