@@ -11,20 +11,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.myCallbackBRList;
 import ca.rededaniskal.BusinessLogic.myCallbackBookRequest;
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
+import ca.rededaniskal.BusinessLogic.myCallbackDBRList;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
-import ca.rededaniskal.EntityClasses.Notification;
+import ca.rededaniskal.EntityClasses.Display_BorrowRequest;
+import ca.rededaniskal.EntityClasses.User;
 
-public class Borrow_Req_DB {
+import static android.content.ContentValues.TAG;
+
+public class Display_Borrow_Req_DB {
     private DatabaseReference mDatabase;
+    private ArrayList<Display_BorrowRequest> dbrl;
 
-    public Borrow_Req_DB() {
+    public Display_Borrow_Req_DB() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -47,7 +51,7 @@ public class Borrow_Req_DB {
 
     }
 
-    public void getBooksBorrowRequests(final String bookID, final myCallbackBRList mcbrl) {
+    public void getBooksBorrowRequests(final String bookID, final myCallbackDBRList mcbrl) {
         final myCallbackStringList mcbsl = new myCallbackStringList() {
             @Override
             public void onCallback(final ArrayList<String> strList) {
@@ -56,14 +60,14 @@ public class Borrow_Req_DB {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            ArrayList<BorrowRequest> brl = new ArrayList<>();
+                            dbrl = new ArrayList<>();
 
                             for (String reqID : strList) {
-                                brl.add(dataSnapshot.child(reqID).getValue(BorrowRequest.class));
+                                BorrowRequest request = dataSnapshot.child(reqID).getValue(BorrowRequest.class);
+                                Display_BorrowRequest display = new Display_BorrowRequest(request);
+                                dbrl.add(display);
                             }
-
-                            mcbrl.onCallback(brl);
-
+                            getUserInfo(mcbrl);
                         }
                     }
 
@@ -76,6 +80,41 @@ public class Borrow_Req_DB {
         };
         getBooksBorrowRequestIDS(bookID, mcbsl);
     }
+
+
+
+    public void getUserInfo(final myCallbackDBRList mcbrl){
+        for(int i =0; i < dbrl.size();i++){
+            final int j = i;
+            BorrowRequest request = dbrl.get(i).getRequest();
+            String key = request.getsenderUID();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users").child(key);
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Log.d(TAG, "*********----->exists");
+
+
+                        User user = dataSnapshot.getValue(User.class);
+
+                        Display_BorrowRequest display = dbrl.get(j);
+                        display.setUser(user);
+                        dbrl.set(j, display);
+
+                        mcbrl.onCallback(dbrl);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+
 
     public void getBooksBorrowRequestIDS(String bookID, final myCallbackStringList mcbsl) {
         Query query = mDatabase.child("BorrowRequests").orderByChild("bookId").equalTo(bookID);

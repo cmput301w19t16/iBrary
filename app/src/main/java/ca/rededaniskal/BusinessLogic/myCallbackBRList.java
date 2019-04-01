@@ -6,7 +6,7 @@ import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Display_BorrowRequest;
 
 public interface myCallbackBRList {
-    void onCallback(ArrayList<Display_BorrowRequest> borrowRequests);
+    void onCallback(ArrayList<BorrowRequest> borrowRequests);
 }
 /*
 package ca.rededaniskal.BusinessLogic;

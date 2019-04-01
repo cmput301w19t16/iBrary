@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
@@ -42,6 +43,7 @@ public class View_Book_Request_Activity extends AppCompatActivity {
     private String bookID;
     private String currentUID;
     private boolean returning;
+    private TableRow userPicRow, userNameRow,bookCoverRow,titleRow, authorRow;
 
     private ImageView profilePic;
 
@@ -78,6 +80,34 @@ public class View_Book_Request_Activity extends AppCompatActivity {
         author = findViewById(R.id.Author);
         denyButton = findViewById(R.id.DenyButton);
         confirmButton = findViewById(R.id.ConfirmButton);
+
+        titleRow = findViewById(R.id.titleRow);
+        authorRow = findViewById(R.id.authorRow);
+        bookCoverRow = findViewById(R.id.bookCoverRow);
+        View.OnClickListener bookListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewBook();
+            }
+        };
+        titleRow.setOnClickListener(bookListener);
+        authorRow.setOnClickListener(bookListener);
+        bookCoverRow.setOnClickListener(bookListener);
+
+
+        userNameRow = findViewById(R.id.userNameRow);
+        userPicRow = findViewById(R.id.userPicRow);
+        View.OnClickListener userListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewUser();
+            }
+        };
+
+        userNameRow.setOnClickListener(userListener);
+        userPicRow.setOnClickListener(userListener);
+
+
 
         myCallbackBookInstance mcbbi = new myCallbackBookInstance() {
             @Override
