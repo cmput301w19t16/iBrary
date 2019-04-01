@@ -41,7 +41,7 @@ public class View_Users_Activity extends AppCompatActivity {
     private Follow_DB fdb;
     private Users_DB udb;
     private myCallbackUserList mcbul;
-    private ArrayList<User> Friends;
+    private ArrayList<User> Friends = new ArrayList<>();
     private myCallbackStringList mcbuid;
     SwipeRefreshLayout swipeContainer;
 
