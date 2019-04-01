@@ -196,8 +196,6 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
 
                 businessLogic = new ValidateBookLogic(Title, Author, ISBN, getApplicationContext());
 
-
-
                 String error_m = businessLogic.isValid();
                 if (error_m.equals("")) {
                     bi = new Book_Instance(businessLogic.getTitle(), businessLogic.getAuthor(), businessLogic.getISBN(), userID, userID, "Good", "Available");
@@ -278,13 +276,15 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
         } else if (requestCode == UPLOAD_REQUEST_MB && resultCode == Activity.RESULT_OK) {
             coverURLMb = data.getStringExtra("URL");
         }
-
-
     }
 
     public void set_Book_Info_Hints() {
-        addAuthor.setError(authorHint);
-        addTitle.setError(titleHint);
+        if (addAuthor.getText().toString().isEmpty()) {
+            addAuthor.setError(authorHint);
+        }
+        if (addTitle.getText().toString().isEmpty()) {
+            addTitle.setError(titleHint);
+        }
         addISBN.setError(isbnHint);
     }
 }
