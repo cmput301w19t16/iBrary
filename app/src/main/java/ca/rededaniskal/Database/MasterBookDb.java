@@ -61,6 +61,7 @@ public class MasterBookDb extends Entity_Database {
 
         DatabaseReference index = db.getReference(References.INDICESAUTHOR.reference());
         for (String key: keywords){
+            key = key.toLowerCase();
 
                     index.child(key).setValue(isbn);
             }
@@ -70,6 +71,7 @@ public class MasterBookDb extends Entity_Database {
     public void update_title_index(ArrayList<String> keywords, String isbn){
         DatabaseReference index = db.getReference(References.INDICESTITLE.reference());
         for (String key: keywords){
+            key = key.toLowerCase();
 
             index.child(key).setValue(isbn);
         }

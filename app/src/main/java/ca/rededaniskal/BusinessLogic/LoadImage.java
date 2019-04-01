@@ -31,7 +31,7 @@ public class LoadImage extends AsyncTask<String, Void, Bitmap> {
 
     protected void onPostExecute(Bitmap result) {
 
-        //mImage.setBackground(result);
+//        mImage.setBackground(result);
         bmImage.setImageBitmap(result);
     }
 }
