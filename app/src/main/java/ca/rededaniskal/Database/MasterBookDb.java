@@ -29,12 +29,15 @@ public class MasterBookDb extends Entity_Database {
 
     public MasterBookDb() {
         super();
+
         IllegalString = new ArrayList<>();
+
         IllegalString.add("\\#");
         IllegalString.add("\\]");
         IllegalString.add("\\.");
         IllegalString.add("\\$");
         IllegalString.add("\\[");
+
 
     }
 

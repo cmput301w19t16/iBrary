@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.BusinessLogic.LoadImage;
@@ -161,12 +162,21 @@ public class View_Thread_Activity extends AppCompatActivity {
 
                             parent.addComment(newComment);
                             replies.setText(Integer.toString(parent.numComments()).concat(" replies"));
+                            parent.addComment(newComment);
+                            db.comment(parent.getThreadId(),newComment);
+                            //db.replaceParentThread(parent,newComment);
+                            //db.getCommentsForThread(parent.getThreadId());
 
-                            db.comment(parent.getThreadId(), newComment);
-                            db.getCommentsForThread(parent.getThreadId());
+                            //db.getCommentDisplayName(parent.getComments());
+                            Intent intent = new Intent(v.getContext(), View_Thread_Activity.class);
+                            intent.putExtra("thread", parent);
+                            intent.putExtra("isbn", ISBN);
+                            startActivity(intent);
+                            finish();
 
-                            adapterChildren.notifyDataSetChanged();
-                            popupWindow.dismiss();
+
+
+                            //popupWindow.dismiss();
                         }
                     }
                 });
@@ -175,13 +185,18 @@ public class View_Thread_Activity extends AppCompatActivity {
     }
 
     public void getThreadComments(ArrayList<Display_Comment> comments){
+
         children.clear();
-        viewChildren.setAdapter(adapterChildren);
-        children=comments;
-        adapterChildren = new ThreadAdapter(this, children);
+
+        children=new ArrayList<Display_Comment>(new LinkedHashSet<Display_Comment>(comments));
+
         Collections.reverse(comments);
 
+        adapterChildren = new ThreadAdapter(this, children);
+        viewChildren.setAdapter(adapterChildren);
         adapterChildren.notifyDataSetChanged();
+
+
 
     }
 }
