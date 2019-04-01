@@ -163,11 +163,11 @@ public class Book_Details_Activity extends AppCompatActivity {
             brdb.getBooksBorrowRequests(book.getBookID(), mcbrl);
 
         }else{
-                viewRequests.setVisibility(viewRequests.INVISIBLE);
+            viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
-       BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
+        BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
 
-       isRequested = db.bookInUserRequests();
+        isRequested = db.bookInUserRequests();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
@@ -306,6 +306,3 @@ public class Book_Details_Activity extends AppCompatActivity {
     }
 
 }
-
-
-
