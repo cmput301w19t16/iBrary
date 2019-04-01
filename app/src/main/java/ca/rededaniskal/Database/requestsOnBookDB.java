@@ -116,11 +116,11 @@ public class requestsOnBookDB {
                     BorrowRequest request = snapshot.getValue(BorrowRequest.class);
                     if (request.getIsbn().equals(parent.getBookISBN())) {
                         Log.d(TAG, "*********----->Books " + request.getIsbn());
-                        parent.append(request);
+//                        parent.append(request);
                     }
                 }
-                parent.append(new BorrowRequest());
-                parent.notifyRequest();
+//                parent.append(new BorrowRequest());
+//                parent.notifyRequest();
             }
 
         }
@@ -130,5 +130,9 @@ public class requestsOnBookDB {
 
         }
     };
+
+
+
+
 
 }

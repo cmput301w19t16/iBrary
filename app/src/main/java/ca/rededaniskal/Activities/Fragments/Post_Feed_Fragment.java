@@ -118,14 +118,11 @@ public class Post_Feed_Fragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         final ArrayList<Display_Post> postList = new ArrayList<Display_Post>();
 
-//        postList.add(new Post("Loved this Book!", "Nick", "Happy Potter", "Thoughts on Book"));
-//        postList.add(new Post("Can I borrow this from anyone?", "Revan", "Oxford English Dictionary", "Looking to lend this"));
-//        postList.add(new Post("Luminous!", "Skype", "Happy Potter", "Thoughts on Book"));
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         final PostAdapter postAdapter = new PostAdapter(Post_Feed_Fragment.this, postList);
         recyclerView.setAdapter(postAdapter);
+
         Write_Post_DB db = new Write_Post_DB(this);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -136,7 +133,7 @@ public class Post_Feed_Fragment extends Fragment {
                         // Stop animation (This will be after 3 seconds)
                         swipeContainer.setRefreshing(true);
                     }
-                }, 0); // Delay in millis
+                }, 300); // Delay in millis
 
             }
         });

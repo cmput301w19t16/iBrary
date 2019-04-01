@@ -19,10 +19,17 @@ import ca.rededaniskal.BusinessLogic.myCallbackBookRequest;
 import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+
+import ca.rededaniskal.EntityClasses.Display_BorrowRequest;
+import ca.rededaniskal.EntityClasses.User;
+import static android.content.ContentValues.TAG;
+
 import ca.rededaniskal.EntityClasses.Notification;
+
 
 public class Borrow_Req_DB {
     private DatabaseReference mDatabase;
+    private ArrayList<Display_BorrowRequest> brl;
 
     public Borrow_Req_DB() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -56,14 +63,14 @@ public class Borrow_Req_DB {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            ArrayList<BorrowRequest> brl = new ArrayList<>();
+                            brl = new ArrayList<>();
 
                             for (String reqID : strList) {
-                                brl.add(dataSnapshot.child(reqID).getValue(BorrowRequest.class));
+                                BorrowRequest request = dataSnapshot.child(reqID).getValue(BorrowRequest.class);
+                                Display_BorrowRequest display = new Display_BorrowRequest(request);
+                                brl.add(display);
                             }
-
-                            mcbrl.onCallback(brl);
-
+                            getUserInfo(mcbrl);
                         }
                     }
 
@@ -76,6 +83,41 @@ public class Borrow_Req_DB {
         };
         getBooksBorrowRequestIDS(bookID, mcbsl);
     }
+
+
+
+    public void getUserInfo(final myCallbackBRList mcbrl){
+        for(int i =0; i < brl.size();i++){
+            final int j = i;
+            BorrowRequest request = brl.get(i).getRequest();
+            String key = request.getsenderUID();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users").child(key);
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Log.d(TAG, "*********----->exists");
+
+
+                        User user = dataSnapshot.getValue(User.class);
+
+                        Display_BorrowRequest display = brl.get(j);
+                        display.setUser(user);
+                        brl.set(j, display);
+
+                        mcbrl.onCallback(brl);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+
 
     public void getBooksBorrowRequestIDS(String bookID, final myCallbackStringList mcbsl) {
         Query query = mDatabase.child("BorrowRequests").orderByChild("bookId").equalTo(bookID);

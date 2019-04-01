@@ -36,8 +36,7 @@ tools:context=".Activities.View_My_Library_Activity">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintVertical_bias="0.016" />
+        app:layout_constraintTop_toBottomOf="@+id/filter" />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -59,8 +58,8 @@ tools:context=".Activities.View_My_Library_Activity">
         android:id="@+id/filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/filter_by"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

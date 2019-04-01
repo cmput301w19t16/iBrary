@@ -58,15 +58,11 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
     @Override
 
 
-    public void onBindViewHolder(@NonNull final ThreadViewHolder ThreadViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final ThreadViewHolder holder, final int i) {
         final Comment comment = comments.get(i).getComment();
         final String userName = comments.get(i).getDisplayName();
 
-        final ThreadViewHolder holder = ThreadViewHolder;
-        //TODO: Set profile pictures
-        //profilePicture = itemView.findViewById(R.id.profilePicture);
         holder.text.setText(comment.getText());
-
 
         Users_DB usersDb = new Users_DB();
 
