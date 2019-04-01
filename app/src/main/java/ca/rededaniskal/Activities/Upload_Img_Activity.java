@@ -23,6 +23,10 @@ import ca.rededaniskal.BusinessLogic.myCallBackString;
 import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.R;
 
+/**
+ * This activity uploads the image to firebase
+ */
+
 public class Upload_Img_Activity extends AppCompatActivity {
 
     private StorageReference storageReference;

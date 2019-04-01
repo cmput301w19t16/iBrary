@@ -33,6 +33,11 @@ import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.R;
 
+/**
+ * This activity lets the user set up the time, date and location for a book exchange.
+ * Displays a date picker, time picker and opens a google maps activity for location
+ */
+
 public class Establish_Exchange_Details_Activity extends AppCompatActivity {
 
     public static final String LOCATION_SET = "Location Set";
@@ -58,7 +63,6 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
     private Calendar c;
     private Establish_Exchange_Logic logic;
 
-    //private
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
         txtDate.setEnabled(false);
         txtTime.setEnabled(false);
 
+        // Gets the date specified by a user
         c = Calendar.getInstance();
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +119,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
             }
         });
 
-
+        // Gets time specified by user
         btnTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
@@ -140,6 +145,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
             }
         });
 
+        // Display the date and time selected by the user and save to database
         confirmDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
@@ -160,6 +166,7 @@ public class Establish_Exchange_Details_Activity extends AppCompatActivity {
                         timeStamp = simpleDateFormat.parse(timeStr);
                         request.setTimestamp(timeStamp);
 
+                        // Determine if the user is a recipient or a sender of the book
                         Exchange exchange;
                         if(returning){
                             exchange = new Exchange(request.getsenderUID(), request.getrecipientUID(),

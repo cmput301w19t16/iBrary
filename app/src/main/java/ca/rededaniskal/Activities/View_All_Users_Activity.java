@@ -31,7 +31,13 @@ import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
 
-//Author: Revan
+/**
+ * This activity displays all the users that exist in the database and displays them in a
+ * recycler view. Each recycler view element contains a follow button
+ *
+ * @author Revan
+ */
+
 public class View_All_Users_Activity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;

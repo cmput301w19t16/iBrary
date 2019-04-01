@@ -22,6 +22,11 @@ import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
+/**
+ * This activity displays a book request made to the user which displays the book details,
+ * the individual requesting the book, and allows the user to accept or deny the request.
+ */
+
 public class View_Book_Request_Activity extends AppCompatActivity {
 
     private TextView nameField;

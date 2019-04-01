@@ -41,6 +41,10 @@ import ca.rededaniskal.R;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * This activity displays all the books that exist within the database of the app in a recyclerview
+ */
+
 public class View_All_Books_Activity extends AppCompatActivity {
 
     private RecyclerView recyclerView;

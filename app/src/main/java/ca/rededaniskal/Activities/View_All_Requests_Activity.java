@@ -36,6 +36,8 @@ import ca.rededaniskal.R;
 import static android.content.ContentValues.TAG;
 
 /**
+ * This activity displays all the requests related to the user in a recycler view
+ *
  * @author Daniela, Revan
  */
 

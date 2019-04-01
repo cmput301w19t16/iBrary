@@ -21,6 +21,10 @@ import ca.rededaniskal.R;
 
 import static android.support.v4.content.ContextCompat.startActivity;
 
+/**
+ * This activity displays 
+ */
+
 public class View_Pending_Exchanges_Activity extends AppCompatActivity {
 
     private static final String TAG = "View_Pending_Exchanges_Activity";

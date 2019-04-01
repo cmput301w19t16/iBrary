@@ -38,6 +38,10 @@ import ca.rededaniskal.R;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
+/**
+ * This activity displays the forum of a specific book
+ */
+
 public class Forum_Activity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -175,6 +179,7 @@ public class Forum_Activity extends AppCompatActivity {
         });
     }
 
+    // Sets the book title, average overall rating, and the user's personal rating
     public void setMasterBook(Master_Book master_book, String UID){
         if (master_book!=null) {
             title.setText(master_book.getTitle());
@@ -195,6 +200,7 @@ public class Forum_Activity extends AppCompatActivity {
         }
 
     }
+
     public void loadThreads(ArrayList<Display_Thread> threadArrayList){
         threads.clear();
         forumAdapter = new ForumAdapter(this, threads,ISBN );
