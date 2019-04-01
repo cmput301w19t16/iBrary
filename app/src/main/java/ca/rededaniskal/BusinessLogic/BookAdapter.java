@@ -133,7 +133,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             bookStatus = itemView.findViewById(R.id.viewStatus);
             bookOwner = itemView.findViewById(R.id.viewOwner);
             bookPosessor = itemView.findViewById(R.id.viewPosessor);
-
             bookCover = itemView.findViewById(R.id.cover);
 
         }

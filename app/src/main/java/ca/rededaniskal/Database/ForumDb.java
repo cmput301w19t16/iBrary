@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import ca.rededaniskal.Activities.Forum_Activity;
 import ca.rededaniskal.Activities.View_Thread_Activity;
 
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
+
+
 
 import ca.rededaniskal.BusinessLogic.myCallBackString;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;

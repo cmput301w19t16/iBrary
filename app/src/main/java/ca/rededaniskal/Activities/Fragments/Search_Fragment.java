@@ -32,7 +32,7 @@ import java.util.LinkedHashSet;
 
 import ca.rededaniskal.BusinessLogic.Master_BookAdapter;
 import ca.rededaniskal.BusinessLogic.Search_Logic;
-import ca.rededaniskal.BusinessLogic.UserAdapter;
+import ca.rededaniskal.BusinessLogic.User_Fragment_Adapter;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -73,7 +73,7 @@ public class Search_Fragment extends Fragment {
 
     private RecyclerView display;
     private Master_BookAdapter MB_adapter;
-    private UserAdapter User_adapter;
+    private User_Fragment_Adapter User_adapter;
     private LayoutInflater inflater;
     private ViewGroup container;
     private View dbView;
@@ -135,7 +135,7 @@ public class Search_Fragment extends Fragment {
                 viewBookList.clear();
                 Log.d("Searchlog", "**************querylisten");
 
-                new Search_Logic(search_fragment, chosenOptions,query);
+                Search_Logic logic = new Search_Logic(search_fragment, chosenOptions, query);
                 queryString = query;
                 searchString.clearFocus();
                 return false;
@@ -248,12 +248,12 @@ public class Search_Fragment extends Fragment {
 
 
     public void update_users(ArrayList<User> users){
+        Log.d("Update_users", "hair we are");
         display = dbView.findViewById(R.id.display);
         display.setHasFixedSize(true);
         display.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        User_adapter = new UserAdapter(getActivity(), users);
-        display.setAdapter(MB_adapter);
+        User_Fragment_Adapter User_adapter = new User_Fragment_Adapter(Search_Fragment.this, users);
+        display.setAdapter(User_adapter);
     }
 
     public void addBookToAdapter(Master_Book m){

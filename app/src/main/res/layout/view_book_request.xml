@@ -15,9 +15,7 @@
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     <ImageView
-
-        android:id="@+id/BookCover"
-
+        android:id="@+id/profilepic"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
@@ -34,10 +32,8 @@
         android:text="@string/username"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
-
-        app:layout_constraintStart_toEndOf="@+id/BookCover"
-        app:layout_constraintTop_toTopOf="@+id/BookCover" />
-
+        app:layout_constraintStart_toEndOf="@+id/profilepic"
+        app:layout_constraintTop_toTopOf="@+id/profilepic" />
 
     <TextView
         android:id="@+id/location"
@@ -64,6 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/askedField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -91,9 +88,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/Author"
-
-        app:layout_constraintStart_toEndOf="@+id/BookCover"
-
+        app:layout_constraintStart_toEndOf="@+id/profilepic"
         app:layout_constraintTop_toTopOf="@+id/bookField" />
 
     <TextView
@@ -112,6 +107,7 @@
         android:id="@+id/bookField"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/ConfirmButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

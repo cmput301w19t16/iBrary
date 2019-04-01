@@ -29,9 +29,9 @@ public class BookDetailsdb{
 
     public boolean bookInUserRequests(){
 
-       Query requested = requestDb.getReference().orderByChild("bookId").equalTo(this.bookId);
-       requested.addListenerForSingleValueEvent(queryRequestListener);
-       return bookinuserrequests;
+        Query requested = requestDb.getReference().orderByChild("bookId").equalTo(this.bookId);
+        requested.addListenerForSingleValueEvent(queryRequestListener);
+        return bookinuserrequests;
 
     }
 
@@ -40,10 +40,10 @@ public class BookDetailsdb{
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             String user = requestDb.getUID();
             for (DataSnapshot d:dataSnapshot.getChildren()){
-               BorrowRequest b = d.getValue(BorrowRequest.class);
-               if (b.getsenderUID().equals(user)){
-                   bookinuserrequests =true;
-               }
+                BorrowRequest b = d.getValue(BorrowRequest.class);
+                if (b.getsenderUID().equals(user)){
+                    bookinuserrequests =true;
+                }
 
             }
         }

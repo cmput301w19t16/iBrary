@@ -85,6 +85,7 @@ public class Notifications_Fragment extends Fragment {
 
     private getUserRequestsDB db;
     private User user;
+    private RecyclerView recyclerView;
 
 
     //private OnFragmentInteractionListener mListener;
@@ -135,7 +136,7 @@ public class Notifications_Fragment extends Fragment {
 
         swipeContainer = view.findViewById(R.id.swipeContainer);
 
-        final RecyclerView recyclerView = view.findViewById(R.id.notiRV);
+        recyclerView = view.findViewById(R.id.notiRV);
         recyclerView.setHasFixedSize(true);
 
 
@@ -187,8 +188,9 @@ public class Notifications_Fragment extends Fragment {
         startActivity(new Intent(getActivity(), Login_Activity.class));
     }
 
-    public void addAndUpdate(Notification notification){
-        notiList.add(notification);
+    public void addAndUpdate(ArrayList<Notification> notification){
+        final Notification_Adapter notiAdapter = new Notification_Adapter(notification, Notifications_Fragment.this);
+        recyclerView.setAdapter(notiAdapter);
         notiAdapter.notifyDataSetChanged();
     }
 

@@ -23,6 +23,7 @@ import ca.rededaniskal.Activities.Fragments.Notifications_Fragment;
 import ca.rededaniskal.Activities.User_Details_Activity;
 import ca.rededaniskal.Activities.View_Book_Request_Activity;
 import ca.rededaniskal.Activities.View_Exchange_Details_Activity;
+import ca.rededaniskal.Database.BookExchangeDb;
 import ca.rededaniskal.Database.BorrowRequestDb;
 import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.Database.Write_Notification_DB;
@@ -39,19 +40,20 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     private ArrayList<Notification> mDataset;
     public Notifications_Fragment fragment;
     private Notification notification;
-    private String titleText;
-    private Intent intent;
-    private Book_Exchange book_exchange;
-    private BorrowRequest borrowRequest;
+    //private String titleText;
 
-    private User user;
-    private User currentUser;
-    private String uid;
-    private Users_DB udb;
-    private myCallbackUser mcbu;
 
 
     public class Notification_View_Holder extends RecyclerView.ViewHolder{
+        private Intent intent;
+        private Book_Exchange book_exchange;
+        private BorrowRequest borrowRequest;
+
+        private User user;
+        private User currentUser;
+        private String uid;
+        private Users_DB udb;
+        private myCallbackUser mcbu;
         public TextView postTitle;
         public RatingBar newAlertStar;
         public View view;
@@ -84,23 +86,20 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     public void onBindViewHolder(final Notification_View_Holder holder, final int position){
         // Binds an item to the view
         notification = mDataset.get(position);
-        titleText = notification.getRequestID() + " ";
         removeCard(holder, position);
 
-        uid = notification.getUserID();
-        udb = new Users_DB();
+        holder.uid = notification.getUserID();
+        holder.udb = new Users_DB();
 
-        mcbu = new myCallbackUser() {
+        holder.mcbu = new myCallbackUser() {
             @Override
             public void onCallback(User u) {
-                currentUser = u;
-                getCardValues(holder, position);
+                holder.currentUser = u;
+                getSenderUser(holder, position);
             }
         };
 
-        udb.getUser(uid, mcbu);
-
-
+        holder.udb.getUser(holder.uid, holder.mcbu);
 
         if (!notification.getSeen()){
             holder.newAlertStar.setRating(1);
@@ -111,32 +110,52 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
         //set the text of the notification based on the type
         holder.requestType = notification.getRequestType();
+    }
 
+    private void getSenderUser(final Notification_View_Holder holder, final int position) {
+        Users_DB udb = new Users_DB();
+        myCallbackUser mcbu = new myCallbackUser() {
+            @Override
+            public void onCallback(User us) {
+                holder.user = us;
+                getCardValues(holder, position);
+            }
+        };
+        udb.getUser(notification.getSender(), mcbu);
     }
 
     private void getCardValues(final Notification_View_Holder holder, final int position){
         String ntype = notification.getRequestType();
         if (ntype.equals("Book Request Accepted") || ntype.equals("Return_Request")) {
             //TODO: get book exchange from db.
+            //given a notification, retrieve the bookexchange
+            BookExchangeDb bedb = new BookExchangeDb();
+            myCallbackBookExchange mcbbe = new myCallbackBookExchange() {
+                @Override
+                public void onCallback(Book_Exchange be) {
+                    holder.book_exchange = be;
+                    addCard(holder, position);
+                    setCardValues(holder, position);
+                }
+            };
+
+            bedb.getBookExchange(notification.getRequestID(), mcbbe);
         }
         else if (ntype.equals("Book Requested")){
             BorrowRequestDb brdb = new BorrowRequestDb();
             myCallbackBookRequest mcbr = new myCallbackBookRequest() {
                 @Override
                 public void onCallback(BorrowRequest br) {
-                    borrowRequest = br;
-                    myCallbackUser mcbu = new myCallbackUser() {
-                        @Override
-                        public void onCallback(User u) {
-                            user = u;
-                            setCardValues(holder, position);
-                        }
-                    };
+                    holder.borrowRequest = br;
                     addCard(holder, position);
-                    udb.getUser(borrowRequest.getsenderUID(), mcbu);
+                    setCardValues(holder, position);
                 }
             };
             brdb.getBookRequest(notification.getRequestID(), mcbr);
+        }
+        else if (ntype.equals("Friend Request")){
+            addCard(holder, position);
+            setCardValues(holder, position);
         }
     }
 
@@ -151,27 +170,28 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     }
 
     private void setCardValues(final Notification_View_Holder holder, final int position){
-        titleText = user.getUserName();
+        String titleText = holder.user.getUserName();
+
         switch (notification.getRequestType()){
             case "Book Request Accepted":
                 titleText += " accepted your book request.";
-                intent = new Intent(fragment.getActivity(), View_Exchange_Details_Activity.class);
+                holder.intent = new Intent(fragment.getActivity(), View_Exchange_Details_Activity.class);
                 //intent.putExtra()
                 break;
             case "Friend Request":
                 titleText += " is now following you.";
-                intent = new Intent(fragment.getActivity(), User_Details_Activity.class);
-                intent.putExtra("user", user);
+                holder.intent = new Intent(fragment.getActivity(), User_Details_Activity.class);
+                holder.intent.putExtra("user", holder.user);
                 break;
             case "Book Requested":
                 titleText += " asked to borrow your book.";
-                intent = new Intent(fragment.getActivity(), View_Book_Request_Activity.class);
-                intent.putExtra("request", borrowRequest);
-                intent.putExtra("Returning", false);
+                holder.intent = new Intent(fragment.getActivity(), View_Book_Request_Activity.class);
+                holder.intent.putExtra("request", holder.borrowRequest);
+                holder.intent.putExtra("Returning", false);
                 break;
             case "Return_Request":
                 titleText += " wants to return your book.";
-                intent = new Intent(fragment.getActivity(), View_Book_Request_Activity.class);
+                holder.intent = new Intent(fragment.getActivity(), View_Exchange_Details_Activity.class);
 
                 break;
             default:
@@ -190,7 +210,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                     db.setRequestID(mDataset.get(position).getRequestID());
                     db.setNotification(mDataset.get(position));
                     db.getNotificationKey();
-                    fragment.getActivity().startActivity(intent);
+                    fragment.getActivity().startActivity(holder.intent);
                 }
             });
         }
