@@ -11,7 +11,9 @@ import java.util.Set;
 
 import ca.rededaniskal.Activities.Fragments.Search_Fragment;
 import ca.rededaniskal.Database.Search_Books_Db;
+import ca.rededaniskal.Database.Search_Users_DB;
 import ca.rededaniskal.EntityClasses.Master_Book;
+import ca.rededaniskal.EntityClasses.User;
 
 
 public class Search_Logic {
@@ -22,18 +24,27 @@ public class Search_Logic {
 
     Search_Books_Db db;
     ArrayList<Master_Book> bookList;
+    private ArrayList<User> userList;
     HashSet<String> isbns;
 
 
     public Search_Logic(Search_Fragment p, ArrayList<Integer> chosen, String search_string) {
+        Log.d("Searchlog", "**************In search Logic");
         parent = p;
         bookList = new ArrayList<>();
+        userList = new ArrayList<>();
         isbns = new HashSet<>();
 
         for (int i : chosen) {
             setOrderby(i);
-            db = new Search_Books_Db(parent,orderby, search_string );
-            db.queryData();
+            if(orderby.equals("friend")){
+                Log.d("Searchlog", "**************Firned");
+                    Search_Users_DB dbu = new Search_Users_DB(parent, search_string);
+                    dbu.getUserMatches();
+                }else {
+                    db = new Search_Books_Db(parent, orderby, search_string);
+                    db.queryData();
+                }
             }
 
         String[] each = search_string.split("\\s+");
@@ -64,7 +75,7 @@ public void setOrderby(int i){
             orderby = "isbn";
             break;
         case 3:
-            orderby = "owner";
+            orderby = "friend";
             break;
     }
 
