@@ -82,13 +82,10 @@ public class View_All_Books_Activity extends AppCompatActivity {
         bookAdapter.notifyDataSetChanged();
 
 
-
-
     }
-    public void addBook (ArrayList < Display_Username > book_List) {
 
-
-        ArrayList<Display_Username> book_list = new Filter_My_Books_Logic(AvOrRe, book_List).newBooks();
+    public void addBook(ArrayList<Display_Username> book_List){
+        ArrayList <Display_Username> book_list =new Filter_My_Books_Logic(AvOrRe, book_List).newBooks();
         bookAdapter = new BookAdapter(this, book_list);
 
         recyclerView.setAdapter(bookAdapter);

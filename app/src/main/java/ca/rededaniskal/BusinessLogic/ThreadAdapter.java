@@ -70,6 +70,7 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
         final String userName = comments.get(i).getDisplayName();
 
         holder.text.setText(comment.getText());
+        holder.name.setText(userName);
 
         Users_DB usersDb = new Users_DB();
 
@@ -84,11 +85,10 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
             }
         };
 
-        BookInstanceDb bookInstanceDb = new BookInstanceDb();
-        String uid = bookInstanceDb.getUID();
+        String uid = comment.getCreator();
         usersDb.getUser(uid, myCallbackUser);
 
-        holder.name.setText(userName);
+
 
     }
 

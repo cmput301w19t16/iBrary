@@ -27,6 +27,7 @@ import ca.rededaniskal.EntityClasses.Display_Comment;
 import ca.rededaniskal.EntityClasses.Display_Thread;
 import ca.rededaniskal.EntityClasses.Post;
 import ca.rededaniskal.EntityClasses.Thread;
+import java.util.*;
 
 /**
  * Used to get all information relevant to the forum
@@ -70,7 +71,7 @@ public class ForumDb extends Entity_Database  {
         return db.getReference(References.FORUM.reference());
     }
 
-    // Creates the initial parent thread which is the first post
+
     public void addParentThread(Thread thread){
         T = thread;
         String threadId = getReference().child(ISBN).push().getKey();
@@ -207,6 +208,7 @@ public void getThreadDisplayName(ArrayList<Thread> threds) {
                         display_threads.add(dt);
                     }
                 }
+                Collections.reverse(Arrays.asList(display_threads));
                 parent.loadThreads(display_threads);
             }
 

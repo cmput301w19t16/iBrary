@@ -76,7 +76,7 @@
         <item>Author</item>
         <item>Title</item>
         <item>ISBN</item>
-        <item>Friends</item>
+        <item>Users</item>
     </string-array>
     <string name="dismiss">Dismiss</string>
     <string name="clear_all">Clear all</string>

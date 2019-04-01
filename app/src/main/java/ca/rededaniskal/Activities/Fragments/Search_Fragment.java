@@ -32,6 +32,7 @@ import java.util.LinkedHashSet;
 
 import ca.rededaniskal.BusinessLogic.Master_BookAdapter;
 import ca.rededaniskal.BusinessLogic.Search_Logic;
+import ca.rededaniskal.BusinessLogic.UserAdapter;
 import ca.rededaniskal.BusinessLogic.User_Fragment_Adapter;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.User;
@@ -73,7 +74,7 @@ public class Search_Fragment extends Fragment {
 
     private RecyclerView display;
     private Master_BookAdapter MB_adapter;
-    private User_Fragment_Adapter User_adapter;
+    private UserAdapter userAdapter;
     private LayoutInflater inflater;
     private ViewGroup container;
     private View dbView;
@@ -192,9 +193,7 @@ public class Search_Fragment extends Fragment {
                         viewBookList.clear();
                         searchString.clearFocus();
                         update_books(viewBookList);
-//                        if (queryString!=null&&chosenOptions!=null) {
-//                            new Search_Logic(search_fragment, chosenOptions, queryString);
-//                        }
+
                     }
                 });
 
@@ -211,7 +210,6 @@ public class Search_Fragment extends Fragment {
                         for (int i = 0; i < selectedOptions.length; i++) {
                             selectedOptions[i] = false;
                             chosenOptions.clear();
-                            //mItemSelected.setText("");
                         }
                         viewBookList.clear();
                         update_books(viewBookList);
@@ -270,8 +268,8 @@ public class Search_Fragment extends Fragment {
         display = dbView.findViewById(R.id.display);
         display.setHasFixedSize(true);
         display.setLayoutManager(new LinearLayoutManager(getContext()));
-        User_Fragment_Adapter User_adapter = new User_Fragment_Adapter(Search_Fragment.this, users);
-        display.setAdapter(User_adapter);
+        userAdapter = new UserAdapter(Search_Fragment.this, users);
+        display.setAdapter( userAdapter);
     }
 
     public void addBookToAdapter(Master_Book m){

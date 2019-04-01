@@ -7,13 +7,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.Activities.Forum_Activity;
 import ca.rededaniskal.Activities.Fragments.Search_Fragment;
 import ca.rededaniskal.Activities.View_All_Books_Activity;
+import ca.rededaniskal.EntityClasses.Forum;
 import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.R;
 
@@ -83,6 +86,16 @@ public class Master_BookAdapter extends RecyclerView.Adapter<Master_BookAdapter.
                 fragment.startActivity(intent);
             }
         });
+
+        //Go to the forum
+        master_BookViewHolder.goToForum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(fragment.getContext(), Forum_Activity.class); // TODO: change the name of this for the
+                intent.putExtra("isbn", book.getISBN());
+                fragment.startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -106,6 +119,7 @@ public class Master_BookAdapter extends RecyclerView.Adapter<Master_BookAdapter.
 
         TextView title, author, isbn;
         RatingBar rating;
+        Button goToForum;
 
         /**
          * Instantiates a new Entry view holder.
@@ -117,6 +131,7 @@ public class Master_BookAdapter extends RecyclerView.Adapter<Master_BookAdapter.
             author = itemView.findViewById(R.id.showauthor);
             isbn = itemView.findViewById(R.id.showisbn);
             rating = itemView.findViewById(R.id.rating);
+            goToForum = itemView.findViewById(R.id.GoToForum);
         }
     }
 }
