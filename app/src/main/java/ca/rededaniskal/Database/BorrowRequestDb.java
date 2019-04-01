@@ -26,7 +26,7 @@ public class BorrowRequestDb extends Entity_Database {
 
     public void getBookRequest(String borrowID, final myCallbackBookRequest mcb) {
         Query query = getReference().child(borrowID);
-        //Query query = FirebaseDatabase.getInstance().getReference("BorrowRequests").child(borrowID);
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
