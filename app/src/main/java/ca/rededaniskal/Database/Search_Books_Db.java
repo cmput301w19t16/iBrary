@@ -1,5 +1,6 @@
 package ca.rededaniskal.Database;
 
+import android.os.CancellationSignal;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -24,7 +25,17 @@ public class Search_Books_Db {
     Master_Book mb;
     MasterBookDb masterBookDb;
     ArrayList<Master_Book> searchlist;
-   String isbn;
+    ArrayList<String> isbns;
+    String isbn;
+
+    public Search_Books_Db(Search_Fragment p, ArrayList<String>Isbn) {
+        parent = p;
+
+        masterBookDb = new MasterBookDb();
+       isbns = Isbn;
+       if (isbns==null) {isbns = new ArrayList<>();}
+
+    }
 
 
     public Search_Books_Db(Search_Fragment p, String filter, String e) {
@@ -39,17 +50,13 @@ public class Search_Books_Db {
 
     public Search_Books_Db(Search_Fragment p, String e) {
         parent = p;
-
         Equal = e;
-
         masterBookDb = new MasterBookDb();
         searchlist = new ArrayList<>();
 
     }
 
     public void queryData() {
-
-
         query = masterBookDb.getReference().orderByChild(Order).equalTo(Equal);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -59,10 +66,10 @@ public class Search_Books_Db {
 
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         searchlist.add(d.getValue(Master_Book.class));
-
-
                     }
-                    parent.update_books(searchlist);
+                    if (!searchlist.isEmpty()){
+                    parent.update_books(searchlist);}
+
                 }
             }
 
@@ -88,14 +95,10 @@ public class Search_Books_Db {
 
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         isbn = d.getValue(String.class);
-                        break;
-
-
 
                     }
                     Log.d("isbn", "*********----->Got this Titl book: "+ isbn);
-                    new Search_Books_Db(parent, isbn).queryISBNData();
-
+                    queryISBNData(isbn);
                 }
             }
 
@@ -120,11 +123,9 @@ public class Search_Books_Db {
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                        isbn = d.getValue(String.class);
                        break;
-
-
                     }
                     Log.d("isbn", "*********----->Got this Author book: "+isbn);
-                   new Search_Books_Db(parent, isbn).queryISBNData();
+                   queryISBNData(isbn);
                 }
             }
 
@@ -136,13 +137,11 @@ public class Search_Books_Db {
 
     }
 
-    public void queryISBNData() {
-        Log.d("EqualVal", "***********------> "+Equal);
-        query = masterBookDb.getReference().orderByKey().equalTo(Equal);
-
+    public void queryISBNData(String isbn) {
+        Log.d("ISBN", "***********------> "+isbn);
+        query = masterBookDb.getReference().orderByKey().equalTo(isbn);
 
         //query = masterBookDb.getReference().orderByChild(Order).equalTo(Equal);
-
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -150,12 +149,8 @@ public class Search_Books_Db {
 
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         mb = d.getValue(Master_Book.class);
-
-
-
                     }
                     parent.addBookToAdapter(mb);
-
                 }
 
             }
@@ -168,7 +163,22 @@ public class Search_Books_Db {
 
     }
 
-    public String getIsbn() {
-        return isbn;
+
+    public void getSingleMasterBook(){
+        masterBookDb.getReference().child(Equal).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                parent.addBookToAdapter(dataSnapshot.getValue(Master_Book.class));}
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 }

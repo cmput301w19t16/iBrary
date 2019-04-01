@@ -197,7 +197,7 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                 // view is refreshed
                 getInfo();
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                if (alreadyGotBookInfoAPI == false) {
+                if (alreadyGotBookInfoAPI == false && asyncTask.isCancelled()) {
                     asyncTask.execute(ISBN);
                 }
 
@@ -222,7 +222,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
                     Intent intent = new Intent(v.getContext(), View_My_Library_Activity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(Add_Book_To_Library_Activity.this, error_m, Toast.LENGTH_SHORT);
+                    Toast.makeText(Add_Book_To_Library_Activity.this, error_m, Toast.LENGTH_SHORT).show();
+                    asyncTask.cancel(true);
                     authorHint = businessLogic.getAuthorError();
                     titleHint = businessLogic.getTitleError();
                     isbnHint = businessLogic.getISBNError();
@@ -286,8 +287,8 @@ public class Add_Book_To_Library_Activity extends AppCompatActivity implements S
     }
 
     public void set_Book_Info_Hints() {
-        addAuthor.setHint(authorHint);
-        addTitle.setHint(titleHint);
-        addISBN.setHint(isbnHint);
+        addAuthor.setError(authorHint);
+        addTitle.setError(titleHint);
+        addISBN.setError(isbnHint);
     }
 }

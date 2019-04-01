@@ -10,6 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import ca.rededaniskal.Activities.Fragments.Search_Fragment;
+import ca.rededaniskal.Database.MasterBookDb;
 import ca.rededaniskal.Database.Search_Books_Db;
 import ca.rededaniskal.Database.Search_Users_DB;
 import ca.rededaniskal.EntityClasses.Master_Book;
@@ -28,12 +29,13 @@ public class Search_Logic {
     HashSet<String> isbns;
 
 
+
     public Search_Logic(Search_Fragment p, ArrayList<Integer> chosen, String search_string) {
         Log.d("Searchlog", "**************In search Logic");
         parent = p;
         bookList = new ArrayList<>();
         userList = new ArrayList<>();
-        isbns = new HashSet<>();
+
 
         for (int i : chosen) {
             setOrderby(i);
@@ -41,20 +43,24 @@ public class Search_Logic {
                 Log.d("Searchlog", "**************Firned");
                     Search_Users_DB dbu = new Search_Users_DB(parent, search_string);
                     dbu.getUserMatches();
-                }else {
-                    db = new Search_Books_Db(parent, orderby, search_string);
-                    db.queryData();
                 }
             }
 
-        String[] each = search_string.split("\\s+");
-        for(String s: each){
-            if (chosen.contains(0)){
-               new Search_Books_Db(parent, s).queryAuthorData();
-            }
-            if (chosen.contains(1)){
-                Log.d("Searchlog", "*************-----> Calling query title");
-                new Search_Books_Db(parent, s).queryTitleData();
+
+            String[] each = search_string.split("\\s+");
+        Log.d("Searchlog", "*************-----> String list : " + each);
+            for (String s : each) {
+                if (chosen.contains(0)) {
+                    new Search_Books_Db(parent, s).queryAuthorData();
+                }
+                if (chosen.contains(1) ) {
+                    Log.d("Searchlog", "*************-----> Calling query title");
+                    new Search_Books_Db(parent, s).queryTitleData();
+
+
+                }
+                if (chosen.contains(2)&&Character.isDigit(s.charAt(0))){
+                    new Search_Books_Db(parent, s).getSingleMasterBook();
 
 
             }
