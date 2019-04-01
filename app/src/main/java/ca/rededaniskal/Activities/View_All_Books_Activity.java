@@ -77,6 +77,7 @@ public class View_All_Books_Activity extends AppCompatActivity {
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
 
+
     }
 
     public void addBook(ArrayList<Display_Username> book_List){
@@ -86,6 +87,4 @@ public class View_All_Books_Activity extends AppCompatActivity {
         recyclerView.setAdapter(bookAdapter);
         bookAdapter.notifyDataSetChanged();
     }
-
-
 }

@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import ca.rededaniskal.Database.Write_Post_DB;
 import ca.rededaniskal.EntityClasses.Display_Post;
@@ -30,6 +32,7 @@ import ca.rededaniskal.BusinessLogic.PostAdapter;
 import ca.rededaniskal.R;
 
 import static android.support.constraint.Constraints.TAG;
+import static java.util.Collections.reverse;
 
 /**
  * This fragment is to view the activities of your friends. It ties very closely with our "wow"
@@ -67,6 +70,7 @@ public class Post_Feed_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView;
+    private Post_Feed_Fragment frag;
 
     //OnFragmentInteractionListener mListener;
 
@@ -110,9 +114,9 @@ public class Post_Feed_Fragment extends Fragment {
         // Inflate the layout for this fragment
 
         final View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        frag = this;
 
         swipeContainer = view.findViewById(R.id.swipeContainer);
-
 
         recyclerView = view.findViewById(R.id.feedRV);
         recyclerView.setHasFixedSize(true);
@@ -124,6 +128,7 @@ public class Post_Feed_Fragment extends Fragment {
         recyclerView.setAdapter(postAdapter);
 
         Write_Post_DB db = new Write_Post_DB(this);
+
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -131,9 +136,11 @@ public class Post_Feed_Fragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         // Stop animation (This will be after 3 seconds)
-                        swipeContainer.setRefreshing(true);
+                        swipeContainer.setRefreshing(false);
+                        Write_Post_DB db = new Write_Post_DB(frag);
                     }
                 }, 300); // Delay in millis
+
 
             }
         });
@@ -143,6 +150,7 @@ public class Post_Feed_Fragment extends Fragment {
 
     public void updateAdapter(ArrayList<Display_Post> postList){
         Log.d(TAG, "*(*(*( IN UPDATE ADAPTER");
+        Collections.reverse(postList);
         final PostAdapter postAdapter = new PostAdapter(Post_Feed_Fragment.this, postList);
         recyclerView.setAdapter(postAdapter);
         postAdapter.notifyDataSetChanged();

@@ -27,8 +27,6 @@ public class getAllBooks {
     private ArrayList<Display_Username> book_list;
 
 
-
-
     public getAllBooks(View_All_Books_Activity parent, String isbn) {
             Log.d(TAG, "*********----->AllBooks");
             this.parent = parent;
