@@ -10,6 +10,7 @@ package ca.rededaniskal.BusinessLogic;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +90,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         };
 
         BookInstanceDb bookInstanceDb = new BookInstanceDb();
-        String uid = bookInstanceDb.getUID();
+        String uid = post.getUid();
+        Log.d("UID", uid);
         usersDb.getUser(uid, myCallbackUser);
 
         //if User clicks on a Book, will start the book details Activity

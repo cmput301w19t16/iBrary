@@ -40,6 +40,7 @@ import ca.rededaniskal.BusinessLogic.BorrowRequestAdapter;
 
 import ca.rededaniskal.BusinessLogic.LoadImage;
 
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.BusinessLogic.myCallbackDBRList;
 import ca.rededaniskal.Database.Display_Borrow_Req_DB;
 import ca.rededaniskal.Database.Username_For_Book_Details_DB;
@@ -125,7 +126,7 @@ public class Book_Details_Activity extends AppCompatActivity {
         DisplayStatus.setText(book.getStatus());
         DisplayPosessor.setText(book.getPossessor());
 
-        if(book.getCover() != null || book.getCover() != ""){
+        if (book.getCover() != null || book.getCover() != "") {
             LoadImage loader = new LoadImage(DisplayBookCover);
             loader.execute(book.getCover());
         }
@@ -151,38 +152,50 @@ public class Book_Details_Activity extends AppCompatActivity {
 
             brdb.getBooksBorrowRequests(book.getBookID(), mcbrl);
 
-        }else{
+        } else {
             viewRequests.setVisibility(viewRequests.INVISIBLE);
         }
-        BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
 
-        isRequested = db.bookInUserRequests();
+        myCallbackBool mcbb = new myCallbackBool() {
+            @Override
+            public void onCallback(Boolean value) {
+                isRequested = value;
+                continueWorking();
+
+            }
+        };
+
+        BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
+        db.bookInUserRequests(mcbb, book.getBookID());
+
+    }
+
+    public void continueWorking() {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
 
         //Set appropriate text for the button at the bottom
-        if (book.getStatus().equals("Requested") && isRequested) {
+        if (isRequested) {
             //If I Requested the book
             Request_Cancel.setText(R.string.cancel_request);
 
-        }else if (book.getStatus().equals("Borrowed")){
-            //If book is borroed by someone other than myself
-            Request_Cancel.setVisibility(View.INVISIBLE);
-
-        } if (book.getPossessor().equals(uid) && !book.getOwner().equals(uid)){
+        }else if (book.getPossessor().equals(uid) && !(book.getOwner().equals(uid))){
             //If i am the one in possession of book but not the owner
             Request_Cancel.setVisibility(View.VISIBLE);
             Request_Cancel.setText("Return This Book");
             canReturn = true;
 
-        } else {
+        }else if (book.getStatus().equals("Borrowed")){
+            //If book is borroed by someone other than myself
+            Request_Cancel.setVisibility(View.INVISIBLE);
+
+        }else {
             Request_Cancel.setText(R.string.request_book);
 
         }
 
         //Set On-Click listeners
-
         Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,8 +205,6 @@ public class Book_Details_Activity extends AppCompatActivity {
                 finish();
             }
         });
-
-        //TODO: Make this go to forum
 
         GoToForum.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,8 +216,6 @@ public class Book_Details_Activity extends AppCompatActivity {
         });
 
 
-        //final Book_Details_Activity thisone = this;
-
         Request_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,8 +225,6 @@ public class Book_Details_Activity extends AppCompatActivity {
                     isRequested = false;
 
                 }else if(canReturn){
-                    //TODO: DB
-
                     BorrowRequest request = new BorrowRequest( book.getOwner() , uid, book.getISBN(), book.getBookID() );
                     Intent intent = new Intent(v.getContext(), Establish_Exchange_Details_Activity.class);
                     intent.putExtra("BorrowRequestObject", request);
@@ -244,7 +251,6 @@ public class Book_Details_Activity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "*********----->onDataChange2");
-//            l.clear();
                 if (dataSnapshot.exists()) {
                     Log.d(TAG, "*********----->exists");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -262,12 +268,6 @@ public class Book_Details_Activity extends AppCompatActivity {
 
         });
     }
-
-
-
-
-
-
 
 
     public void setTrue() {
@@ -292,7 +292,6 @@ public class Book_Details_Activity extends AppCompatActivity {
     public int getLSize(){return l.size();}
 
     public void notifyRequest(){requestAdapter.notifyDataSetChanged();}
-
 
     private void returnToLogin() {
         startActivity(new Intent(this, Login_Activity.class));
