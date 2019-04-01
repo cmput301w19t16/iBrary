@@ -29,6 +29,7 @@ import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.Database.Write_Notification_DB;
 import ca.rededaniskal.EntityClasses.Book_Exchange;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.Notification;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
@@ -46,7 +47,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
     public class Notification_View_Holder extends RecyclerView.ViewHolder{
         private Intent intent;
-        private Book_Exchange book_exchange;
+        private Exchange book_exchange;
         private BorrowRequest borrowRequest;
 
         private User user;
@@ -130,9 +131,9 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
             //TODO: get book exchange from db.
             //given a notification, retrieve the bookexchange
             BookExchangeDb bedb = new BookExchangeDb();
-            myCallbackBookExchange mcbbe = new myCallbackBookExchange() {
+            myCallbackExchange mcbbe = new myCallbackExchange() {
                 @Override
-                public void onCallback(Book_Exchange be) {
+                public void onCallback(Exchange be) {
                     holder.book_exchange = be;
                     addCard(holder, position);
                     setCardValues(holder, position);
@@ -176,6 +177,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
             case "Book Request Accepted":
                 titleText += " accepted your book request.";
                 holder.intent = new Intent(fragment.getActivity(), View_Exchange_Details_Activity.class);
+                holder.intent.putExtra("exchange", holder.book_exchange);
                 //intent.putExtra()
                 break;
             case "Friend Request":

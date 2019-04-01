@@ -189,7 +189,7 @@ public class Notifications_Fragment extends Fragment {
     }
 
     public void addAndUpdate(ArrayList<Notification> notification){
-        final Notification_Adapter notiAdapter = new Notification_Adapter(notification, Notifications_Fragment.this);
+        Notification_Adapter notiAdapter = new Notification_Adapter(notification, Notifications_Fragment.this);
         recyclerView.setAdapter(notiAdapter);
         notiAdapter.notifyDataSetChanged();
     }
