@@ -33,6 +33,7 @@ public class Requests_DB {
         Notifications_DB ndb = new Notifications_DB();
         ndb.deleteNotification(reqID);
         mDatabase.child("BorrowRequests/" + reqID).removeValue();
+        Log.d("denyRequest", "BorrowRequests/" + reqID);
     }
 
     public void acceptRequest(String bookID){
