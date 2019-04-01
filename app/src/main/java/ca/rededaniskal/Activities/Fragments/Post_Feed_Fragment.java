@@ -67,6 +67,7 @@ public class Post_Feed_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView;
+    private Post_Feed_Fragment frag;
 
     //OnFragmentInteractionListener mListener;
 
@@ -110,6 +111,7 @@ public class Post_Feed_Fragment extends Fragment {
         // Inflate the layout for this fragment
 
         final View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        frag = this;
 
         swipeContainer = view.findViewById(R.id.swipeContainer);
 
@@ -124,6 +126,7 @@ public class Post_Feed_Fragment extends Fragment {
         recyclerView.setAdapter(postAdapter);
 
         Write_Post_DB db = new Write_Post_DB(this);
+
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -131,9 +134,11 @@ public class Post_Feed_Fragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         // Stop animation (This will be after 3 seconds)
-                        swipeContainer.setRefreshing(true);
+                        swipeContainer.setRefreshing(false);
+                        Write_Post_DB db = new Write_Post_DB(frag);
                     }
                 }, 300); // Delay in millis
+
 
             }
         });
