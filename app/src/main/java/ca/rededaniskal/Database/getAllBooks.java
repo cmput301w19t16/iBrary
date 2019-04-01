@@ -28,14 +28,15 @@ public class getAllBooks {
 
 
 
-    public getAllBooks(View_All_Books_Activity parent, String ISBN) {
+
+    public getAllBooks(View_All_Books_Activity parent, String isbn) {
             Log.d(TAG, "*********----->AllBooks");
             this.parent = parent;
-            getUserQuery(ISBN);
+            getUserQuery(isbn);
         }
 
-        private void getUserQuery (String ISBN){
-            Query q = FirebaseDatabase.getInstance().getReference("all-books").orderByChild("isbn").equalTo(ISBN);
+        private void getUserQuery (String isbn){
+            Query q = FirebaseDatabase.getInstance().getReference("all-books").orderByChild("isbn").equalTo(isbn);
             q.addListenerForSingleValueEvent(valueEventListener);
 
         }

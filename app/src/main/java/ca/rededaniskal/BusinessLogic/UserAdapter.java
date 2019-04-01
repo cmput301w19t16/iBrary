@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.Activities.Fragments.Search_Fragment;
 import ca.rededaniskal.Activities.User_Details_Activity;
 import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Follow_DB;
@@ -35,7 +36,9 @@ import ca.rededaniskal.R;
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
     private User globalUser = new User("username", "email", "location");
-    public Context mctx;
+    private Context mctx;
+    private Search_Fragment fctx;
+    private boolean fragmentMode = false;
     private ArrayList<User> users;
 
 
@@ -47,6 +50,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         this.users = users;
     }
 
+    public UserAdapter(Search_Fragment mctx, ArrayList<User> users) {
+        this.fctx= mctx;
+        this.users = users;
+        this.fragmentMode = true;
+    }
+
+
+
     /**
      * When View Holder is created
      *
@@ -55,7 +66,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         //Set the layout
-        LayoutInflater inflater = LayoutInflater.from(mctx);
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+
         View view = inflater.inflate(R.layout.user_list_view, viewGroup, false);
         UserViewHolder holder = new UserViewHolder(view);
         return holder;
@@ -126,7 +138,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         /**
          * Instantiates a new Entry view holder.
          */
-        public UserViewHolder(@NonNull View itemView) {
+        public UserViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             profilePic = itemView.findViewById(R.id.profilePic); //TODO: Make this display the Users image
@@ -136,15 +148,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             UserMutualFriends = itemView.findViewById(R.id.UserMutualFriends);
 
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-
-            /*
-
-            I THINK THE PROBLEM HERE IS THAT ITS NOT HAVING ENOUGH TIME TO GET THE CURRENTUSER
-            TRY PASSING THE CURRENT USER TO THIS ACTIVITY AS AN ARGUMENT OR SOMETHING.
-
-             */
-
 
             swapping = false;
 
@@ -183,9 +186,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mctx, User_Details_Activity.class); // TODO: change the name of this for the
+                    Intent intent = new Intent(itemView.getContext(), User_Details_Activity.class); // TODO: change the name of this for the
                     intent.putExtra("user", user);
-                    mctx.startActivity(intent);
+                    itemView.getContext().startActivity(intent);
                 }
             });
         }
@@ -198,13 +201,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         public void setFriendText(){
             if (isFollowing){
                 Follow_or_unfollow.setText("Unfollow");
-                Follow_or_unfollow.setBackgroundColor(mctx.getResources()
-                        .getColor(R.color.denyRed, mctx.getTheme()));
+                Follow_or_unfollow.setBackgroundColor(itemView.getContext().getResources()
+                        .getColor(R.color.denyRed, itemView.getContext().getTheme()));
             }
             else{
                 Follow_or_unfollow.setText("Follow");
-                Follow_or_unfollow.setBackgroundColor(mctx.getResources()
-                        .getColor(R.color.acceptGreen, mctx.getTheme()));
+                Follow_or_unfollow.setBackgroundColor(itemView.getContext().getResources()
+                        .getColor(R.color.acceptGreen, itemView.getContext().getTheme()));
             }
 
 
