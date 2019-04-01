@@ -56,7 +56,7 @@ public class editUserDetailsDB{
     public void saveNewDetails(User u){
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         mDatabase.child(u.getUID()).setValue(u);
-        parent.nextActivity();
+        //parent.nextActivity();
 
     }
 

@@ -45,7 +45,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.rededaniskal.Activities.Fragments.View_Own_Profile_Fragment;
+import ca.rededaniskal.BusinessLogic.LoadImage;
+import ca.rededaniskal.BusinessLogic.myCallbackUser;
+import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Photos;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
@@ -105,12 +109,29 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         db = new editUserDetailsDB(this);
         if (db.getFailed()){returnToLogin();}
 
+        Users_DB usersDb = new Users_DB();
+
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(profilePicture);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
+
+        BookInstanceDb bookInstanceDb = new BookInstanceDb();
+        String uid = bookInstanceDb.getUID();
+        usersDb.getUser(uid, myCallbackUser);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User use = getTexts();
                 db.uniqueUserName(use);
+                finish();
             }
         });
 
@@ -202,8 +223,4 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         startActivity(new Intent(this, Login_Activity.class));
     }
 
-    public void nextActivity(){
-        startActivity(new Intent(Edit_Profile_Activity.this, View_Own_Profile_Fragment.class));
-        this.finish();
-    }
 }

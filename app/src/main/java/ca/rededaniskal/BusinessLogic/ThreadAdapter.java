@@ -22,7 +22,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ca.rededaniskal.Database.BookInstanceDb;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Comment;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 //Code was adapted from the code present in tutorial at link https://www.youtube.com/watch?v=Vyqz_-sJGFk
@@ -51,13 +54,30 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
 
 
     @Override
-    public void onBindViewHolder(@NonNull ThreadViewHolder ThreadViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final ThreadViewHolder ThreadViewHolder, final int i) {
         final Comment comment = comments.get(i);
 
         //TODO: Set profile pictures
         //profilePicture = itemView.findViewById(R.id.profilePicture);
         ThreadViewHolder.text.setText(comment.getText());
         ThreadViewHolder.name.setText(comment.getCreator());
+
+        Users_DB usersDb = new Users_DB();
+
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(ThreadViewHolder.profilePicture);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
+
+        BookInstanceDb bookInstanceDb = new BookInstanceDb();
+        String uid = bookInstanceDb.getUID();
+        usersDb.getUser(uid, myCallbackUser);
     }
 
 
@@ -73,7 +93,7 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
 
         public ThreadViewHolder(@NonNull View itemView) {
             super(itemView);
-            profilePicture = itemView.findViewById(R.id.profilePicture);
+            profilePicture = itemView.findViewById(R.id.profilePictureThread);
             text = itemView.findViewById(R.id.topic);
             name = itemView.findViewById(R.id.name);
         }
