@@ -112,8 +112,4 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
             replies = itemView.findViewById(R.id.replies);
         }
     }
-
-
-
-
 }

@@ -52,8 +52,6 @@ public class Forum_Activity extends AppCompatActivity {
     private MasterBookDb mbdb;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,20 +60,10 @@ public class Forum_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_forum_);
         threads = new ArrayList<>();
 
-        //TODO: get Forum from DB or something
-        Master_Book b = new Master_Book("Happy Potter","JK Rowling","1234567890", null);
-
-
-       // forum = new Forum("1234567890"); //For testing
-
         title = findViewById(R.id.Title);
         addTopic = findViewById(R.id.addTopic);
         myRating = findViewById(R.id.rating2);
         avgRating = findViewById(R.id.rating);
-
-
-
-
 
 
         Intent intent = getIntent();
@@ -94,18 +82,10 @@ public class Forum_Activity extends AppCompatActivity {
         fdb = new ForumDb(this, ISBN);
         fdb.getThreads();
 
-
-
-
         forumAdapter.notifyDataSetChanged();
-        //GetAllUsersDB db = new GetAllUsersDB(this); TODO something with this
 
         //Set the Rating bars
 
-        //TODO: set the rating bars
-
-
-        //title.setText(forum.getIsbn());
 
         //Set the add topic on Click listener
         addTopic.setOnClickListener(new View.OnClickListener() {
@@ -178,13 +158,10 @@ public class Forum_Activity extends AppCompatActivity {
 
                 float rating = myRating.getRating();
 
-                //FirebaseUser currentUser = mAuth.getCurrentUser();
-               // String uid = currentUser.getUid();
 
                 //TODO: add rating
                 mbdb.addRatingToDB(rating, ISBN);
                 mbdb.get_Masterbook_for_Forum(Forum_Activity.this, ISBN);
-
 
                 return myRating.onTouchEvent(event);
             }
@@ -211,15 +188,17 @@ public class Forum_Activity extends AppCompatActivity {
     public void loadThreads(ArrayList<Display_Thread> threadArrayList){
 
         if (threadArrayList!=null){threads = threadArrayList;}
-       forumAdapter = new ForumAdapter(this, threads,ISBN );
+        forumAdapter = new ForumAdapter(this, threads, ISBN );
         recyclerView.setAdapter(forumAdapter);
+        forumAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
         forumAdapter.notifyDataSetChanged();
 
     }
-   /* public void refresh(Thread thread){
 
-        threads.add(0,thread);
-        forumAdapter.notifyDataSetChanged();
-}
-*/
 }

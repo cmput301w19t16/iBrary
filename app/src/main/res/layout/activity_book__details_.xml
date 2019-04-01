@@ -55,7 +55,6 @@
                         android:layout_gravity="center"
                         android:layout_span="2"
                         android:layout_weight="1"
-                        android:background="@android:color/background_light"
                         android:padding="1dip"
 
                         android:text="Book title here"
