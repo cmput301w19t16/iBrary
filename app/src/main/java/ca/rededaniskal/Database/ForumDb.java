@@ -10,13 +10,18 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 
 import ca.rededaniskal.Activities.Forum_Activity;
 import ca.rededaniskal.Activities.View_Thread_Activity;
+
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 
 
+
+import ca.rededaniskal.BusinessLogic.myCallBackString;
+import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.Comment;
 import ca.rededaniskal.EntityClasses.Display_Comment;
 import ca.rededaniskal.EntityClasses.Display_Thread;
@@ -84,7 +89,6 @@ public class ForumDb extends Entity_Database  {
 
         Follow_DB follow_db = new Follow_DB();
         follow_db.getFollowers(thread.getCreator(),muidList);
-        getThreads();
 
 
     }
@@ -119,11 +123,12 @@ public class ForumDb extends Entity_Database  {
                 for (DataSnapshot d: dataSnapshot.getChildren()){
                     Thread thread =   d.getValue(Thread.class);
 
-                    getReference().child(ISBN).child(d.getKey()).keepSynced(true);
+
                     threads.add(thread);
                 }
-                getThreadDisplayName(threads);
 
+                LinkedHashSet<Thread> strings = new LinkedHashSet<>(threads);
+                getThreadDisplayName(new ArrayList(strings));
             }
 
             @Override
@@ -191,6 +196,7 @@ public void getThreadDisplayName(ArrayList<Thread> threds) {
         db.getReference(References.USER.reference()).child(t.getCreator()).child("userName").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
 
                 if (dataSnapshot.exists()) {
                     Display_Thread dt = new Display_Thread(thread, dataSnapshot.getValue(String.class));

@@ -122,7 +122,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
          */
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
-            //imageView = itemView.findViewById(R.id.ProfilePicture); //TODO: Make this display the books image
 
             user = itemView.findViewById(R.id.user);
             title = itemView.findViewById(R.id.Title);

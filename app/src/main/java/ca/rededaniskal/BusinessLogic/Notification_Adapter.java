@@ -72,7 +72,12 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
     public Notification_Adapter(ArrayList<Notification> notificationList, Notifications_Fragment frag){
         this.fragment = frag;
-        this.mDataset = notificationList;
+        this.mDataset = new ArrayList<>();
+        for (int i = notificationList.size() - 1; i >= 0; i--) {
+            this.mDataset.add(notificationList.get(i));
+        }
+
+        //this.mDataset = notificationList;
     }
 
     @Override

@@ -22,9 +22,9 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="ca.rededaniskal.iBrary.permission.MAPS_RECEIVE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -64,7 +64,7 @@
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="android:authorities">
-            <meta-data
+             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_list"
                 tools:replace="android:resource" />

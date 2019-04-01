@@ -226,7 +226,6 @@ public class View_Own_Profile_Fragment extends Fragment {
             }
         });
 
-
         return v;
     }
 
