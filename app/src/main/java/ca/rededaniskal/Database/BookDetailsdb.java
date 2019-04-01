@@ -1,6 +1,7 @@
 package ca.rededaniskal.Database;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,11 +30,13 @@ public class BookDetailsdb{
         this.bookId = bookid;
     }
 
-    public void  bookInUserRequests(final myCallbackBool mcbb){
+    public void  bookInUserRequests(final myCallbackBool mcbb, String bookStr){
         this.mcbb = mcbb;
 
         //Query requested = requestDb.getReference().orderByChild("bookId").equalTo(this.bookId);
-        Query requested = FirebaseDatabase.getInstance().getReference("BorrowRequests").orderByChild("bookId").equalTo(bookId);
+        Query requested = FirebaseDatabase.getInstance().getReference("BorrowRequests")
+                .orderByChild("bookId").equalTo(bookStr);
+        Log.d("Bookstring == ", bookStr);
         requested.addListenerForSingleValueEvent(queryRequestListener);
     }
 
@@ -44,11 +47,11 @@ public class BookDetailsdb{
             bookinuserrequests = false;
             for (DataSnapshot d:dataSnapshot.getChildren()){
                 BorrowRequest b = d.getValue(BorrowRequest.class);
+
                 if (b.getsenderUID().equals(user)){
                     bookinuserrequests = true;
                 }
             }
-
             mcbb.onCallback(bookinuserrequests);
         }
 

@@ -159,13 +159,14 @@ public class Book_Details_Activity extends AppCompatActivity {
         myCallbackBool mcbb = new myCallbackBool() {
             @Override
             public void onCallback(Boolean value) {
-                continueWorking();
                 isRequested = value;
+                continueWorking();
+
             }
         };
 
         BookDetailsdb db = new BookDetailsdb(this, book.getBookID());
-        db.bookInUserRequests(mcbb);
+        db.bookInUserRequests(mcbb, book.getBookID());
 
     }
 
