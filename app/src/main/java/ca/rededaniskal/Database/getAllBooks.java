@@ -22,19 +22,19 @@ import static android.content.ContentValues.TAG;
 
 public class getAllBooks {
     private View_All_Books_Activity parent;
-    private DatabaseReference mDatabase;
+
     private Display_Username display;
     private ArrayList<Display_Username> book_list;
 
-    public getAllBooks(View_All_Books_Activity parent) {
+    public getAllBooks(View_All_Books_Activity parent, String ISBN) {
         Log.d(TAG, "*********----->AllBooks");
         this.parent = parent;
-        getUserQuery();
+        getUserQuery(ISBN);
     }
 
-    private void getUserQuery() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("all-books");
-        mDatabase.addListenerForSingleValueEvent(valueEventListener);
+    private void getUserQuery(String ISBN) {
+        Query q = FirebaseDatabase.getInstance().getReference("all-books").orderByChild("isbn").equalTo(ISBN);
+        q.addListenerForSingleValueEvent(valueEventListener);
     }
 
 
