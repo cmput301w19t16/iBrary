@@ -65,7 +65,7 @@ import ca.rededaniskal.Database.editUserDetailsDB;
 //Author: RevaN
 public class Edit_Profile_Activity extends AppCompatActivity {
     public static final String GET_TEXTS = "*********----->getTexts";
-    Button saveButton;
+    Button saveButton, home;
     FloatingActionButton editProfilePic;
     ImageView profilePicture;
     EditText newUsername, newPhone, newEmail, newLocation,
@@ -102,6 +102,8 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         newPhone = findViewById(R.id.new_phone);
         newEmail = findViewById(R.id.new_email);
         newLocation = findViewById(R.id.new_location);
+        home = findViewById(R.id.home);
+
 
         oldPassword = findViewById(R.id.old_pass);
         newPassword = findViewById(R.id.new_pass);
@@ -134,10 +136,17 @@ public class Edit_Profile_Activity extends AppCompatActivity {
                 User use = getTexts();
                 db.uniqueUserName(use);
 
-                Intent i = new Intent(Edit_Profile_Activity.this, Main_Activity.class);
-                startActivity(i);
             }
         });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Edit_Profile_Activity.this, Main_Activity.class );
+                startActivity(intent);
+            }
+        });
+
 
         editProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
