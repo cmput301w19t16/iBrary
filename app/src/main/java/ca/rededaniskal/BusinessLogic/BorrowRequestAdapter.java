@@ -76,6 +76,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
         holder = borrowRequestViewHolder;
 
         //Set Fields
+        
         if (request.getsenderUID() != null) {
             getUserInfo(request.getsenderUID());
             getBookInfo(request.getrecipientUID(), request.getBookId());
