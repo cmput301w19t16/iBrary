@@ -23,8 +23,6 @@ public class EditBookDb {
                 .child(bookInstance.getBookID())
                 .setValue(bookInstance)
                 .isSuccessful();
-
-
     }
 
 
@@ -32,9 +30,9 @@ public class EditBookDb {
         bookInstanceDb.currentUserBooklist()
                 .child(node)
                 .removeValue();
-
-
-
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("all-books")
+                .child(node);
+        mDatabase.removeValue();
 
     }
 }

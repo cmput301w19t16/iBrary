@@ -28,11 +28,17 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 
 import ca.rededaniskal.Barcode.Barcode_Scanner_Activity;
+import ca.rededaniskal.BusinessLogic.myCallbackBookInstance;
+import ca.rededaniskal.BusinessLogic.myCallbackUser;
+import ca.rededaniskal.Database.BookInstanceDb;
 import ca.rededaniskal.Database.Update_Book_DB;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.Database.Write_Exchange_DB;
+import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
 import ca.rededaniskal.EntityClasses.Exchange;
 import ca.rededaniskal.EntityClasses.Request;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 /**
@@ -44,6 +50,8 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
 
     Button goToScanner;
     String mode;
+    private Book_Instance book;
+    private User bookOwner, bookBorrower;
 
     private GoogleMap mMap;
 
@@ -76,10 +84,10 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Book Exchange Details"); //TODO: change this if we want
+        getBookInfo();
+        getOwnerInfo();
+        getBorrowerInfo();
 
-        title.setText( exchange.getBookid()); //TODO: get title from dp
-        owner.setText( exchange.getOwner());
-        borrower.setText(exchange.getBorrower());
 
         //Get date in the right format
         SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy HH:mm");
@@ -97,6 +105,56 @@ public class View_Exchange_Details_Activity extends  AppCompatActivity  implemen
        });
 
 
+    }
+
+    private void getBookInfo(){
+        BookInstanceDb bidb = new BookInstanceDb();
+        myCallbackBookInstance mcbi = new myCallbackBookInstance() {
+            @Override
+            public void onCallback(Book_Instance book_instance) {
+                book = book_instance;
+                setBookInfo();
+            }
+        };
+        bidb.getBookInstance(exchange.getOwner(), exchange.getBookid(), mcbi);
+    }
+
+    private void getOwnerInfo(){
+        Users_DB udb = new Users_DB();
+        myCallbackUser mcbu = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                bookOwner = user;
+                setOwnerInfo();
+            }
+        };
+        udb.getUser(exchange.getOwner(), mcbu);
+    }
+
+    private void setOwnerInfo(){
+        owner.setText( bookOwner.getUserName());
+    }
+
+    private void getBorrowerInfo(){
+        Users_DB udb = new Users_DB();
+        myCallbackUser mcbu = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                bookBorrower = user;
+                setBorrowerInfo();
+            }
+        };
+        udb.getUser(exchange.getBorrower(), mcbu);
+    }
+
+    private void setBorrowerInfo(){
+        borrower.setText( bookBorrower.getUserName());
+    }
+
+
+
+    private void setBookInfo(){
+        title.setText( book.getTitle());
     }
 
     @Override

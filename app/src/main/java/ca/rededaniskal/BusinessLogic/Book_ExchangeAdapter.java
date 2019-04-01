@@ -14,8 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.View_Exchange_Details_Activity;
+import ca.rededaniskal.Database.BookInstanceDb;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Book_Exchange;
+import ca.rededaniskal.EntityClasses.Book_Instance;
 import ca.rededaniskal.EntityClasses.Exchange;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 public class Book_ExchangeAdapter extends RecyclerView.Adapter<Book_ExchangeAdapter.Book_ExchangeViewHolder>{
@@ -46,9 +50,11 @@ public class Book_ExchangeAdapter extends RecyclerView.Adapter<Book_ExchangeAdap
     public void onBindViewHolder(@NonNull Book_ExchangeViewHolder book_ExchangeViewHolder, final int i) {
         final Exchange exchange = Book_Exchanges.get(i);
 
-        book_ExchangeViewHolder.title.setText(exchange.getBookid()); //TODO: get title from the DB
-        book_ExchangeViewHolder.owner.setText(exchange.getOwner());
-        book_ExchangeViewHolder.borrower.setText(exchange.getBorrower());
+
+
+        //book_ExchangeViewHolder.title.setText(exchange.getBookid()); //TODO: get title from the DB
+        //book_ExchangeViewHolder.owner.setText(exchange.getOwner());
+        //book_ExchangeViewHolder.borrower.setText(exchange.getBorrower());
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy HH:mm");
         String date =formatter.format(exchange.getTime());
@@ -62,6 +68,47 @@ public class Book_ExchangeAdapter extends RecyclerView.Adapter<Book_ExchangeAdap
                 mctx.startActivity(intent);
             }
         });
+
+        setInfo(exchange, book_ExchangeViewHolder);
+    }
+
+    private void setInfo(Exchange exchange, Book_ExchangeViewHolder bevh){
+        getBookInfo(exchange, bevh);
+        getOwnerInfo(exchange, bevh);
+        getBorrowerInfo(exchange, bevh);
+    }
+
+    private void getBookInfo(Exchange exchange, final Book_ExchangeViewHolder bevh){
+        BookInstanceDb bidb = new BookInstanceDb();
+        myCallbackBookInstance mcbi = new myCallbackBookInstance() {
+            @Override
+            public void onCallback(Book_Instance book_instance) {
+                bevh.title.setText(book_instance.getTitle());
+            }
+        };
+        bidb.getBookInstance(exchange.getOwner(), exchange.getBookid(), mcbi);
+    }
+
+    private void getOwnerInfo(Exchange exchange, final Book_ExchangeViewHolder bevh){
+        Users_DB udb = new Users_DB();
+        myCallbackUser mcbu = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                bevh.owner.setText(user.getUserName());
+            }
+        };
+        udb.getUser(exchange.getOwner(), mcbu);
+    }
+
+    private void getBorrowerInfo(Exchange exchange, final Book_ExchangeViewHolder bevh){
+        Users_DB udb = new Users_DB();
+        myCallbackUser mcbu = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                bevh.borrower.setText(user.getUserName());
+            }
+        };
+        udb.getUser(exchange.getBorrower(), mcbu);
     }
 
 

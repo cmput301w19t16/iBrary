@@ -15,12 +15,16 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.myCallbackBRList;
 import ca.rededaniskal.BusinessLogic.myCallbackBookRequest;
+import ca.rededaniskal.BusinessLogic.myCallbackBool;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
 import ca.rededaniskal.EntityClasses.BorrowRequest;
+
 import ca.rededaniskal.EntityClasses.Display_BorrowRequest;
 import ca.rededaniskal.EntityClasses.User;
-
 import static android.content.ContentValues.TAG;
+
+import ca.rededaniskal.EntityClasses.Notification;
+
 
 public class Borrow_Req_DB {
     private DatabaseReference mDatabase;
@@ -133,6 +137,70 @@ public class Borrow_Req_DB {
                 Log.d(ContentValues.TAG, "WE GOOFED UP BUDDY");
             }
         });
+    }
 
+    //TODO: not fully implemented here.
+    public void createBorrowRequest(BorrowRequest br){
+        DatabaseReference key = mDatabase.child("BorrowRequests").push();
+        key.setValue(br);
+        String keyval = key.getKey();
+        Notifications_DB ndb = new Notifications_DB();
+        //Notification n = new Notification()
+        //ndb.storeNotification();
+    }
+
+    public void getBRKeys(String bookId, final String senderId, final myCallbackStringList mcbsl){
+        Query query = mDatabase.child("BorrowRequests").orderByChild("bookId").equalTo(bookId);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ArrayList<String> als = new ArrayList<>();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        if (snapshot.child("senderUID").getValue(String.class).equals(senderId)){
+                            als.add(snapshot.getKey());
+                        }
+                    }
+                    mcbsl.onCallback(als);
+                }
+                else{
+                    mcbsl.onCallback(new ArrayList<String>());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(ContentValues.TAG, "WE GOOFED UP BUDDY");
+            }
+        });
+
+    }
+
+    public void removeBorrowRequest(String bookId, final String senderId){
+        myCallbackStringList mcbsl = new myCallbackStringList() {
+            @Override
+            public void onCallback(ArrayList<String> strList) {
+                Notifications_DB ndb = new Notifications_DB();
+                for (String str : strList){
+                    mDatabase.child("BorrowRequests/" + str).removeValue();
+                    ndb.deleteNotification(str);
+                }
+            }
+        };
+        getBRKeys(bookId, senderId, mcbsl);
+    }
+
+    public void requestExists(String bookId, final String senderId, final myCallbackBool mcbb){
+        myCallbackStringList mcbsl = new myCallbackStringList() {
+            @Override
+            public void onCallback(ArrayList<String> strList) {
+                Boolean exists = false;
+                for (String str : strList){
+                    exists = true;
+                }
+                mcbb.onCallback(exists);
+            }
+        };
+        getBRKeys(bookId, senderId, mcbsl);
     }
 }

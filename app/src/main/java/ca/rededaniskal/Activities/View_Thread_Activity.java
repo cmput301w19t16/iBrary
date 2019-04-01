@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,9 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.BusinessLogic.ForumAdapter;
 import ca.rededaniskal.BusinessLogic.ThreadAdapter;
+import ca.rededaniskal.Database.ForumDb;
 import ca.rededaniskal.EntityClasses.Comment;
+import ca.rededaniskal.EntityClasses.Display_Comment;
 import ca.rededaniskal.EntityClasses.Thread;
 import ca.rededaniskal.R;
 
@@ -33,26 +36,38 @@ public class View_Thread_Activity extends AppCompatActivity {
 
     private ArrayList<Thread> displayParent;
     private Thread parent;
-    private ArrayList<Comment> children;
+    private String threadDisplayName;
+    private ArrayList<Display_Comment> children;
 
     private RecyclerView viewChildren;
     private ThreadAdapter adapterChildren;
     private FloatingActionButton addTopic;
 
     private TextView name, topic, text, replies;
+    private String ISBN;
 
-    private FirebaseAuth mAuth;
+   ForumDb db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread_);
-
-        mAuth = FirebaseAuth.getInstance();
-
         Intent intent = getIntent();
         parent = (Thread)  intent.getSerializableExtra("thread");
-        children = parent.getComments();
+        ISBN = intent.getStringExtra("isbn");
+        db = new ForumDb(View_Thread_Activity.this, ISBN);
+       db.getCommentsForThread(parent.getThreadId());
+
+
+        if (children==null){
+            children =new ArrayList<>();
+        }
+
+        threadDisplayName = intent.getStringExtra("display");
+
+
+
+
 
 
 
@@ -64,9 +79,10 @@ public class View_Thread_Activity extends AppCompatActivity {
         text = findViewById(R.id.text);
         replies = findViewById(R.id.replies);
 
-        name.setText(parent.getCreator());
+        name.setText(threadDisplayName);
         topic.setText(parent.getTopic());
         text.setText(parent.getText());
+
         replies.setText(Integer.toString(parent.numComments()).concat(" replies")  );
 
 
@@ -82,6 +98,7 @@ public class View_Thread_Activity extends AppCompatActivity {
         addTopic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 // inflate the layout of the popup window
                 LayoutInflater inflater = (LayoutInflater)
@@ -114,14 +131,20 @@ public class View_Thread_Activity extends AppCompatActivity {
                         if (valid.equals(TRUE)) {
                             //add to Forum
 
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-                            String uid = currentUser.getUid();
+
+
+                            String uid = db.getUID();
                             String textStr = text.getText().toString();
 
                             Comment newComment = new Comment(uid, textStr);
+                            newComment.setTopic(parent.getTopic());
+                            newComment.setPos(parent.numComments());
 
                             parent.addComment(newComment);
                             replies.setText(Integer.toString(parent.numComments()).concat(" replies"));
+
+                            db.comment(parent.getThreadId(), newComment);
+                            db.getCommentsForThread(parent.getThreadId());
 
                             adapterChildren.notifyDataSetChanged();
                             popupWindow.dismiss();
@@ -130,5 +153,16 @@ public class View_Thread_Activity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void getThreadComments(ArrayList<Display_Comment> comments){
+        children.clear();
+        children=comments;
+        adapterChildren = new ThreadAdapter(this, children);
+        viewChildren.setAdapter(adapterChildren);
+        adapterChildren.notifyDataSetChanged();
+
+
+
     }
 }

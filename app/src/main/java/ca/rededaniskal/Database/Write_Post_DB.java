@@ -17,7 +17,11 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.Fragments.Post_Feed_Fragment;
 import ca.rededaniskal.BusinessLogic.myCallbackStringList;
+import ca.rededaniskal.EntityClasses.Book_Instance;
+import ca.rededaniskal.EntityClasses.Display_Post;
+import ca.rededaniskal.EntityClasses.Master_Book;
 import ca.rededaniskal.EntityClasses.Post;
+import ca.rededaniskal.EntityClasses.User;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -30,7 +34,7 @@ public class Write_Post_DB {
     private Follow_DB fdb;
     private DatabaseReference mDatabase;
     private Post post;
-    private ArrayList<Post> posts;
+    private ArrayList<Display_Post> posts;
     private Post_Feed_Fragment parent;
 
     public Write_Post_DB(Post post) {
@@ -92,18 +96,22 @@ public class Write_Post_DB {
 
     private void readHomeFeed(){
         Log.d(ContentValues.TAG, "*********----->In READHOMEFEED");
-        Query query = FirebaseDatabase.getInstance().getReference("home-feed/" + UID);
-        Log.d(ContentValues.TAG, "*********----->UID: " + UID);
+        Log.d(ContentValues.TAG, "*********----->In home-feed/" + UID);
+//        Query query = FirebaseDatabase.getInstance().getReference("home-feed/" + UID);
+        Query query = FirebaseDatabase.getInstance().getReference("home-feed/").child(UID);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     Log.d(ContentValues.TAG, "*********----->exists");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Post post = snapshot.getValue(Post.class);
-                        posts.add(post);
+                        Post pos = snapshot.getValue(Post.class);
+                        Display_Post display = new Display_Post(pos);
+                        posts.add(display);
+
                     }
-                    parent.updateAdapter(posts);
+
+                    getBookName();
                 }
             }
 
@@ -115,4 +123,65 @@ public class Write_Post_DB {
     }
 
 
+    private void getBookName() {
+        for (int i = 0; i < posts.size(); i++) {
+            final Display_Post display = posts.get(i);
+            final int j = i;
+            String p = posts.get(i).getPost().getISBN();
+            Log.d(ContentValues.TAG, "*********----->p "+p);
+            Query query = FirebaseDatabase.getInstance().getReference("master-books")
+                    .child(p);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d(ContentValues.TAG, "*********----->onDataChange");
+                    if (dataSnapshot.exists()) {
+                        Log.d(ContentValues.TAG, "*********----->exists");
+
+                        Master_Book book = dataSnapshot.getValue(Master_Book.class);
+                        assert book != null;
+                        display.setTitle(book.getTitle());
+                        posts.set(j, display);
+                    }
+                    getBorrowerUsername();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    private void getBorrowerUsername() {
+        Log.d(TAG, "**************---> In getBorrowerUsername "+posts);
+        for (int i = 0; i < posts.size(); i++) {
+            final Display_Post display = posts.get(i);
+            final int j = i;
+            String p = posts.get(i).getPost().getUid();
+            Query query = FirebaseDatabase.getInstance().getReference("Users")
+                    .orderByChild("uid")
+                    .equalTo(p);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d(ContentValues.TAG, "*********----->onDataChange");
+                    if (dataSnapshot.exists()) {
+                        Log.d(ContentValues.TAG, "*********----->exists");
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            User user = snapshot.getValue(User.class);
+                            display.setPoster(user.getUserName());
+                            Log.d(ContentValues.TAG, "*********----->Post text"+display.getPost().getText());
+                            posts.set(j, display);
+                        }
+                        parent.updateAdapter(posts);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
 }
