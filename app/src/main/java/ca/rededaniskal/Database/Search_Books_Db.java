@@ -50,17 +50,13 @@ public class Search_Books_Db {
 
     public Search_Books_Db(Search_Fragment p, String e) {
         parent = p;
-
         Equal = e;
-
         masterBookDb = new MasterBookDb();
         searchlist = new ArrayList<>();
 
     }
 
     public void queryData() {
-
-
         query = masterBookDb.getReference().orderByChild(Order).equalTo(Equal);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -70,8 +66,6 @@ public class Search_Books_Db {
 
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         searchlist.add(d.getValue(Master_Book.class));
-
-
                     }
                     if (!searchlist.isEmpty()){
                     parent.update_books(searchlist);}
@@ -102,14 +96,9 @@ public class Search_Books_Db {
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         isbn = d.getValue(String.class);
 
-
-
-
                     }
                     Log.d("isbn", "*********----->Got this Titl book: "+ isbn);
-
-                    //new Search_Books_Db(parent, isbn).queryISBNData();
-
+                    queryISBNData(isbn);
                 }
             }
 
@@ -134,12 +123,9 @@ public class Search_Books_Db {
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                        isbn = d.getValue(String.class);
                        break;
-
-
                     }
                     Log.d("isbn", "*********----->Got this Author book: "+isbn);
-                  // new Search_Books_Db(parent, isbn).queryISBNData();
-
+                   queryISBNData(isbn);
                 }
             }
 
@@ -151,13 +137,11 @@ public class Search_Books_Db {
 
     }
 
-    public void queryISBNData() {
-        Log.d("EqualVal", "***********------> "+Equal);
-        query = masterBookDb.getReference().orderByKey().equalTo(Equal);
-
+    public void queryISBNData(String isbn) {
+        Log.d("ISBN", "***********------> "+isbn);
+        query = masterBookDb.getReference().orderByKey().equalTo(isbn);
 
         //query = masterBookDb.getReference().orderByChild(Order).equalTo(Equal);
-
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -165,12 +149,8 @@ public class Search_Books_Db {
 
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         mb = d.getValue(Master_Book.class);
-
-
-
                     }
                     parent.addBookToAdapter(mb);
-
                 }
 
             }

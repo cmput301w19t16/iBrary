@@ -48,6 +48,7 @@ public class Search_Logic {
 
 
             String[] each = search_string.split("\\s+");
+        Log.d("Searchlog", "*************-----> String list : " + each);
             for (String s : each) {
                 if (chosen.contains(0)) {
                     new Search_Books_Db(parent, s).queryAuthorData();

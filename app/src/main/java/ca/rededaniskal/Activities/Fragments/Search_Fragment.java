@@ -139,8 +139,6 @@ public class Search_Fragment extends Fragment {
                 update_books(viewBookList);
                 Log.d("Searchlog", "**************querylisten");
 
-
-
                 queryString = query;
                 searchString.clearFocus();
                 new Search_Logic(search_fragment, chosenOptions, query);
@@ -194,9 +192,9 @@ public class Search_Fragment extends Fragment {
                         viewBookList.clear();
                         searchString.clearFocus();
                         update_books(viewBookList);
-                        if (queryString!=null&&chosenOptions!=null) {
-                            new Search_Logic(search_fragment, chosenOptions, queryString);
-                        }
+//                        if (queryString!=null&&chosenOptions!=null) {
+//                            new Search_Logic(search_fragment, chosenOptions, queryString);
+//                        }
                     }
                 });
 
@@ -263,6 +261,7 @@ public class Search_Fragment extends Fragment {
 
         MB_adapter = new Master_BookAdapter(Search_Fragment.this,viewBookList);
         display.setAdapter(MB_adapter);
+        MB_adapter.notifyDataSetChanged();
     }
 
 
@@ -281,10 +280,7 @@ public class Search_Fragment extends Fragment {
 
         LinkedHashSet<Master_Book> remove = new LinkedHashSet<>(viewBookList);
         viewBookList = new ArrayList<>(remove);
-
-
-
-
+        Log.d("AddBookToAdapter", "Book List: "+ viewBookList);
         update_books(viewBookList);
     }
   
