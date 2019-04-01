@@ -176,7 +176,7 @@ public void getCommentsForThread(String threadID){
                     comments.add(d.getValue(Comment.class));
 
                 } 
-               getCommentDisplayName(comments);
+               //getCommentDisplayName(comments);
             }
 
             @Override

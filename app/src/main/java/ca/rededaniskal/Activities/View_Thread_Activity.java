@@ -63,7 +63,7 @@ public class View_Thread_Activity extends AppCompatActivity {
         parent = (Thread)  intent.getSerializableExtra("thread");
         ISBN = intent.getStringExtra("isbn");
         db = new ForumDb(View_Thread_Activity.this, ISBN);
-        db.getCommentsForThread(parent.getThreadId());
+        //db.getCommentsForThread(parent.getThreadId());
 
 
         if (children==null){
@@ -160,11 +160,13 @@ public class View_Thread_Activity extends AppCompatActivity {
 
                             parent.addComment(newComment);
                             replies.setText(Integer.toString(parent.numComments()).concat(" replies"));
+                            parent.addComment(newComment);
 
                             db.comment(parent.getThreadId(), newComment);
-                            db.getCommentsForThread(parent.getThreadId());
+                            db.getCommentDisplayName(parent.getComments());
 
-                            adapterChildren.notifyDataSetChanged();
+
+
                             popupWindow.dismiss();
                         }
                     }
@@ -174,11 +176,11 @@ public class View_Thread_Activity extends AppCompatActivity {
     }
 
     public void getThreadComments(ArrayList<Display_Comment> comments){
-        children.clear();
-        children=comments;
-        adapterChildren = new ThreadAdapter(this, children);
+        adapterChildren = new ThreadAdapter(this, comments );
         viewChildren.setAdapter(adapterChildren);
         adapterChildren.notifyDataSetChanged();
+
+
 
     }
 }
