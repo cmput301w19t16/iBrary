@@ -192,7 +192,7 @@ public class BorrowRequestAdapter extends RecyclerView.Adapter<BorrowRequestAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    viewRequest();
+                    //viewRequest();
                 }
             });
 

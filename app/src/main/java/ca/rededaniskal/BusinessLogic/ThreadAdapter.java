@@ -62,11 +62,7 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.ThreadView
         final Comment comment = comments.get(i).getComment();
         final String userName = comments.get(i).getDisplayName();
 
-
-        //TODO: Set profile pictures
-        //profilePicture = itemView.findViewById(R.id.profilePicture);
         ThreadViewHolder.text.setText(comment.getText());
-
 
         Users_DB usersDb = new Users_DB();
 

@@ -15,8 +15,10 @@ import java.util.ArrayList;
 
 import ca.rededaniskal.Activities.View_Thread_Activity;
 import ca.rededaniskal.Database.ForumDb;
+import ca.rededaniskal.Database.Users_DB;
 import ca.rededaniskal.EntityClasses.Display_Thread;
 import ca.rededaniskal.EntityClasses.Thread;
+import ca.rededaniskal.EntityClasses.User;
 import ca.rededaniskal.R;
 
 public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHolder>{
@@ -46,24 +48,36 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
 
 
     @Override
-    public void onBindViewHolder(@NonNull ForumViewHolder forumViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final ForumViewHolder forumViewHolder, final int i) {
         final Display_Thread thread = threads.get(i);
         final Thread child_thread = thread.getThread();
         final String display_name = thread.getUsername();
 
-
-        //TODO: Set profile pictures
-        //profilePicture = itemView.findViewById(R.id.profilePicture);
-
-
-
         forumViewHolder.text.setText(child_thread.getText());
         forumViewHolder.name.setText(display_name);
         forumViewHolder.topic.setText(child_thread.getTopic());
-        if (child_thread.getComments()!=null){
-        Integer numreplies = child_thread.getComments().size();
 
-        forumViewHolder.replies.setText(Integer.toString(numreplies).concat(" replies"));}
+        if (child_thread.getComments()!=null){
+            Integer numreplies = child_thread.getComments().size();
+
+            forumViewHolder.replies.setText(Integer.toString(numreplies).concat(" replies"));}
+
+        Users_DB usersDb = new Users_DB();
+
+        myCallbackUser myCallbackUser = new myCallbackUser() {
+            @Override
+            public void onCallback(User user) {
+                String urlProfilePic = user.getProfilePic();
+                if(urlProfilePic != null){
+                    LoadImage loader = new LoadImage(forumViewHolder.profilePicture);
+                    loader.execute(urlProfilePic);
+                }
+            }
+        };
+
+        String uid = child_thread.getCreator();
+        usersDb.getUser(uid, myCallbackUser);
+
 
         //Set the onClickListeners
         forumViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -91,12 +105,11 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHol
 
         public ForumViewHolder(@NonNull View itemView) {
             super(itemView);
-            profilePicture = itemView.findViewById(R.id.profilePicture);
+            profilePicture = itemView.findViewById(R.id.profilePic);
             topic = itemView.findViewById(R.id.topic);
             name = itemView.findViewById(R.id.name);
             text = itemView.findViewById(R.id.text);
             replies = itemView.findViewById(R.id.replies);
-
         }
     }
 
