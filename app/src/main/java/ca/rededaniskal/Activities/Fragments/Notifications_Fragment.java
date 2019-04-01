@@ -170,11 +170,13 @@ public class Notifications_Fragment extends Fragment {
 
     private void updateRV(final RecyclerView recyclerView){
         Notifications_DB ndb = new Notifications_DB();
+
         myCallbackNotiList mcbnl = new myCallbackNotiList() {
             @Override
             public void onCallback(ArrayList<Notification> notiList) {
                 notiAdapter = new Notification_Adapter(notiList, Notifications_Fragment.this);
                 recyclerView.setAdapter(notiAdapter);
+                notiAdapter.notifyDataSetChanged();
             }
         };
         FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
