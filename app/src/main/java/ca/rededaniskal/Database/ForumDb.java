@@ -69,7 +69,31 @@ public class ForumDb extends Entity_Database  {
     }
 
 
+    public void replaceParentThread(Thread thread, Comment comment){
+        T = thread;
+        String threadId = thread.getThreadId();
 
+        getReference().child(ISBN).child(threadId).setValue(T);
+        T=null;
+        c=comment;
+        muidList = new myCallbackStringList() {
+            @Override
+            public void onCallback(ArrayList<String> uidList) {
+                updateFollowers(uidList);
+            }
+        };
+
+
+        Follow_DB follow_db = new Follow_DB();
+        follow_db.getFollowers(c.getCreator(),muidList);
+
+
+
+
+
+
+
+    }
 
 
     public void addParentThread(Thread thread){
@@ -176,7 +200,7 @@ public void getCommentsForThread(String threadID){
                     comments.add(d.getValue(Comment.class));
 
                 } 
-               //getCommentDisplayName(comments);
+               getCommentDisplayName(comments);
             }
 
             @Override
